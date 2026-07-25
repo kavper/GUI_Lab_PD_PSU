@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.26.1">
+  <Languages>
+    <Language Id="GB" />
+  </Languages>
+  <Texts>
+    <TextGroup Id="PSU">
+      <Text Id="TXT_TITLE" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">LAB PD PSU</Translation>
+      </Text>
+      <Text Id="TXT_CHANNEL" Alignment="Center" TypographyId="Label">
+        <Translation Language="GB">CHANNEL 1</Translation>
+      </Text>
+      <Text Id="TXT_MODE_CV" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CV</Translation>
+      </Text>
+      <Text Id="TXT_MODE_CC" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CC</Translation>
+      </Text>
+      <Text Id="TXT_OUTPUT" Alignment="Center" TypographyId="Output">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_OUTPUT_INITIAL" Alignment="Center" TypographyId="Output">
+        <Translation Language="GB">OUTPUT OFF</Translation>
+      </Text>
+      <Text Id="TXT_ACTUAL_V" Alignment="Left" TypographyId="Label">
+        <Translation Language="GB">MEASURED VOLTAGE</Translation>
+      </Text>
+      <Text Id="TXT_ACTUAL_I" Alignment="Left" TypographyId="Label">
+        <Translation Language="GB">MEASURED CURRENT</Translation>
+      </Text>
+      <Text Id="TXT_ACTUAL_I_UNCAL" Alignment="Left" TypographyId="Label">
+        <Translation Language="GB">MEASURED CURRENT (UNCAL.)</Translation>
+      </Text>
+      <Text Id="TXT_SET_U" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">VOLTAGE SET</Translation>
+      </Text>
+      <Text Id="TXT_LIMIT_I" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">CURRENT LIMIT</Translation>
+      </Text>
+      <Text Id="TXT_VOLTAGE_VALUE" Alignment="Left" TypographyId="Value">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CURRENT_VALUE" Alignment="Left" TypographyId="Value">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_SET_VOLTAGE_VALUE" Alignment="Left" TypographyId="SetValue">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_SET_CURRENT_VALUE" Alignment="Left" TypographyId="SetValue">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_VOLTAGE_INITIAL" Alignment="Left" TypographyId="Value">
+        <Translation Language="GB">12.04 V</Translation>
+      </Text>
+      <Text Id="TXT_CURRENT_INITIAL" Alignment="Left" TypographyId="Value">
+        <Translation Language="GB">1.236 A</Translation>
+      </Text>
+      <Text Id="TXT_SET_VOLTAGE_INITIAL" Alignment="Left" TypographyId="SetValue">
+        <Translation Language="GB">12.00 V</Translation>
+      </Text>
+      <Text Id="TXT_SET_CURRENT_INITIAL" Alignment="Left" TypographyId="SetValue">
+        <Translation Language="GB">2.000 A</Translation>
+      </Text>
+      <Text Id="TXT_VOLTAGE_MAX" Alignment="Left" TypographyId="LimitHint">
+        <Translation Language="GB">MAX 27.00 V</Translation>
+      </Text>
+      <Text Id="TXT_CURRENT_MAX" Alignment="Left" TypographyId="LimitHint">
+        <Translation Language="GB">MAX 5.000 A</Translation>
+      </Text>
+      <Text Id="TXT_TEMP" Alignment="Center" TypographyId="HeaderLabel">
+        <Translation Language="GB">MOS TEMP</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY" Alignment="Center" TypographyId="HeaderLabel">
+        <Translation Language="GB">VIN</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_VALUE" Alignment="Center" TypographyId="HeaderValue">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_INITIAL" Alignment="Center" TypographyId="HeaderValue">
+        <Translation Language="GB">20.00 V</Translation>
+      </Text>
+      <Text Id="TXT_PCB_TEMP" Alignment="Center" TypographyId="HeaderLabel">
+        <Translation Language="GB">PCB TEMP</Translation>
+      </Text>
+      <Text Id="TXT_PCB_TEMP_VALUE" Alignment="Center" TypographyId="HeaderValue">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PCB_TEMP_INITIAL" Alignment="Center" TypographyId="HeaderValue">
+        <Translation Language="GB">41.2 C</Translation>
+      </Text>
+      <Text Id="TXT_POWER" Alignment="Center" TypographyId="HeaderLabel">
+        <Translation Language="GB">POWER</Translation>
+      </Text>
+      <Text Id="TXT_TEMP_VALUE" Alignment="Center" TypographyId="HeaderValue">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_POWER_VALUE" Alignment="Center" TypographyId="HeaderValue">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_TEMP_INITIAL" Alignment="Center" TypographyId="HeaderValue">
+        <Translation Language="GB">38.6 C</Translation>
+      </Text>
+      <Text Id="TXT_POWER_INITIAL" Alignment="Center" TypographyId="HeaderValue">
+        <Translation Language="GB">14.9 W</Translation>
+      </Text>
+      <Text Id="TXT_VOLTAGE_TAB" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">VOLTAGE</Translation>
+      </Text>
+      <Text Id="TXT_CURRENT_TAB" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CURRENT</Translation>
+      </Text>
+      <Text Id="TXT_INPUT_LABEL" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">SET VALUE</Translation>
+      </Text>
+      <Text Id="TXT_INPUT_VALUE" Alignment="Right" TypographyId="Input">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_INPUT_INITIAL" Alignment="Right" TypographyId="Input">
+        <Translation Language="GB">12.00</Translation>
+      </Text>
+      <Text Id="TXT_0" Alignment="Center" TypographyId="Key">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="TXT_1" Alignment="Center" TypographyId="Key">
+        <Translation Language="GB">1</Translation>
+      </Text>
+      <Text Id="TXT_2" Alignment="Center" TypographyId="Key">
+        <Translation Language="GB">2</Translation>
+      </Text>
+      <Text Id="TXT_3" Alignment="Center" TypographyId="Key">
+        <Translation Language="GB">3</Translation>
+      </Text>
+      <Text Id="TXT_4" Alignment="Center" TypographyId="Key">
+        <Translation Language="GB">4</Translation>
+      </Text>
+      <Text Id="TXT_5" Alignment="Center" TypographyId="Key">
+        <Translation Language="GB">5</Translation>
+      </Text>
+      <Text Id="TXT_6" Alignment="Center" TypographyId="Key">
+        <Translation Language="GB">6</Translation>
+      </Text>
+      <Text Id="TXT_7" Alignment="Center" TypographyId="Key">
+        <Translation Language="GB">7</Translation>
+      </Text>
+      <Text Id="TXT_8" Alignment="Center" TypographyId="Key">
+        <Translation Language="GB">8</Translation>
+      </Text>
+      <Text Id="TXT_9" Alignment="Center" TypographyId="Key">
+        <Translation Language="GB">9</Translation>
+      </Text>
+      <Text Id="TXT_DOT" Alignment="Center" TypographyId="Key">
+        <Translation Language="GB">.</Translation>
+      </Text>
+      <Text Id="TXT_CLEAR" Alignment="Center" TypographyId="Key">
+        <Translation Language="GB">CLR</Translation>
+      </Text>
+      <Text Id="TXT_BACK" Alignment="Center" TypographyId="KeySmall">
+        <Translation Language="GB">DEL</Translation>
+      </Text>
+      <Text Id="TXT_ENTER" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">APPLY</Translation>
+      </Text>
+      <Text Id="TXT_PRESETS" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">QUICK PRESETS</Translation>
+      </Text>
+      <Text Id="TXT_P1" Alignment="Center" TypographyId="Preset">
+        <Translation Language="GB">5 V  /  1 A</Translation>
+      </Text>
+      <Text Id="TXT_P2" Alignment="Center" TypographyId="Preset">
+        <Translation Language="GB">12 V  /  2 A</Translation>
+      </Text>
+      <Text Id="TXT_P3" Alignment="Center" TypographyId="Preset">
+        <Translation Language="GB">20 V  /  3 A</Translation>
+      </Text>
+      <Text Id="TXT_SETTINGS_TITLE" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">SETTINGS</Translation>
+      </Text>
+      <Text Id="TXT_SETTINGS_BACK" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">BACK</Translation>
+      </Text>
+      <Text Id="TXT_MENU_PRESETS" Alignment="Center" TypographyId="MenuTitle">
+        <Translation Language="GB">PRESET MANAGER</Translation>
+      </Text>
+      <Text Id="TXT_MENU_DIAGNOSTICS" Alignment="Center" TypographyId="MenuTitle">
+        <Translation Language="GB">DIAGNOSTICS</Translation>
+      </Text>
+      <Text Id="TXT_MENU_LIMITS" Alignment="Center" TypographyId="MenuTitle">
+        <Translation Language="GB">OUTPUT LIMITS</Translation>
+      </Text>
+      <Text Id="TXT_MENU_SYSTEM" Alignment="Center" TypographyId="MenuTitle">
+        <Translation Language="GB">DISPLAY &amp; SYSTEM</Translation>
+      </Text>
+      <Text Id="TXT_MENU_HINT" Alignment="Center" TypographyId="MenuHint">
+        <Translation Language="GB">Menu preview - functions will be defined later</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_TITLE" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">UART DIAGNOSTICS</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_VALUES" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_INITIAL" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">WAITING FOR UART DATA...</Translation>
+      </Text>
+      <Text Id="TXT_SPLASH_DESIGNER" Alignment="Center" TypographyId="SplashMeta">
+        <Translation Language="GB">DESIGNED &amp; ENGINEERED BY KACPER GAWEŁ</Translation>
+      </Text>
+      <Text Id="TXT_SPLASH_FIRMWARE" Alignment="Center" TypographyId="SplashMeta">
+        <Translation Language="GB">FIRMWARE v0.1.0</Translation>
+      </Text>
+      <Text Id="TXT_SPLASH_RELEASE" Alignment="Center" TypographyId="SplashMeta">
+        <Translation Language="GB">RELEASE 2026-07-24</Translation>
+      </Text>
+      <Text Id="TXT_SPLASH_STATUS" Alignment="Center" TypographyId="SplashStatus">
+        <Translation Language="GB">STARTING POWER SUPPLY</Translation>
+      </Text>
+    </TextGroup>
+  </Texts>
+  <Typographies>
+    <Typography Id="Title" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Label" Font="verdana.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Small" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() " />
+    <Typography Id="Value" Font="verdana.ttf" Size="60" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VA" WildcardCharacterRanges="0-9" />
+    <Typography Id="SetValue" Font="verdana.ttf" Size="30" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VA" WildcardCharacterRanges="0-9" />
+    <Typography Id="LimitHint" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="HeaderLabel" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="HeaderValue" Font="verdana.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". CW%" WildcardCharacterRanges="0-9" />
+    <Typography Id="Button" Font="verdana.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() " />
+    <Typography Id="Output" Font="verdana.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=" OUTPUTNF" />
+    <Typography Id="Input" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="." WildcardCharacterRanges="0-9" />
+    <Typography Id="Key" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="KeySmall" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Preset" Font="verdana.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="SettingsTitle" Font="verdana.ttf" Size="26" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="MenuTitle" Font="verdana.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="MenuHint" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="SplashMeta" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="SplashStatus" Font="verdana.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+  </Typographies>
+</TextDatabase>

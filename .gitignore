@@ -1,0 +1,56 @@
+# CubeMX
+.mxproject
+backup_*.ioc
+
+# TouchGFX
+Appli/TouchGFX/*_backup.touchgfx
+Appli/TouchGFX/build/
+Appli/TouchGFX/config/
+Appli/TouchGFX/generated/
+Appli/TouchGFX/simulator/
+Appli/TouchGFX/target.config
+Appli/Middlewares/ST/touchgfx/
+Appli/Middlewares/ST/touchgfx_components/
+Appli/Middlewares/ST/touchgfx_backup*/
+Boot/TouchGFX/build/
+gcc/components.mk
+
+# IAR
+EWARM/settings/
+EWARM/Appli/settings/
+EWARM/Appli/STM32*/
+EWARM/Appli/*.dep
+EWARM/Appli/*.ewt
+EWARM/Boot/settings/
+EWARM/Boot/STM32*/
+EWARM/Boot/*.dep
+EWARM/Boot/*.ewt
+
+# CubeIDE
+STM32CubeIDE/.settings/
+STM32CubeIDE/Appli/.settings/
+STM32CubeIDE/Appli/Debug/
+STM32CubeIDE/Appli/Release/
+STM32CubeIDE/Boot/.settings/
+STM32CubeIDE/Boot/Debug/
+STM32CubeIDE/Boot/Release/
+
+# Keil
+MDK-ARM/*uvgui*
+MDK-ARM/Appli/RTE/
+MDK-ARM/Appli/STM32*/
+MDK-ARM/Appli/DebugConfig/
+MDK-ARM/Appli/*.lst
+MDK-ARM/Appli/*.out
+MDK-ARM/Appli/*vguix.*
+MDK-ARM/Boot/RTE/
+MDK-ARM/Boot/STM32*/
+MDK-ARM/Boot/DebugConfig/
+MDK-ARM/Boot/*.lst
+MDK-ARM/Boot/*.out
+MDK-ARM/Boot/*vguix.*
+
+# CMake
+build/*
+Appli/build/
+Boot/build/
