@@ -9,7 +9,7 @@
         <Translation Language="GB">LAB PD PSU</Translation>
       </Text>
       <Text Id="TXT_CHANNEL" Alignment="Center" TypographyId="Label">
-        <Translation Language="GB">CHANNEL 1</Translation>
+        <Translation Language="GB">CH 1</Translation>
       </Text>
       <Text Id="TXT_MODE_CV" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">CV</Translation>
@@ -69,7 +69,7 @@
         <Translation Language="GB">MAX 5.000 A</Translation>
       </Text>
       <Text Id="TXT_TEMP" Alignment="Center" TypographyId="HeaderLabel">
-        <Translation Language="GB">MOS TEMP</Translation>
+        <Translation Language="GB">MOS</Translation>
       </Text>
       <Text Id="TXT_BATTERY" Alignment="Center" TypographyId="HeaderLabel">
         <Translation Language="GB">VIN</Translation>
@@ -81,7 +81,7 @@
         <Translation Language="GB">20.00 V</Translation>
       </Text>
       <Text Id="TXT_PCB_TEMP" Alignment="Center" TypographyId="HeaderLabel">
-        <Translation Language="GB">PCB TEMP</Translation>
+        <Translation Language="GB">PCB</Translation>
       </Text>
       <Text Id="TXT_PCB_TEMP_VALUE" Alignment="Center" TypographyId="HeaderValue">
         <Translation Language="GB">&lt;value&gt;</Translation>
@@ -162,16 +162,16 @@
         <Translation Language="GB">APPLY</Translation>
       </Text>
       <Text Id="TXT_PRESETS" Alignment="Left" TypographyId="Small">
-        <Translation Language="GB">QUICK PRESETS</Translation>
+        <Translation Language="GB">PRESETS</Translation>
       </Text>
       <Text Id="TXT_P1" Alignment="Center" TypographyId="Preset">
-        <Translation Language="GB">5 V  /  1 A</Translation>
+        <Translation Language="GB">5 V / 1 A</Translation>
       </Text>
       <Text Id="TXT_P2" Alignment="Center" TypographyId="Preset">
-        <Translation Language="GB">12 V  /  2 A</Translation>
+        <Translation Language="GB">12 V / 2 A</Translation>
       </Text>
       <Text Id="TXT_P3" Alignment="Center" TypographyId="Preset">
-        <Translation Language="GB">20 V  /  3 A</Translation>
+        <Translation Language="GB">20 V / 3 A</Translation>
       </Text>
       <Text Id="TXT_SETTINGS_TITLE" Alignment="Left" TypographyId="SettingsTitle">
         <Translation Language="GB">SETTINGS</Translation>
@@ -192,16 +192,16 @@
         <Translation Language="GB">DISPLAY &amp; SYSTEM</Translation>
       </Text>
       <Text Id="TXT_MENU_HINT" Alignment="Center" TypographyId="MenuHint">
-        <Translation Language="GB">Menu preview - functions will be defined later</Translation>
+        <Translation Language="GB">Choose a module. Diagnostics is available now.</Translation>
       </Text>
       <Text Id="TXT_DIAG_TITLE" Alignment="Left" TypographyId="SettingsTitle">
         <Translation Language="GB">UART DIAGNOSTICS</Translation>
       </Text>
-      <Text Id="TXT_DIAG_VALUES" Alignment="Left" TypographyId="Small">
+      <Text Id="TXT_DIAG_VALUES" Alignment="Left" TypographyId="DiagBody">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_DIAG_INITIAL" Alignment="Left" TypographyId="Button">
-        <Translation Language="GB">WAITING FOR UART DATA...</Translation>
+      <Text Id="TXT_DIAG_INITIAL" Alignment="Left" TypographyId="DiagBody">
+        <Translation Language="GB">Waiting for UART data...</Translation>
       </Text>
       <Text Id="TXT_SPLASH_DESIGNER" Alignment="Center" TypographyId="SplashMeta">
         <Translation Language="GB">DESIGNED &amp; ENGINEERED BY KACPER GAWEŁ</Translation>
@@ -213,29 +213,34 @@
         <Translation Language="GB">RELEASE 2026-07-24</Translation>
       </Text>
       <Text Id="TXT_SPLASH_STATUS" Alignment="Center" TypographyId="SplashStatus">
-        <Translation Language="GB">STARTING POWER SUPPLY</Translation>
+        <Translation Language="GB">INITIALIZING POWER SUPPLY</Translation>
+      </Text>
+      <Text Id="TXT_SPLASH_PRODUCT" Alignment="Center" TypographyId="SplashProduct">
+        <Translation Language="GB">LAB PD PSU</Translation>
       </Text>
     </TextGroup>
   </Texts>
   <Typographies>
-    <Typography Id="Title" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Label" Font="verdana.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Small" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() " />
-    <Typography Id="Value" Font="verdana.ttf" Size="60" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VA" WildcardCharacterRanges="0-9" />
-    <Typography Id="SetValue" Font="verdana.ttf" Size="30" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VA" WildcardCharacterRanges="0-9" />
-    <Typography Id="LimitHint" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="HeaderLabel" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="HeaderValue" Font="verdana.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". CW%" WildcardCharacterRanges="0-9" />
-    <Typography Id="Button" Font="verdana.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() " />
-    <Typography Id="Output" Font="verdana.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=" OUTPUTNF" />
-    <Typography Id="Input" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="." WildcardCharacterRanges="0-9" />
-    <Typography Id="Key" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="KeySmall" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Preset" Font="verdana.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="SettingsTitle" Font="verdana.ttf" Size="26" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="MenuTitle" Font="verdana.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="MenuHint" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="SplashMeta" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="SplashStatus" Font="verdana.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Title" Font="IBMPlexSans-Medium.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Label" Font="IBMPlexSans-Regular.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Small" Font="IBMPlexSans-Regular.ttf" Size="11" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() " />
+    <Typography Id="Value" Font="IBMPlexMono-Medium.ttf" Size="52" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VA" WildcardCharacterRanges="0-9" />
+    <Typography Id="SetValue" Font="IBMPlexMono-Medium.ttf" Size="26" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VA" WildcardCharacterRanges="0-9" />
+    <Typography Id="LimitHint" Font="IBMPlexSans-Regular.ttf" Size="11" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="HeaderLabel" Font="IBMPlexSans-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="HeaderValue" Font="IBMPlexMono-Medium.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". CW%" WildcardCharacterRanges="0-9" />
+    <Typography Id="Button" Font="IBMPlexSans-Medium.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() " />
+    <Typography Id="Output" Font="IBMPlexSans-Medium.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=" OUTPUTNF" />
+    <Typography Id="Input" Font="IBMPlexMono-Medium.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="." WildcardCharacterRanges="0-9" />
+    <Typography Id="Key" Font="IBMPlexSans-Medium.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="KeySmall" Font="IBMPlexSans-Medium.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Preset" Font="IBMPlexSans-Medium.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="SettingsTitle" Font="IBMPlexSans-Medium.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="MenuTitle" Font="IBMPlexSans-Medium.ttf" Size="17" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="MenuHint" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="SplashMeta" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="SplashStatus" Font="IBMPlexSans-Medium.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="SplashProduct" Font="IBMPlexSans-Medium.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="DiagBody" Font="IBMPlexMono-Medium.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-()%+[]=,_#* " />
   </Typographies>
 </TextDatabase>

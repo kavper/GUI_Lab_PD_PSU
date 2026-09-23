@@ -15,95 +15,110 @@
             "Type": "Image",
             "Name": "SplashLogo",
             "X": 250,
-            "Y": 28,
+            "Y": 22,
             "Width": 300,
             "Height": 283,
             "RelativeFilename": "logo_white_300x283.png"
           },
           {
             "Type": "TextArea",
+            "Name": "SplashProduct",
+            "X": 150,
+            "Y": 300,
+            "Width": 500,
+            "Height": 36,
+            "TextId": "TXT_SPLASH_PRODUCT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
+            }
+          },
+          {
+            "Type": "TextArea",
             "Name": "SplashDesigner",
-            "X": 180,
-            "Y": 318,
-            "Width": 440,
+            "X": 100,
+            "Y": 340,
+            "Width": 600,
             "Height": 20,
             "TextId": "TXT_SPLASH_DESIGNER",
             "TextRotation": "0",
             "Color": {
-              "Red": 181,
-              "Green": 196,
-              "Blue": 210
+              "Red": 155,
+              "Green": 168,
+              "Blue": 184
             }
           },
           {
             "Type": "TextArea",
             "Name": "SplashFirmware",
-            "X": 205,
-            "Y": 344,
-            "Width": 190,
+            "X": 160,
+            "Y": 366,
+            "Width": 220,
             "Height": 20,
             "TextId": "TXT_SPLASH_FIRMWARE",
             "TextRotation": "0",
             "Color": {
-              "Red": 147,
-              "Green": 163,
+              "Red": 155,
+              "Green": 168,
               "Blue": 184
             }
           },
           {
             "Type": "TextArea",
             "Name": "SplashRelease",
-            "X": 405,
-            "Y": 344,
-            "Width": 190,
+            "X": 400,
+            "Y": 366,
+            "Width": 240,
             "Height": 20,
             "TextId": "TXT_SPLASH_RELEASE",
             "TextRotation": "0",
             "Color": {
-              "Red": 147,
-              "Green": 163,
+              "Red": 155,
+              "Green": 168,
               "Blue": 184
             }
           },
           {
             "Type": "TextArea",
             "Name": "SplashStatus",
-            "X": 180,
-            "Y": 390,
-            "Width": 440,
+            "X": 150,
+            "Y": 400,
+            "Width": 500,
             "Height": 22,
             "TextId": "TXT_SPLASH_STATUS",
             "TextRotation": "0",
             "Color": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             }
           },
           {
             "Type": "Box",
             "Name": "SplashProgressTrack",
             "X": 140,
-            "Y": 428,
+            "Y": 436,
             "Width": 520,
-            "Height": 8,
+            "Height": 6,
             "Color": {
-              "Red": 35,
-              "Green": 56,
-              "Blue": 73
+              "Red": 32,
+              "Green": 46,
+              "Blue": 60
             }
           },
           {
             "Type": "Box",
             "Name": "SplashProgressFill",
             "X": 140,
-            "Y": 428,
+            "Y": 436,
             "Width": 1,
-            "Height": 8,
+            "Height": 6,
             "Color": {
-              "Red": 42,
-              "Green": 199,
-              "Blue": 217
+              "Red": 46,
+              "Green": 196,
+              "Blue": 182
             }
           }
         ],
@@ -122,38 +137,23 @@
           {
             "Type": "TextArea",
             "Name": "TitleText",
-            "X": 24,
-            "Y": 15,
-            "Width": 180,
-            "Height": 30,
+            "X": 20,
+            "Y": 16,
+            "Width": 170,
+            "Height": 28,
             "TextId": "TXT_TITLE",
             "TextRotation": "0",
             "Color": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "ModeText",
-            "X": 209,
-            "Y": 16,
-            "Width": 56,
-            "Height": 26,
-            "TextId": "TXT_MODE_CV",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 8,
-              "Green": 20,
-              "Blue": 28
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             }
           },
           {
             "Type": "Image",
             "Name": "ModePill",
-            "X": 190,
-            "Y": 10,
+            "X": 186,
+            "Y": 11,
             "Width": 58,
             "Height": 36,
             "RelativeFilename": "mode_cv_58x36.png"
@@ -161,46 +161,81 @@
           {
             "Type": "TextArea",
             "Name": "ModeTextFront",
-            "X": 190,
+            "X": 186,
             "Y": 18,
             "Width": 56,
             "Height": 24,
             "TextId": "TXT_MODE_CV",
             "TextRotation": "0",
             "Color": {
-              "Red": 5,
-              "Green": 19,
-              "Blue": 26
+              "Red": 8,
+              "Green": 16,
+              "Blue": 22
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BatteryLabel",
+            "X": 258,
+            "Y": 8,
+            "Width": 68,
+            "Height": 14,
+            "TextId": "TXT_BATTERY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 155,
+              "Green": 168,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BatteryValue",
+            "X": 258,
+            "Y": 24,
+            "Width": 68,
+            "Height": 20,
+            "TextId": "TXT_BATTERY_VALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BATTERY_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 8
             }
           },
           {
             "Type": "TextArea",
             "Name": "TemperatureLabel",
-            "X": 345,
-            "Y": 9,
-            "Width": 70,
-            "Height": 15,
+            "X": 332,
+            "Y": 8,
+            "Width": 68,
+            "Height": 14,
             "TextId": "TXT_TEMP",
             "TextRotation": "0",
             "Color": {
-              "Red": 147,
-              "Green": 163,
+              "Red": 155,
+              "Green": 168,
               "Blue": 184
             }
           },
           {
             "Type": "TextArea",
             "Name": "TemperatureValue",
-            "X": 345,
-            "Y": 26,
-            "Width": 70,
+            "X": 332,
+            "Y": 24,
+            "Width": 68,
             "Height": 20,
             "TextId": "TXT_TEMP_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "Wildcard1": {
               "TextId": "TXT_TEMP_INITIAL",
@@ -210,32 +245,67 @@
           },
           {
             "Type": "TextArea",
+            "Name": "PcbTemperatureLabel",
+            "X": 406,
+            "Y": 8,
+            "Width": 68,
+            "Height": 14,
+            "TextId": "TXT_PCB_TEMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 155,
+              "Green": 168,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PcbTemperatureValue",
+            "X": 406,
+            "Y": 24,
+            "Width": 68,
+            "Height": 20,
+            "TextId": "TXT_PCB_TEMP_VALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
+            },
+            "Wildcard1": {
+              "TextId": "TXT_PCB_TEMP_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 12
+            }
+          },
+          {
+            "Type": "TextArea",
             "Name": "PowerLabel",
-            "X": 495,
-            "Y": 9,
-            "Width": 70,
-            "Height": 15,
+            "X": 480,
+            "Y": 8,
+            "Width": 68,
+            "Height": 14,
             "TextId": "TXT_POWER",
             "TextRotation": "0",
             "Color": {
-              "Red": 147,
-              "Green": 163,
+              "Red": 155,
+              "Green": 168,
               "Blue": 184
             }
           },
           {
             "Type": "TextArea",
             "Name": "PowerValue",
-            "X": 495,
-            "Y": 26,
-            "Width": 70,
+            "X": 480,
+            "Y": 24,
+            "Width": 68,
             "Height": 20,
             "TextId": "TXT_POWER_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "Wildcard1": {
               "TextId": "TXT_POWER_INITIAL",
@@ -244,9 +314,20 @@
             }
           },
           {
+            "Type": "Button",
+            "Name": "SettingsButton",
+            "X": 568,
+            "Y": 1,
+            "Width": 56,
+            "Height": 56,
+            "Pressed": "btn_settings_pressed_touch_56x56.png",
+            "Released": "btn_settings_released_touch_56x56.png"
+          },
+          {
             "Type": "ToggleButton",
             "Name": "OutputEnable",
-            "X": 620,
+            "X": 628,
+            "Y": 1,
             "Width": 166,
             "Height": 56,
             "Pressed": "btn_output_v2_on_touch_166x56.png",
@@ -255,16 +336,16 @@
           {
             "Type": "TextArea",
             "Name": "OutputLabel",
-            "X": 628,
-            "Y": 19,
+            "X": 636,
+            "Y": 18,
             "Width": 150,
-            "Height": 20,
+            "Height": 22,
             "TextId": "TXT_OUTPUT",
             "TextRotation": "0",
             "Color": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "Wildcard1": {
               "TextId": "TXT_OUTPUT_INITIAL",
@@ -276,14 +357,14 @@
             "Type": "TextArea",
             "Name": "ActualVoltageLabel",
             "X": 34,
-            "Y": 93,
+            "Y": 82,
             "Width": 270,
-            "Height": 22,
+            "Height": 20,
             "TextId": "TXT_ACTUAL_V",
             "TextRotation": "0",
             "Color": {
-              "Red": 147,
-              "Green": 163,
+              "Red": 155,
+              "Green": 168,
               "Blue": 184
             }
           },
@@ -291,15 +372,15 @@
             "Type": "TextArea",
             "Name": "ActualVoltageValue",
             "X": 34,
-            "Y": 123,
-            "Width": 276,
-            "Height": 76,
+            "Y": 108,
+            "Width": 270,
+            "Height": 70,
             "TextId": "TXT_VOLTAGE_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "Wildcard1": {
               "TextId": "TXT_VOLTAGE_INITIAL",
@@ -308,33 +389,42 @@
             }
           },
           {
+            "Type": "Image",
+            "Name": "VoltageSelection",
+            "X": 318,
+            "Y": 88,
+            "Width": 154,
+            "Height": 119,
+            "RelativeFilename": "setpoint_selected_154x119.png"
+          },
+          {
             "Type": "TextArea",
             "Name": "SetVoltageLabel",
             "X": 332,
-            "Y": 101,
-            "Width": 126,
-            "Height": 22,
+            "Y": 96,
+            "Width": 140,
+            "Height": 18,
             "TextId": "TXT_SET_U",
             "TextRotation": "0",
             "Color": {
-              "Red": 147,
-              "Green": 163,
-              "Blue": 184
+              "Red": 46,
+              "Green": 196,
+              "Blue": 182
             }
           },
           {
             "Type": "TextArea",
             "Name": "SetVoltageValue",
-            "X": 331,
-            "Y": 131,
-            "Width": 128,
-            "Height": 42,
+            "X": 332,
+            "Y": 122,
+            "Width": 140,
+            "Height": 40,
             "TextId": "TXT_SET_VOLTAGE_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 199,
-              "Blue": 218
+              "Red": 46,
+              "Green": 196,
+              "Blue": 182
             },
             "Wildcard1": {
               "TextId": "TXT_SET_VOLTAGE_INITIAL",
@@ -344,16 +434,41 @@
           },
           {
             "Type": "TextArea",
+            "Name": "VoltageMaxHint",
+            "X": 332,
+            "Y": 178,
+            "Width": 140,
+            "Height": 16,
+            "TextId": "TXT_VOLTAGE_MAX",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 155,
+              "Green": 168,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "SetVoltageButton",
+            "X": 16,
+            "Y": 70,
+            "Width": 486,
+            "Height": 152,
+            "Pressed": "touch_area_474x151.png",
+            "Released": "touch_area_474x151.png"
+          },
+          {
+            "Type": "TextArea",
             "Name": "ActualCurrentLabel",
             "X": 34,
-            "Y": 256,
+            "Y": 246,
             "Width": 270,
-            "Height": 22,
+            "Height": 20,
             "TextId": "TXT_ACTUAL_I",
             "TextRotation": "0",
             "Color": {
-              "Red": 147,
-              "Green": 163,
+              "Red": 155,
+              "Green": 168,
               "Blue": 184
             }
           },
@@ -361,15 +476,15 @@
             "Type": "TextArea",
             "Name": "ActualCurrentValue",
             "X": 34,
-            "Y": 286,
-            "Width": 276,
-            "Height": 76,
+            "Y": 272,
+            "Width": 270,
+            "Height": 70,
             "TextId": "TXT_CURRENT_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "Wildcard1": {
               "TextId": "TXT_CURRENT_INITIAL",
@@ -378,33 +493,43 @@
             }
           },
           {
+            "Type": "Image",
+            "Name": "CurrentSelection",
+            "X": 318,
+            "Y": 252,
+            "Width": 154,
+            "Height": 119,
+            "Visible": false,
+            "RelativeFilename": "setpoint_selected_154x119.png"
+          },
+          {
             "Type": "TextArea",
             "Name": "SetCurrentLabel",
-            "X": 333,
-            "Y": 267,
-            "Width": 126,
-            "Height": 22,
+            "X": 332,
+            "Y": 260,
+            "Width": 140,
+            "Height": 18,
             "TextId": "TXT_LIMIT_I",
             "TextRotation": "0",
             "Color": {
-              "Red": 147,
-              "Green": 163,
+              "Red": 155,
+              "Green": 168,
               "Blue": 184
             }
           },
           {
             "Type": "TextArea",
             "Name": "SetCurrentValue",
-            "X": 331,
-            "Y": 297,
-            "Width": 128,
-            "Height": 42,
+            "X": 332,
+            "Y": 286,
+            "Width": 140,
+            "Height": 40,
             "TextId": "TXT_SET_CURRENT_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 199,
-              "Blue": 218
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "Wildcard1": {
               "TextId": "TXT_SET_CURRENT_INITIAL",
@@ -413,39 +538,44 @@
             }
           },
           {
-            "Type": "Button",
-            "Name": "SetVoltageButton",
-            "X": 18,
-            "Y": 74,
-            "Width": 474,
-            "Height": 151,
-            "Pressed": "touch_area_474x151.png",
-            "Released": "touch_area_474x151.png"
+            "Type": "TextArea",
+            "Name": "CurrentMaxHint",
+            "X": 332,
+            "Y": 342,
+            "Width": 140,
+            "Height": 16,
+            "TextId": "TXT_CURRENT_MAX",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 155,
+              "Green": 168,
+              "Blue": 184
+            }
           },
           {
             "Type": "Button",
             "Name": "SetCurrentButton",
-            "X": 18,
-            "Y": 237,
-            "Width": 474,
-            "Height": 151,
+            "X": 16,
+            "Y": 234,
+            "Width": 486,
+            "Height": 152,
             "Pressed": "touch_area_474x151.png",
             "Released": "touch_area_474x151.png"
           },
           {
             "Type": "ButtonWithLabel",
             "Name": "Key1",
-            "X": 523,
-            "Y": 88,
+            "X": 528,
+            "Y": 84,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_1",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -457,17 +587,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Key2",
-            "X": 607,
-            "Y": 88,
+            "X": 612,
+            "Y": 84,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_2",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -479,17 +609,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Key3",
-            "X": 691,
-            "Y": 88,
+            "X": 696,
+            "Y": 84,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_3",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -501,17 +631,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Key4",
-            "X": 523,
-            "Y": 161,
+            "X": 528,
+            "Y": 156,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_4",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -523,17 +653,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Key5",
-            "X": 607,
-            "Y": 161,
+            "X": 612,
+            "Y": 156,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_5",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -545,17 +675,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Key6",
-            "X": 691,
-            "Y": 161,
+            "X": 696,
+            "Y": 156,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_6",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -567,17 +697,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Key7",
-            "X": 523,
-            "Y": 234,
+            "X": 528,
+            "Y": 228,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_7",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -589,17 +719,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Key8",
-            "X": 607,
-            "Y": 234,
+            "X": 612,
+            "Y": 228,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_8",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -611,17 +741,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Key9",
-            "X": 691,
-            "Y": 234,
+            "X": 696,
+            "Y": 228,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_9",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -633,17 +763,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "KeyClear",
-            "X": 522,
-            "Y": 307,
+            "X": 528,
+            "Y": 300,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_CLEAR",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -655,17 +785,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Key0",
-            "X": 607,
-            "Y": 307,
+            "X": 612,
+            "Y": 300,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_0",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -677,17 +807,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "KeyDot",
-            "X": 691,
-            "Y": 307,
+            "X": 696,
+            "Y": 300,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_DOT",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -699,17 +829,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "KeyBack",
-            "X": 523,
-            "Y": 382,
+            "X": 528,
+            "Y": 372,
             "Width": 76,
             "Height": 64,
             "Pressed": "btn_key_v2_pressed_76x58.png",
             "Released": "btn_key_v2_released_76x58.png",
             "TextId": "TXT_BACK",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -721,17 +851,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "KeyEnter",
-            "X": 607,
-            "Y": 382,
+            "X": 612,
+            "Y": 372,
             "Width": 160,
             "Height": 64,
             "Pressed": "btn_apply_v2_pressed_160x58.png",
             "Released": "btn_apply_v2_released_160x58.png",
             "TextId": "TXT_ENTER",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 8,
+              "Green": 16,
+              "Blue": 22
             },
             "PressedColor": {
               "Red": 255,
@@ -744,16 +874,16 @@
             "Type": "ButtonWithLabel",
             "Name": "Preset1Button",
             "X": 28,
-            "Y": 404,
+            "Y": 408,
             "Width": 140,
             "Height": 50,
             "Pressed": "btn_preset_v3_pressed_140x50.png",
             "Released": "btn_preset_v3_released_140x50.png",
             "TextId": "TXT_P1",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -765,17 +895,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Preset2Button",
-            "X": 185,
-            "Y": 404,
+            "X": 186,
+            "Y": 408,
             "Width": 140,
             "Height": 50,
             "Pressed": "btn_preset_v3_pressed_140x50.png",
             "Released": "btn_preset_v3_released_140x50.png",
             "TextId": "TXT_P2",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -787,17 +917,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Preset3Button",
-            "X": 342,
-            "Y": 404,
+            "X": 344,
+            "Y": 408,
             "Width": 140,
             "Height": 50,
             "Pressed": "btn_preset_v3_pressed_140x50.png",
             "Released": "btn_preset_v3_released_140x50.png",
             "TextId": "TXT_P3",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -805,134 +935,6 @@
               "Blue": 255
             },
             "TextRotation": "0"
-          },
-          {
-            "Type": "Button",
-            "Name": "SettingsButton",
-            "X": 565,
-            "Width": 56,
-            "Height": 56,
-            "Pressed": "btn_settings_pressed_touch_56x56.png",
-            "Released": "btn_settings_released_touch_56x56.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "BatteryLabel",
-            "X": 270,
-            "Y": 9,
-            "Width": 70,
-            "Height": 15,
-            "TextId": "TXT_BATTERY",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 147,
-              "Green": 163,
-              "Blue": 184
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "BatteryValue",
-            "X": 270,
-            "Y": 26,
-            "Width": 70,
-            "Height": 20,
-            "TextId": "TXT_BATTERY_VALUE",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "Wildcard1": {
-              "TextId": "TXT_BATTERY_INITIAL",
-              "UseBuffer": true,
-              "BufferSize": 8
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "PcbTemperatureLabel",
-            "X": 420,
-            "Y": 9,
-            "Width": 70,
-            "Height": 15,
-            "TextId": "TXT_PCB_TEMP",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 147,
-              "Green": 163,
-              "Blue": 184
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "PcbTemperatureValue",
-            "X": 420,
-            "Y": 26,
-            "Width": 70,
-            "Height": 20,
-            "TextId": "TXT_PCB_TEMP_VALUE",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "Wildcard1": {
-              "TextId": "TXT_PCB_TEMP_INITIAL",
-              "UseBuffer": true,
-              "BufferSize": 12
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "VoltageSelection",
-            "X": 321,
-            "Y": 88,
-            "Width": 154,
-            "Height": 119,
-            "RelativeFilename": "setpoint_selected_154x119.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "CurrentSelection",
-            "X": 322,
-            "Y": 253,
-            "Width": 154,
-            "Height": 119,
-            "Visible": false,
-            "RelativeFilename": "setpoint_selected_154x119.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "VoltageMaxHint",
-            "X": 334,
-            "Y": 183,
-            "Width": 128,
-            "Height": 16,
-            "TextId": "TXT_VOLTAGE_MAX",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 147,
-              "Green": 163,
-              "Blue": 184
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "CurrentMaxHint",
-            "X": 334,
-            "Y": 346,
-            "Width": 128,
-            "Height": 16,
-            "TextId": "TXT_CURRENT_MAX",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 147,
-              "Green": 163,
-              "Blue": 184
-            }
           }
         ],
         "Interactions": [
@@ -1185,53 +1187,53 @@
             "Type": "TextArea",
             "Name": "SettingsTitle",
             "X": 28,
-            "Y": 17,
-            "Width": 250,
+            "Y": 14,
+            "Width": 280,
             "Height": 36,
             "TextId": "TXT_SETTINGS_TITLE",
             "TextRotation": "0",
             "Color": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             }
           },
           {
             "Type": "ButtonWithLabel",
             "Name": "BackButton",
             "X": 628,
-            "Y": 10,
+            "Y": 8,
             "Width": 150,
             "Height": 44,
-            "Pressed": "btn_output_v2_on_150x44.png",
-            "Released": "btn_output_v2_off_150x44.png",
+            "Pressed": "btn_back_pressed_150x44.png",
+            "Released": "btn_back_released_150x44.png",
             "TextId": "TXT_SETTINGS_BACK",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
-              "Red": 5,
-              "Green": 19,
-              "Blue": 26
+              "Red": 8,
+              "Green": 16,
+              "Blue": 22
             },
             "TextRotation": "0"
           },
           {
             "Type": "ButtonWithLabel",
             "Name": "PresetManagerButton",
-            "X": 35,
-            "Y": 85,
+            "X": 40,
+            "Y": 90,
             "Width": 350,
             "Height": 120,
             "Pressed": "btn_menu_pressed_350x120.png",
             "Released": "btn_menu_released_350x120.png",
             "TextId": "TXT_MENU_PRESETS",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -1243,17 +1245,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "DiagnosticsButton",
-            "X": 415,
-            "Y": 85,
+            "X": 410,
+            "Y": 90,
             "Width": 350,
             "Height": 120,
             "Pressed": "btn_menu_pressed_350x120.png",
             "Released": "btn_menu_released_350x120.png",
             "TextId": "TXT_MENU_DIAGNOSTICS",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -1265,17 +1267,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "OutputLimitsButton",
-            "X": 35,
-            "Y": 225,
+            "X": 40,
+            "Y": 230,
             "Width": 350,
             "Height": 120,
             "Pressed": "btn_menu_pressed_350x120.png",
             "Released": "btn_menu_released_350x120.png",
             "TextId": "TXT_MENU_LIMITS",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -1287,17 +1289,17 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "SystemButton",
-            "X": 415,
-            "Y": 225,
+            "X": 410,
+            "Y": 230,
             "Width": 350,
             "Height": 120,
             "Pressed": "btn_menu_pressed_350x120.png",
             "Released": "btn_menu_released_350x120.png",
             "TextId": "TXT_MENU_SYSTEM",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
               "Red": 255,
@@ -1309,15 +1311,15 @@
           {
             "Type": "TextArea",
             "Name": "MenuHint",
-            "X": 150,
-            "Y": 410,
-            "Width": 500,
-            "Height": 24,
+            "X": 60,
+            "Y": 400,
+            "Width": 680,
+            "Height": 28,
             "TextId": "TXT_MENU_HINT",
             "TextRotation": "0",
             "Color": {
-              "Red": 147,
-              "Green": 163,
+              "Red": 155,
+              "Green": 168,
               "Blue": 184
             }
           }
@@ -1359,58 +1361,58 @@
             "Name": "DiagnosticsBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "bg_settings_800x480.png"
+            "RelativeFilename": "bg_diag_800x480.png"
           },
           {
             "Type": "TextArea",
             "Name": "DiagnosticsTitle",
             "X": 28,
-            "Y": 17,
-            "Width": 360,
+            "Y": 14,
+            "Width": 400,
             "Height": 36,
             "TextId": "TXT_DIAG_TITLE",
             "TextRotation": "0",
             "Color": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             }
           },
           {
             "Type": "ButtonWithLabel",
             "Name": "DiagnosticsBackButton",
             "X": 628,
-            "Y": 10,
+            "Y": 8,
             "Width": 150,
             "Height": 44,
-            "Pressed": "btn_output_v2_on_150x44.png",
-            "Released": "btn_output_v2_off_150x44.png",
+            "Pressed": "btn_back_pressed_150x44.png",
+            "Released": "btn_back_released_150x44.png",
             "TextId": "TXT_SETTINGS_BACK",
             "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
+              "Red": 232,
+              "Green": 238,
+              "Blue": 244
             },
             "PressedColor": {
-              "Red": 5,
-              "Green": 19,
-              "Blue": 26
+              "Red": 8,
+              "Green": 16,
+              "Blue": 22
             },
             "TextRotation": "0"
           },
           {
             "Type": "TextArea",
             "Name": "DiagnosticsValues",
-            "X": 70,
+            "X": 48,
             "Y": 90,
-            "Width": 660,
-            "Height": 330,
+            "Width": 704,
+            "Height": 340,
             "TextId": "TXT_DIAG_VALUES",
             "TextRotation": "0",
             "Color": {
-              "Red": 42,
-              "Green": 199,
-              "Blue": 217
+              "Red": 46,
+              "Green": 196,
+              "Blue": 182
             },
             "Wildcard1": {
               "TextId": "TXT_DIAG_INITIAL",
