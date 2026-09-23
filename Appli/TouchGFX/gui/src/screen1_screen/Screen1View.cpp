@@ -30,9 +30,8 @@ Screen1View::Screen1View()
 void Screen1View::setupScreen()
 {
     Screen1ViewBase::setupScreen();
-    // Industrial palette — keep in sync with Designer colors / assets.
-    const touchgfx::colortype light = touchgfx::Color::getColorFromRGB(232, 238, 244);
-    const touchgfx::colortype dark = touchgfx::Color::getColorFromRGB(8, 16, 22);
+    const touchgfx::colortype light = touchgfx::Color::getColorFromRGB(238, 244, 251);
+    const touchgfx::colortype dark = touchgfx::Color::getColorFromRGB(5, 19, 26);
     Key0.setLabelColor(light); Key1.setLabelColor(light); Key2.setLabelColor(light);
     Key3.setLabelColor(light); Key4.setLabelColor(light); Key5.setLabelColor(light);
     Key6.setLabelColor(light); Key7.setLabelColor(light); Key8.setLabelColor(light);
@@ -42,7 +41,7 @@ void Screen1View::setupScreen()
     Preset2Button.setLabelColor(light);
     Preset3Button.setLabelColor(light);
     KeyEnter.setLabelColor(dark);
-    OutputLabel.setColor(light);
+    OutputLabel.setColor(dark);
     refreshSetpoints();
     selectVoltage();
 #ifdef SIMULATOR
@@ -161,7 +160,9 @@ void Screen1View::setControllerOutputState(bool enabled)
     OutputEnable.forceState(enabled);
     touchgfx::Unicode::snprintf(OutputLabelBuffer, OUTPUTLABEL_SIZE,
                                enabled ? "OUTPUT ON" : "OUTPUT OFF");
-    OutputLabel.setColor(touchgfx::Color::getColorFromRGB(232, 238, 244));
+    OutputLabel.setColor(enabled
+        ? touchgfx::Color::getColorFromRGB(255, 255, 255)
+        : touchgfx::Color::getColorFromRGB(5, 19, 26));
     OutputEnable.invalidate();
     OutputLabel.invalidate();
 #ifndef SIMULATOR
@@ -265,10 +266,10 @@ void Screen1View::selectVoltage()
     CurrentSelection.setVisible(false);
     VoltageSelection.invalidate();
     CurrentSelection.invalidate();
-    SetVoltageLabel.setColor(touchgfx::Color::getColorFromRGB(46, 196, 182));
-    SetVoltageValue.setColor(touchgfx::Color::getColorFromRGB(46, 196, 182));
-    SetCurrentLabel.setColor(touchgfx::Color::getColorFromRGB(155, 168, 184));
-    SetCurrentValue.setColor(touchgfx::Color::getColorFromRGB(232, 238, 244));
+    SetVoltageLabel.setColor(touchgfx::Color::getColorFromRGB(42, 199, 217));
+    SetVoltageValue.setColor(touchgfx::Color::getColorFromRGB(42, 199, 217));
+    SetCurrentLabel.setColor(touchgfx::Color::getColorFromRGB(147, 163, 184));
+    SetCurrentValue.setColor(touchgfx::Color::getColorFromRGB(238, 244, 251));
     SetVoltageLabel.invalidate(); SetVoltageValue.invalidate();
     SetCurrentLabel.invalidate(); SetCurrentValue.invalidate();
     loadEditorFromSetpoint();
@@ -282,10 +283,10 @@ void Screen1View::selectCurrent()
     CurrentSelection.setVisible(true);
     VoltageSelection.invalidate();
     CurrentSelection.invalidate();
-    SetVoltageLabel.setColor(touchgfx::Color::getColorFromRGB(155, 168, 184));
-    SetVoltageValue.setColor(touchgfx::Color::getColorFromRGB(232, 238, 244));
-    SetCurrentLabel.setColor(touchgfx::Color::getColorFromRGB(46, 196, 182));
-    SetCurrentValue.setColor(touchgfx::Color::getColorFromRGB(46, 196, 182));
+    SetVoltageLabel.setColor(touchgfx::Color::getColorFromRGB(147, 163, 184));
+    SetVoltageValue.setColor(touchgfx::Color::getColorFromRGB(238, 244, 251));
+    SetCurrentLabel.setColor(touchgfx::Color::getColorFromRGB(42, 199, 217));
+    SetCurrentValue.setColor(touchgfx::Color::getColorFromRGB(42, 199, 217));
     SetVoltageLabel.invalidate(); SetVoltageValue.invalidate();
     SetCurrentLabel.invalidate(); SetCurrentValue.invalidate();
     loadEditorFromSetpoint();
@@ -297,7 +298,9 @@ void Screen1View::outputToggled()
     outputEnabled = OutputEnable.getState();
     touchgfx::Unicode::snprintf(OutputLabelBuffer, OUTPUTLABEL_SIZE,
                                outputEnabled ? "OUTPUT ON" : "OUTPUT OFF");
-    OutputLabel.setColor(touchgfx::Color::getColorFromRGB(232, 238, 244));
+    OutputLabel.setColor(outputEnabled
+        ? touchgfx::Color::getColorFromRGB(255, 255, 255)
+        : touchgfx::Color::getColorFromRGB(5, 19, 26));
     OutputLabel.invalidate();
     setRegulationMode(outputEnabled && measuredCurrentMa >= (int32_t)currentLimitMa);
 #ifndef SIMULATOR
@@ -391,8 +394,8 @@ void Screen1View::updatePresetHighlight(uint8_t preset)
 
     const touchgfx::Bitmap released(BITMAP_BTN_PRESET_V3_RELEASED_140X50_ID);
     const touchgfx::Bitmap selected(BITMAP_BTN_PRESET_V3_PRESSED_140X50_ID);
-    const touchgfx::colortype normalText = touchgfx::Color::getColorFromRGB(232, 238, 244);
-    const touchgfx::colortype selectedText = touchgfx::Color::getColorFromRGB(46, 196, 182);
+    const touchgfx::colortype normalText = touchgfx::Color::getColorFromRGB(238, 244, 251);
+    const touchgfx::colortype selectedText = touchgfx::Color::getColorFromRGB(42, 199, 217);
 
     Preset1Button.setBitmaps(preset == 1 ? selected : released, selected);
     Preset2Button.setBitmaps(preset == 2 ? selected : released, selected);
