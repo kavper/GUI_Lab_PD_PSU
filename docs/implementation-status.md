@@ -12,7 +12,7 @@ psu host tests passed
 
 Compiler: `gcc -std=c11 -Wall -Wextra -Werror`. The TouchGFX simulator and the STM32 target were not built in this environment. `Appli/Middlewares/ST/touchgfx/` is not in the checkout, `generated/` is gitignored, and `arm-none-eabi-gcc` is not installed. No `target.hex` was produced, so there is no SHA-256.
 
-Kacper must pull this branch and run **Generate Code** in TouchGFX Designer 4.26.1 before the new screens exist as C++ base classes.
+Kacper must pull this branch and run **Generate Code** in TouchGFX Designer 4.26.1 before the new screens exist as C++ base classes. The instrument pages are composed in `GUI_Lab_PD_PSU.touchgfx` from bitmaps in `Appli/TouchGFX/assets/images/` (header bar, rounded cards, icon tiles, step rows). Screen1 is still the keypad face.
 
 ## Acceptance checklist
 
@@ -25,7 +25,7 @@ Kacper must pull this branch and run **Generate Code** in TouchGFX Designer 4.26
 - [ ] Five Ethernet unplug cycles do not freeze touch or DHCP. The link state machine is tested for five flaps and never invents an address. The cable itself is **BLOCKED** until ETH/LwIP is added in CubeMX.
 - [x] Signed G0 current is decoded from offset 20. Host test uses a negative `int32` and checks it is not taken from offset 24.
 - [x] Output power is `Vout(mV) * max(Iout(uA), 0) / 1e6` in 64-bit math. 27 V * 5 A = 135000 mW. Negative current is 0 W on the main display and stays signed in diagnostics.
-- [ ] Every dynamic string has glyphs, so `?` never appears. Wildcard sets on `HeaderValue` and the new `Dynamic` typography cover the characters the firmware prints. **Not proven on a display.** Generate Code and check the simulator.
+- [ ] Every dynamic string has glyphs, so `?` never appears. Wildcard sets on `HeaderValue`, `Dynamic`, `LabHero`, `LabBig`, `LabState`, and `LabMid` cover the characters the firmware prints. **Not proven on a display.** Generate Code and check the simulator.
 - [x] Presets persist through a CRC A/B RAM record and do not restore output ON. The host test corrupts one copy and loads the other. Target NOR programming is not performed.
 - [x] Sequencer supports 1 and 12 steps, add/remove of the selected step, skip, slew, once/N/infinite, and stop/abort. Host test covers the cap, skip, and controller timeout.
 - [x] The sequencer emits rate-limited SET/ILIM through `G4Ascii` and aborts on readback timeout. Host test.

@@ -1,5 +1,5 @@
 #include <gui/screenpowerpath_screen/ScreenPowerPathView.hpp>
-#include <touchgfx/Unicode.hpp>
+#include <gui/common/LabText.hpp>
 extern "C" {
 #include "psu_app.h"
 }
@@ -30,11 +30,13 @@ void ScreenPowerPathView::handleTickEvent()
 
 void ScreenPowerPathView::refresh()
 {
-    char ascii[800];
+    PsuSnapshot snap;
     psu_app_ensure();
-    psu_render_power_path(ascii, sizeof(ascii));
-    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(ascii), PathBodyBuffer, PATHBODY_SIZE);
-    PathBody.invalidate();
+    psu_snapshot(&snap);
+    lab_show(PathLink, PathLinkBuffer, PATHLINK_SIZE, lab_g4_link(snap.g4_link), lab_link_color(snap.g4_link));
+    lab_show(PathPps, PathPpsBuffer, PATHPPS_SIZE, snap.pps_allowed ? "OPEN" : "LOCKED",
+             snap.pps_allowed ? lab_green() : lab_amber());
+    lab_show(PathCmd, PathCmdBuffer, PATHCMD_SIZE, snap.g4_last_tx[0] ? snap.g4_last_tx : "--", lab_cyan());
 }
 
 void ScreenPowerPathView::pathPermit()
@@ -47,4 +49,3 @@ void ScreenPowerPathView::pathRemote()
     g4_remote(psu_g4(), 1, 0);
     refresh();
 }
-

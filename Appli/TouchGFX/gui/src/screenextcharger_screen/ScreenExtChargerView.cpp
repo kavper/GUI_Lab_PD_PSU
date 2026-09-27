@@ -1,8 +1,10 @@
 #include <gui/screenextcharger_screen/ScreenExtChargerView.hpp>
-#include <touchgfx/Unicode.hpp>
+#include <gui/common/LabText.hpp>
 #include <string.h>
 extern "C" {
 #include "psu_app.h"
+#include "psu_charger.h"
+#include "psu_format.h"
 }
 
 ScreenExtChargerView::ScreenExtChargerView()
@@ -29,18 +31,72 @@ void ScreenExtChargerView::handleTickEvent()
     refresh();
 }
 
-void ScreenExtChargerView::refresh()
+namespace
 {
-    char ascii[800];
-    psu_app_ensure();
-    psu_render_charger(ascii, sizeof(ascii));
-    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(ascii), ChgBodyBuffer, CHGBODY_SIZE);
-    ChgBody.invalidate();
+const char* chem_name(uint8_t chemistry)
+{
+    switch (chemistry)
+    {
+    case CHEM_LIION: return "LI-ION";
+    case CHEM_LIION_HV: return "LI-ION HV";
+    case CHEM_LIFEPO4: return "LIFEPO4";
+    case CHEM_LTO: return "LTO";
+    case CHEM_LEAD: return "LEAD";
+    case CHEM_NIMH: return "NIMH";
+    default: return "CUSTOM";
+    }
 }
 
+const char* state_face(PsuChgState state)
+{
+    switch (state)
+    {
+    case CHG_IDLE: return "IDLE";
+    case CHG_VALIDATE: return "VALIDATE";
+    case CHG_WAIT: return "WAIT";
+    case CHG_PRECHARGE: return "PRECHARGE";
+    case CHG_CC: return "CC";
+    case CHG_CV: return "CV";
+    case CHG_ABSORPTION: return "ABSORB";
+    case CHG_FLOAT: return "FLOAT";
+    case CHG_TERMINATING: return "ENDING";
+    case CHG_COMPLETE: return "COMPLETE";
+    case CHG_PAUSED: return "PAUSED";
+    case CHG_ABORTED: return "ABORTED";
+    default: return "FAULT";
+    }
+}
 
+touchgfx::colortype state_color(PsuChgState state)
+{
+    if (state == CHG_FAULT || state == CHG_ABORTED)
+        return lab_red();
+    if (state == CHG_CC || state == CHG_PRECHARGE)
+        return lab_amber();
+    if (state == CHG_COMPLETE || state == CHG_IDLE || state == CHG_FLOAT)
+        return lab_green();
+    return lab_cyan();
+}
+}
 
-#include "psu_charger.h"
+void ScreenExtChargerView::refresh()
+{
+    PsuCharger* chg;
+    char buf[24];
+    uint32_t pack_mv;
+    psu_app_ensure();
+    chg = psu_charger();
+    lab_show(ChgState, ChgStateBuffer, CHGSTATE_SIZE, state_face(chg->state), state_color(chg->state));
+    lab_show(ChgNote, ChgNoteBuffer, CHGNOTE_SIZE,
+             chg->reason[0] ? chg->reason : "SELECT A PROFILE",
+             (chg->state == CHG_FAULT) ? lab_red() : lab_muted());
+    lab_show(ChgChem, ChgChemBuffer, CHGCHEM_SIZE, chem_name(chg->profile.chemistry), lab_text());
+    pack_mv = chg->profile.cv_mv_cell * (chg->profile.cells ? chg->profile.cells : 1U);
+    psu_format_voltage(buf, sizeof(buf), pack_mv);
+    lab_show(ChgVolt, ChgVoltBuffer, CHGVOLT_SIZE, buf, lab_cyan());
+    psu_format_current_ma(buf, sizeof(buf), chg->profile.cc_ma);
+    lab_show(ChgAmp, ChgAmpBuffer, CHGAMP_SIZE, buf, lab_amber());
+}
 
 static uint8_t chg_armed;
 static uint8_t chg_chem;

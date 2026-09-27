@@ -1,5 +1,5 @@
 #include <gui/screenservice_screen/ScreenServiceView.hpp>
-#include <touchgfx/Unicode.hpp>
+#include <gui/common/LabText.hpp>
 extern "C" {
 #include "psu_app.h"
 }
@@ -30,11 +30,13 @@ void ScreenServiceView::handleTickEvent()
 
 void ScreenServiceView::refresh()
 {
-    char ascii[800];
+    PsuSnapshot snap;
     psu_app_ensure();
-    psu_render_service(ascii, sizeof(ascii));
-    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(ascii), ServiceBodyBuffer, SERVICEBODY_SIZE);
-    ServiceBody.invalidate();
+    psu_snapshot(&snap);
+    lab_show(SvcMode, SvcModeBuffer, SVCMODE_SIZE, snap.service_mode ? "OPEN" : "LOCKED",
+             snap.service_mode ? lab_green() : lab_amber());
+    lab_show(SvcTx, SvcTxBuffer, SVCTX_SIZE, snap.g4_last_tx[0] ? snap.g4_last_tx : "--", lab_cyan());
+    lab_show(SvcRx, SvcRxBuffer, SVCRX_SIZE, snap.g4_last_rx[0] ? snap.g4_last_rx : "--", lab_text());
 }
 
 void ScreenServiceView::serviceToggle()
@@ -52,4 +54,3 @@ void ScreenServiceView::serviceStatus()
     psu_app_service_cmd("STATUS");
     refresh();
 }
-
