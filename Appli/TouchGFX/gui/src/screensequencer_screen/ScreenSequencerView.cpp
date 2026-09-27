@@ -45,6 +45,13 @@ static int16_t easeOut(int16_t t, int16_t b, int16_t c, int16_t d)
     return (int16_t)(b + (c * (cube + 256)) / 256);
 }
 
+static int16_t easeIn(int16_t t, int16_t b, int16_t c, int16_t d)
+{
+    int32_t tn = (int32_t)t * 256 / d;
+    int32_t cube = tn * tn / 256 * tn / 256;
+    return (int16_t)(b + (c * cube) / 256);
+}
+
 void ScreenSequencerView::handleTickEvent()
 {
     seqStepKeypad();
@@ -265,8 +272,15 @@ void ScreenSequencerView::seqStepKeypad()
         return;
     if (keypadTick < KEYPAD_TICKS)
         keypadTick++;
-    y = easeOut(keypadTick, keypadFromY, (int16_t)(keypadToY - keypadFromY), KEYPAD_TICKS);
-    alpha = easeOut(keypadTick, keypadFromA, (int16_t)(keypadToA - keypadFromA), KEYPAD_TICKS);
+    {
+        const int16_t dy = (int16_t)(keypadToY - keypadFromY);
+        const int16_t da = (int16_t)(keypadToA - keypadFromA);
+        const bool inward = keypadToY <= keypadFromY;
+        y = inward ? easeOut(keypadTick, keypadFromY, dy, KEYPAD_TICKS)
+                   : easeIn(keypadTick, keypadFromY, dy, KEYPAD_TICKS);
+        alpha = inward ? easeOut(keypadTick, keypadFromA, da, KEYPAD_TICKS)
+                       : easeIn(keypadTick, keypadFromA, da, KEYPAD_TICKS);
+    }
     poseKeypad(y, alpha);
     if (keypadTick < KEYPAD_TICKS)
         return;

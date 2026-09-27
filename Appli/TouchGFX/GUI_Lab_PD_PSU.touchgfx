@@ -3811,7 +3811,7 @@
             "Type": "Container",
             "Name": "SeqKeypad",
             "X": 416,
-            "Y": 256,
+            "Y": 272,
             "Width": 368,
             "Height": 160,
             "Visible": false,

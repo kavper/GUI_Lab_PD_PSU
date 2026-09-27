@@ -51,8 +51,8 @@ public:
 protected:
     static const int16_t KEYPAD_X = 416;
     static const int16_t KEYPAD_SHOWN_Y = 240;
-    static const int16_t KEYPAD_HIDDEN_Y = 256;
-    static const uint8_t KEYPAD_TICKS = 16;
+    static const int16_t KEYPAD_HIDDEN_Y = 272;
+    static const uint8_t KEYPAD_TICKS = 28;
     uint8_t divider;
     uint8_t visible_start;
     PsuSeqEdit edit;
