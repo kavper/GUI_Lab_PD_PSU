@@ -14,7 +14,7 @@ psu host tests passed
 
 Compiler: `gcc -std=c11 -Wall -Wextra -Werror`. The TouchGFX simulator and the STM32 target were not built in this environment. `Appli/Middlewares/ST/touchgfx/` is not in the checkout, `generated/` is absent, and `arm-none-eabi-gcc` is not installed (`command -v` finds nothing). No `target.hex` was produced, so there is no SHA-256.
 
-Kacper must pull this branch and run **Generate Code** in TouchGFX Designer 4.26.1. Generate has to run again because the charger row gained a CELLS button and each preset card is now a button. Screen1 and the splash were not moved. The 16 px margin, 64 px header, and 8 px grid on the instrument screens stay as in `f49c4c2`.
+Kacper must pull this branch and run **Generate Code** in TouchGFX Designer 4.26.1. Generate has to run again: the charger row has a CELLS button, each preset card is a button, and the typographies now use IBM Plex (`IBMPlexSans-Regular.ttf` for UI, `IBMPlexMono-Regular.ttf` for numbers). Titles, tile labels, button labels, and values are center-aligned inside their own cards. Screen1’s keypad was not rearranged; key captions and the readout wells are centered. The splash title block stays centered. The 16 px margin, 64 px header, and 8 px grid on the instrument screens stay. `texts.xml` still validates against `texts.xsd`.
 
 ## Acceptance checklist
 
