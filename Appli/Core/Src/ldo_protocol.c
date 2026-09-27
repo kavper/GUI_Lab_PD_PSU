@@ -1,4 +1,5 @@
 #include "ldo_protocol.h"
+#include "g0_frame.h"
 #include <string.h>
 
 #define SOF0 0xA5U
@@ -90,12 +91,15 @@ static void restart_rx(void)
 
 static void publish_telemetry(const uint8_t *p)
 {
-  const uint32_t raw_vin_mv = le32(p + 12);
-  const uint32_t raw_vout_mv = le32(p + 16);
-  const int32_t raw_iout_ua = (int32_t)le32(p + 20);
+  G0RawTelemetry raw;
+  if (g0_decode_telemetry68(p, &raw) != 0)
+    return;
+  const uint32_t raw_vin_mv = raw.vin_mv;
+  const uint32_t raw_vout_mv = raw.vout_mv;
+  const int32_t raw_iout_ua = raw.iout_ua;
   int16_t raw_temperature[4];
   for (uint8_t i = 0; i < 4U; ++i)
-    raw_temperature[i] = (int16_t)le16(p + 56U + (uint8_t)(i * 2U));
+    raw_temperature[i] = raw.temperature_centi_c[i];
 
   if (!filter_initialized)
   {
@@ -116,11 +120,11 @@ static void publish_telemetry(const uint8_t *p)
   }
 
   ++telemetry_generation;
-  telemetry.protocol_version = p[0];
-  telemetry.telemetry_version = p[1];
-  telemetry.status_flags = le16(p + 2);
-  telemetry.fault_flags = le32(p + 4);
-  telemetry.uptime_ms = le32(p + 8);
+  telemetry.protocol_version = raw.protocol_version;
+  telemetry.telemetry_version = raw.telemetry_version;
+  telemetry.status_flags = raw.status_flags;
+  telemetry.fault_flags = raw.fault_flags;
+  telemetry.uptime_ms = raw.uptime_ms;
   telemetry.vin_mv = (uint32_t)((vin_filter_q8 + 128) >> 8);
   telemetry.vout_mv = (uint32_t)((vout_filter_q8 + 128) >> 8);
   telemetry.iout_ua = (int32_t)((iout_filter_q8 + (iout_filter_q8 >= 0 ? 128 : -128)) >> 8);
@@ -128,17 +132,17 @@ static void publish_telemetry(const uint8_t *p)
     telemetry.temperature_centi_c[i] =
         (int16_t)((temperature_filter_q8[i] +
                   (temperature_filter_q8[i] >= 0 ? 128 : -128)) >> 8);
-  telemetry.requested_voltage_mv = le32(p + 36);
-  telemetry.iout_adc_raw = (int32_t)le32(p + 24);
-  telemetry.dac_cv_readback_mv = le32(p + 28);
-  telemetry.dac_cc_readback_mv = le32(p + 32);
-  telemetry.requested_current_ma = le32(p + 40);
-  telemetry.applied_voltage_mv = le32(p + 44);
-  telemetry.applied_current_ma = le32(p + 48);
-  telemetry.preregulator_mv = le32(p + 52);
-  telemetry.mode = p[64];
-  telemetry.startup = p[65];
-  telemetry.reserved = le16(p + 66);
+  telemetry.requested_voltage_mv = raw.requested_voltage_mv;
+  telemetry.iout_adc_raw = raw.iout_adc_raw;
+  telemetry.dac_cv_readback_mv = raw.dac_cv_readback_mv;
+  telemetry.dac_cc_readback_mv = raw.dac_cc_readback_mv;
+  telemetry.requested_current_ma = raw.requested_current_ma;
+  telemetry.applied_voltage_mv = raw.applied_voltage_mv;
+  telemetry.applied_current_ma = raw.applied_current_ma;
+  telemetry.preregulator_mv = raw.preregulator_mv;
+  telemetry.mode = raw.mode;
+  telemetry.startup = raw.startup;
+  telemetry.reserved = raw.reserved;
   telemetry.current_calibrated = (capabilities & 1U) ? 1U : 0U;
   telemetry.current_valid = (telemetry.status_flags & (1U << 4)) ? 1U : 0U;
   telemetry.connected = 1U;
