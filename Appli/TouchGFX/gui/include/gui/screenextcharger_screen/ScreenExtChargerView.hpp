@@ -14,11 +14,16 @@ public:
     virtual void tearDownScreen();
     virtual void handleTickEvent();
     virtual void chgProfile();
+    virtual void chgCells();
     virtual void chgStart();
     virtual void chgAbort();
 
 protected:
     uint8_t divider;
+    uint8_t chemistry;
+    uint8_t chem_set;
+    uint8_t cells_set;
+    uint8_t polarity_latched;
     void refresh();
 };
 

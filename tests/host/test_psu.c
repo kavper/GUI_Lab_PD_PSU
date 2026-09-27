@@ -307,6 +307,29 @@ static void test_charger(void)
   psu_chg_tick(&chg, &sense, 20);
   expect(chg.state == CHG_FAULT, "telemetry fault");
   expect(chg_off == 1, "priority off");
+
+  psu_chg_init(&chg);
+  psu_chg_profile_defaults(&profile, CHEM_LIION);
+  profile.cells = 0;
+  expect(psu_chg_max_cells(&profile) == 6U, "liion max cells");
+  expect(psu_chg_user_start(&chg, &profile, &sense, 0, 0, 0, 0) == 0, "no profile");
+  expect(strcmp(chg.reason, "SELECT A PROFILE") == 0, "profile text");
+  profile.cells = 0;
+  expect(psu_chg_user_start(&chg, &profile, &sense, 0, 1, 0, 0) == 0, "no cells");
+  expect(strcmp(chg.reason, "CELL COUNT REQUIRED") == 0, "cells text");
+  profile.cells = 7;
+  expect(psu_chg_user_start(&chg, &profile, &sense, 0, 1, 1, 1) == 0, "cells over 27V");
+  profile.cells = 4;
+  profile.confirmed = 0;
+  profile.polarity_checked = 0;
+  expect(psu_chg_user_start(&chg, &profile, &sense, 0, 1, 1, 0) == 1, "polarity latch");
+  expect(chg.running == 0U && profile.confirmed == 0U, "confirm is not a start");
+  expect(strcmp(chg.reason, "POLARITY CONFIRMED. PRESS START") == 0, "confirm text");
+  sense.telemetry_ok = 1;
+  sense.permit = 1;
+  sense.pack_mv = 12000;
+  expect(psu_chg_user_start(&chg, &profile, &sense, 0, 1, 1, 1) == 2, "start after confirm");
+  expect(chg.state == CHG_VALIDATE, "validated");
 }
 
 static void test_store_and_app(void)
@@ -356,6 +379,11 @@ static void test_store_and_app(void)
   expect(psu_preset_apply(1) == 1, "apply 12V");
   psu_snapshot(&s);
   expect(s.requested_mv == 12000, "preset apply");
+  expect(s.output_requested == 0 && s.output_confirmed == 0, "preset does not enable output");
+  expect(psu_preset_save_current(4, "USER") == 1, "save slot 5");
+  expect(psu_preset_get(4) && psu_preset_get(4)->voltage_mv == 12000, "saved slot");
+  expect(psu_preset_duplicate(4, 5) == 1, "duplicate slot");
+  expect(psu_preset_get(5) && psu_preset_get(5)->output_action == 0, "duplicate keeps output off");
 
   memset(&g0, 0, sizeof(g0));
   g0.connected = 1;

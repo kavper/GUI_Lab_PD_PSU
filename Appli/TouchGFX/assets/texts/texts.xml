@@ -332,6 +332,9 @@
       <Text Id="TXT_ACT_PROFILE" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">PROFILE</Translation>
       </Text>
+      <Text Id="TXT_ACT_CELLS" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CELLS</Translation>
+      </Text>
       <Text Id="TXT_ACT_START" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">START</Translation>
       </Text>
@@ -1089,13 +1092,13 @@
   <Typographies>
     <Typography Id="Title" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="Label" Font="verdana.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Small" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() " />
+    <Typography Id="Small" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#10;" />
     <Typography Id="Value" Font="verdana.ttf" Size="60" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VA" WildcardCharacterRanges="0-9" />
     <Typography Id="SetValue" Font="verdana.ttf" Size="30" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VA" WildcardCharacterRanges="0-9" />
     <Typography Id="LimitHint" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="HeaderLabel" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="HeaderValue" Font="verdana.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()%_" />
-    <Typography Id="Button" Font="verdana.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() " />
+    <Typography Id="HeaderValue" Font="verdana.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()%_&#10;" />
+    <Typography Id="Button" Font="verdana.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#10;" />
     <Typography Id="Output" Font="verdana.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=" OUTPUTNF" />
     <Typography Id="Input" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="." WildcardCharacterRanges="0-9" />
     <Typography Id="Key" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
@@ -1106,11 +1109,11 @@
     <Typography Id="MenuHint" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="SplashMeta" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="SplashStatus" Font="verdana.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Dynamic" Font="verdana.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#" />
-    <Typography Id="LabHero" Font="DejaVuSansMono.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#" />
+    <Typography Id="Dynamic" Font="verdana.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;" />
+    <Typography Id="LabHero" Font="DejaVuSansMono.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;" />
     <Typography Id="LabBig" Font="DejaVuSansMono.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. VAmWC/-" />
-    <Typography Id="LabState" Font="verdana.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#" />
-    <Typography Id="LabMid" Font="DejaVuSansMono.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#" />
+    <Typography Id="LabState" Font="verdana.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;" />
+    <Typography Id="LabMid" Font="DejaVuSansMono.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;" />
     <Typography Id="LabTile" Font="verdana.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
   </Typographies>
 </TextDatabase>

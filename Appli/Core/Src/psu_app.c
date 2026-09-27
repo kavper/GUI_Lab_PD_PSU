@@ -575,6 +575,7 @@ int psu_preset_duplicate(uint8_t from, uint8_t to)
   if (from >= blob.preset_count || to >= PSU_PRESET_COUNT)
     return 0;
   blob.presets[to] = blob.presets[from];
+  blob.presets[to].output_action = 0U;
   if (to >= blob.preset_count)
     blob.preset_count = (uint8_t)(to + 1U);
   return 1;

@@ -107,8 +107,14 @@ typedef struct
 
 void psu_chg_init(PsuCharger *chg);
 void psu_chg_profile_defaults(PsuChgProfile *profile, uint8_t chemistry);
+/* Largest series count whose pack CV stays within 27 V, capped at 8. */
+uint8_t psu_chg_max_cells(const PsuChgProfile *profile);
 int psu_chg_validate(const PsuChgProfile *profile, const PsuChgSense *sense, char *why, unsigned why_n);
 int psu_chg_start(PsuCharger *chg, const PsuChgProfile *profile, const PsuChgSense *sense, uint32_t now_ms);
+/* 0 rejected, 1 polarity latched (not started), 2 charge started.
+   chemistry_set, cells_set and polarity_already must come from the operator. */
+int psu_chg_user_start(PsuCharger *chg, PsuChgProfile *profile, const PsuChgSense *sense,
+                       uint32_t now_ms, int chemistry_set, int cells_set, int polarity_already);
 void psu_chg_tick(PsuCharger *chg, const PsuChgSense *sense, uint32_t now_ms);
 void psu_chg_abort(PsuCharger *chg, const char *reason, uint32_t now_ms);
 const char *psu_chg_state_name(PsuChgState state);

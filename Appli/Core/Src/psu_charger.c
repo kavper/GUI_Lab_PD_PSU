@@ -89,6 +89,17 @@ void psu_chg_profile_defaults(PsuChgProfile *profile, uint8_t chemistry)
   }
 }
 
+uint8_t psu_chg_max_cells(const PsuChgProfile *profile)
+{
+  uint32_t n;
+  if (profile == 0 || profile->cv_mv_cell == 0U)
+    return 0U;
+  n = PSU_VOLTAGE_MAX_MV / profile->cv_mv_cell;
+  if (n > 8U)
+    n = 8U;
+  return (uint8_t)n;
+}
+
 void psu_chg_init(PsuCharger *chg)
 {
   if (chg == 0)
@@ -208,6 +219,45 @@ int psu_chg_start(PsuCharger *chg, const PsuChgProfile *profile, const PsuChgSen
   chg->max_temp = sense->temp_centi;
   (void)snprintf(chg->reason, sizeof(chg->reason), "VALIDATE");
   return 1;
+}
+
+int psu_chg_user_start(PsuCharger *chg, PsuChgProfile *profile, const PsuChgSense *sense,
+                       uint32_t now_ms, int chemistry_set, int cells_set, int polarity_already)
+{
+  uint8_t max_cells;
+  if (chg == 0 || profile == 0)
+    return 0;
+  if (chg->running)
+  {
+    (void)snprintf(chg->reason, sizeof(chg->reason), "ALREADY RUNNING");
+    return 0;
+  }
+  if (!chemistry_set)
+  {
+    (void)snprintf(chg->reason, sizeof(chg->reason), "SELECT A PROFILE");
+    return 0;
+  }
+  max_cells = psu_chg_max_cells(profile);
+  if (!cells_set || profile->cells < 1U || profile->cells > max_cells)
+  {
+    (void)snprintf(chg->reason, sizeof(chg->reason), "CELL COUNT REQUIRED");
+    return 0;
+  }
+  if (!polarity_already)
+  {
+    profile->polarity_checked = 1U;
+    profile->confirmed = 0U;
+    chg->profile = *profile;
+    (void)snprintf(chg->reason, sizeof(chg->reason), "POLARITY CONFIRMED. PRESS START");
+    return 1;
+  }
+  profile->confirmed = 1U;
+  profile->polarity_checked = 1U;
+  if (profile->chemistry == CHEM_CUSTOM)
+    profile->custom_unlocked = 1U;
+  if (!psu_chg_start(chg, profile, sense, now_ms))
+    return 0;
+  return 2;
 }
 
 static int held(PsuCharger *chg, int condition, uint32_t now_ms)

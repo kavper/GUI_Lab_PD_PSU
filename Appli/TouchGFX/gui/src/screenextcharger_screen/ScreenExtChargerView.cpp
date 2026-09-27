@@ -9,6 +9,10 @@ extern "C" {
 
 ScreenExtChargerView::ScreenExtChargerView()
     : divider(0)
+    , chemistry(0)
+    , chem_set(0)
+    , cells_set(0)
+    , polarity_latched(0)
 {
 }
 
@@ -83,34 +87,113 @@ void ScreenExtChargerView::refresh()
 {
     PsuCharger* chg;
     char buf[24];
-    uint32_t pack_mv;
+    char chem[24];
+    const char* note;
     psu_app_ensure();
     chg = psu_charger();
     lab_show(ChgState, ChgStateBuffer, CHGSTATE_SIZE, state_face(chg->state), state_color(chg->state));
-    lab_show(ChgNote, ChgNoteBuffer, CHGNOTE_SIZE,
-             chg->reason[0] ? chg->reason : "SELECT A PROFILE",
-             (chg->state == CHG_FAULT) ? lab_red() : lab_muted());
-    lab_show(ChgChem, ChgChemBuffer, CHGCHEM_SIZE, chem_name(chg->profile.chemistry), lab_text());
-    pack_mv = chg->profile.cv_mv_cell * (chg->profile.cells ? chg->profile.cells : 1U);
-    psu_format_voltage(buf, sizeof(buf), pack_mv);
-    lab_show(ChgVolt, ChgVoltBuffer, CHGVOLT_SIZE, buf, lab_cyan());
-    psu_format_current_ma(buf, sizeof(buf), chg->profile.cc_ma);
-    lab_show(ChgAmp, ChgAmpBuffer, CHGAMP_SIZE, buf, lab_amber());
+    note = chg->reason[0] ? chg->reason : "SELECT A PROFILE";
+    if (!chem_set && strcmp(note, "IDLE") == 0)
+        note = "SELECT A PROFILE";
+    lab_show(ChgNote, ChgNoteBuffer, CHGNOTE_SIZE, note,
+             (chg->state == CHG_FAULT) ? lab_red() : (polarity_latched ? lab_amber() : lab_muted()));
+    if (!chem_set)
+        lab_show(ChgChem, ChgChemBuffer, CHGCHEM_SIZE, "NONE", lab_muted());
+    else if (!cells_set)
+        lab_show(ChgChem, ChgChemBuffer, CHGCHEM_SIZE, chem_name(chg->profile.chemistry), lab_text());
+    else
+    {
+        snprintf(chem, sizeof(chem), "%s %uS", chem_name(chg->profile.chemistry), chg->profile.cells);
+        lab_show(ChgChem, ChgChemBuffer, CHGCHEM_SIZE, chem, lab_text());
+    }
+    if (!cells_set)
+        lab_show(ChgVolt, ChgVoltBuffer, CHGVOLT_SIZE, "--", lab_muted());
+    else
+    {
+        psu_format_voltage(buf, sizeof(buf),
+                           chg->profile.cv_mv_cell * (uint32_t)chg->profile.cells);
+        lab_show(ChgVolt, ChgVoltBuffer, CHGVOLT_SIZE, buf, lab_cyan());
+    }
+    if (!chem_set)
+        lab_show(ChgAmp, ChgAmpBuffer, CHGAMP_SIZE, "--", lab_muted());
+    else
+    {
+        psu_format_current_ma(buf, sizeof(buf), chg->profile.cc_ma);
+        lab_show(ChgAmp, ChgAmpBuffer, CHGAMP_SIZE, buf, lab_amber());
+    }
 }
 
-static uint8_t chg_armed;
-static uint8_t chg_chem;
+static void read_sense(PsuChgSense* sense)
+{
+    PsuSnapshot live;
+    memset(sense, 0, sizeof(*sense));
+    psu_snapshot(&live);
+    sense->telemetry_ok = (live.g0_connected && live.current_valid) ? 1U : 0U;
+    sense->permit = live.fault_latched ? 0U : 1U;
+    sense->pack_mv = live.vout_mv;
+    sense->temp_centi = live.mos_centi;
+    sense->reverse_hw = 0U;
+}
 
 void ScreenExtChargerView::chgProfile()
 {
     PsuChgProfile profile;
-    chg_chem = (uint8_t)((chg_chem + 1U) % 7U);
-    psu_chg_profile_defaults(&profile, chg_chem);
-    profile.cells = 1U;
+    PsuCharger* chg = psu_charger();
+    if (chg->running)
+    {
+        snprintf(chg->reason, sizeof(chg->reason), "STOP BEFORE CHANGING PROFILE");
+        refresh();
+        return;
+    }
+    chemistry = (uint8_t)((chemistry + 1U) % 7U);
+    psu_chg_profile_defaults(&profile, chemistry);
+    profile.cells = 0U;
     profile.confirmed = 0U;
     profile.polarity_checked = 0U;
-    psu_charger()->profile = profile;
-    chg_armed = 1U;
+    profile.custom_unlocked = 0U;
+    chg->profile = profile;
+    chem_set = 1U;
+    cells_set = 0U;
+    polarity_latched = 0U;
+    snprintf(chg->reason, sizeof(chg->reason), "CHOOSE CELL COUNT");
+    refresh();
+}
+
+void ScreenExtChargerView::chgCells()
+{
+    PsuCharger* chg = psu_charger();
+    PsuChgProfile profile = chg->profile;
+    uint8_t max_cells;
+    uint8_t next;
+    if (chg->running)
+    {
+        snprintf(chg->reason, sizeof(chg->reason), "STOP BEFORE CHANGING PROFILE");
+        refresh();
+        return;
+    }
+    if (!chem_set)
+    {
+        snprintf(chg->reason, sizeof(chg->reason), "SELECT A PROFILE");
+        refresh();
+        return;
+    }
+    max_cells = psu_chg_max_cells(&profile);
+    if (max_cells == 0U)
+    {
+        snprintf(chg->reason, sizeof(chg->reason), "CELL COUNT REQUIRED");
+        refresh();
+        return;
+    }
+    next = (uint8_t)(profile.cells + 1U);
+    if (!cells_set || next < 1U || next > max_cells)
+        next = 1U;
+    profile.cells = next;
+    profile.confirmed = 0U;
+    profile.polarity_checked = 0U;
+    chg->profile = profile;
+    cells_set = 1U;
+    polarity_latched = 0U;
+    snprintf(chg->reason, sizeof(chg->reason), "CONFIRM POLARITY, THEN START");
     refresh();
 }
 
@@ -118,31 +201,20 @@ void ScreenExtChargerView::chgStart()
 {
     PsuChgProfile profile = psu_charger()->profile;
     PsuChgSense sense;
-    if (!chg_armed)
-    {
-        refresh();
-        return;
-    }
-    profile.confirmed = 1U;
-    profile.polarity_checked = 1U;
-    if (profile.chemistry == CHEM_CUSTOM)
-        profile.custom_unlocked = 1U;
-    memset(&sense, 0, sizeof(sense));
-    {
-        PsuSnapshot live;
-        psu_snapshot(&live);
-        sense.telemetry_ok = (live.g0_connected && live.current_valid) ? 1U : 0U;
-        sense.permit = live.fault_latched ? 0U : 1U;
-        sense.pack_mv = live.vout_mv;
-        sense.temp_centi = live.mos_centi;
-    }
-    psu_chg_start(psu_charger(), &profile, &sense, psu_app_now());
+    int step;
+    read_sense(&sense);
+    step = psu_chg_user_start(psu_charger(), &profile, &sense, psu_app_now(),
+                              chem_set, cells_set, polarity_latched);
+    if (step == 1)
+        polarity_latched = 1U;
     refresh();
 }
 
 void ScreenExtChargerView::chgAbort()
 {
     psu_chg_abort(psu_charger(), "Operator abort", psu_app_now());
-    chg_armed = 0U;
+    chem_set = 0U;
+    cells_set = 0U;
+    polarity_latched = 0U;
     refresh();
 }

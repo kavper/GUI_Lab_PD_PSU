@@ -2204,13 +2204,14 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "PresetCard1",
             "X": 16,
             "Y": 80,
             "Width": 168,
             "Height": 144,
-            "RelativeFilename": "card_168x144.png"
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
           },
           {
             "Type": "TextArea",
@@ -2273,13 +2274,14 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "PresetCard2",
             "X": 216,
             "Y": 80,
             "Width": 168,
             "Height": 144,
-            "RelativeFilename": "card_168x144.png"
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
           },
           {
             "Type": "TextArea",
@@ -2342,13 +2344,14 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "PresetCard3",
             "X": 416,
             "Y": 80,
             "Width": 168,
             "Height": 144,
-            "RelativeFilename": "card_168x144.png"
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
           },
           {
             "Type": "TextArea",
@@ -2411,13 +2414,14 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "PresetCard4",
             "X": 616,
             "Y": 80,
             "Width": 168,
             "Height": 144,
-            "RelativeFilename": "card_168x144.png"
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
           },
           {
             "Type": "TextArea",
@@ -2480,13 +2484,14 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "PresetCard5",
             "X": 16,
             "Y": 240,
             "Width": 168,
             "Height": 144,
-            "RelativeFilename": "card_168x144.png"
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
           },
           {
             "Type": "TextArea",
@@ -2549,13 +2554,14 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "PresetCard6",
             "X": 216,
             "Y": 240,
             "Width": 168,
             "Height": 144,
-            "RelativeFilename": "card_168x144.png"
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
           },
           {
             "Type": "TextArea",
@@ -2618,13 +2624,14 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "PresetCard7",
             "X": 416,
             "Y": 240,
             "Width": 168,
             "Height": 144,
-            "RelativeFilename": "card_168x144.png"
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
           },
           {
             "Type": "TextArea",
@@ -2687,13 +2694,14 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "PresetCard8",
             "X": 616,
             "Y": 240,
             "Width": 168,
             "Height": 144,
-            "RelativeFilename": "card_168x144.png"
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
           },
           {
             "Type": "TextArea",
@@ -2900,6 +2908,94 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "resetPresets"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset1"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard2"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset2"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard3"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset3"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard4"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset4"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard5"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset5"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard6",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard6"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset6"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard7",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard7"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset7"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard8",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard8"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset8"
             }
           }
         ]
@@ -5964,10 +6060,10 @@
             "Name": "ProfileButton",
             "X": 16,
             "Y": 416,
-            "Width": 240,
+            "Width": 168,
             "Height": 48,
-            "Pressed": "btn_act_prs_240x48.png",
-            "Released": "btn_act_rel_240x48.png",
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
             "TextId": "TXT_ACT_PROFILE",
             "TextRotation": "0",
             "ReleasedColor": {
@@ -5983,13 +6079,35 @@
           },
           {
             "Type": "ButtonWithLabel",
-            "Name": "StartButton",
-            "X": 280,
+            "Name": "CellsButton",
+            "X": 216,
             "Y": 416,
-            "Width": 240,
+            "Width": 168,
             "Height": 48,
-            "Pressed": "btn_act_prs_240x48.png",
-            "Released": "btn_act_rel_240x48.png",
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_CELLS",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "StartButton",
+            "X": 416,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
             "TextId": "TXT_ACT_START",
             "TextRotation": "0",
             "ReleasedColor": {
@@ -6006,12 +6124,12 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "AbortButton",
-            "X": 544,
+            "X": 616,
             "Y": 416,
-            "Width": 240,
+            "Width": 168,
             "Height": 48,
-            "Pressed": "btn_act_prs_240x48.png",
-            "Released": "btn_act_rel_240x48.png",
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
             "TextId": "TXT_ACT_ABORT",
             "TextRotation": "0",
             "ReleasedColor": {
@@ -6071,6 +6189,17 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "chgAbort"
+            }
+          },
+          {
+            "InteractionName": "DoCellsButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "CellsButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "chgCells"
             }
           }
         ]
