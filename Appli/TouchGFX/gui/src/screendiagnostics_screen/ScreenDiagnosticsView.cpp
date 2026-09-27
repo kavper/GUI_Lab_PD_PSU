@@ -39,7 +39,7 @@ void ScreenDiagnosticsView::handleTickEvent()
         psu_format_current_ua(reading, sizeof(reading), face.display_current_ua);
         lab_show(DiagAmp, DiagAmpBuffer, DIAGAMP_SIZE, reading, face.mode_cc ? lab_amber() : lab_green());
         lab_show(DiagFault, DiagFaultBuffer, DIAGFAULT_SIZE,
-                 face.fault_latched ? (face.fault[0] ? face.fault : "FAULT") : "NONE",
+                 face.fault_latched ? "FAULT" : "NONE",
                  face.fault_latched ? lab_red() : lab_green());
     }
 

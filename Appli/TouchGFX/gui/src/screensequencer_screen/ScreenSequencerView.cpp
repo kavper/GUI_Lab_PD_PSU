@@ -93,7 +93,7 @@ void ScreenSequencerView::refresh()
             start = (uint8_t)(count - 6U);
     }
     row = (count == 0U) ? 0 : (int)(sel - start);
-    StepHighlight.moveTo(16, 76 + row * 48);
+    StepHighlight.moveTo(16, 80 + row * 48);
     StepHighlight.setVisible(count > 0U);
     StepHighlight.invalidate();
 
