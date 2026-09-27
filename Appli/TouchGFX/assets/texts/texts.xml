@@ -438,10 +438,10 @@
       <Text Id="TXT_P1VOLT_I" Alignment="Center" TypographyId="LabHero">
         <Translation Language="GB">5.000 V</Translation>
       </Text>
-      <Text Id="TXT_P1AMP" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P1AMP" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_P1AMP_I" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P1AMP_I" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">1.000 A</Translation>
       </Text>
       <Text Id="TXT_P2NAME" Alignment="Center" TypographyId="LabMid">
@@ -456,10 +456,10 @@
       <Text Id="TXT_P2VOLT_I" Alignment="Center" TypographyId="LabHero">
         <Translation Language="GB">12.00 V</Translation>
       </Text>
-      <Text Id="TXT_P2AMP" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P2AMP" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_P2AMP_I" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P2AMP_I" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">2.000 A</Translation>
       </Text>
       <Text Id="TXT_P3NAME" Alignment="Center" TypographyId="LabMid">
@@ -474,10 +474,10 @@
       <Text Id="TXT_P3VOLT_I" Alignment="Center" TypographyId="LabHero">
         <Translation Language="GB">20.00 V</Translation>
       </Text>
-      <Text Id="TXT_P3AMP" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P3AMP" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_P3AMP_I" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P3AMP_I" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">3.000 A</Translation>
       </Text>
       <Text Id="TXT_P4NAME" Alignment="Center" TypographyId="LabMid">
@@ -492,10 +492,10 @@
       <Text Id="TXT_P4VOLT_I" Alignment="Center" TypographyId="LabHero">
         <Translation Language="GB">0.000 V</Translation>
       </Text>
-      <Text Id="TXT_P4AMP" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P4AMP" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_P4AMP_I" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P4AMP_I" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">0.000 A</Translation>
       </Text>
       <Text Id="TXT_P5NAME" Alignment="Center" TypographyId="LabMid">
@@ -510,10 +510,10 @@
       <Text Id="TXT_P5VOLT_I" Alignment="Center" TypographyId="LabHero">
         <Translation Language="GB">--</Translation>
       </Text>
-      <Text Id="TXT_P5AMP" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P5AMP" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_P5AMP_I" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P5AMP_I" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">--</Translation>
       </Text>
       <Text Id="TXT_P6NAME" Alignment="Center" TypographyId="LabMid">
@@ -528,10 +528,10 @@
       <Text Id="TXT_P6VOLT_I" Alignment="Center" TypographyId="LabHero">
         <Translation Language="GB">--</Translation>
       </Text>
-      <Text Id="TXT_P6AMP" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P6AMP" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_P6AMP_I" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P6AMP_I" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">--</Translation>
       </Text>
       <Text Id="TXT_P7NAME" Alignment="Center" TypographyId="LabMid">
@@ -546,10 +546,10 @@
       <Text Id="TXT_P7VOLT_I" Alignment="Center" TypographyId="LabHero">
         <Translation Language="GB">--</Translation>
       </Text>
-      <Text Id="TXT_P7AMP" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P7AMP" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_P7AMP_I" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P7AMP_I" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">--</Translation>
       </Text>
       <Text Id="TXT_P8NAME" Alignment="Center" TypographyId="LabMid">
@@ -564,10 +564,10 @@
       <Text Id="TXT_P8VOLT_I" Alignment="Center" TypographyId="LabHero">
         <Translation Language="GB">--</Translation>
       </Text>
-      <Text Id="TXT_P8AMP" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P8AMP" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_P8AMP_I" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_P8AMP_I" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">--</Translation>
       </Text>
       <Text Id="TXT_STEP1NO" Alignment="Center" TypographyId="LabMid">
@@ -729,19 +729,19 @@
       <Text Id="TXT_LBL_TIME" Alignment="Center" TypographyId="LabTile">
         <Translation Language="GB">TIME</Translation>
       </Text>
-      <Text Id="TXT_EDITTIME" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_EDITTIME" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_EDITTIME_I" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_EDITTIME_I" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">2.0 s</Translation>
       </Text>
       <Text Id="TXT_LBL_SLEW" Alignment="Center" TypographyId="LabTile">
         <Translation Language="GB">SLEW</Translation>
       </Text>
-      <Text Id="TXT_EDITSLEW" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_EDITSLEW" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_EDITSLEW_I" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_EDITSLEW_I" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">STEP</Translation>
       </Text>
       <Text Id="TXT_SEQSTATUS" Alignment="Center" TypographyId="LabMid">
@@ -750,61 +750,61 @@
       <Text Id="TXT_SEQSTATUS_I" Alignment="Center" TypographyId="LabMid">
         <Translation Language="GB">IDLE</Translation>
       </Text>
-      <Text Id="TXT_MEASVOLT" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_MEASVOLT" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_MEASVOLT_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_MEASVOLT_I" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">12.00 V</Translation>
       </Text>
-      <Text Id="TXT_MEASAMP" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_MEASAMP" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_MEASAMP_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_MEASAMP_I" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">2.000 A</Translation>
       </Text>
       <Text Id="TXT_LBL_POWER" Alignment="Center" TypographyId="LabTile">
         <Translation Language="GB">POWER</Translation>
       </Text>
-      <Text Id="TXT_MEASPOWER" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_MEASPOWER" Alignment="Center" TypographyId="LabRead">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_MEASPOWER_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_MEASPOWER_I" Alignment="Center" TypographyId="LabRead">
         <Translation Language="GB">24.00 W</Translation>
       </Text>
       <Text Id="TXT_LBL_INPUT" Alignment="Center" TypographyId="LabTile">
         <Translation Language="GB">INPUT</Translation>
       </Text>
-      <Text Id="TXT_MEASVIN" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_MEASVIN" Alignment="Center" TypographyId="LabRead">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_MEASVIN_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_MEASVIN_I" Alignment="Center" TypographyId="LabRead">
         <Translation Language="GB">24.00 V</Translation>
       </Text>
       <Text Id="TXT_LBL_TEMP" Alignment="Center" TypographyId="LabTile">
         <Translation Language="GB">TEMP</Translation>
       </Text>
-      <Text Id="TXT_MEASTEMP" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_MEASTEMP" Alignment="Center" TypographyId="LabRead">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_MEASTEMP_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_MEASTEMP_I" Alignment="Center" TypographyId="LabRead">
         <Translation Language="GB">36.2 C</Translation>
       </Text>
       <Text Id="TXT_LBL_MODE" Alignment="Center" TypographyId="LabTile">
         <Translation Language="GB">MODE</Translation>
       </Text>
-      <Text Id="TXT_MEASMODE" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_MEASMODE" Alignment="Center" TypographyId="LabRead">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_MEASMODE_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_MEASMODE_I" Alignment="Center" TypographyId="LabRead">
         <Translation Language="GB">CV</Translation>
       </Text>
       <Text Id="TXT_LBL_PACK" Alignment="Center" TypographyId="LabTile">
         <Translation Language="GB">PACK</Translation>
       </Text>
-      <Text Id="TXT_BATPACK" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_BATPACK" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATPACK_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_BATPACK_I" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">--</Translation>
       </Text>
       <Text Id="TXT_LBL_CELLS" Alignment="Center" TypographyId="LabTile">
@@ -816,10 +816,10 @@
       <Text Id="TXT_BATCELLS_I" Alignment="Center" TypographyId="LabState">
         <Translation Language="GB">0</Translation>
       </Text>
-      <Text Id="TXT_BATTEMP" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_BATTEMP" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTEMP_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_BATTEMP_I" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">--</Translation>
       </Text>
       <Text Id="TXT_BATFAULT" Alignment="Center" TypographyId="LabMid">
@@ -978,16 +978,16 @@
       <Text Id="TXT_CHGCHEM_I" Alignment="Center" TypographyId="LabState">
         <Translation Language="GB">LI-ION</Translation>
       </Text>
-      <Text Id="TXT_CHGVOLT" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_CHGVOLT" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_CHGVOLT_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_CHGVOLT_I" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">4.200 V</Translation>
       </Text>
-      <Text Id="TXT_CHGAMP" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_CHGAMP" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_CHGAMP_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_CHGAMP_I" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">1.000 A</Translation>
       </Text>
       <Text Id="TXT_LBL_PROTECT" Alignment="Center" TypographyId="LabTile">
@@ -1008,19 +1008,19 @@
       <Text Id="TXT_LBL_VLIM" Alignment="Center" TypographyId="LabTile">
         <Translation Language="GB">VOLTAGE LIMIT</Translation>
       </Text>
-      <Text Id="TXT_PROTVLIM" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_PROTVLIM" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_PROTVLIM_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_PROTVLIM_I" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">27.00 V</Translation>
       </Text>
       <Text Id="TXT_LBL_ILIM" Alignment="Center" TypographyId="LabTile">
         <Translation Language="GB">CURRENT LIMIT</Translation>
       </Text>
-      <Text Id="TXT_PROTILIM" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_PROTILIM" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_PROTILIM_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_PROTILIM_I" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">5.000 A</Translation>
       </Text>
       <Text Id="TXT_LBL_IP" Alignment="Center" TypographyId="LabTile">
@@ -1090,30 +1090,32 @@
     </TextGroup>
   </Texts>
   <Typographies>
-    <Typography Id="Title" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
-    <Typography Id="Label" Font="IBMPlexSans-Regular.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
-    <Typography Id="Small" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
-    <Typography Id="Value" Font="IBMPlexMono-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ" WildcardCharacterRanges="0-9"/>
-    <Typography Id="SetValue" Font="IBMPlexMono-Regular.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ" WildcardCharacterRanges="0-9"/>
-    <Typography Id="LimitHint" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
+    <Typography Id="Title" Font="IBMPlexSans-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
+    <Typography Id="Label" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
+    <Typography Id="Small" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
+    <Typography Id="Value" Font="IBMPlexMono-Regular.ttf" Size="48" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ" WildcardCharacterRanges="0-9"/>
+    <Typography Id="SetValue" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ" WildcardCharacterRanges="0-9"/>
+    <Typography Id="LimitHint" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
     <Typography Id="HeaderLabel" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
-    <Typography Id="HeaderValue" Font="IBMPlexMono-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()%_&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
-    <Typography Id="Button" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
-    <Typography Id="Output" Font="IBMPlexSans-Regular.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=" OUTPUTNFąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
-    <Typography Id="Input" Font="IBMPlexMono-Regular.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=".ąćęłńóśźżĄĆĘŁŃÓŚŹŻ" WildcardCharacterRanges="0-9"/>
-    <Typography Id="Key" Font="IBMPlexSans-Regular.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
-    <Typography Id="KeySmall" Font="IBMPlexSans-Regular.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
-    <Typography Id="Preset" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
-    <Typography Id="SettingsTitle" Font="IBMPlexSans-Regular.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
-    <Typography Id="MenuTitle" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
-    <Typography Id="MenuHint" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
-    <Typography Id="SplashMeta" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
-    <Typography Id="SplashStatus" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
-    <Typography Id="Dynamic" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
+    <Typography Id="HeaderValue" Font="IBMPlexMono-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()%_&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
+    <Typography Id="Button" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
+    <Typography Id="Output" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=" OUTPUTNFąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
+    <Typography Id="Input" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=".ąćęłńóśźżĄĆĘŁŃÓŚŹŻ" WildcardCharacterRanges="0-9"/>
+    <Typography Id="Key" Font="IBMPlexSans-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
+    <Typography Id="KeySmall" Font="IBMPlexSans-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
+    <Typography Id="Preset" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
+    <Typography Id="SettingsTitle" Font="IBMPlexSans-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
+    <Typography Id="MenuTitle" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
+    <Typography Id="MenuHint" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
+    <Typography Id="SplashMeta" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
+    <Typography Id="SplashStatus" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
+    <Typography Id="Dynamic" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
     <Typography Id="LabHero" Font="IBMPlexMono-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
-    <Typography Id="LabBig" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. VAmWCRANGE/-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
-    <Typography Id="LabState" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
+    <Typography Id="Readout" Font="IBMPlexMono-Regular.ttf" Size="48" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". -VAWC" WildcardCharacterRanges="0-9"/>
+    <Typography Id="LabRead" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". -VAWC" WildcardCharacterRanges="0-9"/>
+    <Typography Id="LabBig" Font="IBMPlexMono-Regular.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. VAmWCRANGEs/-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
+    <Typography Id="LabState" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
     <Typography Id="LabMid" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
-    <Typography Id="LabTile" Font="IBMPlexSans-Regular.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
+    <Typography Id="LabTile" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
   </Typographies>
 </TextDatabase>
