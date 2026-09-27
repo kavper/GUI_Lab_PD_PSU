@@ -249,6 +249,94 @@ static void test_seq(void)
   expect(strcmp(seq.status, "ABORTED / CONTROLLER TIMEOUT") == 0, "timeout text");
 }
 
+static void type_text(PsuSeqEdit *ed, PsuSequencer *seq, const char *s)
+{
+  while (*s)
+  {
+    expect(psu_seq_edit_key(ed, seq, *s) == 1, "key accepted");
+    ++s;
+  }
+}
+
+static void test_seq_edit(void)
+{
+  PsuSequencer seq;
+  PsuSeqEdit ed;
+  char cell[16];
+  uint32_t kept_v;
+  uint8_t kept_out;
+  psu_seq_init(&seq);
+  psu_seq_edit_init(&ed);
+  kept_v = seq.steps[0].voltage_mv;
+  kept_out = seq.steps[0].output_action;
+  expect(psu_seq_edit_select(&ed, &seq, PSU_SEQ_FIELD_V) == 1, "select voltage");
+  type_text(&ed, &seq, "30");
+  psu_seq_edit_cell(cell, sizeof(cell), &ed, &seq.steps[0]);
+  expect(strcmp(cell, "30") == 0, "live voltage string");
+  expect(psu_seq_edit_apply(&ed, &seq) == 0, "reject 30 V");
+  expect(seq.steps[0].voltage_mv == kept_v, "voltage unchanged after reject");
+  psu_seq_edit_cell(cell, sizeof(cell), &ed, &seq.steps[0]);
+  expect(strcmp(cell, "RANGE") == 0, "cell shows range");
+  type_text(&ed, &seq, "12.5");
+  expect(psu_seq_edit_apply(&ed, &seq) == 1, "apply 12.5 V");
+  expect(seq.steps[0].voltage_mv == 12500U, "voltage stored");
+  expect(seq.steps[0].output_action == kept_out, "output stays KEEP");
+  psu_seq_edit_cell(cell, sizeof(cell), &ed, &seq.steps[0]);
+  expect(strcmp(cell, "12.50 V") == 0, "cell shows applied voltage");
+
+  expect(psu_seq_edit_next(&ed, &seq) == 1, "next is current");
+  expect(ed.field == PSU_SEQ_FIELD_I, "field current");
+  type_text(&ed, &seq, "6");
+  expect(psu_seq_edit_apply(&ed, &seq) == 0, "reject 6 A");
+  expect(seq.steps[0].current_ma == 1000U, "current unchanged");
+  type_text(&ed, &seq, "1.5");
+  expect(psu_seq_edit_apply(&ed, &seq) == 1, "apply 1.5 A");
+  expect(seq.steps[0].current_ma == 1500U, "current stored");
+
+  expect(psu_seq_edit_next(&ed, &seq) == 1, "next is time");
+  expect(ed.field == PSU_SEQ_FIELD_T, "field time");
+  type_text(&ed, &seq, "0.05");
+  expect(psu_seq_edit_apply(&ed, &seq) == 0, "reject 0.05 s");
+  expect(seq.steps[0].time_ms == 1000U, "time unchanged");
+  type_text(&ed, &seq, "0.1");
+  expect(psu_seq_edit_apply(&ed, &seq) == 1, "apply 0.1 s");
+  expect(seq.steps[0].time_ms == 100U, "time stored");
+  type_text(&ed, &seq, "3600");
+  expect(psu_seq_edit_apply(&ed, &seq) == 1, "apply 3600 s");
+  expect(seq.steps[0].time_ms == 3600000U, "max time stored");
+  type_text(&ed, &seq, "3601");
+  expect(psu_seq_edit_apply(&ed, &seq) == 0, "reject 3601 s");
+  expect(seq.steps[0].time_ms == 3600000U, "time stays at max");
+
+  expect(psu_seq_edit_next(&ed, &seq) == 1, "next is slew");
+  expect(ed.field == PSU_SEQ_FIELD_S, "field slew");
+  type_text(&ed, &seq, "0");
+  expect(psu_seq_edit_apply(&ed, &seq) == 1, "apply immediate slew");
+  expect(seq.steps[0].slew_mv_per_s == 0U, "slew zero");
+  type_text(&ed, &seq, "0.001");
+  expect(psu_seq_edit_apply(&ed, &seq) == 1, "apply 0.001 V/s");
+  expect(seq.steps[0].slew_mv_per_s == 1U, "slew 1 mV/s");
+  type_text(&ed, &seq, "100");
+  expect(psu_seq_edit_apply(&ed, &seq) == 1, "apply 100 V/s");
+  expect(seq.steps[0].slew_mv_per_s == 100000U, "slew 100 V/s");
+  type_text(&ed, &seq, "101");
+  expect(psu_seq_edit_apply(&ed, &seq) == 0, "reject 101 V/s");
+  expect(seq.steps[0].slew_mv_per_s == 100000U, "slew unchanged");
+  type_text(&ed, &seq, "0.0001");
+  expect(psu_seq_edit_apply(&ed, &seq) == 0, "reject extra slew digits");
+  expect(seq.steps[0].slew_mv_per_s == 100000U, "slew still unchanged");
+
+  expect(psu_seq_edit_next(&ed, &seq) == 1, "wrap to voltage");
+  expect(ed.field == PSU_SEQ_FIELD_V, "wrapped field");
+  psu_seq_start(&seq, 0);
+  expect(psu_seq_edit_locked(&seq) == 1, "locked while running");
+  expect(psu_seq_edit_key(&ed, &seq, '1') == 0, "keys blocked");
+  expect(psu_seq_edit_apply(&ed, &seq) == 0, "apply blocked");
+  expect(seq.steps[0].voltage_mv == 12500U, "running did not change voltage");
+  psu_seq_stop(&seq, 10, 0);
+  expect(psu_seq_edit_locked(&seq) == 0, "unlocked after stop");
+}
+
 static int chg_off;
 static void chg_out(int on, void *user)
 {
@@ -446,6 +534,7 @@ int main(void)
   test_format_edit();
   test_g4();
   test_seq();
+  test_seq_edit();
   test_charger();
   test_store_and_app();
   if (failures)

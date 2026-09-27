@@ -1111,7 +1111,7 @@
     <Typography Id="SplashStatus" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
     <Typography Id="Dynamic" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
     <Typography Id="LabHero" Font="IBMPlexMono-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
-    <Typography Id="LabBig" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. VAmWC/-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
+    <Typography Id="LabBig" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. VAmWCRANGE/-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
     <Typography Id="LabState" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
     <Typography Id="LabMid" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
     <Typography Id="LabTile" Font="IBMPlexSans-Regular.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>

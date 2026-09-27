@@ -1,5 +1,6 @@
 #include "psu_seq.h"
 #include "psu_limits.h"
+#include "psu_format.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -239,4 +240,234 @@ void psu_seq_tick(PsuSequencer *seq, uint32_t now_ms)
     seq->command_ms = 0U;
     (void)snprintf(seq->status, sizeof(seq->status), "STEP %u", (unsigned)(nidx + 1U));
   }
+}
+
+int psu_seq_edit_locked(const PsuSequencer *seq)
+{
+  if (seq == 0)
+    return 1;
+  return seq->config_locked != 0U || seq->run == PSU_SEQ_RUN || seq->run == PSU_SEQ_PAUSE;
+}
+
+void psu_seq_edit_init(PsuSeqEdit *ed)
+{
+  if (ed == 0)
+    return;
+  memset(ed, 0, sizeof(*ed));
+}
+
+static const PsuSeqStep *selected_step(const PsuSequencer *seq)
+{
+  if (seq == 0 || seq->count == 0U)
+    return 0;
+  if (seq->selected >= seq->count)
+    return &seq->steps[seq->count - 1U];
+  return &seq->steps[seq->selected];
+}
+
+static uint32_t field_milli(const PsuSeqStep *step, uint8_t field)
+{
+  if (step == 0)
+    return 0U;
+  if (field == PSU_SEQ_FIELD_V)
+    return step->voltage_mv;
+  if (field == PSU_SEQ_FIELD_I)
+    return step->current_ma;
+  if (field == PSU_SEQ_FIELD_T)
+    return step->time_ms;
+  if (field == PSU_SEQ_FIELD_S)
+    return step->slew_mv_per_s;
+  return 0U;
+}
+
+static int fraction_ok(const PsuEditor *ed)
+{
+  const char *dot;
+  if (ed == 0 || ed->length == 0U)
+    return 0;
+  dot = strchr(ed->text, '.');
+  if (dot == 0)
+    return 1;
+  return strlen(dot + 1) <= 3U;
+}
+
+static int field_in_range(uint8_t field, uint32_t milli)
+{
+  if (field == PSU_SEQ_FIELD_V)
+    return milli <= PSU_VOLTAGE_MAX_MV;
+  if (field == PSU_SEQ_FIELD_I)
+    return milli <= PSU_CURRENT_MAX_MA;
+  if (field == PSU_SEQ_FIELD_T)
+    return milli >= 100U && milli <= 3600000U;
+  if (field == PSU_SEQ_FIELD_S)
+    return milli == 0U || (milli >= 1U && milli <= 100000U);
+  return 0;
+}
+
+static void format_time(char *dst, size_t n, uint32_t ms)
+{
+  if (ms >= 1000U && (ms % 1000U) == 0U)
+    (void)snprintf(dst, n, "%u s", (unsigned)(ms / 1000U));
+  else if (ms >= 1000U)
+    (void)snprintf(dst, n, "%u.%u s", (unsigned)(ms / 1000U), (unsigned)((ms % 1000U) / 100U));
+  else
+    (void)snprintf(dst, n, "%u ms", (unsigned)ms);
+}
+
+static void format_slew(char *dst, size_t n, uint32_t mv_per_s)
+{
+  if (mv_per_s == 0U)
+    (void)snprintf(dst, n, "0 V/s");
+  else
+    (void)snprintf(dst, n, "%u.%03u V/s", (unsigned)(mv_per_s / 1000U), (unsigned)(mv_per_s % 1000U));
+}
+
+void psu_seq_format_field(char *dst, size_t n, uint8_t field, const PsuSeqStep *step)
+{
+  if (dst == 0 || n == 0U)
+    return;
+  dst[0] = '\0';
+  if (step == 0)
+  {
+    (void)snprintf(dst, n, "--");
+    return;
+  }
+  if (field == PSU_SEQ_FIELD_V)
+    psu_format_voltage(dst, n, step->voltage_mv);
+  else if (field == PSU_SEQ_FIELD_I)
+    psu_format_current_ma(dst, n, step->current_ma);
+  else if (field == PSU_SEQ_FIELD_T)
+    format_time(dst, n, step->time_ms);
+  else if (field == PSU_SEQ_FIELD_S)
+    format_slew(dst, n, step->slew_mv_per_s);
+}
+
+void psu_seq_edit_cell(char *dst, size_t n, const PsuSeqEdit *ed, const PsuSeqStep *step)
+{
+  if (dst == 0 || n == 0U)
+    return;
+  if (ed != 0 && ed->fault)
+  {
+    (void)snprintf(dst, n, "RANGE");
+    return;
+  }
+  if (ed != 0 && ed->field != PSU_SEQ_FIELD_NONE && ed->editor.replace_on_next == 0U)
+  {
+    (void)snprintf(dst, n, "%s", ed->editor.text);
+    return;
+  }
+  psu_seq_format_field(dst, n, ed ? ed->field : PSU_SEQ_FIELD_NONE, step);
+}
+
+int psu_seq_edit_select(PsuSeqEdit *ed, const PsuSequencer *seq, uint8_t field)
+{
+  const PsuSeqStep *step;
+  if (ed == 0 || field < PSU_SEQ_FIELD_V || field > PSU_SEQ_FIELD_S)
+    return 0;
+  step = selected_step(seq);
+  if (step == 0)
+    return 0;
+  ed->field = field;
+  ed->fault = 0U;
+  psu_editor_load_milli(&ed->editor, field_milli(step, field), 3);
+  return 1;
+}
+
+int psu_seq_edit_prev(PsuSeqEdit *ed, const PsuSequencer *seq)
+{
+  uint8_t field;
+  if (ed == 0)
+    return 0;
+  field = ed->field;
+  if (field < PSU_SEQ_FIELD_V || field > PSU_SEQ_FIELD_S)
+    field = PSU_SEQ_FIELD_V;
+  field = (field == PSU_SEQ_FIELD_V) ? PSU_SEQ_FIELD_S : (uint8_t)(field - 1U);
+  return psu_seq_edit_select(ed, seq, field);
+}
+
+int psu_seq_edit_next(PsuSeqEdit *ed, const PsuSequencer *seq)
+{
+  uint8_t field;
+  if (ed == 0)
+    return 0;
+  field = ed->field;
+  if (field < PSU_SEQ_FIELD_V || field > PSU_SEQ_FIELD_S)
+    field = PSU_SEQ_FIELD_S;
+  field = (field == PSU_SEQ_FIELD_S) ? PSU_SEQ_FIELD_V : (uint8_t)(field + 1U);
+  return psu_seq_edit_select(ed, seq, field);
+}
+
+static int edit_ready(PsuSeqEdit *ed, const PsuSequencer *seq)
+{
+  if (ed == 0 || ed->field == PSU_SEQ_FIELD_NONE)
+    return 0;
+  if (psu_seq_edit_locked(seq))
+    return 0;
+  return 1;
+}
+
+int psu_seq_edit_key(PsuSeqEdit *ed, const PsuSequencer *seq, char key)
+{
+  if (!edit_ready(ed, seq))
+    return 0;
+  if (ed->fault)
+  {
+    ed->fault = 0U;
+    ed->editor.replace_on_next = 1U;
+  }
+  psu_editor_key(&ed->editor, key);
+  return 1;
+}
+
+int psu_seq_edit_clear(PsuSeqEdit *ed, const PsuSequencer *seq)
+{
+  if (!edit_ready(ed, seq))
+    return 0;
+  ed->fault = 0U;
+  psu_editor_clear(&ed->editor);
+  return 1;
+}
+
+int psu_seq_edit_backspace(PsuSeqEdit *ed, const PsuSequencer *seq)
+{
+  if (!edit_ready(ed, seq))
+    return 0;
+  ed->fault = 0U;
+  psu_editor_backspace(&ed->editor);
+  return 1;
+}
+
+int psu_seq_edit_apply(PsuSeqEdit *ed, PsuSequencer *seq)
+{
+  uint32_t milli = 0U;
+  PsuSeqStep step;
+  uint8_t index;
+  if (ed == 0 || seq == 0 || ed->field == PSU_SEQ_FIELD_NONE || seq->count == 0U)
+    return 0;
+  if (psu_seq_edit_locked(seq))
+    return 0;
+  index = seq->selected < seq->count ? seq->selected : (uint8_t)(seq->count - 1U);
+  if (!fraction_ok(&ed->editor) || !psu_editor_parse_milli(&ed->editor, &milli) ||
+      !field_in_range(ed->field, milli))
+  {
+    ed->fault = 1U;
+    return 0;
+  }
+  step = seq->steps[index];
+  if (ed->field == PSU_SEQ_FIELD_V)
+    step.voltage_mv = milli;
+  else if (ed->field == PSU_SEQ_FIELD_I)
+    step.current_ma = milli;
+  else if (ed->field == PSU_SEQ_FIELD_T)
+    step.time_ms = milli;
+  else
+    step.slew_mv_per_s = milli;
+  if (!psu_seq_set_step(seq, index, &step))
+  {
+    ed->fault = 1U;
+    return 0;
+  }
+  ed->fault = 0U;
+  psu_editor_load_milli(&ed->editor, milli, 3);
+  return 1;
 }

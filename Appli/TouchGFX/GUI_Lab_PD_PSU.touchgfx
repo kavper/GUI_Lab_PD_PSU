@@ -3059,58 +3059,64 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "StepRow1",
             "X": 16,
             "Y": 80,
             "Width": 384,
             "Height": 40,
-            "RelativeFilename": "step_row_384x40.png"
+            "Pressed": "step_sel_384x40.png",
+            "Released": "step_row_384x40.png"
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "StepRow2",
             "X": 16,
             "Y": 128,
             "Width": 384,
             "Height": 40,
-            "RelativeFilename": "step_row_384x40.png"
+            "Pressed": "step_sel_384x40.png",
+            "Released": "step_row_384x40.png"
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "StepRow3",
             "X": 16,
             "Y": 176,
             "Width": 384,
             "Height": 40,
-            "RelativeFilename": "step_row_384x40.png"
+            "Pressed": "step_sel_384x40.png",
+            "Released": "step_row_384x40.png"
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "StepRow4",
             "X": 16,
             "Y": 224,
             "Width": 384,
             "Height": 40,
-            "RelativeFilename": "step_row_384x40.png"
+            "Pressed": "step_sel_384x40.png",
+            "Released": "step_row_384x40.png"
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "StepRow5",
             "X": 16,
             "Y": 272,
             "Width": 384,
             "Height": 40,
-            "RelativeFilename": "step_row_384x40.png"
+            "Pressed": "step_sel_384x40.png",
+            "Released": "step_row_384x40.png"
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "StepRow6",
             "X": 16,
             "Y": 320,
             "Width": 384,
             "Height": 40,
-            "RelativeFilename": "step_row_384x40.png"
+            "Pressed": "step_sel_384x40.png",
+            "Released": "step_row_384x40.png"
           },
           {
             "Type": "Image",
@@ -3602,19 +3608,20 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "EditCardV",
             "X": 416,
             "Y": 80,
             "Width": 176,
-            "Height": 136,
-            "RelativeFilename": "card_edit_176x136.png"
+            "Height": 72,
+            "Pressed": "card_field_sel_176x72.png",
+            "Released": "card_field_176x72.png"
           },
           {
             "Type": "TextArea",
             "Name": "LblEditV",
             "X": 424,
-            "Y": 96,
+            "Y": 88,
             "Width": 160,
             "Height": 24,
             "TextId": "TXT_LBL_VOLTAGE",
@@ -3629,7 +3636,7 @@
             "Type": "TextArea",
             "Name": "EditVolt",
             "X": 424,
-            "Y": 152,
+            "Y": 120,
             "Width": 160,
             "Height": 24,
             "TextId": "TXT_EDITVOLT",
@@ -3646,19 +3653,20 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "EditCardI",
             "X": 608,
             "Y": 80,
             "Width": 176,
-            "Height": 136,
-            "RelativeFilename": "card_edit_176x136.png"
+            "Height": 72,
+            "Pressed": "card_field_sel_176x72.png",
+            "Released": "card_field_176x72.png"
           },
           {
             "Type": "TextArea",
             "Name": "LblEditI",
             "X": 616,
-            "Y": 96,
+            "Y": 88,
             "Width": 160,
             "Height": 24,
             "TextId": "TXT_LBL_CURRENT",
@@ -3673,7 +3681,7 @@
             "Type": "TextArea",
             "Name": "EditAmp",
             "X": 616,
-            "Y": 152,
+            "Y": 120,
             "Width": 160,
             "Height": 24,
             "TextId": "TXT_EDITAMP",
@@ -3690,19 +3698,20 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "EditCardT",
             "X": 416,
-            "Y": 232,
+            "Y": 160,
             "Width": 176,
-            "Height": 136,
-            "RelativeFilename": "card_edit_176x136.png"
+            "Height": 72,
+            "Pressed": "card_field_sel_176x72.png",
+            "Released": "card_field_176x72.png"
           },
           {
             "Type": "TextArea",
             "Name": "LblEditT",
             "X": 424,
-            "Y": 248,
+            "Y": 168,
             "Width": 160,
             "Height": 24,
             "TextId": "TXT_LBL_TIME",
@@ -3717,7 +3726,7 @@
             "Type": "TextArea",
             "Name": "EditTime",
             "X": 424,
-            "Y": 304,
+            "Y": 200,
             "Width": 160,
             "Height": 24,
             "TextId": "TXT_EDITTIME",
@@ -3734,19 +3743,20 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Button",
             "Name": "EditCardS",
             "X": 608,
-            "Y": 232,
+            "Y": 160,
             "Width": 176,
-            "Height": 136,
-            "RelativeFilename": "card_edit_176x136.png"
+            "Height": 72,
+            "Pressed": "card_field_sel_176x72.png",
+            "Released": "card_field_176x72.png"
           },
           {
             "Type": "TextArea",
             "Name": "LblEditS",
             "X": 616,
-            "Y": 248,
+            "Y": 168,
             "Width": 160,
             "Height": 24,
             "TextId": "TXT_LBL_SLEW",
@@ -3761,7 +3771,7 @@
             "Type": "TextArea",
             "Name": "EditSlew",
             "X": 616,
-            "Y": 304,
+            "Y": 200,
             "Width": 160,
             "Height": 24,
             "TextId": "TXT_EDITSLEW",
@@ -3781,8 +3791,8 @@
             "Type": "TextArea",
             "Name": "SeqStatus",
             "X": 16,
-            "Y": 376,
-            "Width": 768,
+            "Y": 368,
+            "Width": 384,
             "Height": 32,
             "TextId": "TXT_SEQSTATUS",
             "TextRotation": "0",
@@ -3795,6 +3805,314 @@
               "TextId": "TXT_SEQSTATUS_I",
               "UseBuffer": true,
               "BufferSize": 56
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKey1",
+            "X": 424,
+            "Y": 240,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_1",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKey2",
+            "X": 496,
+            "Y": 240,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_2",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKey3",
+            "X": 568,
+            "Y": 240,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_3",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKey4",
+            "X": 640,
+            "Y": 240,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_4",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKey5",
+            "X": 712,
+            "Y": 240,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_5",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKey6",
+            "X": 424,
+            "Y": 296,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_6",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKey7",
+            "X": 496,
+            "Y": 296,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_7",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKey8",
+            "X": 568,
+            "Y": 296,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_8",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKey9",
+            "X": 640,
+            "Y": 296,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_9",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKey0",
+            "X": 712,
+            "Y": 296,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_0",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKeyClr",
+            "X": 424,
+            "Y": 352,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_CLEAR",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKeyDel",
+            "X": 496,
+            "Y": 352,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKeyDot",
+            "X": 568,
+            "Y": 352,
+            "Width": 64,
+            "Height": 48,
+            "Pressed": "btn_seqkey_prs_64x48.png",
+            "Released": "btn_seqkey_rel_64x48.png",
+            "TextId": "TXT_DOT",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SeqKeyApply",
+            "X": 640,
+            "Y": 352,
+            "Width": 136,
+            "Height": 48,
+            "Pressed": "btn_seqapply_prs_136x48.png",
+            "Released": "btn_seqapply_rel_136x48.png",
+            "TextId": "TXT_ENTER",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
             }
           },
           {
@@ -4041,6 +4359,270 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "seqNext"
+            }
+          },
+          {
+            "InteractionName": "DoFieldVolt",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardV"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqFieldVolt"
+            }
+          },
+          {
+            "InteractionName": "DoFieldAmp",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardI"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqFieldAmp"
+            }
+          },
+          {
+            "InteractionName": "DoFieldTime",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardT"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqFieldTime"
+            }
+          },
+          {
+            "InteractionName": "DoFieldSlew",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardS"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqFieldSlew"
+            }
+          },
+          {
+            "InteractionName": "DoPick1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StepRow1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPick1"
+            }
+          },
+          {
+            "InteractionName": "DoPick2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StepRow2"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPick2"
+            }
+          },
+          {
+            "InteractionName": "DoPick3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StepRow3"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPick3"
+            }
+          },
+          {
+            "InteractionName": "DoPick4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StepRow4"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPick4"
+            }
+          },
+          {
+            "InteractionName": "DoPick5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StepRow5"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPick5"
+            }
+          },
+          {
+            "InteractionName": "DoPick6",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StepRow6"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPick6"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey1"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey2"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey2"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey3"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey3"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey4"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey4"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey5"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey5"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey6",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey6"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey6"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey7",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey7"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey7"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey8",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey8"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey8"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey9",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey9"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey9"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey0",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey0"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey0"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKeyDot",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKeyDot"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKeyDot"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKeyClr",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKeyClr"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKeyClr"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKeyDel",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKeyDel"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKeyDel"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKeyApply",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKeyApply"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKeyApply"
             }
           }
         ]

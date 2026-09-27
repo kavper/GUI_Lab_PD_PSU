@@ -1,13 +1,17 @@
 #include <gui/screensequencer_screen/ScreenSequencerView.hpp>
 #include <gui/common/LabText.hpp>
+#include <images/BitmapDatabase.hpp>
+#include <touchgfx/Bitmap.hpp>
 extern "C" {
 #include "psu_app.h"
 #include "psu_format.h"
 }
 
 ScreenSequencerView::ScreenSequencerView()
-    : divider(0)
+    : divider(0),
+      visible_start(0)
 {
+    psu_seq_edit_init(&edit);
 }
 
 void ScreenSequencerView::setupScreen()
@@ -63,18 +67,45 @@ void show_step(Area& no, touchgfx::Unicode::UnicodeChar* no_b, uint16_t no_n,
     lab_show(amp, amp_b, amp_n, a, value);
     lab_show(time, time_b, time_n, t, step->enabled && selected ? lab_cyan() : dim);
 }
+
+template <typename Card, typename Area>
+void show_field(const PsuSeqEdit* ed, Card& card, Area& value,
+                touchgfx::Unicode::UnicodeChar* buf, uint16_t n,
+                uint8_t field, const PsuSeqStep* step)
+{
+    char text[16];
+    const int on = ed != 0 && ed->field == field;
+    card.setBitmaps(
+        touchgfx::Bitmap(on ? BITMAP_CARD_FIELD_SEL_176X72_ID : BITMAP_CARD_FIELD_176X72_ID),
+        touchgfx::Bitmap(BITMAP_CARD_FIELD_SEL_176X72_ID));
+    card.invalidate();
+    if (step == 0)
+    {
+        lab_show(value, buf, n, "--", lab_muted());
+        return;
+    }
+    if (on)
+    {
+        psu_seq_edit_cell(text, sizeof(text), ed, step);
+        lab_show(value, buf, n, text, ed->fault ? lab_red() : lab_cyan());
+    }
+    else
+    {
+        psu_seq_format_field(text, sizeof(text), field, step);
+        lab_show(value, buf, n, text, lab_text());
+    }
+}
 }
 
 void ScreenSequencerView::refresh()
 {
-    char buf[24];
     char status[56];
     PsuSequencer* seq;
+    const PsuSeqStep* edit_step;
     uint8_t count;
     uint8_t sel;
     uint8_t start;
     int row;
-    const PsuSeqStep* edit;
 
     psu_app_ensure();
     seq = psu_sequencer();
@@ -92,6 +123,7 @@ void ScreenSequencerView::refresh()
         if ((uint8_t)(start + 6U) > count)
             start = (uint8_t)(count - 6U);
     }
+    visible_start = start;
     row = (count == 0U) ? 0 : (int)(sel - start);
     StepHighlight.moveTo(16, 80 + row * 48);
     StepHighlight.setVisible(count > 0U);
@@ -116,26 +148,34 @@ void ScreenSequencerView::refresh()
               Step6Amp, Step6AmpBuffer, STEP6AMP_SIZE, Step6Time, Step6TimeBuffer, STEP6TIME_SIZE,
               (uint8_t)(start + 6U), (count > start + 5U) ? &seq->steps[start + 5U] : 0, row == 5);
 
-    edit = (count > 0U) ? &seq->steps[sel] : 0;
-    if (edit == 0)
+    edit_step = (count > 0U) ? &seq->steps[sel] : 0;
+    show_field(&edit, EditCardV, EditVolt, EditVoltBuffer, EDITVOLT_SIZE, PSU_SEQ_FIELD_V, edit_step);
+    show_field(&edit, EditCardI, EditAmp, EditAmpBuffer, EDITAMP_SIZE, PSU_SEQ_FIELD_I, edit_step);
+    show_field(&edit, EditCardT, EditTime, EditTimeBuffer, EDITTIME_SIZE, PSU_SEQ_FIELD_T, edit_step);
+    show_field(&edit, EditCardS, EditSlew, EditSlewBuffer, EDITSLEW_SIZE, PSU_SEQ_FIELD_S, edit_step);
+    LblEditV.setColor(edit.field == PSU_SEQ_FIELD_V ? lab_cyan() : lab_muted());
+    LblEditI.setColor(edit.field == PSU_SEQ_FIELD_I ? lab_cyan() : lab_muted());
+    LblEditT.setColor(edit.field == PSU_SEQ_FIELD_T ? lab_cyan() : lab_muted());
+    LblEditS.setColor(edit.field == PSU_SEQ_FIELD_S ? lab_cyan() : lab_muted());
+    LblEditV.invalidate();
+    LblEditI.invalidate();
+    LblEditT.invalidate();
+    LblEditS.invalidate();
     {
-        lab_show(EditVolt, EditVoltBuffer, EDITVOLT_SIZE, "--", lab_muted());
-        lab_show(EditAmp, EditAmpBuffer, EDITAMP_SIZE, "--", lab_muted());
-        lab_show(EditTime, EditTimeBuffer, EDITTIME_SIZE, "--", lab_muted());
-        lab_show(EditSlew, EditSlewBuffer, EDITSLEW_SIZE, "--", lab_muted());
-    }
-    else
-    {
-        psu_format_voltage(buf, sizeof(buf), edit->voltage_mv);
-        lab_show(EditVolt, EditVoltBuffer, EDITVOLT_SIZE, buf, lab_cyan());
-        psu_format_current_ma(buf, sizeof(buf), edit->current_ma);
-        lab_show(EditAmp, EditAmpBuffer, EDITAMP_SIZE, buf, lab_cyan());
-        lab_ms(buf, sizeof(buf), edit->time_ms);
-        lab_show(EditTime, EditTimeBuffer, EDITTIME_SIZE, buf, lab_text());
-        lab_slew(buf, sizeof(buf), edit->slew_mv_per_s);
-        lab_show(EditSlew, EditSlewBuffer, EDITSLEW_SIZE, buf, lab_text());
+        const int locked = psu_seq_edit_locked(seq);
+        setKeys(edit.field != PSU_SEQ_FIELD_NONE, locked == 0);
     }
 
+    if (psu_seq_edit_locked(seq))
+    {
+        lab_show(SeqStatus, SeqStatusBuffer, SEQSTATUS_SIZE, "LOCKED", lab_amber());
+        return;
+    }
+    if (edit.fault)
+    {
+        lab_show(SeqStatus, SeqStatusBuffer, SEQSTATUS_SIZE, "RANGE", lab_red());
+        return;
+    }
     if (seq->status[0] != '\0')
         (void)snprintf(status, sizeof(status), "%s", seq->status);
     else if (seq->run == PSU_SEQ_RUN)
@@ -150,6 +190,48 @@ void ScreenSequencerView::refresh()
         (void)snprintf(status, sizeof(status), "IDLE");
     lab_show(SeqStatus, SeqStatusBuffer, SEQSTATUS_SIZE, status,
              (seq->run == PSU_SEQ_ABORTED) ? lab_red() : lab_cyan());
+}
+
+void ScreenSequencerView::setKeys(bool on, bool enabled)
+{
+    const uint8_t alpha = enabled ? 255 : 96;
+    SeqKey1.setVisible(on); SeqKey1.setTouchable(on && enabled); SeqKey1.setAlpha(alpha); SeqKey1.invalidate();
+    SeqKey2.setVisible(on); SeqKey2.setTouchable(on && enabled); SeqKey2.setAlpha(alpha); SeqKey2.invalidate();
+    SeqKey3.setVisible(on); SeqKey3.setTouchable(on && enabled); SeqKey3.setAlpha(alpha); SeqKey3.invalidate();
+    SeqKey4.setVisible(on); SeqKey4.setTouchable(on && enabled); SeqKey4.setAlpha(alpha); SeqKey4.invalidate();
+    SeqKey5.setVisible(on); SeqKey5.setTouchable(on && enabled); SeqKey5.setAlpha(alpha); SeqKey5.invalidate();
+    SeqKey6.setVisible(on); SeqKey6.setTouchable(on && enabled); SeqKey6.setAlpha(alpha); SeqKey6.invalidate();
+    SeqKey7.setVisible(on); SeqKey7.setTouchable(on && enabled); SeqKey7.setAlpha(alpha); SeqKey7.invalidate();
+    SeqKey8.setVisible(on); SeqKey8.setTouchable(on && enabled); SeqKey8.setAlpha(alpha); SeqKey8.invalidate();
+    SeqKey9.setVisible(on); SeqKey9.setTouchable(on && enabled); SeqKey9.setAlpha(alpha); SeqKey9.invalidate();
+    SeqKey0.setVisible(on); SeqKey0.setTouchable(on && enabled); SeqKey0.setAlpha(alpha); SeqKey0.invalidate();
+    SeqKeyClr.setVisible(on); SeqKeyClr.setTouchable(on && enabled); SeqKeyClr.setAlpha(alpha); SeqKeyClr.invalidate();
+    SeqKeyDel.setVisible(on); SeqKeyDel.setTouchable(on && enabled); SeqKeyDel.setAlpha(alpha); SeqKeyDel.invalidate();
+    SeqKeyDot.setVisible(on); SeqKeyDot.setTouchable(on && enabled); SeqKeyDot.setAlpha(alpha); SeqKeyDot.invalidate();
+    SeqKeyApply.setVisible(on); SeqKeyApply.setTouchable(on && enabled); SeqKeyApply.setAlpha(alpha); SeqKeyApply.invalidate();
+}
+
+void ScreenSequencerView::syncEdit()
+{
+    if (edit.field != PSU_SEQ_FIELD_NONE)
+        psu_seq_edit_select(&edit, psu_sequencer(), edit.field);
+}
+
+void ScreenSequencerView::chooseField(uint8_t field)
+{
+    psu_seq_edit_select(&edit, psu_sequencer(), field);
+    refresh();
+}
+
+void ScreenSequencerView::pickRow(uint8_t row)
+{
+    PsuSequencer* seq = psu_sequencer();
+    uint8_t index = (uint8_t)(visible_start + row);
+    if (seq->count == 0U || index >= seq->count)
+        return;
+    seq->selected = index;
+    syncEdit();
+    refresh();
 }
 
 void ScreenSequencerView::seqRun()
@@ -170,22 +252,46 @@ void ScreenSequencerView::seqStop()
 void ScreenSequencerView::seqAdd()
 {
     psu_seq_add(psu_sequencer());
+    syncEdit();
     refresh();
 }
 void ScreenSequencerView::seqRemove()
 {
     psu_seq_remove_selected(psu_sequencer());
+    syncEdit();
     refresh();
 }
 void ScreenSequencerView::seqPrev()
 {
-    if (psu_sequencer()->selected > 0)
-        psu_sequencer()->selected--;
+    psu_seq_edit_prev(&edit, psu_sequencer());
     refresh();
 }
 void ScreenSequencerView::seqNext()
 {
-    if (psu_sequencer()->selected + 1 < psu_sequencer()->count)
-        psu_sequencer()->selected++;
+    psu_seq_edit_next(&edit, psu_sequencer());
     refresh();
 }
+void ScreenSequencerView::seqFieldVolt() { chooseField(PSU_SEQ_FIELD_V); }
+void ScreenSequencerView::seqFieldAmp() { chooseField(PSU_SEQ_FIELD_I); }
+void ScreenSequencerView::seqFieldTime() { chooseField(PSU_SEQ_FIELD_T); }
+void ScreenSequencerView::seqFieldSlew() { chooseField(PSU_SEQ_FIELD_S); }
+void ScreenSequencerView::seqPick1() { pickRow(0); }
+void ScreenSequencerView::seqPick2() { pickRow(1); }
+void ScreenSequencerView::seqPick3() { pickRow(2); }
+void ScreenSequencerView::seqPick4() { pickRow(3); }
+void ScreenSequencerView::seqPick5() { pickRow(4); }
+void ScreenSequencerView::seqPick6() { pickRow(5); }
+void ScreenSequencerView::seqKey0() { psu_seq_edit_key(&edit, psu_sequencer(), '0'); refresh(); }
+void ScreenSequencerView::seqKey1() { psu_seq_edit_key(&edit, psu_sequencer(), '1'); refresh(); }
+void ScreenSequencerView::seqKey2() { psu_seq_edit_key(&edit, psu_sequencer(), '2'); refresh(); }
+void ScreenSequencerView::seqKey3() { psu_seq_edit_key(&edit, psu_sequencer(), '3'); refresh(); }
+void ScreenSequencerView::seqKey4() { psu_seq_edit_key(&edit, psu_sequencer(), '4'); refresh(); }
+void ScreenSequencerView::seqKey5() { psu_seq_edit_key(&edit, psu_sequencer(), '5'); refresh(); }
+void ScreenSequencerView::seqKey6() { psu_seq_edit_key(&edit, psu_sequencer(), '6'); refresh(); }
+void ScreenSequencerView::seqKey7() { psu_seq_edit_key(&edit, psu_sequencer(), '7'); refresh(); }
+void ScreenSequencerView::seqKey8() { psu_seq_edit_key(&edit, psu_sequencer(), '8'); refresh(); }
+void ScreenSequencerView::seqKey9() { psu_seq_edit_key(&edit, psu_sequencer(), '9'); refresh(); }
+void ScreenSequencerView::seqKeyDot() { psu_seq_edit_key(&edit, psu_sequencer(), '.'); refresh(); }
+void ScreenSequencerView::seqKeyClr() { psu_seq_edit_clear(&edit, psu_sequencer()); refresh(); }
+void ScreenSequencerView::seqKeyDel() { psu_seq_edit_backspace(&edit, psu_sequencer()); refresh(); }
+void ScreenSequencerView::seqKeyApply() { psu_seq_edit_apply(&edit, psu_sequencer()); refresh(); }

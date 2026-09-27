@@ -1,6 +1,7 @@
 #ifndef PSU_SEQ_H
 #define PSU_SEQ_H
 
+#include "psu_edit.h"
 #include <stdint.h>
 
 #ifdef __cplusplus
@@ -89,6 +90,33 @@ void psu_seq_pause(PsuSequencer *seq, uint32_t now_ms);
 void psu_seq_resume(PsuSequencer *seq, uint32_t now_ms);
 void psu_seq_stop(PsuSequencer *seq, uint32_t now_ms, int abort_timeout);
 void psu_seq_tick(PsuSequencer *seq, uint32_t now_ms);
+
+/* Field editor for the 2×2 cells. Uses psu_editor (same digit parser as the keypad). */
+#define PSU_SEQ_FIELD_NONE 0u
+#define PSU_SEQ_FIELD_V 1u
+#define PSU_SEQ_FIELD_I 2u
+#define PSU_SEQ_FIELD_T 3u
+#define PSU_SEQ_FIELD_S 4u
+
+typedef struct
+{
+  PsuEditor editor;
+  uint8_t field;
+  uint8_t fault; /* last APPLY was out of range; stored step was not changed */
+} PsuSeqEdit;
+
+int psu_seq_edit_locked(const PsuSequencer *seq);
+void psu_seq_edit_init(PsuSeqEdit *ed);
+int psu_seq_edit_select(PsuSeqEdit *ed, const PsuSequencer *seq, uint8_t field);
+int psu_seq_edit_prev(PsuSeqEdit *ed, const PsuSequencer *seq);
+int psu_seq_edit_next(PsuSeqEdit *ed, const PsuSequencer *seq);
+int psu_seq_edit_key(PsuSeqEdit *ed, const PsuSequencer *seq, char key);
+int psu_seq_edit_clear(PsuSeqEdit *ed, const PsuSequencer *seq);
+int psu_seq_edit_backspace(PsuSeqEdit *ed, const PsuSequencer *seq);
+/* 1 = stored. 0 = rejected or locked; the step is unchanged. */
+int psu_seq_edit_apply(PsuSeqEdit *ed, PsuSequencer *seq);
+void psu_seq_format_field(char *dst, size_t n, uint8_t field, const PsuSeqStep *step);
+void psu_seq_edit_cell(char *dst, size_t n, const PsuSeqEdit *ed, const PsuSeqStep *step);
 
 #ifdef __cplusplus
 }
