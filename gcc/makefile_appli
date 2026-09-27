@@ -286,7 +286,9 @@ board_c_files += \
 	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_tim_ex.c \
 	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_uart.c \
 	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_uart_ex.c \
-	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_xspi.c 
+	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_xspi.c \
+	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_eth.c \
+	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_eth_ex.c 
 
 board_c_files += \
     Appli/Core/Src/main.c \
@@ -301,6 +303,7 @@ board_c_files += \
     Appli/Core/Src/psu_charger.c \
     Appli/Core/Src/psu_app.c \
     Appli/Core/Src/psu_render.c \
+    Appli/Core/Src/ethernetif.c \
     Appli/Core/Src/freertos.c \
 	Appli/Core/Src/stm32h7rsxx_it.c \
 	Appli/Core/Src/stm32h7rsxx_hal_msp.c \
