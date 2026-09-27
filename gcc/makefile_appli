@@ -327,6 +327,7 @@ asm_source_files := \
 include_paths += platform/os $(board_include_paths) $(os_include_paths)
 
 video_object_files := $(call find, $(asset_videos_output),*.o)
+include $(application_path)/gcc/core_sources.mk
 c_source_files := $(makefile_path_relative)/sysmem.c $(makefile_path_relative)/syscalls.c $(call find, $(source_paths),*.c) $(os_source_files) $(board_c_files)
 source_files += $(board_cpp_files)
 object_files := $(source_files) $(c_source_files)
