@@ -43,7 +43,7 @@ static PsuG0Sample g0;
 static PsuCmdRec cmds[CMD_RING];
 static uint8_t cmd_count;
 static uint16_t next_cmd = 1;
-static uint32_t generation;
+static volatile uint32_t generation;
 static int button_level;
 static uint32_t button_change_ms;
 static int button_stable;
@@ -534,17 +534,22 @@ void psu_app_tick(uint32_t now_ms)
 
 void psu_snapshot(PsuSnapshot *out)
 {
-  uint32_t before, after;
+  uint32_t before;
+  uint32_t after;
   if (out == 0)
     return;
-  do
+  for (;;)
   {
     before = generation;
     if (before & 1U)
       continue;
+    __asm__ volatile("" ::: "memory");
     *out = snap;
+    __asm__ volatile("" ::: "memory");
     after = generation;
-  } while (before != after || (after & 1U));
+    if (after == before)
+      return;
+  }
 }
 
 int psu_preset_apply(uint8_t index)
