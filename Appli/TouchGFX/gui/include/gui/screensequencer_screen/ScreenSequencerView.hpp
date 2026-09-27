@@ -47,15 +47,29 @@ public:
     virtual void seqKeyClr();
     virtual void seqKeyDel();
     virtual void seqKeyApply();
+    virtual void seqSyncKeypad();
 protected:
+    static const int16_t KEYPAD_X = 416;
+    static const int16_t KEYPAD_SHOWN_Y = 240;
+    static const int16_t KEYPAD_HIDDEN_Y = 256;
+    static const uint8_t KEYPAD_TICKS = 16;
     uint8_t divider;
     uint8_t visible_start;
     PsuSeqEdit edit;
+    int16_t keypadFromY;
+    int16_t keypadToY;
+    int16_t keypadFromA;
+    int16_t keypadToA;
+    int16_t keypadAlpha;
+    uint8_t keypadTick;
+    bool keypadMoving;
     void refresh();
     void syncEdit();
     void pickRow(uint8_t row);
     void chooseField(uint8_t field);
     void setKeys(bool on, bool enabled);
+    void poseKeypad(int16_t y, int16_t alpha);
+    void seqStepKeypad();
 };
 
 #endif

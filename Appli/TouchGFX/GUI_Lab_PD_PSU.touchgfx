@@ -3808,312 +3808,323 @@
             }
           },
           {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKey1",
-            "X": 424,
-            "Y": 240,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_1",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKey2",
-            "X": 496,
-            "Y": 240,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_2",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKey3",
-            "X": 568,
-            "Y": 240,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_3",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKey4",
-            "X": 640,
-            "Y": 240,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_4",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKey5",
-            "X": 712,
-            "Y": 240,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_5",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKey6",
-            "X": 424,
-            "Y": 296,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_6",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKey7",
-            "X": 496,
-            "Y": 296,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_7",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKey8",
-            "X": 568,
-            "Y": 296,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_8",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKey9",
-            "X": 640,
-            "Y": 296,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_9",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKey0",
-            "X": 712,
-            "Y": 296,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_0",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKeyClr",
-            "X": 424,
-            "Y": 352,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_CLEAR",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKeyDel",
-            "X": 496,
-            "Y": 352,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_BACK",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKeyDot",
-            "X": 568,
-            "Y": 352,
-            "Width": 64,
-            "Height": 48,
-            "Pressed": "btn_seqkey_prs_64x48.png",
-            "Released": "btn_seqkey_rel_64x48.png",
-            "TextId": "TXT_DOT",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SeqKeyApply",
-            "X": 640,
-            "Y": 352,
-            "Width": 136,
-            "Height": 48,
-            "Pressed": "btn_seqapply_prs_136x48.png",
-            "Released": "btn_seqapply_rel_136x48.png",
-            "TextId": "TXT_ENTER",
-            "TextRotation": "0",
-            "ReleasedColor": {
-              "Red": 42,
-              "Green": 199,
-              "Blue": 217
-            },
-            "PressedColor": {
-              "Red": 8,
-              "Green": 18,
-              "Blue": 28
-            }
+            "Type": "Container",
+            "Name": "SeqKeypad",
+            "X": 416,
+            "Y": 256,
+            "Width": 368,
+            "Height": 160,
+            "Visible": false,
+            "Components": [
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey1",
+                "X": 8,
+                "Y": 0,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_1",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey2",
+                "X": 80,
+                "Y": 0,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_2",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey3",
+                "X": 152,
+                "Y": 0,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_3",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey4",
+                "X": 224,
+                "Y": 0,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_4",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey5",
+                "X": 296,
+                "Y": 0,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_5",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey6",
+                "X": 8,
+                "Y": 56,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_6",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey7",
+                "X": 80,
+                "Y": 56,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_7",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey8",
+                "X": 152,
+                "Y": 56,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_8",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey9",
+                "X": 224,
+                "Y": 56,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_9",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey0",
+                "X": 296,
+                "Y": 56,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_0",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKeyClr",
+                "X": 8,
+                "Y": 112,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_CLEAR",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKeyDel",
+                "X": 80,
+                "Y": 112,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_BACK",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKeyDot",
+                "X": 152,
+                "Y": 112,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_DOT",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKeyApply",
+                "X": 224,
+                "Y": 112,
+                "Width": 136,
+                "Height": 48,
+                "Pressed": "btn_seqapply_prs_136x48.png",
+                "Released": "btn_seqapply_rel_136x48.png",
+                "TextId": "TXT_ENTER",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 42,
+                  "Green": 199,
+                  "Blue": 217
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              }
+            ]
           },
           {
             "Type": "ButtonWithLabel",
@@ -4351,6 +4362,17 @@
             }
           },
           {
+            "InteractionName": "SyncKeypadPrev",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PrevButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqSyncKeypad"
+            }
+          },
+          {
             "InteractionName": "DoNextButton",
             "Trigger": {
               "Type": "TriggerClicked",
@@ -4359,6 +4381,17 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "seqNext"
+            }
+          },
+          {
+            "InteractionName": "SyncKeypadNext",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "NextButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqSyncKeypad"
             }
           },
           {
@@ -4373,6 +4406,17 @@
             }
           },
           {
+            "InteractionName": "SyncKeypadVolt",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardV"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqSyncKeypad"
+            }
+          },
+          {
             "InteractionName": "DoFieldAmp",
             "Trigger": {
               "Type": "TriggerClicked",
@@ -4381,6 +4425,17 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "seqFieldAmp"
+            }
+          },
+          {
+            "InteractionName": "SyncKeypadAmp",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardI"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqSyncKeypad"
             }
           },
           {
@@ -4395,6 +4450,17 @@
             }
           },
           {
+            "InteractionName": "SyncKeypadTime",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardT"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqSyncKeypad"
+            }
+          },
+          {
             "InteractionName": "DoFieldSlew",
             "Trigger": {
               "Type": "TriggerClicked",
@@ -4403,6 +4469,17 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "seqFieldSlew"
+            }
+          },
+          {
+            "InteractionName": "SyncKeypadSlew",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardS"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqSyncKeypad"
             }
           },
           {

@@ -9,7 +9,14 @@ extern "C" {
 
 ScreenSequencerView::ScreenSequencerView()
     : divider(0),
-      visible_start(0)
+      visible_start(0),
+      keypadFromY(KEYPAD_HIDDEN_Y),
+      keypadToY(KEYPAD_HIDDEN_Y),
+      keypadFromA(0),
+      keypadToA(0),
+      keypadAlpha(0),
+      keypadTick(0),
+      keypadMoving(false)
 {
     psu_seq_edit_init(&edit);
 }
@@ -17,6 +24,12 @@ ScreenSequencerView::ScreenSequencerView()
 void ScreenSequencerView::setupScreen()
 {
     ScreenSequencerViewBase::setupScreen();
+    keypadMoving = false;
+    keypadTick = 0;
+    keypadFromY = keypadToY = KEYPAD_HIDDEN_Y;
+    keypadFromA = keypadToA = 0;
+    SeqKeypad.setVisible(false);
+    poseKeypad(KEYPAD_HIDDEN_Y, 0);
     refresh();
 }
 
@@ -25,8 +38,16 @@ void ScreenSequencerView::tearDownScreen()
     ScreenSequencerViewBase::tearDownScreen();
 }
 
+static int16_t easeOut(int16_t t, int16_t b, int16_t c, int16_t d)
+{
+    int32_t tn = (int32_t)t * 256 / d - 256;
+    int32_t cube = tn * tn / 256 * tn / 256;
+    return (int16_t)(b + (c * (cube + 256)) / 256);
+}
+
 void ScreenSequencerView::handleTickEvent()
 {
+    seqStepKeypad();
     if (++divider < 8)
         return;
     divider = 0;
@@ -194,21 +215,94 @@ void ScreenSequencerView::refresh()
 
 void ScreenSequencerView::setKeys(bool on, bool enabled)
 {
-    const uint8_t alpha = enabled ? 255 : 96;
-    SeqKey1.setVisible(on); SeqKey1.setTouchable(on && enabled); SeqKey1.setAlpha(alpha); SeqKey1.invalidate();
-    SeqKey2.setVisible(on); SeqKey2.setTouchable(on && enabled); SeqKey2.setAlpha(alpha); SeqKey2.invalidate();
-    SeqKey3.setVisible(on); SeqKey3.setTouchable(on && enabled); SeqKey3.setAlpha(alpha); SeqKey3.invalidate();
-    SeqKey4.setVisible(on); SeqKey4.setTouchable(on && enabled); SeqKey4.setAlpha(alpha); SeqKey4.invalidate();
-    SeqKey5.setVisible(on); SeqKey5.setTouchable(on && enabled); SeqKey5.setAlpha(alpha); SeqKey5.invalidate();
-    SeqKey6.setVisible(on); SeqKey6.setTouchable(on && enabled); SeqKey6.setAlpha(alpha); SeqKey6.invalidate();
-    SeqKey7.setVisible(on); SeqKey7.setTouchable(on && enabled); SeqKey7.setAlpha(alpha); SeqKey7.invalidate();
-    SeqKey8.setVisible(on); SeqKey8.setTouchable(on && enabled); SeqKey8.setAlpha(alpha); SeqKey8.invalidate();
-    SeqKey9.setVisible(on); SeqKey9.setTouchable(on && enabled); SeqKey9.setAlpha(alpha); SeqKey9.invalidate();
-    SeqKey0.setVisible(on); SeqKey0.setTouchable(on && enabled); SeqKey0.setAlpha(alpha); SeqKey0.invalidate();
-    SeqKeyClr.setVisible(on); SeqKeyClr.setTouchable(on && enabled); SeqKeyClr.setAlpha(alpha); SeqKeyClr.invalidate();
-    SeqKeyDel.setVisible(on); SeqKeyDel.setTouchable(on && enabled); SeqKeyDel.setAlpha(alpha); SeqKeyDel.invalidate();
-    SeqKeyDot.setVisible(on); SeqKeyDot.setTouchable(on && enabled); SeqKeyDot.setAlpha(alpha); SeqKeyDot.invalidate();
-    SeqKeyApply.setVisible(on); SeqKeyApply.setTouchable(on && enabled); SeqKeyApply.setAlpha(alpha); SeqKeyApply.invalidate();
+    const bool touch = on && enabled;
+    SeqKey1.setTouchable(touch);
+    SeqKey2.setTouchable(touch);
+    SeqKey3.setTouchable(touch);
+    SeqKey4.setTouchable(touch);
+    SeqKey5.setTouchable(touch);
+    SeqKey6.setTouchable(touch);
+    SeqKey7.setTouchable(touch);
+    SeqKey8.setTouchable(touch);
+    SeqKey9.setTouchable(touch);
+    SeqKey0.setTouchable(touch);
+    SeqKeyClr.setTouchable(touch);
+    SeqKeyDel.setTouchable(touch);
+    SeqKeyDot.setTouchable(touch);
+    SeqKeyApply.setTouchable(touch);
+}
+
+void ScreenSequencerView::poseKeypad(int16_t y, int16_t alpha)
+{
+    if (alpha < 0)
+        alpha = 0;
+    if (alpha > 255)
+        alpha = 255;
+    keypadAlpha = alpha;
+    SeqKeypad.moveTo(KEYPAD_X, y);
+    const uint8_t a = (uint8_t)alpha;
+    SeqKey1.setAlpha(a);
+    SeqKey2.setAlpha(a);
+    SeqKey3.setAlpha(a);
+    SeqKey4.setAlpha(a);
+    SeqKey5.setAlpha(a);
+    SeqKey6.setAlpha(a);
+    SeqKey7.setAlpha(a);
+    SeqKey8.setAlpha(a);
+    SeqKey9.setAlpha(a);
+    SeqKey0.setAlpha(a);
+    SeqKeyClr.setAlpha(a);
+    SeqKeyDel.setAlpha(a);
+    SeqKeyDot.setAlpha(a);
+    SeqKeyApply.setAlpha(a);
+}
+
+void ScreenSequencerView::seqStepKeypad()
+{
+    int16_t y;
+    int16_t alpha;
+    if (!keypadMoving)
+        return;
+    if (keypadTick < KEYPAD_TICKS)
+        keypadTick++;
+    y = easeOut(keypadTick, keypadFromY, (int16_t)(keypadToY - keypadFromY), KEYPAD_TICKS);
+    alpha = easeOut(keypadTick, keypadFromA, (int16_t)(keypadToA - keypadFromA), KEYPAD_TICKS);
+    poseKeypad(y, alpha);
+    if (keypadTick < KEYPAD_TICKS)
+        return;
+    keypadMoving = false;
+    if (keypadToA == 0)
+    {
+        SeqKeypad.setVisible(false);
+        SeqKeypad.invalidate();
+    }
+}
+
+void ScreenSequencerView::seqSyncKeypad()
+{
+    const bool show = edit.field != PSU_SEQ_FIELD_NONE;
+    const int16_t targetY = show ? KEYPAD_SHOWN_Y : KEYPAD_HIDDEN_Y;
+    const int16_t targetA = show ? 255 : 0;
+    if (keypadMoving && keypadToY == targetY && keypadToA == targetA)
+        return;
+    if (!keypadMoving && SeqKeypad.getY() == targetY && keypadAlpha == targetA)
+    {
+        SeqKeypad.setVisible(show);
+        if (!show)
+            SeqKeypad.invalidate();
+        return;
+    }
+    keypadFromY = SeqKeypad.getY();
+    keypadFromA = keypadAlpha;
+    keypadToY = targetY;
+    keypadToA = targetA;
+    keypadTick = 0;
+    keypadMoving = true;
+    if (show)
+    {
+        SeqKeypad.setVisible(true);
+        SeqKeypad.invalidate();
+    }
 }
 
 void ScreenSequencerView::syncEdit()
@@ -219,8 +313,15 @@ void ScreenSequencerView::syncEdit()
 
 void ScreenSequencerView::chooseField(uint8_t field)
 {
-    psu_seq_edit_select(&edit, psu_sequencer(), field);
+    if (edit.field == field)
+    {
+        edit.field = PSU_SEQ_FIELD_NONE;
+        edit.fault = 0;
+    }
+    else
+        psu_seq_edit_select(&edit, psu_sequencer(), field);
     refresh();
+    seqSyncKeypad();
 }
 
 void ScreenSequencerView::pickRow(uint8_t row)
@@ -265,11 +366,13 @@ void ScreenSequencerView::seqPrev()
 {
     psu_seq_edit_prev(&edit, psu_sequencer());
     refresh();
+    seqSyncKeypad();
 }
 void ScreenSequencerView::seqNext()
 {
     psu_seq_edit_next(&edit, psu_sequencer());
     refresh();
+    seqSyncKeypad();
 }
 void ScreenSequencerView::seqFieldVolt() { chooseField(PSU_SEQ_FIELD_V); }
 void ScreenSequencerView::seqFieldAmp() { chooseField(PSU_SEQ_FIELD_I); }
