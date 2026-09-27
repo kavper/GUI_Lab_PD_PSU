@@ -1,4 +1,8 @@
 #include <gui/screensplash_screen/ScreenSplashView.hpp>
+#include <touchgfx/Unicode.hpp>
+extern "C" {
+#include "psu_version.h"
+}
 
 ScreenSplashView::ScreenSplashView() :
     splashTicks(0)
@@ -10,6 +14,9 @@ void ScreenSplashView::setupScreen()
 {
     ScreenSplashViewBase::setupScreen();
     SplashProgressFill.setWidth(1);
+    touchgfx::Unicode::snprintf(SplashBuildBuffer, SPLASHBUILD_SIZE, "FW %s  %s",
+                               PSU_FW_VERSION, PSU_FW_DATE);
+    SplashBuild.invalidate();
 }
 
 void ScreenSplashView::handleTickEvent()

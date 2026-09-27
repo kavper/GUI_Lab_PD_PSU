@@ -24,22 +24,24 @@ void psu_sim_tick(uint32_t now_ms)
   frame_payload[22] = 0x12; /* 1_236_032 uA */
   if ((phase % 40U) == 0U)
   {
-    /* Inject one CRC-looking raw line. It must stay unparsed. */
+    /* Inject one raw line. It must stay unparsed: no TC grammar is in the repo. */
     const char *line = "TC raw-unparsed\n";
     g4_rx_bytes(psu_g4(), (const uint8_t *)line, 16U, now_ms);
   }
   if (g0_decode_telemetry68(frame_payload, &raw) == 0)
   {
+    PsuSnapshot live;
+    psu_snapshot(&live);
     sample.connected = (phase % 80U) < 70U;
     sample.current_valid = sample.connected;
     sample.current_calibrated = 1U;
-    sample.status_flags = raw.status_flags;
+    sample.status_flags = (uint16_t)(0x0010U | (live.output_requested ? 0x0001U : 0U));
     sample.vout_mv = raw.vout_mv;
     sample.vin_mv = 20000U;
     sample.iout_ua = raw.iout_ua;
     sample.iout_adc_raw = raw.iout_adc_raw;
-    sample.applied_voltage_mv = 12000U;
-    sample.applied_current_ma = 2000U;
+    sample.applied_voltage_mv = live.requested_mv;
+    sample.applied_current_ma = live.requested_ma;
     sample.temp_centi_c[0] = 386;
     sample.temp_centi_c[3] = 412;
     sample.mode = 1U;

@@ -33,6 +33,8 @@ typedef struct
 } PsuBlob;
 
 static PsuHalHooks hooks;
+static uint8_t app_ready;
+static uint32_t app_now;
 static G4Port g4;
 static PsuSequencer sequencer;
 static PsuCharger charger;
@@ -252,8 +254,15 @@ void psu_app_init(void)
   snprintf(snap.bms_fault, sizeof(snap.bms_fault), "OFFLINE");
   snprintf(snap.fault, sizeof(snap.fault), "NONE");
   generation = 0U;
+  app_ready = 1U;
   touch();
   publish_end();
+}
+
+void psu_app_ensure(void)
+{
+  if (!app_ready)
+    psu_app_init();
 }
 
 void psu_app_set_hooks(const PsuHalHooks *next)
@@ -431,9 +440,15 @@ void psu_app_user_button(int level_high, uint32_t now_ms)
     (void)psu_app_set_output(!snap.output_requested, PSU_SRC_BUTTON);
 }
 
+uint32_t psu_app_now(void)
+{
+  return app_now;
+}
+
 void psu_app_tick(uint32_t now_ms)
 {
   char line[G4_LINE_MAX];
+  app_now = now_ms;
   uint8_t i;
   if (g0.connected)
     g0.stale = 0U;

@@ -22,6 +22,7 @@ public:
     void setRegulationMode(bool constantCurrent);
     void setCurrentMeasurementCalibrated(bool calibrated);
     void setControllerOutputState(bool enabled);
+    void setLinkStatus(const char *text);
     uint32_t getSetVoltageMv() const { return setVoltageMv; }
     uint32_t getCurrentLimitMa() const { return currentLimitMa; }
     bool isOutputEnabled() const { return outputEnabled; }

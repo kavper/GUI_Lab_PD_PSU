@@ -173,7 +173,7 @@
       <Text Id="TXT_P3" Alignment="Center" TypographyId="Preset">
         <Translation Language="GB">20 V  /  3 A</Translation>
       </Text>
-      <Text Id="TXT_SETTINGS_TITLE" Alignment="Left" TypographyId="SettingsTitle">
+      <Text Id="TXT_CONTROL CENTER_TITLE" Alignment="Left" TypographyId="SettingsTitle">
         <Translation Language="GB">SETTINGS</Translation>
       </Text>
       <Text Id="TXT_SETTINGS_BACK" Alignment="Center" TypographyId="Button">
@@ -192,7 +192,7 @@
         <Translation Language="GB">DISPLAY &amp; SYSTEM</Translation>
       </Text>
       <Text Id="TXT_MENU_HINT" Alignment="Center" TypographyId="MenuHint">
-        <Translation Language="GB">Menu preview - functions will be defined later</Translation>
+        <Translation Language="GB">Output stays off until the controller confirms it</Translation>
       </Text>
       <Text Id="TXT_DIAG_TITLE" Alignment="Left" TypographyId="SettingsTitle">
         <Translation Language="GB">UART DIAGNOSTICS</Translation>
@@ -204,16 +204,184 @@
         <Translation Language="GB">WAITING FOR UART DATA...</Translation>
       </Text>
       <Text Id="TXT_SPLASH_DESIGNER" Alignment="Center" TypographyId="SplashMeta">
-        <Translation Language="GB">DESIGNED &amp; ENGINEERED BY KACPER GAWEŁ</Translation>
+        <Translation Language="GB">Designed by Kacper Gaweł</Translation>
       </Text>
       <Text Id="TXT_SPLASH_FIRMWARE" Alignment="Center" TypographyId="SplashMeta">
-        <Translation Language="GB">FIRMWARE v0.1.0</Translation>
+        <Translation Language="GB">FIRMWARE v1.0.0</Translation>
       </Text>
       <Text Id="TXT_SPLASH_RELEASE" Alignment="Center" TypographyId="SplashMeta">
-        <Translation Language="GB">RELEASE 2026-07-24</Translation>
+        <Translation Language="GB">2026-09-27</Translation>
       </Text>
       <Text Id="TXT_SPLASH_STATUS" Alignment="Center" TypographyId="SplashStatus">
-        <Translation Language="GB">STARTING POWER SUPPLY</Translation>
+        <Translation Language="GB">STARTING POWER SYSTEM</Translation>
+      </Text>
+      <Text Id="TXT_CC_TITLE" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">CONTROL CENTER</Translation>
+      </Text>
+      <Text Id="TXT_AGH" Alignment="Left" TypographyId="SplashStatus">
+        <Translation Language="GB">AGH UNIVERSITY OF KRAKOW</Translation>
+      </Text>
+      <Text Id="TXT_LINK_VALUE" Alignment="Left" TypographyId="HeaderValue">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_LINK_INITIAL" Alignment="Left" TypographyId="HeaderValue">
+        <Translation Language="GB">G4 OFFLINE</Translation>
+      </Text>
+      <Text Id="TXT_SPLASH_BUILD" Alignment="Left" TypographyId="HeaderValue">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_SPLASH_BUILD_INITIAL" Alignment="Left" TypographyId="HeaderValue">
+        <Translation Language="GB">FW 1.0.0  2026-09-27</Translation>
+      </Text>
+      <Text Id="TXT_BODY" Alignment="Left" TypographyId="Dynamic">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BODY_INITIAL" Alignment="Left" TypographyId="Dynamic">
+        <Translation Language="GB">WAITING</Translation>
+      </Text>
+      <Text Id="TXT_NAV_PRESETS" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">PRESETS</Translation>
+      </Text>
+      <Text Id="TXT_NAV_SEQ" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">SEQUENCER</Translation>
+      </Text>
+      <Text Id="TXT_NAV_MEAS" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">MEASURE</Translation>
+      </Text>
+      <Text Id="TXT_NAV_BMS" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">BMS</Translation>
+      </Text>
+      <Text Id="TXT_NAV_PACK" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">PACK</Translation>
+      </Text>
+      <Text Id="TXT_NAV_USB" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">USB-C PD</Translation>
+      </Text>
+      <Text Id="TXT_NAV_CHG" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">CHARGER</Translation>
+      </Text>
+      <Text Id="TXT_NAV_PATH" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">PATH</Translation>
+      </Text>
+      <Text Id="TXT_NAV_LIM" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">LIMITS</Translation>
+      </Text>
+      <Text Id="TXT_NAV_DIAG" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">DIAG</Translation>
+      </Text>
+      <Text Id="TXT_NAV_NET" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">NETWORK</Translation>
+      </Text>
+      <Text Id="TXT_NAV_SVC" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">SERVICE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_LOAD" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">LOAD</Translation>
+      </Text>
+      <Text Id="TXT_ACT_SAVE" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">SAVE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_DUP" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">DUPLICATE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_RESET" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">RESET</Translation>
+      </Text>
+      <Text Id="TXT_ACT_RUN" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">RUN</Translation>
+      </Text>
+      <Text Id="TXT_ACT_PAUSE" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">PAUSE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_STOP" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">STOP</Translation>
+      </Text>
+      <Text Id="TXT_ACT_ADD" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">+ STEP</Translation>
+      </Text>
+      <Text Id="TXT_ACT_DEL" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">- STEP</Translation>
+      </Text>
+      <Text Id="TXT_ACT_PREV" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">PREV</Translation>
+      </Text>
+      <Text Id="TXT_ACT_NEXT" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">NEXT</Translation>
+      </Text>
+      <Text Id="TXT_ACT_BMS" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">CONFIGURE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_BMS_OFF" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">BMS OFF</Translation>
+      </Text>
+      <Text Id="TXT_ACT_CLEAR" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">CLEAR</Translation>
+      </Text>
+      <Text Id="TXT_ACT_STATUS" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">REFRESH</Translation>
+      </Text>
+      <Text Id="TXT_ACT_AUTO" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">USB AUTO</Translation>
+      </Text>
+      <Text Id="TXT_ACT_SINK" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">USB SINK</Translation>
+      </Text>
+      <Text Id="TXT_ACT_SOURCE" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">SOURCE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_PROFILE" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">PROFILE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_START" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">START</Translation>
+      </Text>
+      <Text Id="TXT_ACT_ABORT" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">ABORT</Translation>
+      </Text>
+      <Text Id="TXT_ACT_PERMIT" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">PERMIT</Translation>
+      </Text>
+      <Text Id="TXT_ACT_REMOTE" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">REMOTE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_SERVICE" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">SERVICE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_HELP" Alignment="Left" TypographyId="Preset">
+        <Translation Language="GB">HELP</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_PRESETS" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">PRESETS</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_SEQ" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">SEQUENCER</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_MEAS" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">MEASUREMENTS</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_BMS" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">BMS / CELLS</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_PACK" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">BATTERY PACK</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_USB" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">USB-C PD</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_CHG" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">BATTERY CHARGER</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_PATH" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">POWER PATH</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_LIM" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">PROTECTION</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_NET" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">NETWORK</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_SVC" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">SERVICE</Translation>
       </Text>
     </TextGroup>
   </Texts>
@@ -225,7 +393,7 @@
     <Typography Id="SetValue" Font="verdana.ttf" Size="30" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VA" WildcardCharacterRanges="0-9" />
     <Typography Id="LimitHint" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="HeaderLabel" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="HeaderValue" Font="verdana.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". CW%" WildcardCharacterRanges="0-9" />
+    <Typography Id="HeaderValue" Font="verdana.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()%_" />
     <Typography Id="Button" Font="verdana.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() " />
     <Typography Id="Output" Font="verdana.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=" OUTPUTNF" />
     <Typography Id="Input" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="." WildcardCharacterRanges="0-9" />
@@ -237,5 +405,6 @@
     <Typography Id="MenuHint" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="SplashMeta" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="SplashStatus" Font="verdana.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Dynamic" Font="verdana.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#" />
   </Typographies>
 </TextDatabase>

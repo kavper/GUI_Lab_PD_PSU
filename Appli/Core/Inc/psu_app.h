@@ -147,8 +147,10 @@ typedef struct
 } PsuHalHooks;
 
 void psu_app_init(void);
+void psu_app_ensure(void);
 void psu_app_set_hooks(const PsuHalHooks *hooks);
 void psu_app_tick(uint32_t now_ms);
+uint32_t psu_app_now(void);
 void psu_app_observe_g0(const PsuG0Sample *sample, uint32_t now_ms);
 void psu_app_user_button(int level_high, uint32_t now_ms);
 int psu_app_set_limits(uint32_t voltage_mv, uint32_t current_ma, uint8_t source);

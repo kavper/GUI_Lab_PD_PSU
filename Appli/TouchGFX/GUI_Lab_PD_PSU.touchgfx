@@ -24,7 +24,7 @@
             "Type": "TextArea",
             "Name": "SplashDesigner",
             "X": 180,
-            "Y": 318,
+            "Y": 336,
             "Width": 440,
             "Height": 20,
             "TextId": "TXT_SPLASH_DESIGNER",
@@ -37,9 +37,24 @@
           },
           {
             "Type": "TextArea",
+            "Name": "AghMark",
+            "X": 160,
+            "Y": 312,
+            "Width": 480,
+            "Height": 22,
+            "TextId": "TXT_AGH",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
             "Name": "SplashFirmware",
             "X": 205,
-            "Y": 344,
+            "Y": 360,
             "Width": 190,
             "Height": 20,
             "TextId": "TXT_SPLASH_FIRMWARE",
@@ -54,7 +69,7 @@
             "Type": "TextArea",
             "Name": "SplashRelease",
             "X": 405,
-            "Y": 344,
+            "Y": 360,
             "Width": 190,
             "Height": 20,
             "TextId": "TXT_SPLASH_RELEASE",
@@ -105,6 +120,26 @@
               "Green": 199,
               "Blue": 217
             }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "SplashBuild",
+            "X": 180,
+            "Y": 384,
+            "Width": 440,
+            "Height": 20,
+            "TextId": "TXT_SPLASH_BUILD",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_SPLASH_BUILD_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 40
+            }
           }
         ],
         "Interactions": []
@@ -123,9 +158,9 @@
             "Type": "TextArea",
             "Name": "TitleText",
             "X": 24,
-            "Y": 15,
+            "Y": 6,
             "Width": 180,
-            "Height": 30,
+            "Height": 22,
             "TextId": "TXT_TITLE",
             "TextRotation": "0",
             "Color": {
@@ -933,6 +968,26 @@
               "Green": 163,
               "Blue": 184
             }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LinkStatus",
+            "X": 24,
+            "Y": 34,
+            "Width": 200,
+            "Height": 18,
+            "TextId": "TXT_LINK_VALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_LINK_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
           }
         ],
         "Interactions": [
@@ -1186,9 +1241,9 @@
             "Name": "SettingsTitle",
             "X": 28,
             "Y": 17,
-            "Width": 250,
+            "Width": 420,
             "Height": 36,
-            "TextId": "TXT_SETTINGS_TITLE",
+            "TextId": "TXT_CC_TITLE",
             "TextRotation": "0",
             "Color": {
               "Red": 238,
@@ -1219,112 +1274,416 @@
             "TextRotation": "0"
           },
           {
-            "Type": "ButtonWithLabel",
-            "Name": "PresetManagerButton",
-            "X": 35,
-            "Y": 85,
-            "Width": 350,
-            "Height": 120,
-            "Pressed": "btn_menu_pressed_350x120.png",
-            "Released": "btn_menu_released_350x120.png",
-            "TextId": "TXT_MENU_PRESETS",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextRotation": "0"
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
           },
           {
             "Type": "ButtonWithLabel",
-            "Name": "DiagnosticsButton",
-            "X": 415,
-            "Y": 85,
-            "Width": 350,
-            "Height": 120,
-            "Pressed": "btn_menu_pressed_350x120.png",
-            "Released": "btn_menu_released_350x120.png",
-            "TextId": "TXT_MENU_DIAGNOSTICS",
+            "Name": "PresetManagerButton",
+            "X": 24,
+            "Y": 84,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_NAV_PRESETS",
+            "TextRotation": "0",
             "ReleasedColor": {
               "Red": 238,
               "Green": 244,
               "Blue": 251
             },
             "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SequencerButton",
+            "X": 216,
+            "Y": 84,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_NAV_SEQ",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
             },
-            "TextRotation": "0"
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "MeasureButton",
+            "X": 408,
+            "Y": 84,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_NAV_MEAS",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BmsButton",
+            "X": 600,
+            "Y": 84,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_NAV_BMS",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "PackButton",
+            "X": 24,
+            "Y": 172,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_NAV_PACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "UsbButton",
+            "X": 216,
+            "Y": 172,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_NAV_USB",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ChargerButton",
+            "X": 408,
+            "Y": 172,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_NAV_CHG",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "PathButton",
+            "X": 600,
+            "Y": 172,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_NAV_PATH",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
           },
           {
             "Type": "ButtonWithLabel",
             "Name": "OutputLimitsButton",
-            "X": 35,
-            "Y": 225,
-            "Width": 350,
-            "Height": 120,
-            "Pressed": "btn_menu_pressed_350x120.png",
-            "Released": "btn_menu_released_350x120.png",
-            "TextId": "TXT_MENU_LIMITS",
+            "X": 24,
+            "Y": 260,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_NAV_LIM",
+            "TextRotation": "0",
             "ReleasedColor": {
               "Red": 238,
               "Green": 244,
               "Blue": 251
             },
             "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "DiagnosticsButton",
+            "X": 216,
+            "Y": 260,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_NAV_DIAG",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
             },
-            "TextRotation": "0"
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
           },
           {
             "Type": "ButtonWithLabel",
             "Name": "SystemButton",
-            "X": 415,
-            "Y": 225,
-            "Width": 350,
-            "Height": 120,
-            "Pressed": "btn_menu_pressed_350x120.png",
-            "Released": "btn_menu_released_350x120.png",
-            "TextId": "TXT_MENU_SYSTEM",
+            "X": 408,
+            "Y": 260,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_NAV_NET",
+            "TextRotation": "0",
             "ReleasedColor": {
               "Red": 238,
               "Green": 244,
               "Blue": 251
             },
             "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextRotation": "0"
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
           },
           {
-            "Type": "TextArea",
-            "Name": "MenuHint",
-            "X": 150,
-            "Y": 410,
-            "Width": 500,
-            "Height": 24,
-            "TextId": "TXT_MENU_HINT",
+            "Type": "ButtonWithLabel",
+            "Name": "ServiceButton",
+            "X": 600,
+            "Y": 260,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_NAV_SVC",
             "TextRotation": "0",
-            "Color": {
-              "Red": 147,
-              "Green": 163,
-              "Blue": 184
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
             }
           }
         ],
         "Interactions": [
           {
-            "InteractionName": "OpenDiagnostics",
+            "InteractionName": "CloseSettings",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "Screen1"
+            }
+          },
+          {
+            "InteractionName": "OpenPresetManagerButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetManagerButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenPresets"
+            }
+          },
+          {
+            "InteractionName": "OpenSequencerButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SequencerButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenSequencer"
+            }
+          },
+          {
+            "InteractionName": "OpenMeasureButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "MeasureButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenMeasurements"
+            }
+          },
+          {
+            "InteractionName": "OpenBmsButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BmsButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenBms"
+            }
+          },
+          {
+            "InteractionName": "OpenPackButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenBattery"
+            }
+          },
+          {
+            "InteractionName": "OpenUsbButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "UsbButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenUsbPd"
+            }
+          },
+          {
+            "InteractionName": "OpenChargerButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ChargerButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenExtCharger"
+            }
+          },
+          {
+            "InteractionName": "OpenPathButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PathButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenPowerPath"
+            }
+          },
+          {
+            "InteractionName": "OpenOutputLimitsButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "OutputLimitsButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenProtection"
+            }
+          },
+          {
+            "InteractionName": "OpenDiagnosticsButton",
             "Trigger": {
               "Type": "TriggerClicked",
               "TriggerComponent": "DiagnosticsButton"
@@ -1337,16 +1696,29 @@
             }
           },
           {
-            "InteractionName": "CloseSettings",
+            "InteractionName": "OpenSystemButton",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "BackButton"
+              "TriggerComponent": "SystemButton"
             },
             "Action": {
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "Screen1"
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenNetwork"
+            }
+          },
+          {
+            "InteractionName": "OpenServiceButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ServiceButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenService"
             }
           }
         ]
@@ -1415,7 +1787,20 @@
             "Wildcard1": {
               "TextId": "TXT_DIAG_INITIAL",
               "UseBuffer": true,
-              "BufferSize": 600
+              "BufferSize": 900
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
             }
           }
         ],
@@ -1431,6 +1816,2316 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "ScreenSettings"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenPresets",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "Background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderBar",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 12,
+              "Green": 24,
+              "Blue": 36
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 24,
+            "Y": 16,
+            "Width": 420,
+            "Height": 32,
+            "TextId": "TXT_TITLE_PRESETS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 628,
+            "Y": 10,
+            "Width": 150,
+            "Height": 44,
+            "Pressed": "btn_output_v2_on_150x44.png",
+            "Released": "btn_output_v2_off_150x44.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 5,
+              "Green": 19,
+              "Blue": 26
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "BodyPanel",
+            "X": 16,
+            "Y": 76,
+            "Width": 768,
+            "Height": 330,
+            "Color": {
+              "Red": 16,
+              "Green": 28,
+              "Blue": 38
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PresetBody",
+            "X": 28,
+            "Y": 88,
+            "Width": 744,
+            "Height": 306,
+            "TextId": "TXT_BODY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BODY_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 800
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "LoadButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_LOAD",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SaveButton",
+            "X": 172,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_SAVE",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "DuplicateButton",
+            "X": 328,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_DUP",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ResetButton",
+            "X": 484,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_RESET",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenPresets",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoLoadButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "LoadButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "loadPreset"
+            }
+          },
+          {
+            "InteractionName": "DoSaveButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SaveButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "savePreset"
+            }
+          },
+          {
+            "InteractionName": "DoDuplicateButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "DuplicateButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "duplicatePreset"
+            }
+          },
+          {
+            "InteractionName": "DoResetButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ResetButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "resetPresets"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenSequencer",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "Background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderBar",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 12,
+              "Green": 24,
+              "Blue": 36
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 24,
+            "Y": 16,
+            "Width": 420,
+            "Height": 32,
+            "TextId": "TXT_TITLE_SEQ",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 628,
+            "Y": 10,
+            "Width": 150,
+            "Height": 44,
+            "Pressed": "btn_output_v2_on_150x44.png",
+            "Released": "btn_output_v2_off_150x44.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 5,
+              "Green": 19,
+              "Blue": 26
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "BodyPanel",
+            "X": 16,
+            "Y": 76,
+            "Width": 768,
+            "Height": 260,
+            "Color": {
+              "Red": 16,
+              "Green": 28,
+              "Blue": 38
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "SeqBody",
+            "X": 28,
+            "Y": 88,
+            "Width": 744,
+            "Height": 236,
+            "TextId": "TXT_BODY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BODY_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 800
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "RunButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_RUN",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "PauseButton",
+            "X": 172,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_PAUSE",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "StopButton",
+            "X": 328,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_STOP",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AddButton",
+            "X": 484,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_ADD",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "RemoveButton",
+            "X": 640,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_DEL",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "PrevButton",
+            "X": 16,
+            "Y": 360,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_PREV",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "NextButton",
+            "X": 172,
+            "Y": 360,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_NEXT",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenSequencer",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoRunButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "RunButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqRun"
+            }
+          },
+          {
+            "InteractionName": "DoPauseButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PauseButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPause"
+            }
+          },
+          {
+            "InteractionName": "DoStopButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StopButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqStop"
+            }
+          },
+          {
+            "InteractionName": "DoAddButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AddButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqAdd"
+            }
+          },
+          {
+            "InteractionName": "DoRemoveButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "RemoveButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqRemove"
+            }
+          },
+          {
+            "InteractionName": "DoPrevButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PrevButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPrev"
+            }
+          },
+          {
+            "InteractionName": "DoNextButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "NextButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqNext"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenMeasurements",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "Background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderBar",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 12,
+              "Green": 24,
+              "Blue": 36
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 24,
+            "Y": 16,
+            "Width": 420,
+            "Height": 32,
+            "TextId": "TXT_TITLE_MEAS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 628,
+            "Y": 10,
+            "Width": 150,
+            "Height": 44,
+            "Pressed": "btn_output_v2_on_150x44.png",
+            "Released": "btn_output_v2_off_150x44.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 5,
+              "Green": 19,
+              "Blue": 26
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "BodyPanel",
+            "X": 16,
+            "Y": 76,
+            "Width": 768,
+            "Height": 330,
+            "Color": {
+              "Red": 16,
+              "Green": 28,
+              "Blue": 38
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "MeasureBody",
+            "X": 28,
+            "Y": 88,
+            "Width": 744,
+            "Height": 306,
+            "TextId": "TXT_BODY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BODY_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 800
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenMeasurements",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenBattery",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "Background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderBar",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 12,
+              "Green": 24,
+              "Blue": 36
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 24,
+            "Y": 16,
+            "Width": 420,
+            "Height": 32,
+            "TextId": "TXT_TITLE_PACK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 628,
+            "Y": 10,
+            "Width": 150,
+            "Height": 44,
+            "Pressed": "btn_output_v2_on_150x44.png",
+            "Released": "btn_output_v2_off_150x44.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 5,
+              "Green": 19,
+              "Blue": 26
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "BodyPanel",
+            "X": 16,
+            "Y": 76,
+            "Width": 768,
+            "Height": 330,
+            "Color": {
+              "Red": 16,
+              "Green": 28,
+              "Blue": 38
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BatteryBody",
+            "X": 28,
+            "Y": 88,
+            "Width": 744,
+            "Height": 306,
+            "TextId": "TXT_BODY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BODY_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 800
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenBattery",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenBms",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "Background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderBar",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 12,
+              "Green": 24,
+              "Blue": 36
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 24,
+            "Y": 16,
+            "Width": 420,
+            "Height": 32,
+            "TextId": "TXT_TITLE_BMS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 628,
+            "Y": 10,
+            "Width": 150,
+            "Height": 44,
+            "Pressed": "btn_output_v2_on_150x44.png",
+            "Released": "btn_output_v2_off_150x44.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 5,
+              "Green": 19,
+              "Blue": 26
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "BodyPanel",
+            "X": 16,
+            "Y": 76,
+            "Width": 768,
+            "Height": 330,
+            "Color": {
+              "Red": 16,
+              "Green": 28,
+              "Blue": 38
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BmsBody",
+            "X": 28,
+            "Y": 88,
+            "Width": 744,
+            "Height": 306,
+            "TextId": "TXT_BODY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BODY_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 800
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ConfigureButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_BMS",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BmsOffButton",
+            "X": 172,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_BMS_OFF",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ClearButton",
+            "X": 328,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_CLEAR",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "RefreshButton",
+            "X": 484,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_STATUS",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenBms",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoConfigureButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ConfigureButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "bmsConfigure"
+            }
+          },
+          {
+            "InteractionName": "DoBmsOffButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BmsOffButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "bmsOff"
+            }
+          },
+          {
+            "InteractionName": "DoClearButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ClearButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "bmsClear"
+            }
+          },
+          {
+            "InteractionName": "DoRefreshButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "RefreshButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "bmsRefresh"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenPowerPath",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "Background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderBar",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 12,
+              "Green": 24,
+              "Blue": 36
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 24,
+            "Y": 16,
+            "Width": 420,
+            "Height": 32,
+            "TextId": "TXT_TITLE_PATH",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 628,
+            "Y": 10,
+            "Width": 150,
+            "Height": 44,
+            "Pressed": "btn_output_v2_on_150x44.png",
+            "Released": "btn_output_v2_off_150x44.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 5,
+              "Green": 19,
+              "Blue": 26
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "BodyPanel",
+            "X": 16,
+            "Y": 76,
+            "Width": 768,
+            "Height": 330,
+            "Color": {
+              "Red": 16,
+              "Green": 28,
+              "Blue": 38
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PathBody",
+            "X": 28,
+            "Y": 88,
+            "Width": 744,
+            "Height": 306,
+            "TextId": "TXT_BODY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BODY_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 800
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "PermitButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_PERMIT",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "RemoteButton",
+            "X": 172,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_REMOTE",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenPowerPath",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoPermitButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PermitButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "pathPermit"
+            }
+          },
+          {
+            "InteractionName": "DoRemoteButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "RemoteButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "pathRemote"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenUsbPd",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "Background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderBar",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 12,
+              "Green": 24,
+              "Blue": 36
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 24,
+            "Y": 16,
+            "Width": 420,
+            "Height": 32,
+            "TextId": "TXT_TITLE_USB",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 628,
+            "Y": 10,
+            "Width": 150,
+            "Height": 44,
+            "Pressed": "btn_output_v2_on_150x44.png",
+            "Released": "btn_output_v2_off_150x44.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 5,
+              "Green": 19,
+              "Blue": 26
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "BodyPanel",
+            "X": 16,
+            "Y": 76,
+            "Width": 768,
+            "Height": 330,
+            "Color": {
+              "Red": 16,
+              "Green": 28,
+              "Blue": 38
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "UsbBody",
+            "X": 28,
+            "Y": 88,
+            "Width": 744,
+            "Height": 306,
+            "TextId": "TXT_BODY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BODY_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 800
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AutoButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_AUTO",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SinkButton",
+            "X": 172,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_SINK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SourceButton",
+            "X": 328,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_SOURCE",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenUsbPd",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoAutoButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AutoButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "usbAuto"
+            }
+          },
+          {
+            "InteractionName": "DoSinkButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SinkButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "usbSink"
+            }
+          },
+          {
+            "InteractionName": "DoSourceButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SourceButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "usbSource"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenExtCharger",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "Background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderBar",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 12,
+              "Green": 24,
+              "Blue": 36
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 24,
+            "Y": 16,
+            "Width": 420,
+            "Height": 32,
+            "TextId": "TXT_TITLE_CHG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 628,
+            "Y": 10,
+            "Width": 150,
+            "Height": 44,
+            "Pressed": "btn_output_v2_on_150x44.png",
+            "Released": "btn_output_v2_off_150x44.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 5,
+              "Green": 19,
+              "Blue": 26
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "BodyPanel",
+            "X": 16,
+            "Y": 76,
+            "Width": 768,
+            "Height": 330,
+            "Color": {
+              "Red": 16,
+              "Green": 28,
+              "Blue": 38
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ChgBody",
+            "X": 28,
+            "Y": 88,
+            "Width": 744,
+            "Height": 306,
+            "TextId": "TXT_BODY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BODY_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 800
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ProfileButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_PROFILE",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "StartButton",
+            "X": 172,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_START",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AbortButton",
+            "X": 328,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_ABORT",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenExtCharger",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoProfileButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ProfileButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "chgProfile"
+            }
+          },
+          {
+            "InteractionName": "DoStartButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StartButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "chgStart"
+            }
+          },
+          {
+            "InteractionName": "DoAbortButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AbortButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "chgAbort"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenProtection",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "Background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderBar",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 12,
+              "Green": 24,
+              "Blue": 36
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 24,
+            "Y": 16,
+            "Width": 420,
+            "Height": 32,
+            "TextId": "TXT_TITLE_LIM",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 628,
+            "Y": 10,
+            "Width": 150,
+            "Height": 44,
+            "Pressed": "btn_output_v2_on_150x44.png",
+            "Released": "btn_output_v2_off_150x44.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 5,
+              "Green": 19,
+              "Blue": 26
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "BodyPanel",
+            "X": 16,
+            "Y": 76,
+            "Width": 768,
+            "Height": 330,
+            "Color": {
+              "Red": 16,
+              "Green": 28,
+              "Blue": 38
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ProtectBody",
+            "X": 28,
+            "Y": 88,
+            "Width": 744,
+            "Height": 306,
+            "TextId": "TXT_BODY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BODY_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 800
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ClearButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_CLEAR",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenProtection",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoClearButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ClearButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "clearFault"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenNetwork",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "Background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderBar",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 12,
+              "Green": 24,
+              "Blue": 36
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 24,
+            "Y": 16,
+            "Width": 420,
+            "Height": 32,
+            "TextId": "TXT_TITLE_NET",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 628,
+            "Y": 10,
+            "Width": 150,
+            "Height": 44,
+            "Pressed": "btn_output_v2_on_150x44.png",
+            "Released": "btn_output_v2_off_150x44.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 5,
+              "Green": 19,
+              "Blue": 26
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "BodyPanel",
+            "X": 16,
+            "Y": 76,
+            "Width": 768,
+            "Height": 330,
+            "Color": {
+              "Red": 16,
+              "Green": 28,
+              "Blue": 38
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "NetBody",
+            "X": 28,
+            "Y": 88,
+            "Width": 744,
+            "Height": 306,
+            "TextId": "TXT_BODY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BODY_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 800
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenNetwork",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenService",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "Background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderBar",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 12,
+              "Green": 24,
+              "Blue": 36
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "HeaderDivider",
+            "X": 0,
+            "Y": 62,
+            "Width": 800,
+            "Height": 2,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 24,
+            "Y": 16,
+            "Width": 420,
+            "Height": 32,
+            "TextId": "TXT_TITLE_SVC",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 628,
+            "Y": 10,
+            "Width": 150,
+            "Height": 44,
+            "Pressed": "btn_output_v2_on_150x44.png",
+            "Released": "btn_output_v2_off_150x44.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 5,
+              "Green": 19,
+              "Blue": 26
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "BodyPanel",
+            "X": 16,
+            "Y": 76,
+            "Width": 768,
+            "Height": 330,
+            "Color": {
+              "Red": 16,
+              "Green": 28,
+              "Blue": 38
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ServiceBody",
+            "X": 28,
+            "Y": 88,
+            "Width": 744,
+            "Height": 306,
+            "TextId": "TXT_BODY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BODY_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 800
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ServiceButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_SERVICE",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "HelpButton",
+            "X": 172,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_HELP",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "RefreshButton",
+            "X": 328,
+            "Y": 416,
+            "Width": 140,
+            "Height": 50,
+            "Pressed": "btn_preset_v3_pressed_140x50.png",
+            "Released": "btn_preset_v3_released_140x50.png",
+            "TextId": "TXT_ACT_STATUS",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenService",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoServiceButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ServiceButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "serviceToggle"
+            }
+          },
+          {
+            "InteractionName": "DoHelpButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "HelpButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "serviceHelp"
+            }
+          },
+          {
+            "InteractionName": "DoRefreshButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "RefreshButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "serviceStatus"
             }
           }
         ]

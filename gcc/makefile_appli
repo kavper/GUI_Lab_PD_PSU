@@ -291,6 +291,16 @@ board_c_files += \
 board_c_files += \
     Appli/Core/Src/main.c \
     Appli/Core/Src/ldo_protocol.c \
+    Appli/Core/Src/g0_frame.c \
+    Appli/Core/Src/g4_ascii.c \
+    Appli/Core/Src/psu_limits.c \
+    Appli/Core/Src/psu_format.c \
+    Appli/Core/Src/psu_edit.c \
+    Appli/Core/Src/psu_store.c \
+    Appli/Core/Src/psu_seq.c \
+    Appli/Core/Src/psu_charger.c \
+    Appli/Core/Src/psu_app.c \
+    Appli/Core/Src/psu_render.c \
     Appli/Core/Src/freertos.c \
 	Appli/Core/Src/stm32h7rsxx_it.c \
 	Appli/Core/Src/stm32h7rsxx_hal_msp.c \

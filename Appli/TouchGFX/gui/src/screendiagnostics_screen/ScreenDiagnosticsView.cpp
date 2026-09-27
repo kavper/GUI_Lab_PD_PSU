@@ -1,10 +1,11 @@
 #include <gui/screendiagnostics_screen/ScreenDiagnosticsView.hpp>
 #include <touchgfx/Unicode.hpp>
-#ifndef SIMULATOR
 extern "C" {
+#include "psu_app.h"
+#ifndef SIMULATOR
 #include "ldo_protocol.h"
-}
 #endif
+}
 
 ScreenDiagnosticsView::ScreenDiagnosticsView()
     : refreshDivider(0)
@@ -27,8 +28,13 @@ void ScreenDiagnosticsView::handleTickEvent()
 #ifndef SIMULATOR
     LDO_Diagnostics diag;
     LDO_Telemetry telemetry;
+    PsuSnapshot snap;
+    const char *snap_g4;
     LDO_GetDiagnostics(&diag);
     LDO_GetTelemetry(&telemetry);
+    psu_snapshot(&snap);
+    snap_g4 = snap.g4_link == G4_LINK_ONLINE ? "ONLINE" :
+              (snap.g4_link == G4_LINK_STALE ? "STALE" : "OFFLINE");
     touchgfx::Unicode::snprintf(
         DiagnosticsValuesBuffer, DIAGNOSTICSVALUES_SIZE,
         "LINK: %u   PROTOCOL: %u   TELEMETRY: %u   PERIOD: %u ms\n"
@@ -47,7 +53,7 @@ void ScreenDiagnosticsView::handleTickEvent()
         "MODE: %u   STARTUP: %u   RESERVED: %u\n"
         "MAXIMUM: %u mV / %u mA\n"
         "CAPABILITIES: 0x%08X   CURRENT VALID: %u   CALIBRATED: %u\n"
-        "PENDING TYPE: 0x%02X",
+        "PENDING TYPE: 0x%02X\nG4 %s",
         telemetry.connected ? 1U : 0U,
         telemetry.protocol_version, telemetry.telemetry_version,
         telemetry.telemetry_period_ms,
@@ -76,12 +82,13 @@ void ScreenDiagnosticsView::handleTickEvent()
         (unsigned)telemetry.maximum_current_ma,
         (unsigned)telemetry.capability_flags,
         telemetry.current_valid, telemetry.current_calibrated,
-        diag.pending_type);
+        diag.pending_type,
+        snap_g4);
 #else
-    touchgfx::Unicode::snprintf(
-        DiagnosticsValuesBuffer, DIAGNOSTICSVALUES_SIZE,
-        "LINK: SIMULATOR\nRX BYTES: 0\nVALID FRAMES: 0\nCRC ERRORS: 0\n"
-        "TX FRAMES: 0\nACK: 0    NACK: 0\nTIMEOUTS: 0");
+    char ascii[800];
+    psu_render_diagnostics(ascii, sizeof(ascii));
+    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(ascii),
+                               DiagnosticsValuesBuffer, DIAGNOSTICSVALUES_SIZE);
 #endif
     DiagnosticsValues.invalidate();
 }

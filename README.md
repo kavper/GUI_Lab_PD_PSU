@@ -1,3 +1,15 @@
+# Digital PD PSU
+
+TouchGFX 4.26.1 application for the STM32H7S78-DK (800×480). After pulling `cursor/full-product-ui`, open `Appli/TouchGFX/GUI_Lab_PD_PSU.touchgfx` in Designer and run Generate Code. Generated sources are not committed.
+
+Host checks, no board required:
+
+```text
+make -C tests/host test
+```
+
+Target and simulator builds need the TouchGFX 4.26.1 package and `arm-none-eabi-gcc`. Do not flash until that link succeeds. See `docs/implementation-status.md`.
+
 # STM32H7S78-DK TBS
 
 Performance testing can be done using the GPIO pins designated with the following signals in CN10 connector on the underside of the board:
