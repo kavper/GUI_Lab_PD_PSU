@@ -42,7 +42,7 @@ Kacper must pull this branch and run **Generate Code** in TouchGFX Designer 4.26
 - [x] Diagnostics still prints the decoded G0 fields, and the service screen keeps raw G4 lines. BMS/PD structured fields are absent, not invented.
 - [ ] Simulator build. **BLOCKED** in this VM: TouchGFX package and generated sources are not present.
 - [ ] Target build and the memory report. **BLOCKED** in this VM: no ARM GCC and no TouchGFX library. The linker script reserves the last 128 KiB of the 128 MiB ROM so a later link can fail if code grows into the config slots.
-- [ ] Final commit pushed. Done when this branch is on `origin`.
+- [x] Final commit pushed. `cursor/full-product-ui` is on `origin`. Draft PR: https://github.com/kavper/GUI_Lab_PD_PSU/pull/2
 
 ## Do not treat as done
 
