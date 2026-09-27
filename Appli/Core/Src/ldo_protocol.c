@@ -348,16 +348,21 @@ void LDO_SetOutput(uint8_t enabled)
 uint8_t LDO_GetTelemetry(LDO_Telemetry *out)
 {
   uint32_t before, after;
+  unsigned spins;
   if (out == NULL) return 0U;
-  do
+  for (spins = 0U; spins < 8U; ++spins)
   {
     before = telemetry_generation;
-    if (before & 1U) continue;
+    if (before & 1U)
+      continue;
     __DMB();
     *out = telemetry;
     __DMB();
     after = telemetry_generation;
-  } while (before != after || (after & 1U));
+    if (before == after)
+      return out->connected;
+  }
+  *out = telemetry;
   return out->connected;
 }
 

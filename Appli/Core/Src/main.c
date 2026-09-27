@@ -67,7 +67,7 @@ UART_HandleTypeDef huart7;
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
-  .stack_size = 128 * 4,
+  .stack_size = 2048 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for TouchGFXTask */
@@ -75,7 +75,7 @@ osThreadId_t TouchGFXTaskHandle;
 const osThreadAttr_t TouchGFXTask_attributes = {
   .name = "TouchGFXTask",
   .stack_size = 4096 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityHigh,
 };
 /* USER CODE BEGIN PV */
 
@@ -160,7 +160,8 @@ int main(void)
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
   /* USER CODE BEGIN 2 */
-  LDO_ProtocolInit(&huart7);
+  if (huart7.gState == HAL_UART_STATE_READY)
+    LDO_ProtocolInit(&huart7);
   {
     PsuHalHooks hooks;
     hooks.ldo_limits = LDO_SetLimits;
@@ -657,7 +658,7 @@ static void MX_UART7_Init(void)
   huart7.Init.ClockPrescaler = UART_PRESCALER_DIV1;
   huart7.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
   if (HAL_UART_Init(&huart7) != HAL_OK)
-    Error_Handler();
+    huart7.gState = HAL_UART_STATE_RESET;
 }
 
 void PSU_SetOutputLed(uint8_t enabled)
@@ -678,14 +679,15 @@ void PSU_SetOutputLed(uint8_t enabled)
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
+  static LDO_Telemetry telemetry;
+  static LDO_Diagnostics diag;
+  static PsuG0Sample sample;
+  (void)argument;
   /* Infinite loop */
   for(;;)
   {
     LDO_ProtocolProcess(HAL_GetTick());
     {
-      LDO_Telemetry telemetry;
-      LDO_Diagnostics diag;
-      PsuG0Sample sample;
       memset(&sample, 0, sizeof(sample));
       LDO_GetTelemetry(&telemetry);
       LDO_GetDiagnostics(&diag);

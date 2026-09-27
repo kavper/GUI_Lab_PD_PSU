@@ -538,7 +538,8 @@ void psu_snapshot(PsuSnapshot *out)
   uint32_t after;
   if (out == 0)
     return;
-  for (;;)
+  unsigned spins;
+  for (spins = 0U; spins < 8U; ++spins)
   {
     before = generation;
     if (before & 1U)
@@ -550,6 +551,7 @@ void psu_snapshot(PsuSnapshot *out)
     if (after == before)
       return;
   }
+  *out = snap;
 }
 
 int psu_preset_apply(uint8_t index)
