@@ -286,11 +286,24 @@ board_c_files += \
 	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_tim_ex.c \
 	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_uart.c \
 	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_uart_ex.c \
-	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_xspi.c 
+	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_xspi.c \
+	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_eth.c \
+	$(Drivers_path)/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_hal_eth_ex.c 
 
 board_c_files += \
     Appli/Core/Src/main.c \
     Appli/Core/Src/ldo_protocol.c \
+    Appli/Core/Src/g0_frame.c \
+    Appli/Core/Src/g4_ascii.c \
+    Appli/Core/Src/psu_limits.c \
+    Appli/Core/Src/psu_format.c \
+    Appli/Core/Src/psu_edit.c \
+    Appli/Core/Src/psu_store.c \
+    Appli/Core/Src/psu_seq.c \
+    Appli/Core/Src/psu_charger.c \
+    Appli/Core/Src/psu_app.c \
+    Appli/Core/Src/psu_render.c \
+    Appli/Core/Src/ethernetif.c \
     Appli/Core/Src/freertos.c \
 	Appli/Core/Src/stm32h7rsxx_it.c \
 	Appli/Core/Src/stm32h7rsxx_hal_msp.c \
@@ -314,6 +327,7 @@ asm_source_files := \
 include_paths += platform/os $(board_include_paths) $(os_include_paths)
 
 video_object_files := $(call find, $(asset_videos_output),*.o)
+include $(application_path)/gcc/core_sources.mk
 c_source_files := $(makefile_path_relative)/sysmem.c $(makefile_path_relative)/syscalls.c $(call find, $(source_paths),*.c) $(os_source_files) $(board_c_files)
 source_files += $(board_cpp_files)
 object_files := $(source_files) $(c_source_files)

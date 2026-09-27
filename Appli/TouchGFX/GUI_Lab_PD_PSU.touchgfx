@@ -23,10 +23,10 @@
           {
             "Type": "TextArea",
             "Name": "SplashDesigner",
-            "X": 180,
-            "Y": 318,
-            "Width": 440,
-            "Height": 20,
+            "X": 120,
+            "Y": 336,
+            "Width": 560,
+            "Height": 24,
             "TextId": "TXT_SPLASH_DESIGNER",
             "TextRotation": "0",
             "Color": {
@@ -37,11 +37,26 @@
           },
           {
             "Type": "TextArea",
+            "Name": "AghMark",
+            "X": 120,
+            "Y": 312,
+            "Width": 560,
+            "Height": 24,
+            "TextId": "TXT_AGH",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
             "Name": "SplashFirmware",
-            "X": 205,
-            "Y": 344,
-            "Width": 190,
-            "Height": 20,
+            "X": 160,
+            "Y": 360,
+            "Width": 240,
+            "Height": 24,
             "TextId": "TXT_SPLASH_FIRMWARE",
             "TextRotation": "0",
             "Color": {
@@ -53,10 +68,10 @@
           {
             "Type": "TextArea",
             "Name": "SplashRelease",
-            "X": 405,
-            "Y": 344,
-            "Width": 190,
-            "Height": 20,
+            "X": 400,
+            "Y": 360,
+            "Width": 240,
+            "Height": 24,
             "TextId": "TXT_SPLASH_RELEASE",
             "TextRotation": "0",
             "Color": {
@@ -68,10 +83,10 @@
           {
             "Type": "TextArea",
             "Name": "SplashStatus",
-            "X": 180,
-            "Y": 390,
-            "Width": 440,
-            "Height": 22,
+            "X": 120,
+            "Y": 408,
+            "Width": 560,
+            "Height": 24,
             "TextId": "TXT_SPLASH_STATUS",
             "TextRotation": "0",
             "Color": {
@@ -84,7 +99,7 @@
             "Type": "Box",
             "Name": "SplashProgressTrack",
             "X": 140,
-            "Y": 428,
+            "Y": 440,
             "Width": 520,
             "Height": 8,
             "Color": {
@@ -97,13 +112,33 @@
             "Type": "Box",
             "Name": "SplashProgressFill",
             "X": 140,
-            "Y": 428,
+            "Y": 440,
             "Width": 1,
             "Height": 8,
             "Color": {
               "Red": 42,
               "Green": 199,
               "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "SplashBuild",
+            "X": 120,
+            "Y": 384,
+            "Width": 560,
+            "Height": 24,
+            "TextId": "TXT_SPLASH_BUILD",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_SPLASH_BUILD_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 40
             }
           }
         ],
@@ -122,10 +157,10 @@
           {
             "Type": "TextArea",
             "Name": "TitleText",
-            "X": 24,
-            "Y": 15,
-            "Width": 180,
-            "Height": 30,
+            "X": 8,
+            "Y": 8,
+            "Width": 120,
+            "Height": 32,
             "TextId": "TXT_TITLE",
             "TextRotation": "0",
             "Color": {
@@ -137,10 +172,10 @@
           {
             "Type": "TextArea",
             "Name": "ModeText",
-            "X": 209,
+            "X": 138,
             "Y": 16,
             "Width": 56,
-            "Height": 26,
+            "Height": 24,
             "TextId": "TXT_MODE_CV",
             "TextRotation": "0",
             "Color": {
@@ -152,8 +187,8 @@
           {
             "Type": "Image",
             "Name": "ModePill",
-            "X": 190,
-            "Y": 10,
+            "X": 136,
+            "Y": 8,
             "Width": 58,
             "Height": 36,
             "RelativeFilename": "mode_cv_58x36.png"
@@ -161,8 +196,8 @@
           {
             "Type": "TextArea",
             "Name": "ModeTextFront",
-            "X": 190,
-            "Y": 18,
+            "X": 138,
+            "Y": 16,
             "Width": 56,
             "Height": 24,
             "TextId": "TXT_MODE_CV",
@@ -176,10 +211,10 @@
           {
             "Type": "TextArea",
             "Name": "TemperatureLabel",
-            "X": 345,
-            "Y": 9,
-            "Width": 70,
-            "Height": 15,
+            "X": 296,
+            "Y": 8,
+            "Width": 80,
+            "Height": 24,
             "TextId": "TXT_TEMP",
             "TextRotation": "0",
             "Color": {
@@ -191,10 +226,10 @@
           {
             "Type": "TextArea",
             "Name": "TemperatureValue",
-            "X": 345,
-            "Y": 26,
-            "Width": 70,
-            "Height": 20,
+            "X": 296,
+            "Y": 32,
+            "Width": 80,
+            "Height": 24,
             "TextId": "TXT_TEMP_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -211,10 +246,10 @@
           {
             "Type": "TextArea",
             "Name": "PowerLabel",
-            "X": 495,
-            "Y": 9,
-            "Width": 70,
-            "Height": 15,
+            "X": 456,
+            "Y": 8,
+            "Width": 96,
+            "Height": 24,
             "TextId": "TXT_POWER",
             "TextRotation": "0",
             "Color": {
@@ -226,10 +261,10 @@
           {
             "Type": "TextArea",
             "Name": "PowerValue",
-            "X": 495,
-            "Y": 26,
-            "Width": 70,
-            "Height": 20,
+            "X": 456,
+            "Y": 32,
+            "Width": 96,
+            "Height": 24,
             "TextId": "TXT_POWER_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -256,9 +291,9 @@
             "Type": "TextArea",
             "Name": "OutputLabel",
             "X": 628,
-            "Y": 19,
+            "Y": 16,
             "Width": 150,
-            "Height": 20,
+            "Height": 24,
             "TextId": "TXT_OUTPUT",
             "TextRotation": "0",
             "Color": {
@@ -275,10 +310,10 @@
           {
             "Type": "TextArea",
             "Name": "ActualVoltageLabel",
-            "X": 34,
-            "Y": 93,
-            "Width": 270,
-            "Height": 22,
+            "X": 32,
+            "Y": 88,
+            "Width": 272,
+            "Height": 24,
             "TextId": "TXT_ACTUAL_V",
             "TextRotation": "0",
             "Color": {
@@ -290,10 +325,10 @@
           {
             "Type": "TextArea",
             "Name": "ActualVoltageValue",
-            "X": 34,
-            "Y": 123,
-            "Width": 276,
-            "Height": 76,
+            "X": 32,
+            "Y": 112,
+            "Width": 272,
+            "Height": 64,
             "TextId": "TXT_VOLTAGE_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -310,10 +345,10 @@
           {
             "Type": "TextArea",
             "Name": "SetVoltageLabel",
-            "X": 332,
-            "Y": 101,
-            "Width": 126,
-            "Height": 22,
+            "X": 328,
+            "Y": 88,
+            "Width": 144,
+            "Height": 24,
             "TextId": "TXT_SET_U",
             "TextRotation": "0",
             "Color": {
@@ -325,10 +360,10 @@
           {
             "Type": "TextArea",
             "Name": "SetVoltageValue",
-            "X": 331,
-            "Y": 131,
-            "Width": 128,
-            "Height": 42,
+            "X": 328,
+            "Y": 120,
+            "Width": 144,
+            "Height": 40,
             "TextId": "TXT_SET_VOLTAGE_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -345,10 +380,10 @@
           {
             "Type": "TextArea",
             "Name": "ActualCurrentLabel",
-            "X": 34,
-            "Y": 256,
-            "Width": 270,
-            "Height": 22,
+            "X": 32,
+            "Y": 248,
+            "Width": 272,
+            "Height": 24,
             "TextId": "TXT_ACTUAL_I",
             "TextRotation": "0",
             "Color": {
@@ -360,10 +395,10 @@
           {
             "Type": "TextArea",
             "Name": "ActualCurrentValue",
-            "X": 34,
-            "Y": 286,
-            "Width": 276,
-            "Height": 76,
+            "X": 32,
+            "Y": 272,
+            "Width": 272,
+            "Height": 64,
             "TextId": "TXT_CURRENT_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -380,10 +415,10 @@
           {
             "Type": "TextArea",
             "Name": "SetCurrentLabel",
-            "X": 333,
-            "Y": 267,
-            "Width": 126,
-            "Height": 22,
+            "X": 328,
+            "Y": 256,
+            "Width": 144,
+            "Height": 24,
             "TextId": "TXT_LIMIT_I",
             "TextRotation": "0",
             "Color": {
@@ -395,10 +430,10 @@
           {
             "Type": "TextArea",
             "Name": "SetCurrentValue",
-            "X": 331,
-            "Y": 297,
-            "Width": 128,
-            "Height": 42,
+            "X": 328,
+            "Y": 288,
+            "Width": 144,
+            "Height": 40,
             "TextId": "TXT_SET_CURRENT_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -633,7 +668,7 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "KeyClear",
-            "X": 522,
+            "X": 523,
             "Y": 307,
             "Width": 76,
             "Height": 64,
@@ -818,10 +853,10 @@
           {
             "Type": "TextArea",
             "Name": "BatteryLabel",
-            "X": 270,
-            "Y": 9,
-            "Width": 70,
-            "Height": 15,
+            "X": 200,
+            "Y": 8,
+            "Width": 96,
+            "Height": 24,
             "TextId": "TXT_BATTERY",
             "TextRotation": "0",
             "Color": {
@@ -833,10 +868,10 @@
           {
             "Type": "TextArea",
             "Name": "BatteryValue",
-            "X": 270,
-            "Y": 26,
-            "Width": 70,
-            "Height": 20,
+            "X": 200,
+            "Y": 32,
+            "Width": 96,
+            "Height": 24,
             "TextId": "TXT_BATTERY_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -853,10 +888,10 @@
           {
             "Type": "TextArea",
             "Name": "PcbTemperatureLabel",
-            "X": 420,
-            "Y": 9,
-            "Width": 70,
-            "Height": 15,
+            "X": 376,
+            "Y": 8,
+            "Width": 80,
+            "Height": 24,
             "TextId": "TXT_PCB_TEMP",
             "TextRotation": "0",
             "Color": {
@@ -868,10 +903,10 @@
           {
             "Type": "TextArea",
             "Name": "PcbTemperatureValue",
-            "X": 420,
-            "Y": 26,
-            "Width": 70,
-            "Height": 20,
+            "X": 376,
+            "Y": 32,
+            "Width": 80,
+            "Height": 24,
             "TextId": "TXT_PCB_TEMP_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -907,10 +942,10 @@
           {
             "Type": "TextArea",
             "Name": "VoltageMaxHint",
-            "X": 334,
-            "Y": 183,
-            "Width": 128,
-            "Height": 16,
+            "X": 328,
+            "Y": 168,
+            "Width": 144,
+            "Height": 24,
             "TextId": "TXT_VOLTAGE_MAX",
             "TextRotation": "0",
             "Color": {
@@ -922,16 +957,36 @@
           {
             "Type": "TextArea",
             "Name": "CurrentMaxHint",
-            "X": 334,
-            "Y": 346,
-            "Width": 128,
-            "Height": 16,
+            "X": 328,
+            "Y": 336,
+            "Width": 144,
+            "Height": 24,
             "TextId": "TXT_CURRENT_MAX",
             "TextRotation": "0",
             "Color": {
               "Red": 147,
               "Green": 163,
               "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LinkStatus",
+            "X": 8,
+            "Y": 40,
+            "Width": 120,
+            "Height": 24,
+            "TextId": "TXT_LINK_VALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_LINK_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 24
             }
           }
         ],
@@ -1176,19 +1231,30 @@
         "Components": [
           {
             "Type": "Image",
-            "Name": "SettingsBackground",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "bg_settings_800x480.png"
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
           },
           {
             "Type": "TextArea",
             "Name": "SettingsTitle",
-            "X": 28,
-            "Y": 17,
-            "Width": 250,
-            "Height": 36,
-            "TextId": "TXT_SETTINGS_TITLE",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_CC_TITLE",
             "TextRotation": "0",
             "Color": {
               "Red": 238,
@@ -1199,143 +1265,435 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "BackButton",
-            "X": 628,
-            "Y": 10,
-            "Width": 150,
-            "Height": 44,
-            "Pressed": "btn_output_v2_on_150x44.png",
-            "Released": "btn_output_v2_off_150x44.png",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
             "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
             "ReleasedColor": {
               "Red": 238,
               "Green": 244,
               "Blue": 251
             },
             "PressedColor": {
-              "Red": 5,
-              "Green": 19,
-              "Blue": 26
-            },
-            "TextRotation": "0"
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
           },
           {
-            "Type": "ButtonWithLabel",
+            "Type": "Button",
             "Name": "PresetManagerButton",
-            "X": 35,
-            "Y": 85,
-            "Width": 350,
-            "Height": 120,
-            "Pressed": "btn_menu_pressed_350x120.png",
-            "Released": "btn_menu_released_350x120.png",
-            "TextId": "TXT_MENU_PRESETS",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextRotation": "0"
+            "X": 16,
+            "Y": 80,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
           },
           {
-            "Type": "ButtonWithLabel",
-            "Name": "DiagnosticsButton",
-            "X": 415,
-            "Y": 85,
-            "Width": 350,
-            "Height": 120,
-            "Pressed": "btn_menu_pressed_350x120.png",
-            "Released": "btn_menu_released_350x120.png",
-            "TextId": "TXT_MENU_DIAGNOSTICS",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextRotation": "0"
+            "Type": "Button",
+            "Name": "SequencerButton",
+            "X": 216,
+            "Y": 80,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
           },
           {
-            "Type": "ButtonWithLabel",
+            "Type": "Button",
+            "Name": "MeasureButton",
+            "X": 416,
+            "Y": 80,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "BmsButton",
+            "X": 616,
+            "Y": 80,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "PackButton",
+            "X": 16,
+            "Y": 208,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "UsbButton",
+            "X": 216,
+            "Y": 208,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "ChargerButton",
+            "X": 416,
+            "Y": 208,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "PathButton",
+            "X": 616,
+            "Y": 208,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
+          },
+          {
+            "Type": "Button",
             "Name": "OutputLimitsButton",
-            "X": 35,
-            "Y": 225,
-            "Width": 350,
-            "Height": 120,
-            "Pressed": "btn_menu_pressed_350x120.png",
-            "Released": "btn_menu_released_350x120.png",
-            "TextId": "TXT_MENU_LIMITS",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextRotation": "0"
+            "X": 16,
+            "Y": 336,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
           },
           {
-            "Type": "ButtonWithLabel",
+            "Type": "Button",
+            "Name": "DiagnosticsButton",
+            "X": 216,
+            "Y": 336,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
+          },
+          {
+            "Type": "Button",
             "Name": "SystemButton",
-            "X": 415,
-            "Y": 225,
-            "Width": 350,
-            "Height": 120,
-            "Pressed": "btn_menu_pressed_350x120.png",
-            "Released": "btn_menu_released_350x120.png",
-            "TextId": "TXT_MENU_SYSTEM",
-            "ReleasedColor": {
-              "Red": 238,
-              "Green": 244,
-              "Blue": 251
-            },
-            "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextRotation": "0"
+            "X": 416,
+            "Y": 336,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "ServiceButton",
+            "X": 616,
+            "Y": 336,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TilePresetsIcon",
+            "X": 84,
+            "Y": 96,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_presets_32.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TileSeqIcon",
+            "X": 284,
+            "Y": 96,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_seq_32.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TileMeasIcon",
+            "X": 484,
+            "Y": 96,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_meas_32.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TileBmsIcon",
+            "X": 684,
+            "Y": 96,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_bms_32.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TilePackIcon",
+            "X": 84,
+            "Y": 224,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_pack_32.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TileUsbIcon",
+            "X": 284,
+            "Y": 224,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_usb_32.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TileChgIcon",
+            "X": 484,
+            "Y": 224,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_chg_32.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TilePathIcon",
+            "X": 684,
+            "Y": 224,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_path_32.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TileLimIcon",
+            "X": 84,
+            "Y": 352,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_prot_32.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TileDiagIcon",
+            "X": 284,
+            "Y": 352,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_diag_32.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TileNetIcon",
+            "X": 484,
+            "Y": 352,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_net_32.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TileSvcIcon",
+            "X": 684,
+            "Y": 352,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_svc_32.png"
           },
           {
             "Type": "TextArea",
-            "Name": "MenuHint",
-            "X": 150,
-            "Y": 410,
-            "Width": 500,
+            "Name": "TilePresets",
+            "X": 24,
+            "Y": 144,
+            "Width": 152,
             "Height": 24,
-            "TextId": "TXT_MENU_HINT",
+            "TextId": "TXT_NAV_PRESETS",
             "TextRotation": "0",
             "Color": {
-              "Red": 147,
-              "Green": 163,
-              "Blue": 184
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TileSeq",
+            "X": 224,
+            "Y": 144,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_NAV_SEQ",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TileMeas",
+            "X": 424,
+            "Y": 144,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_NAV_MEAS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TileBms",
+            "X": 624,
+            "Y": 144,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_NAV_BMS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TilePack",
+            "X": 24,
+            "Y": 272,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_NAV_PACK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TileUsb",
+            "X": 224,
+            "Y": 272,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_NAV_USB",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TileChg",
+            "X": 424,
+            "Y": 272,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_NAV_CHG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TilePath",
+            "X": 624,
+            "Y": 272,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_NAV_PATH",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TileLim",
+            "X": 24,
+            "Y": 400,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_NAV_LIM",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TileDiag",
+            "X": 224,
+            "Y": 400,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_NAV_DIAG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TileNet",
+            "X": 424,
+            "Y": 400,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_NAV_NET",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TileSvc",
+            "X": 624,
+            "Y": 400,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_NAV_SVC",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
             }
           }
         ],
         "Interactions": [
-          {
-            "InteractionName": "OpenDiagnostics",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "DiagnosticsButton"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "ScreenDiagnostics"
-            }
-          },
           {
             "InteractionName": "CloseSettings",
             "Trigger": {
@@ -1348,6 +1706,162 @@
               "ScreenTransitionDirection": "East",
               "ActionComponent": "Screen1"
             }
+          },
+          {
+            "InteractionName": "OpenPresetManagerButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetManagerButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenPresets"
+            }
+          },
+          {
+            "InteractionName": "OpenSequencerButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SequencerButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenSequencer"
+            }
+          },
+          {
+            "InteractionName": "OpenMeasureButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "MeasureButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenMeasurements"
+            }
+          },
+          {
+            "InteractionName": "OpenBmsButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BmsButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenBms"
+            }
+          },
+          {
+            "InteractionName": "OpenPackButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenBattery"
+            }
+          },
+          {
+            "InteractionName": "OpenUsbButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "UsbButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenUsbPd"
+            }
+          },
+          {
+            "InteractionName": "OpenChargerButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ChargerButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenExtCharger"
+            }
+          },
+          {
+            "InteractionName": "OpenPathButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PathButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenPowerPath"
+            }
+          },
+          {
+            "InteractionName": "OpenOutputLimitsButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "OutputLimitsButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenProtection"
+            }
+          },
+          {
+            "InteractionName": "OpenDiagnosticsButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "DiagnosticsButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenDiagnostics"
+            }
+          },
+          {
+            "InteractionName": "OpenSystemButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SystemButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenNetwork"
+            }
+          },
+          {
+            "InteractionName": "OpenServiceButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ServiceButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenService"
+            }
           }
         ]
       },
@@ -1356,18 +1870,29 @@
         "Components": [
           {
             "Type": "Image",
-            "Name": "DiagnosticsBackground",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "bg_settings_800x480.png"
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
           },
           {
             "Type": "TextArea",
             "Name": "DiagnosticsTitle",
-            "X": 28,
-            "Y": 17,
-            "Width": 360,
-            "Height": 36,
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
             "TextId": "TXT_DIAG_TITLE",
             "TextRotation": "0",
             "Color": {
@@ -1379,32 +1904,217 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "DiagnosticsBackButton",
-            "X": 628,
-            "Y": 10,
-            "Width": 150,
-            "Height": 44,
-            "Pressed": "btn_output_v2_on_150x44.png",
-            "Released": "btn_output_v2_off_150x44.png",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
             "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
             "ReleasedColor": {
               "Red": 238,
               "Green": 244,
               "Blue": 251
             },
             "PressedColor": {
-              "Red": 5,
-              "Green": 19,
-              "Blue": 26
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "DiagCardL",
+            "X": 16,
+            "Y": 80,
+            "Width": 168,
+            "Height": 128,
+            "RelativeFilename": "card_168x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblDiagL",
+            "X": 24,
+            "Y": 96,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_LBL_LINK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "DiagLink",
+            "X": 24,
+            "Y": 136,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_DIAGLINK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
             },
-            "TextRotation": "0"
+            "Wildcard1": {
+              "TextId": "TXT_DIAGLINK_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "DiagCardV",
+            "X": 216,
+            "Y": 80,
+            "Width": 168,
+            "Height": 128,
+            "RelativeFilename": "card_168x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblDiagV",
+            "X": 224,
+            "Y": 96,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_LBL_VOLTAGE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "DiagVolt",
+            "X": 224,
+            "Y": 136,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_DIAGVOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_DIAGVOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "DiagCardI",
+            "X": 416,
+            "Y": 80,
+            "Width": 168,
+            "Height": 128,
+            "RelativeFilename": "card_168x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblDiagI",
+            "X": 424,
+            "Y": 96,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_LBL_CURRENT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "DiagAmp",
+            "X": 424,
+            "Y": 136,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_DIAGAMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 46,
+              "Green": 204,
+              "Blue": 113
+            },
+            "Wildcard1": {
+              "TextId": "TXT_DIAGAMP_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "DiagCardF",
+            "X": 616,
+            "Y": 80,
+            "Width": 168,
+            "Height": 128,
+            "RelativeFilename": "card_168x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblDiagF",
+            "X": 624,
+            "Y": 96,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_LBL_FAULT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "DiagFault",
+            "X": 624,
+            "Y": 136,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_DIAGFAULT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 46,
+              "Green": 204,
+              "Blue": 113
+            },
+            "Wildcard1": {
+              "TextId": "TXT_DIAGFAULT_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "DiagLogCard",
+            "X": 16,
+            "Y": 224,
+            "Width": 768,
+            "Height": 224,
+            "RelativeFilename": "card_768x224.png"
           },
           {
             "Type": "TextArea",
             "Name": "DiagnosticsValues",
-            "X": 70,
-            "Y": 90,
-            "Width": 660,
-            "Height": 330,
+            "X": 32,
+            "Y": 240,
+            "Width": 736,
+            "Height": 24,
             "TextId": "TXT_DIAG_VALUES",
             "TextRotation": "0",
             "Color": {
@@ -1415,7 +2125,7 @@
             "Wildcard1": {
               "TextId": "TXT_DIAG_INITIAL",
               "UseBuffer": true,
-              "BufferSize": 600
+              "BufferSize": 900
             }
           }
         ],
@@ -1431,6 +2141,5585 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "ScreenSettings"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenPresets",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_TITLE_PRESETS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "PresetCard1",
+            "X": 16,
+            "Y": 80,
+            "Width": 168,
+            "Height": 144,
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P1Name",
+            "X": 24,
+            "Y": 88,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_P1NAME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P1NAME_I",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P1Volt",
+            "X": 24,
+            "Y": 120,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_P1VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P1VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P1Amp",
+            "X": 24,
+            "Y": 176,
+            "Width": 152,
+            "Height": 32,
+            "TextId": "TXT_P1AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P1AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "PresetCard2",
+            "X": 216,
+            "Y": 80,
+            "Width": 168,
+            "Height": 144,
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P2Name",
+            "X": 224,
+            "Y": 88,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_P2NAME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P2NAME_I",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P2Volt",
+            "X": 224,
+            "Y": 120,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_P2VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P2VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P2Amp",
+            "X": 224,
+            "Y": 176,
+            "Width": 152,
+            "Height": 32,
+            "TextId": "TXT_P2AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P2AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "PresetCard3",
+            "X": 416,
+            "Y": 80,
+            "Width": 168,
+            "Height": 144,
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P3Name",
+            "X": 424,
+            "Y": 88,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_P3NAME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P3NAME_I",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P3Volt",
+            "X": 424,
+            "Y": 120,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_P3VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P3VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P3Amp",
+            "X": 424,
+            "Y": 176,
+            "Width": 152,
+            "Height": 32,
+            "TextId": "TXT_P3AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P3AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "PresetCard4",
+            "X": 616,
+            "Y": 80,
+            "Width": 168,
+            "Height": 144,
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P4Name",
+            "X": 624,
+            "Y": 88,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_P4NAME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P4NAME_I",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P4Volt",
+            "X": 624,
+            "Y": 120,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_P4VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P4VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P4Amp",
+            "X": 624,
+            "Y": 176,
+            "Width": 152,
+            "Height": 32,
+            "TextId": "TXT_P4AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P4AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "PresetCard5",
+            "X": 16,
+            "Y": 240,
+            "Width": 168,
+            "Height": 144,
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P5Name",
+            "X": 24,
+            "Y": 248,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_P5NAME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P5NAME_I",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P5Volt",
+            "X": 24,
+            "Y": 280,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_P5VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P5VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P5Amp",
+            "X": 24,
+            "Y": 336,
+            "Width": 152,
+            "Height": 32,
+            "TextId": "TXT_P5AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P5AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "PresetCard6",
+            "X": 216,
+            "Y": 240,
+            "Width": 168,
+            "Height": 144,
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P6Name",
+            "X": 224,
+            "Y": 248,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_P6NAME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P6NAME_I",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P6Volt",
+            "X": 224,
+            "Y": 280,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_P6VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P6VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P6Amp",
+            "X": 224,
+            "Y": 336,
+            "Width": 152,
+            "Height": 32,
+            "TextId": "TXT_P6AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P6AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "PresetCard7",
+            "X": 416,
+            "Y": 240,
+            "Width": 168,
+            "Height": 144,
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P7Name",
+            "X": 424,
+            "Y": 248,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_P7NAME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P7NAME_I",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P7Volt",
+            "X": 424,
+            "Y": 280,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_P7VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P7VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P7Amp",
+            "X": 424,
+            "Y": 336,
+            "Width": 152,
+            "Height": 32,
+            "TextId": "TXT_P7AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P7AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "PresetCard8",
+            "X": 616,
+            "Y": 240,
+            "Width": 168,
+            "Height": 144,
+            "Pressed": "card_168x144.png",
+            "Released": "card_168x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P8Name",
+            "X": 624,
+            "Y": 248,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_P8NAME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P8NAME_I",
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P8Volt",
+            "X": 624,
+            "Y": 280,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_P8VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P8VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "P8Amp",
+            "X": 624,
+            "Y": 336,
+            "Width": 152,
+            "Height": 32,
+            "TextId": "TXT_P8AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_P8AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "LoadButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_LOAD",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SaveButton",
+            "X": 216,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_SAVE",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "DuplicateButton",
+            "X": 416,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_DUP",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ResetButton",
+            "X": 616,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_RESET",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenPresets",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoLoadButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "LoadButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "loadPreset"
+            }
+          },
+          {
+            "InteractionName": "DoSaveButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SaveButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "savePreset"
+            }
+          },
+          {
+            "InteractionName": "DoDuplicateButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "DuplicateButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "duplicatePreset"
+            }
+          },
+          {
+            "InteractionName": "DoResetButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ResetButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "resetPresets"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset1"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard2"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset2"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard3"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset3"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard4"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset4"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard5"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset5"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard6",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard6"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset6"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard7",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard7"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset7"
+            }
+          },
+          {
+            "InteractionName": "SelectPresetCard8",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PresetCard8"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "selectPreset8"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenSequencer",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_TITLE_SEQ",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "StepRow1",
+            "X": 16,
+            "Y": 80,
+            "Width": 384,
+            "Height": 40,
+            "Pressed": "step_sel_384x40.png",
+            "Released": "step_row_384x40.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "StepRow2",
+            "X": 16,
+            "Y": 128,
+            "Width": 384,
+            "Height": 40,
+            "Pressed": "step_sel_384x40.png",
+            "Released": "step_row_384x40.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "StepRow3",
+            "X": 16,
+            "Y": 176,
+            "Width": 384,
+            "Height": 40,
+            "Pressed": "step_sel_384x40.png",
+            "Released": "step_row_384x40.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "StepRow4",
+            "X": 16,
+            "Y": 224,
+            "Width": 384,
+            "Height": 40,
+            "Pressed": "step_sel_384x40.png",
+            "Released": "step_row_384x40.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "StepRow5",
+            "X": 16,
+            "Y": 272,
+            "Width": 384,
+            "Height": 40,
+            "Pressed": "step_sel_384x40.png",
+            "Released": "step_row_384x40.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "StepRow6",
+            "X": 16,
+            "Y": 320,
+            "Width": 384,
+            "Height": 40,
+            "Pressed": "step_sel_384x40.png",
+            "Released": "step_row_384x40.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "StepHighlight",
+            "X": 16,
+            "Y": 80,
+            "Width": 384,
+            "Height": 40,
+            "RelativeFilename": "step_sel_384x40.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step1No",
+            "X": 32,
+            "Y": 88,
+            "Width": 40,
+            "Height": 24,
+            "TextId": "TXT_STEP1NO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP1NO_I",
+              "UseBuffer": true,
+              "BufferSize": 8
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step1Volt",
+            "X": 80,
+            "Y": 88,
+            "Width": 112,
+            "Height": 24,
+            "TextId": "TXT_STEP1VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP1VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step1Amp",
+            "X": 208,
+            "Y": 88,
+            "Width": 80,
+            "Height": 24,
+            "TextId": "TXT_STEP1AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP1AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step1Time",
+            "X": 304,
+            "Y": 88,
+            "Width": 80,
+            "Height": 24,
+            "TextId": "TXT_STEP1TIME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP1TIME_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step2No",
+            "X": 32,
+            "Y": 136,
+            "Width": 40,
+            "Height": 24,
+            "TextId": "TXT_STEP2NO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP2NO_I",
+              "UseBuffer": true,
+              "BufferSize": 8
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step2Volt",
+            "X": 80,
+            "Y": 136,
+            "Width": 112,
+            "Height": 24,
+            "TextId": "TXT_STEP2VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP2VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step2Amp",
+            "X": 208,
+            "Y": 136,
+            "Width": 80,
+            "Height": 24,
+            "TextId": "TXT_STEP2AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP2AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step2Time",
+            "X": 304,
+            "Y": 136,
+            "Width": 80,
+            "Height": 24,
+            "TextId": "TXT_STEP2TIME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP2TIME_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step3No",
+            "X": 32,
+            "Y": 184,
+            "Width": 40,
+            "Height": 24,
+            "TextId": "TXT_STEP3NO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP3NO_I",
+              "UseBuffer": true,
+              "BufferSize": 8
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step3Volt",
+            "X": 80,
+            "Y": 184,
+            "Width": 112,
+            "Height": 24,
+            "TextId": "TXT_STEP3VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP3VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step3Amp",
+            "X": 208,
+            "Y": 184,
+            "Width": 80,
+            "Height": 24,
+            "TextId": "TXT_STEP3AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP3AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step3Time",
+            "X": 304,
+            "Y": 184,
+            "Width": 80,
+            "Height": 24,
+            "TextId": "TXT_STEP3TIME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP3TIME_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step4No",
+            "X": 32,
+            "Y": 232,
+            "Width": 40,
+            "Height": 24,
+            "TextId": "TXT_STEP4NO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP4NO_I",
+              "UseBuffer": true,
+              "BufferSize": 8
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step4Volt",
+            "X": 80,
+            "Y": 232,
+            "Width": 112,
+            "Height": 24,
+            "TextId": "TXT_STEP4VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP4VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step4Amp",
+            "X": 208,
+            "Y": 232,
+            "Width": 80,
+            "Height": 24,
+            "TextId": "TXT_STEP4AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP4AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step4Time",
+            "X": 304,
+            "Y": 232,
+            "Width": 80,
+            "Height": 24,
+            "TextId": "TXT_STEP4TIME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP4TIME_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step5No",
+            "X": 32,
+            "Y": 280,
+            "Width": 40,
+            "Height": 24,
+            "TextId": "TXT_STEP5NO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP5NO_I",
+              "UseBuffer": true,
+              "BufferSize": 8
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step5Volt",
+            "X": 80,
+            "Y": 280,
+            "Width": 112,
+            "Height": 24,
+            "TextId": "TXT_STEP5VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP5VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step5Amp",
+            "X": 208,
+            "Y": 280,
+            "Width": 80,
+            "Height": 24,
+            "TextId": "TXT_STEP5AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP5AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step5Time",
+            "X": 304,
+            "Y": 280,
+            "Width": 80,
+            "Height": 24,
+            "TextId": "TXT_STEP5TIME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP5TIME_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step6No",
+            "X": 32,
+            "Y": 328,
+            "Width": 40,
+            "Height": 24,
+            "TextId": "TXT_STEP6NO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP6NO_I",
+              "UseBuffer": true,
+              "BufferSize": 8
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step6Volt",
+            "X": 80,
+            "Y": 328,
+            "Width": 112,
+            "Height": 24,
+            "TextId": "TXT_STEP6VOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP6VOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step6Amp",
+            "X": 208,
+            "Y": 328,
+            "Width": 80,
+            "Height": 24,
+            "TextId": "TXT_STEP6AMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP6AMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Step6Time",
+            "X": 304,
+            "Y": 328,
+            "Width": 80,
+            "Height": 24,
+            "TextId": "TXT_STEP6TIME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_STEP6TIME_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "EditCardV",
+            "X": 416,
+            "Y": 80,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "card_field_sel_176x72.png",
+            "Released": "card_field_176x72.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblEditV",
+            "X": 424,
+            "Y": 88,
+            "Width": 160,
+            "Height": 24,
+            "TextId": "TXT_LBL_VOLTAGE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "EditVolt",
+            "X": 424,
+            "Y": 112,
+            "Width": 160,
+            "Height": 32,
+            "TextId": "TXT_EDITVOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_EDITVOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "EditCardI",
+            "X": 608,
+            "Y": 80,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "card_field_sel_176x72.png",
+            "Released": "card_field_176x72.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblEditI",
+            "X": 616,
+            "Y": 88,
+            "Width": 160,
+            "Height": 24,
+            "TextId": "TXT_LBL_CURRENT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "EditAmp",
+            "X": 616,
+            "Y": 112,
+            "Width": 160,
+            "Height": 32,
+            "TextId": "TXT_EDITAMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_EDITAMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "EditCardT",
+            "X": 416,
+            "Y": 160,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "card_field_sel_176x72.png",
+            "Released": "card_field_176x72.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblEditT",
+            "X": 424,
+            "Y": 168,
+            "Width": 160,
+            "Height": 24,
+            "TextId": "TXT_LBL_TIME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "EditTime",
+            "X": 424,
+            "Y": 192,
+            "Width": 160,
+            "Height": 32,
+            "TextId": "TXT_EDITTIME",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_EDITTIME_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "EditCardS",
+            "X": 608,
+            "Y": 160,
+            "Width": 176,
+            "Height": 72,
+            "Pressed": "card_field_sel_176x72.png",
+            "Released": "card_field_176x72.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblEditS",
+            "X": 616,
+            "Y": 168,
+            "Width": 160,
+            "Height": 24,
+            "TextId": "TXT_LBL_SLEW",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "EditSlew",
+            "X": 616,
+            "Y": 192,
+            "Width": 160,
+            "Height": 32,
+            "TextId": "TXT_EDITSLEW",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_EDITSLEW_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "SeqStatus",
+            "X": 16,
+            "Y": 368,
+            "Width": 384,
+            "Height": 32,
+            "TextId": "TXT_SEQSTATUS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_SEQSTATUS_I",
+              "UseBuffer": true,
+              "BufferSize": 56
+            }
+          },
+          {
+            "Type": "Container",
+            "Name": "SeqKeypad",
+            "X": 416,
+            "Y": 272,
+            "Width": 368,
+            "Height": 160,
+            "Visible": false,
+            "Components": [
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey1",
+                "X": 8,
+                "Y": 0,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_1",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey2",
+                "X": 80,
+                "Y": 0,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_2",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey3",
+                "X": 152,
+                "Y": 0,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_3",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey4",
+                "X": 224,
+                "Y": 0,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_4",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey5",
+                "X": 296,
+                "Y": 0,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_5",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey6",
+                "X": 8,
+                "Y": 56,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_6",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey7",
+                "X": 80,
+                "Y": 56,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_7",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey8",
+                "X": 152,
+                "Y": 56,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_8",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey9",
+                "X": 224,
+                "Y": 56,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_9",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKey0",
+                "X": 296,
+                "Y": 56,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_0",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKeyClr",
+                "X": 8,
+                "Y": 112,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_CLEAR",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKeyDel",
+                "X": 80,
+                "Y": 112,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_BACK",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKeyDot",
+                "X": 152,
+                "Y": 112,
+                "Width": 64,
+                "Height": 48,
+                "Pressed": "btn_seqkey_prs_64x48.png",
+                "Released": "btn_seqkey_rel_64x48.png",
+                "TextId": "TXT_DOT",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 238,
+                  "Green": 244,
+                  "Blue": 251
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "SeqKeyApply",
+                "X": 224,
+                "Y": 112,
+                "Width": 136,
+                "Height": 48,
+                "Pressed": "btn_seqapply_prs_136x48.png",
+                "Released": "btn_seqapply_rel_136x48.png",
+                "TextId": "TXT_ENTER",
+                "TextRotation": "0",
+                "ReleasedColor": {
+                  "Red": 42,
+                  "Green": 199,
+                  "Blue": 217
+                },
+                "PressedColor": {
+                  "Red": 8,
+                  "Green": 18,
+                  "Blue": 28
+                }
+              }
+            ]
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "RunButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 96,
+            "Height": 48,
+            "Pressed": "btn_act_prs_96x48.png",
+            "Released": "btn_act_rel_96x48.png",
+            "TextId": "TXT_ACT_RUN",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "PauseButton",
+            "X": 128,
+            "Y": 416,
+            "Width": 96,
+            "Height": 48,
+            "Pressed": "btn_act_prs_96x48.png",
+            "Released": "btn_act_rel_96x48.png",
+            "TextId": "TXT_ACT_PAUSE",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "StopButton",
+            "X": 240,
+            "Y": 416,
+            "Width": 96,
+            "Height": 48,
+            "Pressed": "btn_act_prs_96x48.png",
+            "Released": "btn_act_rel_96x48.png",
+            "TextId": "TXT_ACT_STOP",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AddButton",
+            "X": 352,
+            "Y": 416,
+            "Width": 96,
+            "Height": 48,
+            "Pressed": "btn_act_prs_96x48.png",
+            "Released": "btn_act_rel_96x48.png",
+            "TextId": "TXT_ACT_ADD",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "RemoveButton",
+            "X": 464,
+            "Y": 416,
+            "Width": 96,
+            "Height": 48,
+            "Pressed": "btn_act_prs_96x48.png",
+            "Released": "btn_act_rel_96x48.png",
+            "TextId": "TXT_ACT_DEL",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "PrevButton",
+            "X": 576,
+            "Y": 416,
+            "Width": 96,
+            "Height": 48,
+            "Pressed": "btn_act_prs_96x48.png",
+            "Released": "btn_act_rel_96x48.png",
+            "TextId": "TXT_ACT_PREV",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "NextButton",
+            "X": 688,
+            "Y": 416,
+            "Width": 96,
+            "Height": 48,
+            "Pressed": "btn_act_prs_96x48.png",
+            "Released": "btn_act_rel_96x48.png",
+            "TextId": "TXT_ACT_NEXT",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenSequencer",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoRunButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "RunButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqRun"
+            }
+          },
+          {
+            "InteractionName": "DoPauseButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PauseButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPause"
+            }
+          },
+          {
+            "InteractionName": "DoStopButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StopButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqStop"
+            }
+          },
+          {
+            "InteractionName": "DoAddButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AddButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqAdd"
+            }
+          },
+          {
+            "InteractionName": "DoRemoveButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "RemoveButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqRemove"
+            }
+          },
+          {
+            "InteractionName": "DoPrevButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PrevButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPrev"
+            }
+          },
+          {
+            "InteractionName": "SyncKeypadPrev",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PrevButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqSyncKeypad"
+            }
+          },
+          {
+            "InteractionName": "DoNextButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "NextButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqNext"
+            }
+          },
+          {
+            "InteractionName": "SyncKeypadNext",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "NextButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqSyncKeypad"
+            }
+          },
+          {
+            "InteractionName": "DoFieldVolt",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardV"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqFieldVolt"
+            }
+          },
+          {
+            "InteractionName": "SyncKeypadVolt",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardV"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqSyncKeypad"
+            }
+          },
+          {
+            "InteractionName": "DoFieldAmp",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardI"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqFieldAmp"
+            }
+          },
+          {
+            "InteractionName": "SyncKeypadAmp",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardI"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqSyncKeypad"
+            }
+          },
+          {
+            "InteractionName": "DoFieldTime",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardT"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqFieldTime"
+            }
+          },
+          {
+            "InteractionName": "SyncKeypadTime",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardT"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqSyncKeypad"
+            }
+          },
+          {
+            "InteractionName": "DoFieldSlew",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardS"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqFieldSlew"
+            }
+          },
+          {
+            "InteractionName": "SyncKeypadSlew",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EditCardS"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqSyncKeypad"
+            }
+          },
+          {
+            "InteractionName": "DoPick1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StepRow1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPick1"
+            }
+          },
+          {
+            "InteractionName": "DoPick2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StepRow2"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPick2"
+            }
+          },
+          {
+            "InteractionName": "DoPick3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StepRow3"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPick3"
+            }
+          },
+          {
+            "InteractionName": "DoPick4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StepRow4"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPick4"
+            }
+          },
+          {
+            "InteractionName": "DoPick5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StepRow5"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPick5"
+            }
+          },
+          {
+            "InteractionName": "DoPick6",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StepRow6"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqPick6"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey1"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey2"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey2"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey3"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey3"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey4"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey4"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey5"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey5"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey6",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey6"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey6"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey7",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey7"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey7"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey8",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey8"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey8"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey9",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey9"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey9"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKey0",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKey0"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKey0"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKeyDot",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKeyDot"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKeyDot"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKeyClr",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKeyClr"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKeyClr"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKeyDel",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKeyDel"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKeyDel"
+            }
+          },
+          {
+            "InteractionName": "DoSeqKeyApply",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SeqKeyApply"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqKeyApply"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenMeasurements",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_TITLE_MEAS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "CardVolt",
+            "X": 16,
+            "Y": 80,
+            "Width": 368,
+            "Height": 176,
+            "RelativeFilename": "card_368x176.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblMeasV",
+            "X": 32,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_VOLTAGE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "MeasVolt",
+            "X": 32,
+            "Y": 128,
+            "Width": 336,
+            "Height": 64,
+            "TextId": "TXT_MEASVOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_MEASVOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "CardAmp",
+            "X": 416,
+            "Y": 80,
+            "Width": 368,
+            "Height": 176,
+            "RelativeFilename": "card_368x176.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblMeasI",
+            "X": 432,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_CURRENT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "MeasAmp",
+            "X": 432,
+            "Y": 128,
+            "Width": 336,
+            "Height": 64,
+            "TextId": "TXT_MEASAMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 46,
+              "Green": 204,
+              "Blue": 113
+            },
+            "Wildcard1": {
+              "TextId": "TXT_MEASAMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "CardPwr",
+            "X": 16,
+            "Y": 272,
+            "Width": 168,
+            "Height": 144,
+            "RelativeFilename": "card_168x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblPwr",
+            "X": 24,
+            "Y": 288,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_LBL_POWER",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "MeasPower",
+            "X": 24,
+            "Y": 344,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_MEASPOWER",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_MEASPOWER_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "CardVin",
+            "X": 216,
+            "Y": 272,
+            "Width": 168,
+            "Height": 144,
+            "RelativeFilename": "card_168x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblVin",
+            "X": 224,
+            "Y": 288,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_LBL_INPUT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "MeasVin",
+            "X": 224,
+            "Y": 344,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_MEASVIN",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_MEASVIN_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "CardTemp",
+            "X": 416,
+            "Y": 272,
+            "Width": 168,
+            "Height": 144,
+            "RelativeFilename": "card_168x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblTemp",
+            "X": 424,
+            "Y": 288,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_LBL_TEMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "MeasTemp",
+            "X": 424,
+            "Y": 344,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_MEASTEMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_MEASTEMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "CardMode",
+            "X": 616,
+            "Y": 272,
+            "Width": 168,
+            "Height": 144,
+            "RelativeFilename": "card_168x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblMode",
+            "X": 624,
+            "Y": 288,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_LBL_MODE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "MeasMode",
+            "X": 624,
+            "Y": 344,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_MEASMODE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 243,
+              "Green": 156,
+              "Blue": 18
+            },
+            "Wildcard1": {
+              "TextId": "TXT_MEASMODE_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenMeasurements",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenBattery",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_TITLE_PACK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "PackHero",
+            "X": 16,
+            "Y": 80,
+            "Width": 368,
+            "Height": 176,
+            "RelativeFilename": "card_368x176.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblPack",
+            "X": 32,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_PACK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BatPack",
+            "X": 32,
+            "Y": 136,
+            "Width": 336,
+            "Height": 64,
+            "TextId": "TXT_BATPACK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BATPACK_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "PackSide",
+            "X": 416,
+            "Y": 80,
+            "Width": 368,
+            "Height": 176,
+            "RelativeFilename": "card_368x176.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblCells",
+            "X": 432,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_CELLS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BatCells",
+            "X": 432,
+            "Y": 176,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_BATCELLS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BATCELLS_I",
+              "UseBuffer": true,
+              "BufferSize": 8
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "PackTemp",
+            "X": 16,
+            "Y": 272,
+            "Width": 368,
+            "Height": 144,
+            "RelativeFilename": "card_368x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblBatT",
+            "X": 32,
+            "Y": 288,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_TEMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BatTemp",
+            "X": 32,
+            "Y": 320,
+            "Width": 336,
+            "Height": 64,
+            "TextId": "TXT_BATTEMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BATTEMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "PackFault",
+            "X": 416,
+            "Y": 272,
+            "Width": 368,
+            "Height": 144,
+            "RelativeFilename": "card_368x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblBatF",
+            "X": 432,
+            "Y": 288,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_FAULT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BatFault",
+            "X": 432,
+            "Y": 352,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_BATFAULT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 243,
+              "Green": 156,
+              "Blue": 18
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BATFAULT_I",
+              "UseBuffer": true,
+              "BufferSize": 48
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenBattery",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenBms",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_TITLE_BMS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "CellCard1",
+            "X": 16,
+            "Y": 80,
+            "Width": 168,
+            "Height": 160,
+            "RelativeFilename": "card_168x160.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblCell1",
+            "X": 24,
+            "Y": 96,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_LBL_CELL1",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Cell1Value",
+            "X": 24,
+            "Y": 152,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_CELL1VALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_CELL1VALUE_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "CellCard2",
+            "X": 216,
+            "Y": 80,
+            "Width": 168,
+            "Height": 160,
+            "RelativeFilename": "card_168x160.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblCell2",
+            "X": 224,
+            "Y": 96,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_LBL_CELL2",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Cell2Value",
+            "X": 224,
+            "Y": 152,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_CELL2VALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_CELL2VALUE_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "CellCard3",
+            "X": 416,
+            "Y": 80,
+            "Width": 168,
+            "Height": 160,
+            "RelativeFilename": "card_168x160.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblCell3",
+            "X": 424,
+            "Y": 96,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_LBL_CELL3",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Cell3Value",
+            "X": 424,
+            "Y": 152,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_CELL3VALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_CELL3VALUE_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "CellCard4",
+            "X": 616,
+            "Y": 80,
+            "Width": 168,
+            "Height": 160,
+            "RelativeFilename": "card_168x160.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblCell4",
+            "X": 624,
+            "Y": 96,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_LBL_CELL4",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Cell4Value",
+            "X": 624,
+            "Y": 152,
+            "Width": 152,
+            "Height": 48,
+            "TextId": "TXT_CELL4VALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_CELL4VALUE_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "BmsBar",
+            "X": 16,
+            "Y": 256,
+            "Width": 768,
+            "Height": 112,
+            "RelativeFilename": "card_768x112.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblBmsLink",
+            "X": 32,
+            "Y": 272,
+            "Width": 144,
+            "Height": 24,
+            "TextId": "TXT_LBL_LINK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BmsLink",
+            "X": 32,
+            "Y": 304,
+            "Width": 144,
+            "Height": 40,
+            "TextId": "TXT_BMSLINK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BMSLINK_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblFetC",
+            "X": 224,
+            "Y": 272,
+            "Width": 144,
+            "Height": 24,
+            "TextId": "TXT_LBL_CHG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "FetChg",
+            "X": 224,
+            "Y": 304,
+            "Width": 144,
+            "Height": 40,
+            "TextId": "TXT_FETCHG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_FETCHG_I",
+              "UseBuffer": true,
+              "BufferSize": 8
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblFetD",
+            "X": 416,
+            "Y": 272,
+            "Width": 144,
+            "Height": 24,
+            "TextId": "TXT_LBL_DSG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "FetDsg",
+            "X": 416,
+            "Y": 304,
+            "Width": 144,
+            "Height": 40,
+            "TextId": "TXT_FETDSG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_FETDSG_I",
+              "UseBuffer": true,
+              "BufferSize": 8
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblBal",
+            "X": 608,
+            "Y": 272,
+            "Width": 144,
+            "Height": 24,
+            "TextId": "TXT_LBL_BAL",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "FetBal",
+            "X": 608,
+            "Y": 304,
+            "Width": 144,
+            "Height": 40,
+            "TextId": "TXT_FETBAL",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_FETBAL_I",
+              "UseBuffer": true,
+              "BufferSize": 8
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BmsFault",
+            "X": 32,
+            "Y": 376,
+            "Width": 736,
+            "Height": 32,
+            "TextId": "TXT_BMSFAULT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 243,
+              "Green": 156,
+              "Blue": 18
+            },
+            "Wildcard1": {
+              "TextId": "TXT_BMSFAULT_I",
+              "UseBuffer": true,
+              "BufferSize": 48
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ConfigureButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_BMS",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BmsOffButton",
+            "X": 216,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_BMS_OFF",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ClearButton",
+            "X": 416,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_CLEAR",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "RefreshButton",
+            "X": 616,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_STATUS",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenBms",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoConfigureButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ConfigureButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "bmsConfigure"
+            }
+          },
+          {
+            "InteractionName": "DoBmsOffButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BmsOffButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "bmsOff"
+            }
+          },
+          {
+            "InteractionName": "DoClearButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ClearButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "bmsClear"
+            }
+          },
+          {
+            "InteractionName": "DoRefreshButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "RefreshButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "bmsRefresh"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenPowerPath",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_TITLE_PATH",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "PathLinkCard",
+            "X": 16,
+            "Y": 80,
+            "Width": 368,
+            "Height": 160,
+            "RelativeFilename": "card_368x160.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblPathL",
+            "X": 32,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_LINK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PathLink",
+            "X": 32,
+            "Y": 152,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_PATHLINK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_PATHLINK_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "PathPpsCard",
+            "X": 416,
+            "Y": 80,
+            "Width": 368,
+            "Height": 160,
+            "RelativeFilename": "card_368x160.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblPathP",
+            "X": 432,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_PPS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PathPps",
+            "X": 432,
+            "Y": 152,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_PATHPPS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 243,
+              "Green": 156,
+              "Blue": 18
+            },
+            "Wildcard1": {
+              "TextId": "TXT_PATHPPS_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "PathCmdCard",
+            "X": 16,
+            "Y": 256,
+            "Width": 768,
+            "Height": 128,
+            "RelativeFilename": "card_768x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblPathC",
+            "X": 32,
+            "Y": 272,
+            "Width": 736,
+            "Height": 24,
+            "TextId": "TXT_LBL_TX",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PathCmd",
+            "X": 32,
+            "Y": 328,
+            "Width": 736,
+            "Height": 24,
+            "TextId": "TXT_PATHCMD",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_PATHCMD_I",
+              "UseBuffer": true,
+              "BufferSize": 56
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "PermitButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 368,
+            "Height": 48,
+            "Pressed": "btn_act_prs_368x48.png",
+            "Released": "btn_act_rel_368x48.png",
+            "TextId": "TXT_ACT_PERMIT",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "RemoteButton",
+            "X": 416,
+            "Y": 416,
+            "Width": 368,
+            "Height": 48,
+            "Pressed": "btn_act_prs_368x48.png",
+            "Released": "btn_act_rel_368x48.png",
+            "TextId": "TXT_ACT_REMOTE",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenPowerPath",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoPermitButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PermitButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "pathPermit"
+            }
+          },
+          {
+            "InteractionName": "DoRemoteButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "RemoteButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "pathRemote"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenUsbPd",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_TITLE_USB",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "RoleCard",
+            "X": 16,
+            "Y": 80,
+            "Width": 368,
+            "Height": 160,
+            "RelativeFilename": "card_368x160.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblRole",
+            "X": 32,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_ROLE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "RoleValue",
+            "X": 32,
+            "Y": 152,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_ROLEVALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_ROLEVALUE_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "PpsCard",
+            "X": 416,
+            "Y": 80,
+            "Width": 368,
+            "Height": 160,
+            "RelativeFilename": "card_368x160.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblPps",
+            "X": 432,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_PPS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PpsValue",
+            "X": 432,
+            "Y": 152,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_PPSVALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 243,
+              "Green": 156,
+              "Blue": 18
+            },
+            "Wildcard1": {
+              "TextId": "TXT_PPSVALUE_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "UsbBar",
+            "X": 16,
+            "Y": 256,
+            "Width": 768,
+            "Height": 144,
+            "RelativeFilename": "card_768x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblUsbLink",
+            "X": 32,
+            "Y": 272,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_LINK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "UsbLink",
+            "X": 32,
+            "Y": 304,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_USBLINK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_USBLINK_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblUsbLast",
+            "X": 432,
+            "Y": 272,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_TX",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "UsbLast",
+            "X": 432,
+            "Y": 304,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_USBLAST",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_USBLAST_I",
+              "UseBuffer": true,
+              "BufferSize": 56
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AutoButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 240,
+            "Height": 48,
+            "Pressed": "btn_act_prs_240x48.png",
+            "Released": "btn_act_rel_240x48.png",
+            "TextId": "TXT_ACT_AUTO",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SinkButton",
+            "X": 280,
+            "Y": 416,
+            "Width": 240,
+            "Height": 48,
+            "Pressed": "btn_act_prs_240x48.png",
+            "Released": "btn_act_rel_240x48.png",
+            "TextId": "TXT_ACT_SINK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SourceButton",
+            "X": 544,
+            "Y": 416,
+            "Width": 240,
+            "Height": 48,
+            "Pressed": "btn_act_prs_240x48.png",
+            "Released": "btn_act_rel_240x48.png",
+            "TextId": "TXT_ACT_SOURCE",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenUsbPd",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoAutoButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AutoButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "usbAuto"
+            }
+          },
+          {
+            "InteractionName": "DoSinkButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SinkButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "usbSink"
+            }
+          },
+          {
+            "InteractionName": "DoSourceButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SourceButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "usbSource"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenExtCharger",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_TITLE_CHG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "ChgHero",
+            "X": 16,
+            "Y": 80,
+            "Width": 368,
+            "Height": 160,
+            "RelativeFilename": "card_368x160.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblChgState",
+            "X": 32,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_STATE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ChgState",
+            "X": 32,
+            "Y": 128,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_CHGSTATE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_CHGSTATE_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ChgNote",
+            "X": 32,
+            "Y": 176,
+            "Width": 336,
+            "Height": 40,
+            "TextId": "TXT_CHGNOTE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_CHGNOTE_I",
+              "UseBuffer": true,
+              "BufferSize": 72
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "ChgSide",
+            "X": 416,
+            "Y": 80,
+            "Width": 368,
+            "Height": 160,
+            "RelativeFilename": "card_368x160.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblChem",
+            "X": 432,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_PROFILE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ChgChem",
+            "X": 432,
+            "Y": 168,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_CHGCHEM",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_CHGCHEM_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "ChgVCard",
+            "X": 16,
+            "Y": 256,
+            "Width": 368,
+            "Height": 144,
+            "RelativeFilename": "card_368x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblChgV",
+            "X": 32,
+            "Y": 272,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_VOLTAGE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ChgVolt",
+            "X": 32,
+            "Y": 312,
+            "Width": 336,
+            "Height": 64,
+            "TextId": "TXT_CHGVOLT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_CHGVOLT_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "ChgICard",
+            "X": 416,
+            "Y": 256,
+            "Width": 368,
+            "Height": 144,
+            "RelativeFilename": "card_368x144.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblChgI",
+            "X": 432,
+            "Y": 272,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_CURRENT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ChgAmp",
+            "X": 432,
+            "Y": 312,
+            "Width": 336,
+            "Height": 64,
+            "TextId": "TXT_CHGAMP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 243,
+              "Green": 156,
+              "Blue": 18
+            },
+            "Wildcard1": {
+              "TextId": "TXT_CHGAMP_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ProfileButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_PROFILE",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "CellsButton",
+            "X": 216,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_CELLS",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "StartButton",
+            "X": 416,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_START",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AbortButton",
+            "X": 616,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_ABORT",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenExtCharger",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoProfileButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ProfileButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "chgProfile"
+            }
+          },
+          {
+            "InteractionName": "DoStartButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "StartButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "chgStart"
+            }
+          },
+          {
+            "InteractionName": "DoAbortButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AbortButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "chgAbort"
+            }
+          },
+          {
+            "InteractionName": "DoCellsButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "CellsButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "chgCells"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenProtection",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_TITLE_LIM",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "ProtHero",
+            "X": 16,
+            "Y": 80,
+            "Width": 768,
+            "Height": 128,
+            "RelativeFilename": "card_768x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblProt",
+            "X": 32,
+            "Y": 96,
+            "Width": 736,
+            "Height": 24,
+            "TextId": "TXT_LBL_PROTECT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ProtState",
+            "X": 32,
+            "Y": 128,
+            "Width": 280,
+            "Height": 56,
+            "TextId": "TXT_PROTSTATE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 46,
+              "Green": 204,
+              "Blue": 113
+            },
+            "Wildcard1": {
+              "TextId": "TXT_PROTSTATE_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ProtNote",
+            "X": 336,
+            "Y": 128,
+            "Width": 424,
+            "Height": 56,
+            "TextId": "TXT_PROTNOTE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_PROTNOTE_I",
+              "UseBuffer": true,
+              "BufferSize": 48
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "VlimCard",
+            "X": 16,
+            "Y": 224,
+            "Width": 368,
+            "Height": 160,
+            "RelativeFilename": "card_368x160.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblVlim",
+            "X": 32,
+            "Y": 240,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_VLIM",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ProtVlim",
+            "X": 32,
+            "Y": 288,
+            "Width": 336,
+            "Height": 64,
+            "TextId": "TXT_PROTVLIM",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_PROTVLIM_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "IlimCard",
+            "X": 416,
+            "Y": 224,
+            "Width": 368,
+            "Height": 160,
+            "RelativeFilename": "card_368x160.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblIlim",
+            "X": 432,
+            "Y": 240,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_ILIM",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ProtIlim",
+            "X": 432,
+            "Y": 288,
+            "Width": 336,
+            "Height": 64,
+            "TextId": "TXT_PROTILIM",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 243,
+              "Green": 156,
+              "Blue": 18
+            },
+            "Wildcard1": {
+              "TextId": "TXT_PROTILIM_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ClearButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 168,
+            "Height": 48,
+            "Pressed": "btn_act_prs_168x48.png",
+            "Released": "btn_act_rel_168x48.png",
+            "TextId": "TXT_ACT_CLEAR",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenProtection",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoClearButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ClearButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "clearFault"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenNetwork",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_TITLE_NET",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "IpCard",
+            "X": 16,
+            "Y": 80,
+            "Width": 368,
+            "Height": 128,
+            "RelativeFilename": "card_368x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblIp",
+            "X": 32,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_IP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "NetIp",
+            "X": 32,
+            "Y": 136,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_NETIP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_NETIP_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "MaskCard",
+            "X": 416,
+            "Y": 80,
+            "Width": 368,
+            "Height": 128,
+            "RelativeFilename": "card_368x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblMask",
+            "X": 432,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_MASK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "NetMask",
+            "X": 432,
+            "Y": 136,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_NETMASK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_NETMASK_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "GwCard",
+            "X": 16,
+            "Y": 224,
+            "Width": 368,
+            "Height": 128,
+            "RelativeFilename": "card_368x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblGw",
+            "X": 32,
+            "Y": 240,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_GW",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "NetGw",
+            "X": 32,
+            "Y": 280,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_NETGW",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_NETGW_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "LinkCard",
+            "X": 416,
+            "Y": 224,
+            "Width": 368,
+            "Height": 128,
+            "RelativeFilename": "card_368x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblNet",
+            "X": 432,
+            "Y": 240,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_LINK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "NetLink",
+            "X": 432,
+            "Y": 280,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_NETLINK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_NETLINK_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "MacCard",
+            "X": 16,
+            "Y": 368,
+            "Width": 768,
+            "Height": 96,
+            "RelativeFilename": "card_768x96.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblMac",
+            "X": 32,
+            "Y": 384,
+            "Width": 736,
+            "Height": 24,
+            "TextId": "TXT_LBL_MAC",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "NetMac",
+            "X": 32,
+            "Y": 424,
+            "Width": 736,
+            "Height": 24,
+            "TextId": "TXT_NETMAC",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_NETMAC_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenNetwork",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenService",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_TITLE_SVC",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "SvcHero",
+            "X": 16,
+            "Y": 80,
+            "Width": 768,
+            "Height": 96,
+            "RelativeFilename": "card_768x96.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblSvc",
+            "X": 32,
+            "Y": 96,
+            "Width": 736,
+            "Height": 24,
+            "TextId": "TXT_LBL_MODE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "SvcMode",
+            "X": 32,
+            "Y": 120,
+            "Width": 736,
+            "Height": 48,
+            "TextId": "TXT_SVCMODE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 243,
+              "Green": 156,
+              "Blue": 18
+            },
+            "Wildcard1": {
+              "TextId": "TXT_SVCMODE_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "TxCard",
+            "X": 16,
+            "Y": 192,
+            "Width": 768,
+            "Height": 96,
+            "RelativeFilename": "card_768x96.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblTx",
+            "X": 32,
+            "Y": 208,
+            "Width": 736,
+            "Height": 24,
+            "TextId": "TXT_LBL_TX",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "SvcTx",
+            "X": 32,
+            "Y": 248,
+            "Width": 736,
+            "Height": 24,
+            "TextId": "TXT_SVCTX",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_SVCTX_I",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "RxCard",
+            "X": 16,
+            "Y": 304,
+            "Width": 768,
+            "Height": 96,
+            "RelativeFilename": "card_768x96.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblRx",
+            "X": 32,
+            "Y": 320,
+            "Width": 736,
+            "Height": 24,
+            "TextId": "TXT_LBL_RX",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "SvcRx",
+            "X": 32,
+            "Y": 360,
+            "Width": 736,
+            "Height": 24,
+            "TextId": "TXT_SVCRX",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_SVCRX_I",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ServiceButton",
+            "X": 16,
+            "Y": 416,
+            "Width": 240,
+            "Height": 48,
+            "Pressed": "btn_act_prs_240x48.png",
+            "Released": "btn_act_rel_240x48.png",
+            "TextId": "TXT_ACT_SERVICE",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "HelpButton",
+            "X": 280,
+            "Y": 416,
+            "Width": 240,
+            "Height": 48,
+            "Pressed": "btn_act_prs_240x48.png",
+            "Released": "btn_act_rel_240x48.png",
+            "TextId": "TXT_ACT_HELP",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "RefreshButton",
+            "X": 544,
+            "Y": 416,
+            "Width": 240,
+            "Height": 48,
+            "Pressed": "btn_act_prs_240x48.png",
+            "Released": "btn_act_rel_240x48.png",
+            "TextId": "TXT_ACT_STATUS",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenService",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "DoServiceButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ServiceButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "serviceToggle"
+            }
+          },
+          {
+            "InteractionName": "DoHelpButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "HelpButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "serviceHelp"
+            }
+          },
+          {
+            "InteractionName": "DoRefreshButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "RefreshButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "serviceStatus"
             }
           }
         ]

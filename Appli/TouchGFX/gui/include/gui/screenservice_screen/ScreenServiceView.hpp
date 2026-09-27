@@ -1,0 +1,24 @@
+#ifndef SCREENSERVICEVIEW_HPP
+#define SCREENSERVICEVIEW_HPP
+
+#include <gui_generated/screenservice_screen/ScreenServiceViewBase.hpp>
+#include <gui/screenservice_screen/ScreenServicePresenter.hpp>
+#include <stdint.h>
+
+class ScreenServiceView : public ScreenServiceViewBase
+{
+public:
+    ScreenServiceView();
+    virtual ~ScreenServiceView() {}
+    virtual void setupScreen();
+    virtual void tearDownScreen();
+    virtual void handleTickEvent();
+    virtual void serviceToggle();
+    virtual void serviceHelp();
+    virtual void serviceStatus();
+protected:
+    uint8_t divider;
+    void refresh();
+};
+
+#endif

@@ -42,7 +42,10 @@ _Min_Heap_Size = 0x1000; /* required amount of heap */
 _Min_Stack_Size = 0x1000; /* required amount of stack */
 
 __FLASH_BEGIN  = 0x70000000;
-__FLASH_SIZE   = 0x08000000;
+__PSU_CONFIG_SIZE = 0x20000;
+/* Last 128 KiB of the 128 MiB memory-mapped ROM is reserved for A/B config.
+   Code and TouchGFX assets stay in the reduced FLASH region. */
+__FLASH_SIZE   = 0x08000000 - __PSU_CONFIG_SIZE;
 __EXTRAM_BEGIN = 0x90000000;
 __EXTRAM_SIZE  = 0x02000000;
 
@@ -63,6 +66,7 @@ MEMORY
   BKPSRAM   (rw)  : ORIGIN = 0x38800000,  LENGTH = 0x00001000
 
   FLASH     (xrw) : ORIGIN = __FLASH_BEGIN, LENGTH = __FLASH_SIZE
+  PSU_CONFIG (r) : ORIGIN = __FLASH_BEGIN + 0x08000000 - __PSU_CONFIG_SIZE, LENGTH = __PSU_CONFIG_SIZE
   EXTRAM    (rw)  : ORIGIN = __EXTRAM_BEGIN, LENGTH = __EXTRAM_SIZE
 }
 
@@ -199,6 +203,14 @@ SECTIONS
     . = . + _Min_Stack_Size;
     . = ALIGN(8);
   } >DTCM
+
+  .psu_config (NOLOAD) :
+  {
+    . = ALIGN(4096);
+    PROVIDE(__psu_config_start = .);
+    . = . + __PSU_CONFIG_SIZE;
+    PROVIDE(__psu_config_end = .);
+  } >PSU_CONFIG
 
   /* Remove information from the compiler libraries */
   /DISCARD/ :

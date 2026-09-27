@@ -7,11 +7,12 @@
 #include <stdio.h>
 #include <string.h>
 
+extern "C" {
+#include "psu_app.h"
 #ifndef SIMULATOR
-extern "C" void PSU_SetOutputLed(uint8_t enabled);
-extern "C" void LDO_SetLimits(uint32_t voltage_mv, uint32_t current_ma);
-extern "C" void LDO_SetOutput(uint8_t enabled);
+void PSU_SetOutputLed(uint8_t enabled);
 #endif
+}
 
 Screen1View::Screen1View()
     : editTarget(EDIT_VOLTAGE),
@@ -60,20 +61,28 @@ void Screen1View::tearDownScreen()
 
 void Screen1View::handleGestureEvent(const touchgfx::GestureEvent& event)
 {
-    const bool overKeypad = event.getX() >= 510 && event.getX() < 800 &&
-                            event.getY() >= 70 && event.getY() < 480;
-    if (event.getType() != touchgfx::GestureEvent::SWIPE_VERTICAL || !overKeypad)
+    const bool onVoltageTile = editTarget == EDIT_VOLTAGE &&
+        event.getX() >= 300 && event.getX() < 500 &&
+        event.getY() >= 80 && event.getY() < 220;
+    const bool onCurrentTile = editTarget == EDIT_CURRENT &&
+        event.getX() >= 300 && event.getX() < 500 &&
+        event.getY() >= 230 && event.getY() < 380;
+    if (event.getType() != touchgfx::GestureEvent::SWIPE_VERTICAL ||
+        (!onVoltageTile && !onCurrentTile))
     {
         Screen1ViewBase::handleGestureEvent(event);
         return;
     }
 
+    const int speed = event.getVelocity() < 0 ? -event.getVelocity() : event.getVelocity();
     const bool increase = event.getVelocity() < 0;
     updatePresetHighlight(0);
 
     if (editTarget == EDIT_VOLTAGE)
     {
-        const uint32_t stepMv = 100U;
+        uint32_t stepMv = 10U;
+        if (speed > 2) stepMv = 100U;
+        if (speed > 8) stepMv = 500U;
         if (increase)
             setVoltageMv = setVoltageMv <= (27000U - stepMv)
                 ? setVoltageMv + stepMv : 27000U;
@@ -83,7 +92,9 @@ void Screen1View::handleGestureEvent(const touchgfx::GestureEvent& event)
     }
     else
     {
-        const uint32_t stepMa = 50U;
+        uint32_t stepMa = 10U;
+        if (speed > 2) stepMa = 50U;
+        if (speed > 8) stepMa = 200U;
         if (increase)
             currentLimitMa = currentLimitMa <= (5000U - stepMa)
                 ? currentLimitMa + stepMa : 5000U;
@@ -95,9 +106,7 @@ void Screen1View::handleGestureEvent(const touchgfx::GestureEvent& event)
     refreshSetpoints();
     loadEditorFromSetpoint();
     replaceOnNextKey = true;
-#ifndef SIMULATOR
-    LDO_SetLimits(setVoltageMv, currentLimitMa);
-#endif
+    psu_app_set_limits(setVoltageMv, currentLimitMa, PSU_SRC_LCD);
 }
 
 void Screen1View::setMeasurements(uint32_t voltageMv, int32_t currentUa, int16_t temperatureDeciC)
@@ -303,13 +312,7 @@ void Screen1View::outputToggled()
         : touchgfx::Color::getColorFromRGB(5, 19, 26));
     OutputLabel.invalidate();
     setRegulationMode(outputEnabled && measuredCurrentMa >= (int32_t)currentLimitMa);
-#ifndef SIMULATOR
-    PSU_SetOutputLed(outputEnabled ? 1U : 0U);
-    if (outputEnabled)
-        LDO_SetLimits(setVoltageMv, currentLimitMa);
-    LDO_SetOutput(outputEnabled ? 1U : 0U);
-#endif
-    // The Presenter/Model can forward this state to the hardware driver.
+    psu_app_set_output(outputEnabled ? 1 : 0, PSU_SRC_LCD);
 }
 
 void Screen1View::setRegulationMode(bool constantCurrent)
@@ -383,9 +386,14 @@ void Screen1View::keyEnter()
     loadEditorFromSetpoint();
     replaceOnNextKey = true;
     setRegulationMode(outputEnabled && measuredCurrentMa >= (int32_t)currentLimitMa);
-#ifndef SIMULATOR
-    LDO_SetLimits(setVoltageMv, currentLimitMa);
-#endif
+    psu_app_set_limits(setVoltageMv, currentLimitMa, PSU_SRC_LCD);
+}
+
+void Screen1View::setLinkStatus(const char *text)
+{
+    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text ? text : "G4 OFFLINE"),
+                               LinkStatusBuffer, LINKSTATUS_SIZE);
+    LinkStatus.invalidate();
 }
 
 void Screen1View::updatePresetHighlight(uint8_t preset)
@@ -417,9 +425,7 @@ void Screen1View::applyPreset(uint8_t preset, uint32_t voltageMv, uint32_t curre
     loadEditorFromSetpoint();
     replaceOnNextKey = true;
     setRegulationMode(outputEnabled && measuredCurrentMa >= (int32_t)currentLimitMa);
-#ifndef SIMULATOR
-    LDO_SetLimits(setVoltageMv, currentLimitMa);
-#endif
+    psu_app_set_limits(setVoltageMv, currentLimitMa, PSU_SRC_LCD);
 }
 
 void Screen1View::preset1() { applyPreset(1, 5000, 1000); }

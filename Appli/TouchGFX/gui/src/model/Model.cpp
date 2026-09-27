@@ -1,28 +1,36 @@
 #include <gui/model/Model.hpp>
 #include <gui/model/ModelListener.hpp>
-#ifndef SIMULATOR
 extern "C" {
-#include "ldo_protocol.h"
+#include "psu_app.h"
 }
-#endif
+
+static void publish(ModelListener *listener)
+{
+    PsuSnapshot snap;
+    if (listener == 0)
+        return;
+    psu_snapshot(&snap);
+    listener->ldoTelemetryUpdated(
+        snap.vin_mv, snap.vout_mv, snap.signed_current_ua,
+        static_cast<int16_t>(snap.mos_centi / 10),
+        static_cast<int16_t>(snap.pcb_centi / 10),
+        snap.mode_cc ? 2U : 1U, snap.g0_connected != 0,
+        snap.output_confirmed != 0, snap.current_valid != 0,
+        snap.current_valid != 0);
+}
 
 Model::Model() : modelListener(0)
 {
-
 }
 
 void Model::tick()
 {
-#ifndef SIMULATOR
-    LDO_Telemetry telemetry;
-    LDO_GetTelemetry(&telemetry);
-    if (modelListener)
-        modelListener->ldoTelemetryUpdated(
-            telemetry.vin_mv, telemetry.vout_mv, telemetry.iout_ua,
-            static_cast<int16_t>(telemetry.temperature_centi_c[0] / 10),
-            static_cast<int16_t>(telemetry.temperature_centi_c[3] / 10),
-            telemetry.mode, telemetry.connected != 0,
-            (telemetry.status_flags & 1U) != 0, telemetry.current_valid != 0,
-            telemetry.current_calibrated != 0);
+    psu_app_ensure();
+#ifdef SIMULATOR
+    static uint32_t sim_ms;
+    sim_ms += 16U;
+    psu_sim_tick(sim_ms);
+    psu_app_tick(sim_ms);
 #endif
+    publish(modelListener);
 }

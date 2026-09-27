@@ -25,6 +25,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "ldo_protocol.h"
+#include "psu_app.h"
+#include <string.h>
 
 /* USER CODE END Includes */
 
@@ -65,7 +67,7 @@ UART_HandleTypeDef huart7;
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
-  .stack_size = 128 * 4,
+  .stack_size = 2048 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for TouchGFXTask */
@@ -73,7 +75,7 @@ osThreadId_t TouchGFXTaskHandle;
 const osThreadAttr_t TouchGFXTask_attributes = {
   .name = "TouchGFXTask",
   .stack_size = 4096 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityHigh,
 };
 /* USER CODE BEGIN PV */
 
@@ -158,7 +160,15 @@ int main(void)
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
   /* USER CODE BEGIN 2 */
-  LDO_ProtocolInit(&huart7);
+  if (huart7.gState == HAL_UART_STATE_READY)
+    LDO_ProtocolInit(&huart7);
+  {
+    PsuHalHooks hooks;
+    hooks.ldo_limits = LDO_SetLimits;
+    hooks.ldo_output = LDO_SetOutput;
+    psu_app_init();
+    psu_app_set_hooks(&hooks);
+  }
 
   /* USER CODE END 2 */
 
@@ -622,6 +632,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD1_GPIO_Port, &GPIO_InitStruct);
+
+  /* USER button B2, PC13, active high while pressed (UM3289). */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
   /* USER CODE END MX_GPIO_Init_2 */
 }
 
@@ -640,7 +658,7 @@ static void MX_UART7_Init(void)
   huart7.Init.ClockPrescaler = UART_PRESCALER_DIV1;
   huart7.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
   if (HAL_UART_Init(&huart7) != HAL_OK)
-    Error_Handler();
+    huart7.gState = HAL_UART_STATE_RESET;
 }
 
 void PSU_SetOutputLed(uint8_t enabled)
@@ -661,10 +679,53 @@ void PSU_SetOutputLed(uint8_t enabled)
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
+  static LDO_Telemetry telemetry;
+  static LDO_Diagnostics diag;
+  static PsuG0Sample sample;
+  (void)argument;
   /* Infinite loop */
   for(;;)
   {
     LDO_ProtocolProcess(HAL_GetTick());
+    {
+      memset(&sample, 0, sizeof(sample));
+      LDO_GetTelemetry(&telemetry);
+      LDO_GetDiagnostics(&diag);
+      sample.connected = telemetry.connected;
+      sample.stale = telemetry.telemetry_stale;
+      sample.current_valid = telemetry.current_valid;
+      sample.current_calibrated = telemetry.current_calibrated;
+      sample.status_flags = telemetry.status_flags;
+      sample.fault_flags = telemetry.fault_flags;
+      sample.vin_mv = telemetry.vin_mv;
+      sample.vout_mv = telemetry.vout_mv;
+      sample.iout_ua = telemetry.iout_ua;
+      sample.iout_adc_raw = telemetry.iout_adc_raw;
+      sample.temp_centi_c[0] = telemetry.temperature_centi_c[0];
+      sample.temp_centi_c[1] = telemetry.temperature_centi_c[1];
+      sample.temp_centi_c[2] = telemetry.temperature_centi_c[2];
+      sample.temp_centi_c[3] = telemetry.temperature_centi_c[3];
+      sample.applied_voltage_mv = telemetry.applied_voltage_mv;
+      sample.applied_current_ma = telemetry.applied_current_ma;
+      sample.maximum_voltage_mv = telemetry.maximum_voltage_mv;
+      sample.maximum_current_ma = telemetry.maximum_current_ma;
+      sample.mode = telemetry.mode;
+      sample.uptime_ms = telemetry.uptime_ms;
+      sample.period_ms = telemetry.telemetry_period_ms;
+      sample.protocol_version = telemetry.protocol_version;
+      sample.telemetry_version = telemetry.telemetry_version;
+      sample.rx_bytes = diag.rx_bytes;
+      sample.valid_frames = diag.valid_frames;
+      sample.crc_errors = diag.crc_errors;
+      sample.tx_frames = diag.tx_frames;
+      sample.ack_frames = diag.ack_frames;
+      sample.nack_frames = diag.nack_frames;
+      sample.timeouts = diag.command_timeouts;
+      psu_app_observe_g0(&sample, HAL_GetTick());
+      psu_app_user_button(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET,
+                          HAL_GetTick());
+      psu_app_tick(HAL_GetTick());
+    }
     osDelay(1);
   }
   /* USER CODE END 5 */
