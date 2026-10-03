@@ -237,20 +237,21 @@ void Screen1View::loadEditorFromSetpoint()
     }
     editLength = static_cast<uint8_t>(strlen(editAscii));
     refreshEditor();
-    showEditorStatus(editTarget == EDIT_VOLTAGE ? "VOLTAGE  /  0-27 V" : "CURRENT  /  0-5 A");
+    showEditorStatus("Ready to edit");
 }
 
 void Screen1View::showEditorStatus(const char* text, bool warning)
 {
     touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text), EditorStatusBuffer, EDITORSTATUS_SIZE);
-    EditorStatus.setColor(warning ? touchgfx::Color::getColorFromRGB(168, 91, 5)
-                                 : touchgfx::Color::getColorFromRGB(36, 87, 230));
+    EditorStatus.setColor(ui::Theme::color(warning ? ui::CAUTION : ui::MUTED));
     EditorStatus.invalidate();
 }
 
 void Screen1View::refreshEditor()
 {
-    showEditorStatus(editTarget == EDIT_VOLTAGE ? "VOLTAGE - press APPLY" : "CURRENT - press APPLY", true);
+    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(editTarget == EDIT_VOLTAGE ? "VOLTAGE  /  0-27 V" : "CURRENT  /  0-5 A"),EditorHeadingBuffer,EDITORHEADING_SIZE);
+    EditorHeading.invalidate();
+    showEditorStatus("Press APPLY to send");
     char displayAscii[16];
     snprintf(displayAscii, sizeof(displayAscii), "%s %c", editAscii,
              editTarget == EDIT_VOLTAGE ? 'V' : 'A');
@@ -432,8 +433,8 @@ void Screen1View::updatePresetHighlight(uint8_t preset)
     {const PsuPreset* p=psu_preset_get(2);char b[40];if(p){snprintf(b,sizeof(b),"P3  %lu.%02lu V\n%lu.%03lu A",(unsigned long)(p->voltage_mv/1000),(unsigned long)(p->voltage_mv%1000/10),(unsigned long)(p->current_ma/1000),(unsigned long)(p->current_ma%1000));touchgfx::Unicode::fromUTF8((const uint8_t*)b,QuickPreset3Buffer,QUICKPRESET3_SIZE);QuickPreset3.invalidate();}}
 
 
-    const touchgfx::Bitmap released(BITMAP_BTN_PRESET_V3_RELEASED_140X50_ID);
-    const touchgfx::Bitmap selected(BITMAP_BTN_PRESET_V3_PRESSED_140X50_ID);
+    const touchgfx::Bitmap released(BITMAP_MAIN_PRESET_REL_154X60_ID);
+    const touchgfx::Bitmap selected(BITMAP_MAIN_PRESET_SEL_154X60_ID);
     const touchgfx::colortype normalText = touchgfx::Color::getColorFromRGB(23, 35, 55);
     const touchgfx::colortype selectedText = touchgfx::Color::getColorFromRGB(36, 87, 230);
 
@@ -576,6 +577,7 @@ void Screen1View::setupTheme()
     theme.panel(ThemeVoltageCard);
     theme.panel(ThemeCurrentCard);
     theme.panel(ThemeKeypadCard);
+    theme.panel(ThemeStatusCard);
     theme.text(TitleText);
     theme.image(ModePill,ui::PILL);
     theme.text(ModeTextFront,ui::ON_ACCENT);
@@ -620,6 +622,8 @@ void Screen1View::setupTheme()
     theme.text(VoltageMaxHint);
     theme.text(CurrentMaxHint);
     theme.text(LinkStatus);
+    theme.text(EditorHeading,ui::ACCENT);
+    theme.text(EditorStatusLabel,ui::MUTED);
     theme.text(EditorStatus);
     theme.text(EditorHelp);
     theme.text(QuickPreset1);

@@ -151,9 +151,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -162,9 +162,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -175,9 +175,9 @@
             "Width": 484,
             "Height": 151,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -188,22 +188,35 @@
             "Width": 484,
             "Height": 151,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
             "Type": "Box",
             "Name": "ThemeKeypadCard",
             "X": 512,
-            "Y": 76,
+            "Y": 80,
             "Width": 272,
-            "Height": 372,
+            "Height": 311,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeStatusCard",
+            "X": 512,
+            "Y": 404,
+            "Width": 272,
+            "Height": 60,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -216,9 +229,9 @@
             "TextId": "TXT_TITLE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -240,9 +253,9 @@
             "TextId": "TXT_MODE_CV",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -256,9 +269,9 @@
             "TextId": "TXT_TEMP",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -272,9 +285,9 @@
             "TextId": "TXT_TEMP_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TEMP_INITIAL",
@@ -292,9 +305,9 @@
             "TextId": "TXT_POWER",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -307,9 +320,9 @@
             "TextId": "TXT_POWER_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_POWER_INITIAL",
@@ -337,9 +350,9 @@
             "TextId": "TXT_OUTPUT",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_OUTPUT_INITIAL",
@@ -357,9 +370,9 @@
             "TextId": "TXT_ACTUAL_V",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -372,9 +385,9 @@
             "TextId": "TXT_VOLTAGE_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_VOLTAGE_INITIAL",
@@ -392,9 +405,9 @@
             "TextId": "TXT_SET_U",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -407,9 +420,9 @@
             "TextId": "TXT_SET_VOLTAGE_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_SET_VOLTAGE_INITIAL",
@@ -427,9 +440,9 @@
             "TextId": "TXT_ACTUAL_I",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -442,9 +455,9 @@
             "TextId": "TXT_CURRENT_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_CURRENT_INITIAL",
@@ -462,9 +475,9 @@
             "TextId": "TXT_LIMIT_I",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -477,9 +490,9 @@
             "TextId": "TXT_SET_CURRENT_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_SET_CURRENT_INITIAL",
@@ -513,9 +526,9 @@
             "X": 524,
             "Y": 116,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_1",
             "ReleasedColor": {
               "Red": 23,
@@ -535,9 +548,9 @@
             "X": 608,
             "Y": 116,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_2",
             "ReleasedColor": {
               "Red": 23,
@@ -557,9 +570,9 @@
             "X": 692,
             "Y": 116,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_3",
             "ReleasedColor": {
               "Red": 23,
@@ -577,11 +590,11 @@
             "Type": "ButtonWithLabel",
             "Name": "Key4",
             "X": 524,
-            "Y": 182,
+            "Y": 170,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_4",
             "ReleasedColor": {
               "Red": 23,
@@ -599,11 +612,11 @@
             "Type": "ButtonWithLabel",
             "Name": "Key5",
             "X": 608,
-            "Y": 182,
+            "Y": 170,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_5",
             "ReleasedColor": {
               "Red": 23,
@@ -621,11 +634,11 @@
             "Type": "ButtonWithLabel",
             "Name": "Key6",
             "X": 692,
-            "Y": 182,
+            "Y": 170,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_6",
             "ReleasedColor": {
               "Red": 23,
@@ -643,11 +656,11 @@
             "Type": "ButtonWithLabel",
             "Name": "Key7",
             "X": 524,
-            "Y": 248,
+            "Y": 224,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_7",
             "ReleasedColor": {
               "Red": 23,
@@ -665,11 +678,11 @@
             "Type": "ButtonWithLabel",
             "Name": "Key8",
             "X": 608,
-            "Y": 248,
+            "Y": 224,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_8",
             "ReleasedColor": {
               "Red": 23,
@@ -687,11 +700,11 @@
             "Type": "ButtonWithLabel",
             "Name": "Key9",
             "X": 692,
-            "Y": 248,
+            "Y": 224,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_9",
             "ReleasedColor": {
               "Red": 23,
@@ -709,11 +722,11 @@
             "Type": "ButtonWithLabel",
             "Name": "KeyClear",
             "X": 524,
-            "Y": 314,
+            "Y": 278,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_CLEAR",
             "ReleasedColor": {
               "Red": 23,
@@ -731,11 +744,11 @@
             "Type": "ButtonWithLabel",
             "Name": "Key0",
             "X": 608,
-            "Y": 314,
+            "Y": 278,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_0",
             "ReleasedColor": {
               "Red": 23,
@@ -753,11 +766,11 @@
             "Type": "ButtonWithLabel",
             "Name": "KeyDot",
             "X": 692,
-            "Y": 314,
+            "Y": 278,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_DOT",
             "ReleasedColor": {
               "Red": 23,
@@ -775,11 +788,11 @@
             "Type": "ButtonWithLabel",
             "Name": "KeyBack",
             "X": 524,
-            "Y": 380,
+            "Y": 332,
             "Width": 76,
-            "Height": 58,
-            "Pressed": "btn_key_v2_pressed_76x58.png",
-            "Released": "btn_key_v2_released_76x58.png",
+            "Height": 48,
+            "Pressed": "main_key_sel_76x48.png",
+            "Released": "main_key_rel_76x48.png",
             "TextId": "TXT_BACK",
             "ReleasedColor": {
               "Red": 23,
@@ -797,11 +810,11 @@
             "Type": "ButtonWithLabel",
             "Name": "KeyEnter",
             "X": 608,
-            "Y": 380,
+            "Y": 332,
             "Width": 160,
-            "Height": 58,
-            "Pressed": "btn_apply_v2_pressed_160x58.png",
-            "Released": "btn_apply_v2_released_160x58.png",
+            "Height": 48,
+            "Pressed": "main_apply_sel_160x48.png",
+            "Released": "main_apply_rel_160x48.png",
             "TextId": "TXT_ENTER",
             "ReleasedColor": {
               "Red": 23,
@@ -818,12 +831,12 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Preset1Button",
-            "X": 28,
-            "Y": 412,
-            "Width": 140,
-            "Height": 50,
-            "Pressed": "btn_preset_v3_pressed_140x50.png",
-            "Released": "btn_preset_v3_released_140x50.png",
+            "X": 16,
+            "Y": 404,
+            "Width": 154,
+            "Height": 60,
+            "Pressed": "main_preset_sel_154x60.png",
+            "Released": "main_preset_rel_154x60.png",
             "TextId": "TXT_PRESET_BLANK",
             "ReleasedColor": {
               "Red": 23,
@@ -840,12 +853,12 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Preset2Button",
-            "X": 185,
-            "Y": 412,
-            "Width": 140,
-            "Height": 50,
-            "Pressed": "btn_preset_v3_pressed_140x50.png",
-            "Released": "btn_preset_v3_released_140x50.png",
+            "X": 181,
+            "Y": 404,
+            "Width": 154,
+            "Height": 60,
+            "Pressed": "main_preset_sel_154x60.png",
+            "Released": "main_preset_rel_154x60.png",
             "TextId": "TXT_PRESET_BLANK",
             "ReleasedColor": {
               "Red": 23,
@@ -862,12 +875,12 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Preset3Button",
-            "X": 342,
-            "Y": 412,
-            "Width": 140,
-            "Height": 50,
-            "Pressed": "btn_preset_v3_pressed_140x50.png",
-            "Released": "btn_preset_v3_released_140x50.png",
+            "X": 346,
+            "Y": 404,
+            "Width": 154,
+            "Height": 60,
+            "Pressed": "main_preset_sel_154x60.png",
+            "Released": "main_preset_rel_154x60.png",
             "TextId": "TXT_PRESET_BLANK",
             "ReleasedColor": {
               "Red": 23,
@@ -913,9 +926,9 @@
             "TextId": "TXT_BATTERY",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -928,9 +941,9 @@
             "TextId": "TXT_BATTERY_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_BATTERY_INITIAL",
@@ -949,9 +962,9 @@
             "TextId": "TXT_PCB_TEMP",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -965,9 +978,9 @@
             "TextId": "TXT_PCB_TEMP_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_PCB_TEMP_INITIAL",
@@ -1004,9 +1017,9 @@
             "TextId": "TXT_VOLTAGE_MAX",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -1019,9 +1032,9 @@
             "TextId": "TXT_CURRENT_MAX",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -1034,9 +1047,9 @@
             "TextId": "TXT_LINK_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_LINK_INITIAL",
@@ -1048,15 +1061,15 @@
             "Type": "TextArea",
             "Name": "EditorStatus",
             "X": 524,
-            "Y": 80,
-            "Width": 252,
-            "Height": 28,
+            "Y": 434,
+            "Width": 248,
+            "Height": 24,
             "TextId": "TXT_EDITOR_STATUS",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_EDITOR_INITIAL",
@@ -1068,31 +1081,31 @@
             "Type": "TextArea",
             "Name": "EditorHelp",
             "X": 524,
-            "Y": 450,
-            "Width": 252,
-            "Height": 24,
+            "Y": 440,
+            "Width": 248,
+            "Height": 20,
             "Visible": false,
             "TextId": "TXT_EDITOR_HELP",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
             "Type": "TextArea",
             "Name": "QuickPreset1",
-            "X": 36,
-            "Y": 418,
-            "Width": 126,
-            "Height": 42,
+            "X": 22,
+            "Y": 412,
+            "Width": 142,
+            "Height": 46,
             "TextId": "TXT_QUICK_PRESET",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -1103,16 +1116,16 @@
           {
             "Type": "TextArea",
             "Name": "QuickPreset2",
-            "X": 193,
-            "Y": 418,
-            "Width": 126,
-            "Height": 42,
+            "X": 187,
+            "Y": 412,
+            "Width": 142,
+            "Height": 46,
             "TextId": "TXT_QUICK_PRESET",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -1123,21 +1136,56 @@
           {
             "Type": "TextArea",
             "Name": "QuickPreset3",
-            "X": 350,
-            "Y": 418,
-            "Width": 126,
-            "Height": 42,
+            "X": 352,
+            "Y": 412,
+            "Width": 142,
+            "Height": 46,
             "TextId": "TXT_QUICK_PRESET",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
               "UseBuffer": true,
               "BufferSize": 40
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "EditorHeading",
+            "X": 524,
+            "Y": 88,
+            "Width": 252,
+            "Height": 24,
+            "TextId": "TXT_MAIN_EDITOR_HEADING",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
+            },
+            "Wildcard1": {
+              "TextId": "TXT_EDITOR_INITIAL",
+              "UseBuffer": true,
+              "BufferSize": 40
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "EditorStatusLabel",
+            "X": 524,
+            "Y": 412,
+            "Width": 248,
+            "Height": 18,
+            "TextId": "TXT_MAIN_STATUS_LABEL",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           }
         ],
@@ -1386,9 +1434,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -1397,9 +1445,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -1409,9 +1457,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -1424,9 +1472,9 @@
             "TextId": "TXT_UX_ScreenSettings",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -1439,9 +1487,9 @@
             "TextId": "TXT_UX_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -1522,9 +1570,9 @@
             "TextId": "TXT_UX_NAV0",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -1537,9 +1585,9 @@
             "TextId": "TXT_UX_DESC0",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -1571,9 +1619,9 @@
             "TextId": "TXT_UX_NAV1",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -1586,9 +1634,9 @@
             "TextId": "TXT_UX_DESC1",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -1620,9 +1668,9 @@
             "TextId": "TXT_UX_NAV2",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -1635,9 +1683,9 @@
             "TextId": "TXT_UX_DESC2",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -1669,9 +1717,9 @@
             "TextId": "TXT_UX_NAV3",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -1684,9 +1732,9 @@
             "TextId": "TXT_UX_DESC3",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -1718,9 +1766,9 @@
             "TextId": "TXT_UX_NAV4",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -1733,9 +1781,9 @@
             "TextId": "TXT_UX_DESC4",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -1767,9 +1815,9 @@
             "TextId": "TXT_UX_NAV5",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -1782,9 +1830,9 @@
             "TextId": "TXT_UX_DESC5",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -1816,9 +1864,9 @@
             "TextId": "TXT_UX_NAV6",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -1831,9 +1879,9 @@
             "TextId": "TXT_UX_DESC6",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -1856,9 +1904,9 @@
             "TextId": "TXT_APPEARANCE_TITLE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -1871,9 +1919,9 @@
             "TextId": "TXT_APPEARANCE_DESC",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           }
         ],
@@ -2017,9 +2065,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -2028,9 +2076,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2040,9 +2088,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -2055,9 +2103,9 @@
             "TextId": "TXT_UX_ScreenDiagnostics",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -2070,9 +2118,9 @@
             "TextId": "TXT_UX_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2242,9 +2290,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2257,9 +2305,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2275,9 +2323,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2290,9 +2338,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2308,9 +2356,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2323,9 +2371,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2341,9 +2389,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2356,9 +2404,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2374,9 +2422,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2389,9 +2437,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2407,9 +2455,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2422,9 +2470,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2440,9 +2488,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2455,9 +2503,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2473,9 +2521,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2488,9 +2536,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2506,9 +2554,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2521,9 +2569,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2539,9 +2587,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2554,9 +2602,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2572,9 +2620,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2587,9 +2635,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2605,9 +2653,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2620,9 +2668,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2638,9 +2686,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2653,9 +2701,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2671,9 +2719,9 @@
             "Width": 352,
             "Height": 30,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2686,9 +2734,9 @@
             "TextId": "TXT_DIAG_FIELD",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2706,9 +2754,9 @@
             "TextId": "TXT_DIAG_RAW",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -2927,9 +2975,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -2938,9 +2986,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -2950,9 +2998,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -2965,9 +3013,9 @@
             "TextId": "TXT_UX_ScreenPresets",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -2980,9 +3028,9 @@
             "TextId": "TXT_UX_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -3352,9 +3400,9 @@
             "TextId": "TXT_PRESET_EDITOR",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -3394,9 +3442,9 @@
             "TextId": "TXT_PRESET_SUMMARY",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -3436,9 +3484,9 @@
             "TextId": "TXT_PRESET_SUMMARY",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -3478,9 +3526,9 @@
             "TextId": "TXT_PRESET_SUMMARY",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -3496,9 +3544,9 @@
             "Width": 480,
             "Height": 80,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -3521,9 +3569,9 @@
             "TextId": "TXT_PRESET_V",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -3536,9 +3584,9 @@
             "TextId": "TXT_PRESET_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -3554,9 +3602,9 @@
             "Width": 480,
             "Height": 80,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -3579,9 +3627,9 @@
             "TextId": "TXT_PRESET_I",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -3594,9 +3642,9 @@
             "TextId": "TXT_PRESET_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -3636,9 +3684,9 @@
             "TextId": "TXT_PRESET_HINT",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           }
         ],
@@ -3898,9 +3946,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -3909,9 +3957,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -3921,9 +3969,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -3936,9 +3984,9 @@
             "TextId": "TXT_TITLE_SEQ",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -4042,9 +4090,9 @@
             "TextId": "TXT_STEP1NO",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_STEP1NO_I",
@@ -4062,9 +4110,9 @@
             "TextId": "TXT_STEP1VOLT",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_STEP1VOLT_I",
@@ -4082,9 +4130,9 @@
             "TextId": "TXT_STEP1AMP",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_STEP1AMP_I",
@@ -4102,9 +4150,9 @@
             "TextId": "TXT_STEP1TIME",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_STEP1TIME_I",
@@ -4122,9 +4170,9 @@
             "TextId": "TXT_STEP2NO",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_STEP2NO_I",
@@ -4142,9 +4190,9 @@
             "TextId": "TXT_STEP2VOLT",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_STEP2VOLT_I",
@@ -4162,9 +4210,9 @@
             "TextId": "TXT_STEP2AMP",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_STEP2AMP_I",
@@ -4182,9 +4230,9 @@
             "TextId": "TXT_STEP2TIME",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_STEP2TIME_I",
@@ -4202,9 +4250,9 @@
             "TextId": "TXT_STEP3NO",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_STEP3NO_I",
@@ -4222,9 +4270,9 @@
             "TextId": "TXT_STEP3VOLT",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_STEP3VOLT_I",
@@ -4242,9 +4290,9 @@
             "TextId": "TXT_STEP3AMP",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_STEP3AMP_I",
@@ -4262,9 +4310,9 @@
             "TextId": "TXT_STEP3TIME",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_STEP3TIME_I",
@@ -4282,9 +4330,9 @@
             "TextId": "TXT_STEP4NO",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_STEP4NO_I",
@@ -4302,9 +4350,9 @@
             "TextId": "TXT_STEP4VOLT",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_STEP4VOLT_I",
@@ -4322,9 +4370,9 @@
             "TextId": "TXT_STEP4AMP",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_STEP4AMP_I",
@@ -4342,9 +4390,9 @@
             "TextId": "TXT_STEP4TIME",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_STEP4TIME_I",
@@ -4362,9 +4410,9 @@
             "TextId": "TXT_STEP5NO",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_STEP5NO_I",
@@ -4382,9 +4430,9 @@
             "TextId": "TXT_STEP5VOLT",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_STEP5VOLT_I",
@@ -4402,9 +4450,9 @@
             "TextId": "TXT_STEP5AMP",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_STEP5AMP_I",
@@ -4422,9 +4470,9 @@
             "TextId": "TXT_STEP5TIME",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_STEP5TIME_I",
@@ -4442,9 +4490,9 @@
             "TextId": "TXT_STEP6NO",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_STEP6NO_I",
@@ -4462,9 +4510,9 @@
             "TextId": "TXT_STEP6VOLT",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_STEP6VOLT_I",
@@ -4482,9 +4530,9 @@
             "TextId": "TXT_STEP6AMP",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_STEP6AMP_I",
@@ -4502,9 +4550,9 @@
             "TextId": "TXT_STEP6TIME",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_STEP6TIME_I",
@@ -4532,9 +4580,9 @@
             "TextId": "TXT_LBL_VOLTAGE",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -4547,9 +4595,9 @@
             "TextId": "TXT_SEQ_COMPACT_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_EDITVOLT_I",
@@ -4577,9 +4625,9 @@
             "TextId": "TXT_LBL_CURRENT",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -4592,9 +4640,9 @@
             "TextId": "TXT_SEQ_COMPACT_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_EDITAMP_I",
@@ -4622,9 +4670,9 @@
             "TextId": "TXT_LBL_TIME",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -4637,9 +4685,9 @@
             "TextId": "TXT_SEQ_COMPACT_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_EDITTIME_I",
@@ -4667,9 +4715,9 @@
             "TextId": "TXT_LBL_SLEW",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -4682,9 +4730,9 @@
             "TextId": "TXT_SEQ_COMPACT_VALUE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_EDITSLEW_I",
@@ -4702,9 +4750,9 @@
             "TextId": "TXT_SEQSTATUS",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_SEQSTATUS_I",
@@ -5187,9 +5235,9 @@
             "TextId": "TXT_PAGE_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_HINT_ScreenSequencer",
@@ -5207,9 +5255,9 @@
             "TextId": "TXT_SeqColumnNo",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -5222,9 +5270,9 @@
             "TextId": "TXT_SeqColumnV",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -5237,9 +5285,9 @@
             "TextId": "TXT_SeqColumnI",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -5252,9 +5300,9 @@
             "TextId": "TXT_SeqColumnT",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -5657,9 +5705,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -5668,9 +5716,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -5680,9 +5728,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -5695,9 +5743,9 @@
             "TextId": "TXT_NEW_ScreenMeasurements",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -5710,9 +5758,9 @@
             "TextId": "TXT_PAGE_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -5750,9 +5798,9 @@
             "Width": 180,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -5765,9 +5813,9 @@
             "TextId": "TXT_ScreenMeasurements_LABEL0",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -5780,9 +5828,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -5798,9 +5846,9 @@
             "Width": 180,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -5813,9 +5861,9 @@
             "TextId": "TXT_ScreenMeasurements_LABEL1",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -5828,9 +5876,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -5846,9 +5894,9 @@
             "Width": 180,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -5861,9 +5909,9 @@
             "TextId": "TXT_ScreenMeasurements_LABEL2",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -5876,9 +5924,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -5894,9 +5942,9 @@
             "Width": 180,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -5909,9 +5957,9 @@
             "TextId": "TXT_ScreenMeasurements_LABEL3",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -5924,9 +5972,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -5942,9 +5990,9 @@
             "Width": 376,
             "Height": 194,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -5957,9 +6005,9 @@
             "TextId": "TXT_ScreenMeasurementsLeft",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             }
           },
           {
@@ -5972,9 +6020,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -5990,9 +6038,9 @@
             "Width": 376,
             "Height": 194,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6005,9 +6053,9 @@
             "TextId": "TXT_ScreenMeasurementsRight",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             }
           },
           {
@@ -6020,9 +6068,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6122,9 +6170,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -6133,9 +6181,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6145,9 +6193,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -6160,9 +6208,9 @@
             "TextId": "TXT_UX_ScreenBattery",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -6175,9 +6223,9 @@
             "TextId": "TXT_UX_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6237,9 +6285,9 @@
             "Width": 180,
             "Height": 84,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6252,9 +6300,9 @@
             "TextId": "TXT_BATT_MET0",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -6267,9 +6315,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6285,9 +6333,9 @@
             "Width": 180,
             "Height": 84,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6300,9 +6348,9 @@
             "TextId": "TXT_BATT_MET1",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -6315,9 +6363,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6333,9 +6381,9 @@
             "Width": 180,
             "Height": 84,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6348,9 +6396,9 @@
             "TextId": "TXT_BATT_MET2",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -6363,9 +6411,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6381,9 +6429,9 @@
             "Width": 180,
             "Height": 84,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6396,9 +6444,9 @@
             "TextId": "TXT_BATT_MET3",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -6411,9 +6459,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6431,9 +6479,9 @@
             "TextId": "TXT_BATT_CELLS",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -6444,9 +6492,9 @@
             "Width": 144,
             "Height": 100,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6457,9 +6505,9 @@
             "Width": 44,
             "Height": 7,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6472,9 +6520,9 @@
             "TextId": "TXT_BATT_CH0",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -6487,9 +6535,9 @@
             "TextId": "TXT_CELL_DYNAMIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6505,9 +6553,9 @@
             "Width": 120,
             "Height": 4,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6518,9 +6566,9 @@
             "Width": 144,
             "Height": 100,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6531,9 +6579,9 @@
             "Width": 44,
             "Height": 7,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6546,9 +6594,9 @@
             "TextId": "TXT_BATT_CH1",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -6561,9 +6609,9 @@
             "TextId": "TXT_CELL_DYNAMIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6579,9 +6627,9 @@
             "Width": 120,
             "Height": 4,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6592,9 +6640,9 @@
             "Width": 144,
             "Height": 100,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6605,9 +6653,9 @@
             "Width": 44,
             "Height": 7,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6620,9 +6668,9 @@
             "TextId": "TXT_BATT_CH2",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -6635,9 +6683,9 @@
             "TextId": "TXT_CELL_DYNAMIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6653,9 +6701,9 @@
             "Width": 120,
             "Height": 4,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6666,9 +6714,9 @@
             "Width": 144,
             "Height": 100,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6679,9 +6727,9 @@
             "Width": 44,
             "Height": 7,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6694,9 +6742,9 @@
             "TextId": "TXT_BATT_CH3",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -6709,9 +6757,9 @@
             "TextId": "TXT_CELL_DYNAMIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6727,9 +6775,9 @@
             "Width": 120,
             "Height": 4,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6740,9 +6788,9 @@
             "Width": 144,
             "Height": 100,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6753,9 +6801,9 @@
             "Width": 44,
             "Height": 7,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6768,9 +6816,9 @@
             "TextId": "TXT_BATT_CH4",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -6783,9 +6831,9 @@
             "TextId": "TXT_CELL_DYNAMIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6801,9 +6849,9 @@
             "Width": 120,
             "Height": 4,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6816,9 +6864,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6836,9 +6884,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6856,9 +6904,9 @@
             "TextId": "TXT_BATTERY_FUTURE",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           }
         ],
@@ -6898,9 +6946,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -6909,9 +6957,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -6921,9 +6969,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -6936,9 +6984,9 @@
             "TextId": "TXT_NEW_ScreenBms",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -6951,9 +6999,9 @@
             "TextId": "TXT_PAGE_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -6991,9 +7039,9 @@
             "Width": 144,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7006,9 +7054,9 @@
             "TextId": "TXT_ScreenBms_LABEL0",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -7021,9 +7069,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7039,9 +7087,9 @@
             "Width": 144,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7054,9 +7102,9 @@
             "TextId": "TXT_ScreenBms_LABEL1",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -7069,9 +7117,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7087,9 +7135,9 @@
             "Width": 144,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7102,9 +7150,9 @@
             "TextId": "TXT_ScreenBms_LABEL2",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -7117,9 +7165,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7135,9 +7183,9 @@
             "Width": 144,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7150,9 +7198,9 @@
             "TextId": "TXT_ScreenBms_LABEL3",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -7165,9 +7213,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7183,9 +7231,9 @@
             "Width": 144,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7198,9 +7246,9 @@
             "TextId": "TXT_ScreenBms_LABEL4",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -7213,9 +7261,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7231,9 +7279,9 @@
             "Width": 376,
             "Height": 194,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7246,9 +7294,9 @@
             "TextId": "TXT_ScreenBmsLeft",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             }
           },
           {
@@ -7261,9 +7309,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7279,9 +7327,9 @@
             "Width": 376,
             "Height": 194,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7294,9 +7342,9 @@
             "TextId": "TXT_ScreenBmsRight",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             }
           },
           {
@@ -7309,9 +7357,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7444,9 +7492,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -7455,9 +7503,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7467,9 +7515,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -7482,9 +7530,9 @@
             "TextId": "TXT_NEW_ScreenPowerPath",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -7497,9 +7545,9 @@
             "TextId": "TXT_PAGE_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7537,9 +7585,9 @@
             "Width": 180,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7552,9 +7600,9 @@
             "TextId": "TXT_ScreenPowerPath_LABEL0",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -7567,9 +7615,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7585,9 +7633,9 @@
             "Width": 180,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7600,9 +7648,9 @@
             "TextId": "TXT_ScreenPowerPath_LABEL1",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -7615,9 +7663,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7633,9 +7681,9 @@
             "Width": 180,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7648,9 +7696,9 @@
             "TextId": "TXT_ScreenPowerPath_LABEL2",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -7663,9 +7711,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7681,9 +7729,9 @@
             "Width": 180,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7696,9 +7744,9 @@
             "TextId": "TXT_ScreenPowerPath_LABEL3",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -7711,9 +7759,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7729,9 +7777,9 @@
             "Width": 376,
             "Height": 194,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7744,9 +7792,9 @@
             "TextId": "TXT_ScreenPowerPathLeft",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             }
           },
           {
@@ -7759,9 +7807,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7777,9 +7825,9 @@
             "Width": 376,
             "Height": 194,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7792,9 +7840,9 @@
             "TextId": "TXT_ScreenPowerPathRight",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             }
           },
           {
@@ -7807,9 +7855,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -7975,9 +8023,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -7986,9 +8034,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -7998,9 +8046,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -8013,9 +8061,9 @@
             "TextId": "TXT_NEW_ScreenUsbPd",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -8028,9 +8076,9 @@
             "TextId": "TXT_PAGE_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -8068,9 +8116,9 @@
             "Width": 180,
             "Height": 96,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -8083,9 +8131,9 @@
             "TextId": "TXT_ScreenUsbPd_LABEL0",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -8098,9 +8146,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -8116,9 +8164,9 @@
             "Width": 180,
             "Height": 96,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -8131,9 +8179,9 @@
             "TextId": "TXT_ScreenUsbPd_LABEL1",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -8146,9 +8194,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -8164,9 +8212,9 @@
             "Width": 180,
             "Height": 96,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -8179,9 +8227,9 @@
             "TextId": "TXT_ScreenUsbPd_LABEL2",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -8194,9 +8242,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -8212,9 +8260,9 @@
             "Width": 180,
             "Height": 96,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -8227,9 +8275,9 @@
             "TextId": "TXT_ScreenUsbPd_LABEL3",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -8242,9 +8290,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -8260,9 +8308,9 @@
             "Width": 376,
             "Height": 158,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -8275,9 +8323,9 @@
             "TextId": "TXT_ScreenUsbPdLeft",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             }
           },
           {
@@ -8290,9 +8338,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -8308,9 +8356,9 @@
             "Width": 376,
             "Height": 158,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -8323,9 +8371,9 @@
             "TextId": "TXT_ScreenUsbPdRight",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             }
           },
           {
@@ -8338,9 +8386,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -8468,9 +8516,9 @@
             "TextId": "TXT_PD_CAPABILITY",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           }
         ],
@@ -8554,9 +8602,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -8565,9 +8613,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -8577,9 +8625,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -8592,9 +8640,9 @@
             "TextId": "TXT_UX_ScreenExtCharger",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -8607,9 +8655,9 @@
             "TextId": "TXT_UX_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -9045,9 +9093,9 @@
             "TextId": "TXT_CHG_EDIT",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -9185,9 +9233,9 @@
             "TextId": "TXT_CHG_FIELD0",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -9200,9 +9248,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -9230,9 +9278,9 @@
             "TextId": "TXT_CHG_FIELD1",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -9245,9 +9293,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -9275,9 +9323,9 @@
             "TextId": "TXT_CHG_FIELD2",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -9290,9 +9338,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -9320,9 +9368,9 @@
             "TextId": "TXT_CHG_FIELD3",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -9335,9 +9383,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -9355,9 +9403,9 @@
             "TextId": "TXT_CHG_PROFILE",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -9441,9 +9489,9 @@
             "TextId": "TXT_CHG_STATS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -9461,9 +9509,9 @@
             "TextId": "TXT_CHG_AXIS",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -9481,9 +9529,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -9501,9 +9549,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -9867,9 +9915,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -9878,9 +9926,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -9890,9 +9938,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -9905,9 +9953,9 @@
             "TextId": "TXT_NEW_ScreenProtection",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -9920,9 +9968,9 @@
             "TextId": "TXT_PAGE_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -9960,9 +10008,9 @@
             "Width": 180,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -9975,9 +10023,9 @@
             "TextId": "TXT_ScreenProtection_LABEL0",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -9990,9 +10038,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -10008,9 +10056,9 @@
             "Width": 180,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10023,9 +10071,9 @@
             "TextId": "TXT_ScreenProtection_LABEL1",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -10038,9 +10086,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -10056,9 +10104,9 @@
             "Width": 180,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10071,9 +10119,9 @@
             "TextId": "TXT_ScreenProtection_LABEL2",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -10086,9 +10134,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -10104,9 +10152,9 @@
             "Width": 180,
             "Height": 112,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10119,9 +10167,9 @@
             "TextId": "TXT_ScreenProtection_LABEL3",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -10134,9 +10182,9 @@
             "TextId": "TXT_TELEM_METRIC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -10152,9 +10200,9 @@
             "Width": 376,
             "Height": 194,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10167,9 +10215,9 @@
             "TextId": "TXT_ScreenProtectionLeft",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             }
           },
           {
@@ -10182,9 +10230,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -10200,9 +10248,9 @@
             "Width": 376,
             "Height": 194,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10215,9 +10263,9 @@
             "TextId": "TXT_ScreenProtectionRight",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             }
           },
           {
@@ -10230,9 +10278,9 @@
             "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -10365,9 +10413,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -10376,9 +10424,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10388,9 +10436,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -10403,9 +10451,9 @@
             "TextId": "TXT_TITLE_NET",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -10438,9 +10486,9 @@
             "Width": 368,
             "Height": 128,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10453,9 +10501,9 @@
             "TextId": "TXT_LBL_IP",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -10468,9 +10516,9 @@
             "TextId": "TXT_NETIP",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_NETIP_I",
@@ -10486,9 +10534,9 @@
             "Width": 368,
             "Height": 128,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10501,9 +10549,9 @@
             "TextId": "TXT_LBL_MASK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -10516,9 +10564,9 @@
             "TextId": "TXT_NETMASK",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_NETMASK_I",
@@ -10534,9 +10582,9 @@
             "Width": 368,
             "Height": 128,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10549,9 +10597,9 @@
             "TextId": "TXT_LBL_GW",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -10564,9 +10612,9 @@
             "TextId": "TXT_NETGW",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_NETGW_I",
@@ -10582,9 +10630,9 @@
             "Width": 368,
             "Height": 128,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10597,9 +10645,9 @@
             "TextId": "TXT_LBL_LINK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -10612,9 +10660,9 @@
             "TextId": "TXT_NETLINK",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_NETLINK_I",
@@ -10630,9 +10678,9 @@
             "Width": 768,
             "Height": 96,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10645,9 +10693,9 @@
             "TextId": "TXT_LBL_MAC",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -10660,9 +10708,9 @@
             "TextId": "TXT_NETMAC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_NETMAC_I",
@@ -10680,9 +10728,9 @@
             "TextId": "TXT_PAGE_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_HINT_ScreenNetwork",
@@ -10744,9 +10792,9 @@
             "TextId": "TXT_WIFI_FUTURE",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           }
         ],
@@ -10797,9 +10845,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -10808,9 +10856,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10820,9 +10868,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -10835,9 +10883,9 @@
             "TextId": "TXT_TITLE_SVC",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -10870,9 +10918,9 @@
             "Width": 768,
             "Height": 96,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10885,9 +10933,9 @@
             "TextId": "TXT_LBL_MODE",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -10918,9 +10966,9 @@
             "Width": 768,
             "Height": 96,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10933,9 +10981,9 @@
             "TextId": "TXT_LBL_TX",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -10948,9 +10996,9 @@
             "TextId": "TXT_SVCTX",
             "TextRotation": "0",
             "Color": {
-              "Red": 36,
-              "Green": 87,
-              "Blue": 230
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
             },
             "Wildcard1": {
               "TextId": "TXT_SVCTX_I",
@@ -10966,9 +11014,9 @@
             "Width": 768,
             "Height": 96,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -10981,9 +11029,9 @@
             "TextId": "TXT_LBL_RX",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -10996,9 +11044,9 @@
             "TextId": "TXT_SVCRX",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_SVCRX_I",
@@ -11082,9 +11130,9 @@
             "TextId": "TXT_PAGE_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_HINT_ScreenService",
@@ -11184,9 +11232,9 @@
             "Width": 800,
             "Height": 480,
             "Color": {
-              "Red": 245,
-              "Green": 247,
-              "Blue": 252
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
             }
           },
           {
@@ -11195,9 +11243,9 @@
             "Width": 800,
             "Height": 64,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -11207,9 +11255,9 @@
             "Width": 800,
             "Height": 1,
             "Color": {
-              "Red": 221,
-              "Green": 227,
-              "Blue": 235
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
             }
           },
           {
@@ -11222,9 +11270,9 @@
             "TextId": "TXT_APPEARANCE_TITLE",
             "TextRotation": "0",
             "Color": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -11237,9 +11285,9 @@
             "TextId": "TXT_UX_FEEDBACK",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
@@ -11299,9 +11347,9 @@
             "Width": 768,
             "Height": 126,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -11312,9 +11360,9 @@
             "Width": 768,
             "Height": 126,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -11327,9 +11375,9 @@
             "TextId": "TXT_THEME_HEADING",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -11342,9 +11390,9 @@
             "TextId": "TXT_ACCENT_HEADING",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -11489,9 +11537,9 @@
             "TextId": "TXT_APPEARANCE_NOTE",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           },
           {
@@ -11504,9 +11552,9 @@
             "TextId": "TXT_APPEARANCE_MODE_DETAIL",
             "TextRotation": "0",
             "Color": {
-              "Red": 96,
-              "Green": 112,
-              "Blue": 133
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           }
         ],

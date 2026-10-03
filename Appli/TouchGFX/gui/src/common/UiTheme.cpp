@@ -6,8 +6,8 @@
 #include <assert.h>
 namespace ui {
 namespace {
-bool darkMode=false;
-unsigned accent=0;
+bool darkMode=true;
+unsigned accent=3;
 const uint32_t lightAccents[]={0x2457E6,0x007F73,0x743FD3,0xAB5D07};
 const uint32_t darkAccents[]={0x5793FF,0x2DD4BF,0xA78BFA,0xFBBF24};
 touchgfx::colortype rgb(uint32_t value){return touchgfx::Color::getColorFromRGB(value>>16,(value>>8)&255,value&255);}
@@ -31,7 +31,7 @@ bool selectedBitmap(touchgfx::BitmapId id){
     // Kept as bitmap IDs so existing tab/chemistry/selection logic still works.
     case BITMAP_UX_TAB_SEL_160X58_ID: case BITMAP_UX_TAB_SEL_160X38_ID:
     case BITMAP_UX_ACTION_SEL_88X48_ID: case BITMAP_UX_ROW_SEL_432X36_ID:
-    case BITMAP_UX_TILE_SEL_248X112_ID: return true;
+    case BITMAP_UX_TILE_SEL_248X112_ID: case BITMAP_MAIN_PRESET_SEL_154X60_ID: return true;
     default:return false;
     }
 }

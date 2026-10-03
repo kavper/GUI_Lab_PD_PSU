@@ -18,7 +18,7 @@ for stage,mode in [(1,'dark'),(6,'light')]:
     assert image.getpixel((300,294))==image.getpixel((298,318)),mode+' accent corner does not match its panel'
     print('PASS panel backdrop:',mode)
 image=Image.open(root/'theme-23.bmp').convert('RGB');image.save(out/'main-dark.png')
-for rect,radius,label in [((16,80,484,151),12,'main voltage card'),((524,116,76,58),8,'key 1'),((608,116,76,58),8,'key 2'),((608,380,160,58),8,'apply')]:
+for rect,radius,label in [((16,80,484,151),12,'main voltage card'),((524,116,76,48),8,'key 1'),((608,116,76,48),8,'key 2'),((608,332,160,48),8,'apply')]:
     verify(image,rect,radius,label)
     if label!='main voltage card':assert image.getpixel((rect[0],rect[1]))==image.getpixel((rect[0]-2,rect[1]+rect[3]//2)),label+' corner has wrong backdrop'
 print('PASS all: symmetric antialiased corners and correct light/dark parent backgrounds')

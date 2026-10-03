@@ -32,9 +32,9 @@ public:
         ++frame;
         if(stage==4) // Enter 7 before testing cancellation restores the editor.
         {
-            if(frame==25) static_cast<Screen1View*>(app->getCurrentScreen())->saveSwipeEditor(editor);
+            if(frame==25){static_cast<Screen1View*>(app->getCurrentScreen())->saveSwipeEditor(editor);check(editor.length==1 && editor.text[0]=='7',"resized keypad enters digit 7");}
             if(frame>=35){stage=5;frame=0;return false;}
-            x=562;y=275;return frame<=10;
+            x=562;y=248;return frame<=10;
         }
         const int directions[8]={1,-1,-1,1,0,1,-1,1};
         const FrontendApplication::SwipePage targets[8]={FrontendApplication::SETTINGS,FrontendApplication::MAIN,FrontendApplication::USB_PD,FrontendApplication::MAIN,FrontendApplication::MAIN,FrontendApplication::MAIN,FrontendApplication::USB_PD,FrontendApplication::MAIN};

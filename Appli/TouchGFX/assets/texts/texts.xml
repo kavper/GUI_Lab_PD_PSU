@@ -1568,7 +1568,7 @@
       <Text Id="TXT_PRESET_BLANK" Alignment="Center" TypographyId="Button">
         <Translation Language="GB"></Translation>
       </Text>
-      <Text Id="TXT_QUICK_PRESET" Alignment="Center" TypographyId="UiCaption">
+      <Text Id="TXT_QUICK_PRESET" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="TXT_UX_ScreenDiagnostics" Alignment="Left" TypographyId="Title">
@@ -1728,10 +1728,16 @@
         <Translation Language="GB">Theme and accent colors</Translation>
       </Text>
       <Text Id="TXT_APPEARANCE_NOTE" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">Applies to all screens. Restart restores Light / Blue.</Translation>
+        <Translation Language="GB">Applies to all screens. Restart restores Dark / Amber.</Translation>
       </Text>
       <Text Id="TXT_APPEARANCE_MODE_DETAIL" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">Choose a light or dark&#10;interface.</Translation>
+      </Text>
+      <Text Id="TXT_MAIN_EDITOR_HEADING" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_MAIN_STATUS_LABEL" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">SETPOINT STATUS</Translation>
       </Text>
     </TextGroup>
   </Texts>

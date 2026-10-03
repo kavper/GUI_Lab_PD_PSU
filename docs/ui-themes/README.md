@@ -2,6 +2,8 @@
 
 Kafelek Appearance w ScreenSettings otwiera ScreenAppearance. LIGHT/DARK i cztery akcenty przeniesione z menu głównego ustawień. MENU wraca do ScreenSettings. Definicja ekranu i interakcji jest zapisana w pliku .touchgfx; logika znajduje się w gui/include/gui/screenappearance_screen i gui/src/screenappearance_screen. Nie edytowano ręcznie plików generowanych.
 
+Domyślnie aplikacja startuje z Dark / Amber. Karta klawiatury na ekranie głównym zajmuje Y=80..391, tak jak karty pomiarów. Klawisze mają wysokość 48 px. Presety mają 154x60 px i większą czcionkę, równo wypełniają szerokość lewej części. Nagłówek klawiatury zawiera edytowany parametr i zakres, a komunikaty edycji/wysłania nastaw trafiają do osobnej karty SETPOINT STATUS pod klawiaturą. Test symulatora sprawdza domyślne kolory i komunikat po APPLY; test gestów potwierdza wpisanie cyfry 7 przez zmieniony układ klawiszy.
+
 Test rzeczywistych próbek dotyku w symulatorze sprawdza otwarcie kafelka, oba tryby i cztery akcenty, powrót oraz siedem pozostałych stron ustawień bez zmiany parametrów PSU. Test gestów nadal przechodzi. Logi: appearance-test.log, appearance-finger.log. Zajętość: appearance-memory.json i appearance-memory.txt.
 
 Audyt akceleracji (bez zmiany konfiguracji sprzętowej):
