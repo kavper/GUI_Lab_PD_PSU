@@ -24,7 +24,7 @@ typedef struct
   uint32_t applied_voltage_mv;
   uint32_t applied_current_ma;
   uint32_t preregulator_mv;
-  int16_t temperature_centi_c[4];
+  int16_t temperature_centi_c[4]; /* Legacy name; wire unit is 0.1 C. */
   uint8_t mode;
   uint8_t startup;
   uint8_t protocol_version;
@@ -49,6 +49,12 @@ typedef struct
   uint32_t ack_frames;
   uint32_t nack_frames;
   uint32_t command_timeouts;
+  uint32_t uart_errors;
+  uint32_t last_uart_error;
+  uint32_t rx_start_failures;
+  uint32_t rx_overflows;
+  uint32_t tx_start_failures;
+  uint8_t rx_active;
   uint8_t last_nack_reason;
   uint8_t pending_type;
 } LDO_Diagnostics;

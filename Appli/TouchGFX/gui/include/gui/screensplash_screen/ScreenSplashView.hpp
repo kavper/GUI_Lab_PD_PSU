@@ -1,19 +1,11 @@
-#ifndef SCREENSPLASHVIEW_HPP
-#define SCREENSPLASHVIEW_HPP
-
+#pragma once
 #include <gui_generated/screensplash_screen/ScreenSplashViewBase.hpp>
 #include <gui/screensplash_screen/ScreenSplashPresenter.hpp>
-
-class ScreenSplashView : public ScreenSplashViewBase
-{
+class ScreenSplashView:public ScreenSplashViewBase{
 public:
-    ScreenSplashView();
-    virtual ~ScreenSplashView() {}
-    virtual void setupScreen();
-    virtual void tearDownScreen();
-    virtual void handleTickEvent();
-protected:
-    uint16_t splashTicks;
+ ScreenSplashView():ticks(0){}
+ virtual void setupScreen();virtual void handleTickEvent();
+ virtual void tearDownScreen(){ScreenSplashViewBase::tearDownScreen();}
+ virtual void continueStartup();
+private:unsigned ticks;
 };
-
-#endif // SCREENSPLASHVIEW_HPP

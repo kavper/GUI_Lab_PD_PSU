@@ -1,5 +1,10 @@
 #include <gui/screen1_screen/Screen1View.hpp>
+#include <stdio.h>
 #include <gui/screen1_screen/Screen1Presenter.hpp>
+extern "C" {
+#include "psu_app.h"
+#include "psu_limits.h"
+}
 
 Screen1Presenter::Screen1Presenter(Screen1View& v)
     : view(v)
@@ -9,7 +14,15 @@ Screen1Presenter::Screen1Presenter(Screen1View& v)
 
 void Screen1Presenter::activate()
 {
-
+    // Prepare real values before the transition clears setup invalidations.
+    // They remain stable throughout the reveal instead of painting over splash.
+    PsuSnapshot snap;
+    psu_snapshot(&snap);
+    ldoTelemetryUpdated(snap.vin_mv, snap.vout_mv, snap.signed_current_ua,
+        static_cast<int16_t>(snap.mos_centi), static_cast<int16_t>(snap.pcb_centi),
+        snap.mode_cc ? 2U : 1U, snap.g0_connected != 0,
+        snap.output_confirmed != 0, snap.current_valid != 0,
+        snap.current_valid != 0);
 }
 
 void Screen1Presenter::deactivate()
@@ -23,15 +36,26 @@ void Screen1Presenter::ldoTelemetryUpdated(uint32_t inputVoltageMv,
                                           uint8_t mode, bool connected, bool outputRequested,
                                           bool currentValid, bool currentCalibrated)
 {
-    (void)outputRequested;
-    view.setMeasurements(voltageMv, currentUa, mosfetDeciC);
-    const uint32_t positiveCurrentUa = currentUa > 0 ? static_cast<uint32_t>(currentUa) : 0U;
-    const uint32_t outputPowerMw =
-        static_cast<uint32_t>((static_cast<uint64_t>(voltageMv) * positiveCurrentUa) / 1000000U);
-    view.setInputMetrics(inputVoltageMv, outputPowerMw);
+    const int32_t shownUa = psu_display_current_ua(currentUa, currentValid ? 1 : 0);
+    view.setMeasurements(voltageMv, shownUa, mosfetDeciC);
+    view.setInputMetrics(inputVoltageMv, psu_output_power_mw(voltageMv, shownUa));
     view.setPcbTemperature(pcbDeciC);
     view.setRegulationMode(mode == 2);
     view.setCurrentMeasurementCalibrated(currentValid && currentCalibrated);
-    if (!connected)
-        view.setControllerOutputState(false);
+    view.setControllerOutputState(connected && outputRequested);
+    {
+        PsuSnapshot snap;
+        char link[24];
+        psu_snapshot(&snap);
+        view.syncControllerSetpoints(snap.requested_mv, snap.requested_ma);
+        view.setTemperaturesDeciC(snap.mos_centi, snap.pcb_centi);
+        view.setTelemetryAvailable(connected && !snap.g0_stale, currentValid, snap.temperature_valid);
+        if(snap.g4_uart_configured)view.setHostAuxMetrics();
+        if (snap.g4_uart_configured && snap.g4_link != G4_LINK_ONLINE) snprintf(link, sizeof(link), "G4 OFFLINE");
+        else if (!connected) snprintf(link, sizeof(link), "G0 OFFLINE");
+        else if (snap.g0_stale) snprintf(link, sizeof(link), "G0 STALE");
+        else
+            snprintf(link, sizeof(link), snap.g4_uart_configured ? "G4 ONLINE" : "G0 ONLINE");
+        view.setLinkStatus(link);
+    }
 }

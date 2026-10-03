@@ -651,7 +651,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART234578;
   PeriphClkInit.Usart234578ClockSelection = RCC_USART234578CLKSOURCE_PCLK1;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
-    Error_Handler();
+    return;
 
   __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_UART7_CLK_ENABLE();

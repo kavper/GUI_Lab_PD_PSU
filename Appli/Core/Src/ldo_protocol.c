@@ -1,10 +1,12 @@
 #include "ldo_protocol.h"
+#include "g0_frame.h"
 #include <string.h>
 
 #define SOF0 0xA5U
 #define SOF1 0x5AU
 #define MAX_PAYLOAD 80U
 #define RX_CHUNK 96U
+#define RX_RING_SIZE 1024U
 #define CMD_QUEUE_SIZE 6U
 #define CMD_TIMEOUT_MS 100U
 #define MAX_RETRIES 2U
@@ -21,6 +23,11 @@ typedef struct
 
 static UART_HandleTypeDef *port;
 static uint8_t rx_chunk[RX_CHUNK];
+static uint8_t rx_ring[RX_RING_SIZE];
+static volatile uint16_t rx_head, rx_tail;
+static volatile uint8_t rx_reset_pending;
+static uint32_t rx_retry_ms;
+static uint8_t telemetry_received;
 static uint8_t frame[2U + 1U + 2U + MAX_PAYLOAD + 2U];
 static uint8_t frame_pos;
 static uint8_t frame_total;
@@ -84,18 +91,30 @@ static void put32(uint8_t *p, uint32_t value)
 
 static void restart_rx(void)
 {
-  if (port != NULL)
-    (void)HAL_UARTEx_ReceiveToIdle_IT(port, rx_chunk, sizeof(rx_chunk));
+  if (port == NULL) return;
+  const uint32_t primask = __get_PRIMASK();
+  __disable_irq();
+  if (!diagnostics.rx_active)
+  {
+    if (HAL_UARTEx_ReceiveToIdle_IT(port, rx_chunk, sizeof(rx_chunk)) == HAL_OK)
+      diagnostics.rx_active = 1U;
+    else
+      ++diagnostics.rx_start_failures;
+  }
+  if (!primask) __enable_irq();
 }
 
 static void publish_telemetry(const uint8_t *p)
 {
-  const uint32_t raw_vin_mv = le32(p + 12);
-  const uint32_t raw_vout_mv = le32(p + 16);
-  const int32_t raw_iout_ua = (int32_t)le32(p + 20);
+  G0RawTelemetry raw;
+  if (g0_decode_telemetry68(p, &raw) != 0)
+    return;
+  const uint32_t raw_vin_mv = raw.vin_mv;
+  const uint32_t raw_vout_mv = raw.vout_mv;
+  const int32_t raw_iout_ua = raw.iout_ua;
   int16_t raw_temperature[4];
   for (uint8_t i = 0; i < 4U; ++i)
-    raw_temperature[i] = (int16_t)le16(p + 56U + (uint8_t)(i * 2U));
+    raw_temperature[i] = raw.temperature_centi_c[i];
 
   if (!filter_initialized)
   {
@@ -116,11 +135,11 @@ static void publish_telemetry(const uint8_t *p)
   }
 
   ++telemetry_generation;
-  telemetry.protocol_version = p[0];
-  telemetry.telemetry_version = p[1];
-  telemetry.status_flags = le16(p + 2);
-  telemetry.fault_flags = le32(p + 4);
-  telemetry.uptime_ms = le32(p + 8);
+  telemetry.protocol_version = raw.protocol_version;
+  telemetry.telemetry_version = raw.telemetry_version;
+  telemetry.status_flags = raw.status_flags;
+  telemetry.fault_flags = raw.fault_flags;
+  telemetry.uptime_ms = raw.uptime_ms;
   telemetry.vin_mv = (uint32_t)((vin_filter_q8 + 128) >> 8);
   telemetry.vout_mv = (uint32_t)((vout_filter_q8 + 128) >> 8);
   telemetry.iout_ua = (int32_t)((iout_filter_q8 + (iout_filter_q8 >= 0 ? 128 : -128)) >> 8);
@@ -128,22 +147,23 @@ static void publish_telemetry(const uint8_t *p)
     telemetry.temperature_centi_c[i] =
         (int16_t)((temperature_filter_q8[i] +
                   (temperature_filter_q8[i] >= 0 ? 128 : -128)) >> 8);
-  telemetry.requested_voltage_mv = le32(p + 36);
-  telemetry.iout_adc_raw = (int32_t)le32(p + 24);
-  telemetry.dac_cv_readback_mv = le32(p + 28);
-  telemetry.dac_cc_readback_mv = le32(p + 32);
-  telemetry.requested_current_ma = le32(p + 40);
-  telemetry.applied_voltage_mv = le32(p + 44);
-  telemetry.applied_current_ma = le32(p + 48);
-  telemetry.preregulator_mv = le32(p + 52);
-  telemetry.mode = p[64];
-  telemetry.startup = p[65];
-  telemetry.reserved = le16(p + 66);
+  telemetry.requested_voltage_mv = raw.requested_voltage_mv;
+  telemetry.iout_adc_raw = raw.iout_adc_raw;
+  telemetry.dac_cv_readback_mv = raw.dac_cv_readback_mv;
+  telemetry.dac_cc_readback_mv = raw.dac_cc_readback_mv;
+  telemetry.requested_current_ma = raw.requested_current_ma;
+  telemetry.applied_voltage_mv = raw.applied_voltage_mv;
+  telemetry.applied_current_ma = raw.applied_current_ma;
+  telemetry.preregulator_mv = raw.preregulator_mv;
+  telemetry.mode = raw.mode;
+  telemetry.startup = raw.startup;
+  telemetry.reserved = raw.reserved;
   telemetry.current_calibrated = (capabilities & 1U) ? 1U : 0U;
   telemetry.current_valid = (telemetry.status_flags & (1U << 4)) ? 1U : 0U;
   telemetry.connected = 1U;
   telemetry.telemetry_stale = 0U;
   last_telemetry_ms = HAL_GetTick();
+  telemetry_received = 1U;
   ++telemetry_generation;
 }
 
@@ -256,7 +276,7 @@ static uint8_t dequeue(Command *command)
 
 static void transmit_pending(uint32_t now_ms, uint8_t new_sequence)
 {
-  if (tx_busy) return;
+  if (tx_busy || port == NULL) return;
   if (new_sequence) pending_seq = sequence++;
   tx_frame[0] = SOF0; tx_frame[1] = SOF1;
   tx_frame[2] = (uint8_t)(2U + pending.length);
@@ -266,10 +286,14 @@ static void transmit_pending(uint32_t now_ms, uint8_t new_sequence)
   tx_frame[5U + pending.length] = (uint8_t)crc;
   tx_frame[6U + pending.length] = (uint8_t)(crc >> 8);
   tx_busy = 1U;
-  ++diagnostics.tx_frames;
   pending_sent_ms = now_ms;
   if (HAL_UART_Transmit_IT(port, tx_frame, (uint16_t)(7U + pending.length)) != HAL_OK)
+  {
     tx_busy = 0U;
+    ++diagnostics.tx_start_failures;
+  }
+  else
+    ++diagnostics.tx_frames;
 }
 
 void LDO_ProtocolInit(UART_HandleTypeDef *uart)
@@ -277,6 +301,11 @@ void LDO_ProtocolInit(UART_HandleTypeDef *uart)
   port = uart;
   memset(&telemetry, 0, sizeof(telemetry));
   memset((void *)&diagnostics, 0, sizeof(diagnostics));
+  frame_pos = frame_total = sequence = tx_busy = 0U;
+  queue_head = queue_tail = pending_active = pending_result = 0U;
+  rx_head = rx_tail = 0U;
+  rx_reset_pending = telemetry_received = filter_initialized = link_was_connected = 0U;
+  telemetry_generation = last_telemetry_ms = capabilities = rx_retry_ms = 0U;
   restart_rx();
   Command info = { TYPE_GET_INFO, 0U, {0} };
   (void)queue_command(&info, 0U);
@@ -284,9 +313,36 @@ void LDO_ProtocolInit(UART_HandleTypeDef *uart)
 
 void LDO_ProtocolProcess(uint32_t now_ms)
 {
+  if (port == NULL) return;
+  if (!diagnostics.rx_active && now_ms - rx_retry_ms >= 10U)
+  {
+    rx_retry_ms = now_ms;
+    restart_rx();
+  }
+  /* Copying bytes in the ISR is short; decoding and filtering run in the task. */
+  for (uint16_t count = 0U; count < RX_RING_SIZE; ++count)
+  {
+    uint8_t value;
+    const uint32_t primask = __get_PRIMASK();
+    __disable_irq();
+    if (rx_reset_pending)
+    {
+      frame_pos = frame_total = 0U;
+      rx_reset_pending = 0U;
+    }
+    if (rx_tail == rx_head)
+    {
+      if (!primask) __enable_irq();
+      break;
+    }
+    value = rx_ring[rx_tail];
+    rx_tail = (uint16_t)((rx_tail + 1U) % RX_RING_SIZE);
+    if (!primask) __enable_irq();
+    parse_byte(value);
+  }
   uint32_t age = now_ms - last_telemetry_ms;
-  telemetry.telemetry_stale = (age > 100U) ? 1U : 0U;
-  telemetry.connected = (last_telemetry_ms != 0U && age <= 500U) ? 1U : 0U;
+  telemetry.telemetry_stale = (!telemetry_received || age > 100U) ? 1U : 0U;
+  telemetry.connected = (telemetry_received && age <= 500U) ? 1U : 0U;
   if (telemetry.connected && !link_was_connected)
   {
     Command output_off = { TYPE_SET_OUTPUT, 1U, {0U} };
@@ -344,16 +400,21 @@ void LDO_SetOutput(uint8_t enabled)
 uint8_t LDO_GetTelemetry(LDO_Telemetry *out)
 {
   uint32_t before, after;
+  unsigned spins;
   if (out == NULL) return 0U;
-  do
+  for (spins = 0U; spins < 8U; ++spins)
   {
     before = telemetry_generation;
-    if (before & 1U) continue;
+    if (before & 1U)
+      continue;
     __DMB();
     *out = telemetry;
     __DMB();
     after = telemetry_generation;
-  } while (before != after || (after & 1U));
+    if (before == after)
+      return out->connected;
+  }
+  *out = telemetry;
   return out->connected;
 }
 
@@ -365,9 +426,22 @@ void LDO_GetDiagnostics(LDO_Diagnostics *out)
 
 void LDO_UartRxEvent(UART_HandleTypeDef *uart, uint16_t size)
 {
-  if (uart != port) return;
+  if (port == NULL || uart != port) return;
+  diagnostics.rx_active = 0U;
+  if (size > RX_CHUNK) size = RX_CHUNK;
   diagnostics.rx_bytes += size;
-  for (uint16_t i = 0; i < size; ++i) parse_byte(rx_chunk[i]);
+  for (uint16_t i = 0; i < size; ++i)
+  {
+    const uint16_t next = (uint16_t)((rx_head + 1U) % RX_RING_SIZE);
+    if (next == rx_tail)
+    {
+      ++diagnostics.rx_overflows;
+      rx_tail = rx_head;
+      rx_reset_pending = 1U;
+    }
+    rx_ring[rx_head] = rx_chunk[i];
+    rx_head = next;
+  }
   restart_rx();
 }
 
@@ -378,8 +452,12 @@ void LDO_UartTxComplete(UART_HandleTypeDef *uart)
 
 void LDO_UartError(UART_HandleTypeDef *uart)
 {
-  if (uart != port) return;
-  tx_busy = 0U;
+  if (port == NULL || uart != port) return;
+  ++diagnostics.uart_errors;
+  diagnostics.last_uart_error = uart->ErrorCode;
+  diagnostics.rx_active = 0U;
+  rx_tail = rx_head;
+  rx_reset_pending = 1U;
   (void)HAL_UART_AbortReceive(port);
   restart_rx();
 }

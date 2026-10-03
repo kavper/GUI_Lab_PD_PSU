@@ -24,7 +24,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "ldo_protocol.h"
+#include "g4_uart.h"
+#include "psu_app.h"
+#include <string.h>
 
 /* USER CODE END Includes */
 
@@ -65,7 +67,7 @@ UART_HandleTypeDef huart7;
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
-  .stack_size = 128 * 4,
+  .stack_size = 2048 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for TouchGFXTask */
@@ -73,7 +75,7 @@ osThreadId_t TouchGFXTaskHandle;
 const osThreadAttr_t TouchGFXTask_attributes = {
   .name = "TouchGFXTask",
   .stack_size = 4096 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityHigh,
 };
 /* USER CODE BEGIN PV */
 
@@ -158,7 +160,11 @@ int main(void)
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
   /* USER CODE BEGIN 2 */
-  LDO_ProtocolInit(&huart7);
+  psu_app_init();
+  if (huart7.gState == HAL_UART_STATE_READY) {
+    psu_app_set_g4_uart(1);
+    G4_UartInit(&huart7, psu_g4());
+  }
 
   /* USER CODE END 2 */
 
@@ -622,6 +628,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD1_GPIO_Port, &GPIO_InitStruct);
+
+  /* USER button B2, PC13, active high while pressed (UM3289). */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
   /* USER CODE END MX_GPIO_Init_2 */
 }
 
@@ -629,7 +643,7 @@ static void MX_GPIO_Init(void)
 static void MX_UART7_Init(void)
 {
   huart7.Instance = UART7;
-  huart7.Init.BaudRate = 460800;
+  huart7.Init.BaudRate = 115200;
   huart7.Init.WordLength = UART_WORDLENGTH_8B;
   huart7.Init.StopBits = UART_STOPBITS_1;
   huart7.Init.Parity = UART_PARITY_NONE;
@@ -640,7 +654,7 @@ static void MX_UART7_Init(void)
   huart7.Init.ClockPrescaler = UART_PRESCALER_DIV1;
   huart7.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
   if (HAL_UART_Init(&huart7) != HAL_OK)
-    Error_Handler();
+    huart7.gState = HAL_UART_STATE_RESET;
 }
 
 void PSU_SetOutputLed(uint8_t enabled)
@@ -661,10 +675,12 @@ void PSU_SetOutputLed(uint8_t enabled)
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
-  /* Infinite loop */
-  for(;;)
-  {
-    LDO_ProtocolProcess(HAL_GetTick());
+  (void)argument;
+  for (;;) {
+    const uint32_t now = HAL_GetTick();
+    G4_UartProcess(now);
+    psu_app_user_button(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET, now);
+    psu_app_tick(now);
     osDelay(1);
   }
   /* USER CODE END 5 */
@@ -672,17 +688,17 @@ void StartDefaultTask(void *argument)
 
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
-  LDO_UartRxEvent(huart, Size);
+  G4_UartRxEvent(huart, Size);
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
-  LDO_UartTxComplete(huart);
+  G4_UartTxComplete(huart);
 }
 
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
-  LDO_UartError(huart);
+  G4_UartError(huart);
 }
 
  /* MPU Configuration */

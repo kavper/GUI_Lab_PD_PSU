@@ -1,92 +1,88 @@
+#include <images/BitmapDatabase.hpp>
+#include <touchgfx/Bitmap.hpp>
 #include <gui/screendiagnostics_screen/ScreenDiagnosticsView.hpp>
-#include <touchgfx/Unicode.hpp>
-#ifndef SIMULATOR
-extern "C" {
-#include "ldo_protocol.h"
+#include <gui/common/TelemetryData.hpp>
+#include <gui/common/LabText.hpp>
+static void formatValue(char* out,size_t n,const char* key,int64_t val){
+ const char* suffix=strrchr(key,'_');const char* unit=0;
+ if(suffix&&!strcmp(suffix,"_mv"))unit="V";
+ if(suffix&&!strcmp(suffix,"_ma"))unit="A";
+ if(suffix&&!strcmp(suffix,"_mw"))unit="W";
+ if(unit){uint64_t a=val<0?-val:val;snprintf(out,n,"%s%llu.%03llu %s",val<0?"-":"",(unsigned long long)(a/1000),(unsigned long long)(a%1000),unit);}
+ else if(suffix&&!strcmp(suffix,"_ms"))snprintf(out,n,"%lld ms",(long long)val);
+ else if(suffix&&!strcmp(suffix,"_x10"))snprintf(out,n,"%lld.%lld %%",(long long)(val/10),(long long)(val%10));
+ else if(!strcmp(key,"mode"))snprintf(out,n,"%s",val==2?"CC":val==1?"CV":"IDLE");
+ else if(!strcmp(key,"pd_role"))snprintf(out,n,"%s",val==1?"SINK":val==2?"SOURCE":"NONE");
+ else if(strstr(key,"fault")||!strcmp(key,"sa")||!strcmp(key,"sb")||!strcmp(key,"sc")||!strcmp(key,"alarm"))snprintf(out,n,"0x%lX",(unsigned long)val);
+ else snprintf(out,n,"%lld",(long long)val);
 }
-#endif
+void ScreenDiagnosticsView::refresh(){
+ ParsedButton.setBitmaps(touchgfx::Bitmap(!raw?BITMAP_BTN_BACK_PRS_112X48_ID:BITMAP_BTN_BACK_REL_112X48_ID),touchgfx::Bitmap(BITMAP_BTN_BACK_PRS_112X48_ID));ParsedButton.invalidate();
+ RawButton.setBitmaps(touchgfx::Bitmap(raw?BITMAP_BTN_BACK_PRS_112X48_ID:BITMAP_BTN_BACK_REL_112X48_ID),touchgfx::Bitmap(BITMAP_BTN_BACK_PRS_112X48_ID));RawButton.invalidate();
+ TButton.setBitmaps(touchgfx::Bitmap(kind==0?BITMAP_BTN_BACK_PRS_112X48_ID:BITMAP_BTN_BACK_REL_112X48_ID),touchgfx::Bitmap(BITMAP_BTN_BACK_PRS_112X48_ID));TButton.invalidate();
+ TBButton.setBitmaps(touchgfx::Bitmap(kind==1?BITMAP_BTN_BACK_PRS_112X48_ID:BITMAP_BTN_BACK_REL_112X48_ID),touchgfx::Bitmap(BITMAP_BTN_BACK_PRS_112X48_ID));TBButton.invalidate();
+ TCButton.setBitmaps(touchgfx::Bitmap(kind==2?BITMAP_BTN_BACK_PRS_112X48_ID:BITMAP_BTN_BACK_REL_112X48_ID),touchgfx::Bitmap(BITMAP_BTN_BACK_PRS_112X48_ID));TCButton.invalidate();
+ TelemetryRecord rec(kind);G4Port* host=psu_g4();char b[1600];
+ snprintf(b,sizeof(b),"%s / %s / RX %lu / parse errors %lu / ACK %lu / ERR %lu",kind==0?"T":kind==1?"TB":"TC",rec.fresh?"LIVE":"STALE",(unsigned long)host->rx_lines,(unsigned long)host->parse_error_count,(unsigned long)host->ack_count,(unsigned long)host->err_count);
+ lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,b,rec.fresh?lab_muted():lab_amber());
+ unsigned count=0;while(g4_record_key(kind,count))++count;
+ char source[G4_RX_LINE_MAX];g4_raw_snapshot(host,kind,source,sizeof(source));
+ const unsigned columns=76;unsigned rawLines=(strlen(source)+columns-1)/columns;
+ unsigned maxOffset=raw?(rawLines>10?rawLines-10:0):(count>14?(count-14+1)/2:0);
+ if(offset>maxOffset)offset=maxOffset;
+ RawText.setVisible(raw);RawText.invalidate();
+ if(raw){unsigned dst=0;for(unsigned i=offset*columns;source[i]&&dst<sizeof(b)-2;i++){if(i>offset*columns&&(i-offset*columns)%columns==0)b[dst++]='\n';if((i-offset*columns)/columns>=10)break;b[dst++]=source[i];}b[dst]=0;lab_show(RawText,RawTextBuffer,RAWTEXT_SIZE,source[0]?b:"Waiting for a complete UART frame",lab_text());}
+ FieldBox0.setVisible(!raw);FieldBox0.invalidate();Field0.setVisible(!raw);Field0.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+0);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field0,Field0Buffer,FIELD0_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox1.setVisible(!raw);FieldBox1.invalidate();Field1.setVisible(!raw);Field1.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+1);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field1,Field1Buffer,FIELD1_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox2.setVisible(!raw);FieldBox2.invalidate();Field2.setVisible(!raw);Field2.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+2);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field2,Field2Buffer,FIELD2_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox3.setVisible(!raw);FieldBox3.invalidate();Field3.setVisible(!raw);Field3.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+3);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field3,Field3Buffer,FIELD3_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox4.setVisible(!raw);FieldBox4.invalidate();Field4.setVisible(!raw);Field4.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+4);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field4,Field4Buffer,FIELD4_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox5.setVisible(!raw);FieldBox5.invalidate();Field5.setVisible(!raw);Field5.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+5);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field5,Field5Buffer,FIELD5_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox6.setVisible(!raw);FieldBox6.invalidate();Field6.setVisible(!raw);Field6.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+6);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field6,Field6Buffer,FIELD6_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox7.setVisible(!raw);FieldBox7.invalidate();Field7.setVisible(!raw);Field7.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+7);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field7,Field7Buffer,FIELD7_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox8.setVisible(!raw);FieldBox8.invalidate();Field8.setVisible(!raw);Field8.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+8);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field8,Field8Buffer,FIELD8_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox9.setVisible(!raw);FieldBox9.invalidate();Field9.setVisible(!raw);Field9.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+9);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field9,Field9Buffer,FIELD9_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox10.setVisible(!raw);FieldBox10.invalidate();Field10.setVisible(!raw);Field10.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+10);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field10,Field10Buffer,FIELD10_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox11.setVisible(!raw);FieldBox11.invalidate();Field11.setVisible(!raw);Field11.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+11);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field11,Field11Buffer,FIELD11_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox12.setVisible(!raw);FieldBox12.invalidate();Field12.setVisible(!raw);Field12.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+12);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field12,Field12Buffer,FIELD12_SIZE,b,rec.fresh?lab_text():lab_muted());}
+ FieldBox13.setVisible(!raw);FieldBox13.invalidate();Field13.setVisible(!raw);Field13.invalidate();
+ if(!raw){const char* key=g4_record_key(kind,offset*2+13);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field13,Field13Buffer,FIELD13_SIZE,b,rec.fresh?lab_text():lab_muted());}
 
-ScreenDiagnosticsView::ScreenDiagnosticsView()
-    : refreshDivider(0)
-{
-
+ lab_enable(UpButton,offset>0);lab_enable(DownButton,offset<maxOffset);
+ TelemetryRecord faults(G4_RECORD_T);int64_t mask=0;b[0]=0;
+ if(!faults.get("fault",mask))strcpy(b,"Fault status unavailable / waiting for T telemetry");
+ else if(!mask)strcpy(b,"G4: no active fault bits");
+ else {
+  const char* names[]={"Driver fault","Output overvoltage","Overcurrent trip","Input undervoltage","ADC measurement fault","BMS fault"};
+  for(unsigned i=0;i<6;i++)if(mask&(1<<i)){size_t n=strlen(b);snprintf(b+n,sizeof(b)-n,"%s%s",n?" / ":"",names[i]);}
+  if(mask&~63){size_t n=strlen(b);snprintf(b+n,sizeof(b)-n," / unknown bits 0x%lX",(unsigned long)(mask&~63));}
+ }
+ int64_t g0=0;if(faults.get("g0_fault",g0)&&g0){size_t n=strlen(b);snprintf(b+n,sizeof(b)-n,"\nG0 fault: 0x%lX (controller code)",(unsigned long)g0);}
+ lab_show(FaultText,FaultTextBuffer,FAULTTEXT_SIZE,b,(mask||g0)?lab_red():lab_muted());lab_enable(ClearButton,faults.fresh&&(mask||g0));
 }
-
-void ScreenDiagnosticsView::setupScreen()
-{
-    ScreenDiagnosticsViewBase::setupScreen();
-    handleTickEvent();
-}
-
-void ScreenDiagnosticsView::handleTickEvent()
-{
-    if (++refreshDivider < 10)
-        return;
-    refreshDivider = 0;
-
-#ifndef SIMULATOR
-    LDO_Diagnostics diag;
-    LDO_Telemetry telemetry;
-    LDO_GetDiagnostics(&diag);
-    LDO_GetTelemetry(&telemetry);
-    touchgfx::Unicode::snprintf(
-        DiagnosticsValuesBuffer, DIAGNOSTICSVALUES_SIZE,
-        "LINK: %u   PROTOCOL: %u   TELEMETRY: %u   PERIOD: %u ms\n"
-        "RX: %u B   VALID: %u   CRC ERR: %u\n"
-        "TX: %u   ACK: %u   NACK: %u   TIMEOUT: %u   LAST NACK: %u\n"
-        "UPTIME: %u ms\n"
-        "STATUS: 0x%04X   FAULTS: 0x%08X\n"
-        "VIN: %u mV   VOUT: %u mV   IOUT: %d uA\n"
-        "IOUT ADC RAW: %d\n"
-        "DAC CV: %u mV   DAC CC: %u mV\n"
-        "REQUESTED: %u mV / %u mA\n"
-        "APPLIED: %u mV / %u mA\n"
-        "PREREGULATOR: %u mV\n"
-        "T1 MOSFET: %d cC   T2 AMBIENT: %d cC\n"
-        "T3 BLEEDER: %d cC   T4 PSU AREA: %d cC\n"
-        "MODE: %u   STARTUP: %u   RESERVED: %u\n"
-        "MAXIMUM: %u mV / %u mA\n"
-        "CAPABILITIES: 0x%08X   CURRENT VALID: %u   CALIBRATED: %u\n"
-        "PENDING TYPE: 0x%02X",
-        telemetry.connected ? 1U : 0U,
-        telemetry.protocol_version, telemetry.telemetry_version,
-        telemetry.telemetry_period_ms,
-        (unsigned)diag.rx_bytes, (unsigned)diag.valid_frames,
-        (unsigned)diag.crc_errors,
-        (unsigned)diag.tx_frames,
-        (unsigned)diag.ack_frames, (unsigned)diag.nack_frames,
-        (unsigned)diag.command_timeouts, diag.last_nack_reason,
-        (unsigned)telemetry.uptime_ms,
-        telemetry.status_flags, (unsigned)telemetry.fault_flags,
-        (unsigned)telemetry.vin_mv, (unsigned)telemetry.vout_mv,
-        (int)telemetry.iout_ua, (int)telemetry.iout_adc_raw,
-        (unsigned)telemetry.dac_cv_readback_mv,
-        (unsigned)telemetry.dac_cc_readback_mv,
-        (unsigned)telemetry.requested_voltage_mv,
-        (unsigned)telemetry.requested_current_ma,
-        (unsigned)telemetry.applied_voltage_mv,
-        (unsigned)telemetry.applied_current_ma,
-        (unsigned)telemetry.preregulator_mv,
-        (int)telemetry.temperature_centi_c[0],
-        (int)telemetry.temperature_centi_c[1],
-        (int)telemetry.temperature_centi_c[2],
-        (int)telemetry.temperature_centi_c[3],
-        telemetry.mode, telemetry.startup, telemetry.reserved,
-        (unsigned)telemetry.maximum_voltage_mv,
-        (unsigned)telemetry.maximum_current_ma,
-        (unsigned)telemetry.capability_flags,
-        telemetry.current_valid, telemetry.current_calibrated,
-        diag.pending_type);
-#else
-    touchgfx::Unicode::snprintf(
-        DiagnosticsValuesBuffer, DIAGNOSTICSVALUES_SIZE,
-        "LINK: SIMULATOR\nRX BYTES: 0\nVALID FRAMES: 0\nCRC ERRORS: 0\n"
-        "TX FRAMES: 0\nACK: 0    NACK: 0\nTIMEOUTS: 0");
-#endif
-    DiagnosticsValues.invalidate();
-}
-
-void ScreenDiagnosticsView::tearDownScreen()
-{
-    ScreenDiagnosticsViewBase::tearDownScreen();
+void ScreenDiagnosticsView::allOff(){psu_app_shutdown();}
+void ScreenDiagnosticsView::showParsed(){raw=false;offset=0;refresh();}
+void ScreenDiagnosticsView::showRaw(){raw=true;offset=0;refresh();}
+void ScreenDiagnosticsView::frameT(){frame(0);}
+void ScreenDiagnosticsView::frameTB(){frame(1);}
+void ScreenDiagnosticsView::frameTC(){frame(2);}
+void ScreenDiagnosticsView::scrollUp(){if(offset)--offset;refresh();}
+void ScreenDiagnosticsView::scrollDown(){++offset;refresh();}
+void ScreenDiagnosticsView::clearFault(){psu_app_clear_fault();refresh();}
+void ScreenDiagnosticsView::handleDragEvent(const touchgfx::DragEvent& e){
+ if(e.getOldY()>=144&&e.getOldY()<392){drag+=e.getDeltaY();while(drag<=-28){scrollDown();drag+=28;}while(drag>=28){scrollUp();drag-=28;}}
+ else ScreenDiagnosticsViewBase::handleDragEvent(e);
 }

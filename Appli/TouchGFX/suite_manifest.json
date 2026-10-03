@@ -1,0 +1,459 @@
+{
+  "texts": [
+    {
+      "id": "TXT_PAGE_FEEDBACK",
+      "value": "<value>",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_MENU_RETURN",
+      "value": "MENU",
+      "type": "Button",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_PSU_RETURN",
+      "value": "PSU",
+      "type": "Button",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_CC_TITLE",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenSettings",
+      "value": "Choose a tool. Output control stays on the main screen.",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_DIAG_TITLE",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenDiagnostics",
+      "value": "Live link and controller details. Use PREV / NEXT for the log.",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_TITLE_PRESETS",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenPresets",
+      "value": "Select a slot, then load it or store the current setpoints.",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_TITLE_SEQ",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenSequencer",
+      "value": "Select a step and a field to edit. APPLY saves the field.",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_TITLE_MEAS",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenMeasurements",
+      "value": "Live output readings and regulation mode.",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_TITLE_PACK",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenBattery",
+      "value": "Battery pack overview. Missing telemetry is shown as --.",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_TITLE_BMS",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenBms",
+      "value": "Cell readings, FET states and battery controller commands.",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_TITLE_PATH",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenPowerPath",
+      "value": "Controller permissions and the most recent command.",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_TITLE_USB",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenUsbPd",
+      "value": "Select the USB role; controller confirmation may take a moment.",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_TITLE_CHG",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenExtCharger",
+      "value": "1. Choose chemistry   2. Set cells   3. Confirm polarity / start",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_TITLE_LIM",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenProtection",
+      "value": "Output state and device limits. Clear a fault after checking its cause.",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_TITLE_NET",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenNetwork",
+      "value": "Current Ethernet configuration reported by the device.",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_TITLE_SVC",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_HINT_ScreenService",
+      "value": "Service commands and controller replies.",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_MENU_GROUP_0",
+      "value": "OUTPUT & AUTOMATION",
+      "type": "UiEyebrow",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_MENU_GROUP_1",
+      "value": "BATTERY & POWER",
+      "type": "UiEyebrow",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_MENU_GROUP_2",
+      "value": "CONNECTIONS & SERVICE",
+      "type": "UiEyebrow",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_DIAG_VALUES",
+      "type": "UiDiagnostic",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_DIAG_PREV",
+      "value": "PREV",
+      "type": "Button",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_DIAG_NEXT",
+      "value": "NEXT",
+      "type": "Button",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_DIAG_PAGE",
+      "value": "<value>",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_DIAG_PAGE_INITIAL",
+      "value": "DETAILS  /  PAGE 1",
+      "type": "UiCaption",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_SeqColumnNo",
+      "value": "STEP",
+      "type": "UiEyebrow",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_SeqColumnV",
+      "value": "VOLTAGE",
+      "type": "UiEyebrow",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_SeqColumnI",
+      "value": "CURRENT",
+      "type": "UiEyebrow",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_SeqColumnT",
+      "value": "TIME",
+      "type": "UiEyebrow",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_SEQ_DELETE",
+      "value": "DEL",
+      "type": "KeySmall",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_SEQ_CLEAR",
+      "value": "CLR",
+      "type": "KeySmall",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_ACT_SAVE",
+      "value": "SAVE HERE",
+      "type": "Button",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_ACT_DUP",
+      "value": "COPY NEXT",
+      "type": "Button",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_ACT_RESET",
+      "value": "RESET ALL",
+      "type": "Button",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_ACT_CLEAR",
+      "value": "CLEAR FAULT",
+      "type": "Button",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_CHG_CONFIRM",
+      "value": "POLARITY OK?",
+      "type": "Button",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_SEQ_RESUME",
+      "value": "RESUME",
+      "type": "Button",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_SERVICE_ENABLE",
+      "value": "ENABLE SERVICE",
+      "type": "Button",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_SERVICE_DISABLE",
+      "value": "LOCK SERVICE",
+      "type": "Button",
+      "alignment": "Center"
+    },
+    {
+      "id": "TXT_ROLEVALUE",
+      "type": "UiState"
+    },
+    {
+      "id": "TXT_PPSVALUE",
+      "type": "UiState"
+    },
+    {
+      "id": "TXT_PATHLINK",
+      "type": "UiState"
+    },
+    {
+      "id": "TXT_PATHPPS",
+      "type": "UiState"
+    },
+    {
+      "id": "TXT_MEASMODE",
+      "type": "UiState"
+    },
+    {
+      "id": "TXT_PROTSTATE",
+      "type": "UiState"
+    },
+    {
+      "id": "TXT_CHGSTATE",
+      "type": "UiState"
+    },
+    {
+      "id": "TXT_USBLAST",
+      "type": "LabMid",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_PATHCMD",
+      "type": "LabMid",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_SVCTX",
+      "type": "LabMid",
+      "alignment": "Left"
+    },
+    {
+      "id": "TXT_SVCRX",
+      "type": "LabMid",
+      "alignment": "Left"
+    }
+  ],
+  "assets": [
+    {
+      "name": "ui_primary_rel_168x48.png",
+      "w": 168,
+      "h": 48,
+      "tone": "primary",
+      "state": "rel"
+    },
+    {
+      "name": "ui_primary_prs_168x48.png",
+      "w": 168,
+      "h": 48,
+      "tone": "primary",
+      "state": "prs"
+    },
+    {
+      "name": "ui_danger_rel_168x48.png",
+      "w": 168,
+      "h": 48,
+      "tone": "danger",
+      "state": "rel"
+    },
+    {
+      "name": "ui_danger_prs_168x48.png",
+      "w": 168,
+      "h": 48,
+      "tone": "danger",
+      "state": "prs"
+    },
+    {
+      "name": "ui_primary_rel_136x48.png",
+      "w": 136,
+      "h": 48,
+      "tone": "primary",
+      "state": "rel"
+    },
+    {
+      "name": "ui_primary_prs_136x48.png",
+      "w": 136,
+      "h": 48,
+      "tone": "primary",
+      "state": "prs"
+    },
+    {
+      "name": "ui_primary_rel_96x48.png",
+      "w": 96,
+      "h": 48,
+      "tone": "primary",
+      "state": "rel"
+    },
+    {
+      "name": "ui_primary_prs_96x48.png",
+      "w": 96,
+      "h": 48,
+      "tone": "primary",
+      "state": "prs"
+    },
+    {
+      "name": "ui_danger_rel_96x48.png",
+      "w": 96,
+      "h": 48,
+      "tone": "danger",
+      "state": "rel"
+    },
+    {
+      "name": "ui_danger_prs_96x48.png",
+      "w": 96,
+      "h": 48,
+      "tone": "danger",
+      "state": "prs"
+    },
+    {
+      "name": "ui_danger_rel_168x48.png",
+      "w": 168,
+      "h": 48,
+      "tone": "danger",
+      "state": "rel"
+    },
+    {
+      "name": "ui_danger_prs_168x48.png",
+      "w": 168,
+      "h": 48,
+      "tone": "danger",
+      "state": "prs"
+    },
+    {
+      "name": "ui_primary_rel_168x48.png",
+      "w": 168,
+      "h": 48,
+      "tone": "primary",
+      "state": "rel"
+    },
+    {
+      "name": "ui_primary_prs_168x48.png",
+      "w": 168,
+      "h": 48,
+      "tone": "primary",
+      "state": "prs"
+    },
+    {
+      "name": "ui_danger_rel_168x48.png",
+      "w": 168,
+      "h": 48,
+      "tone": "danger",
+      "state": "rel"
+    },
+    {
+      "name": "ui_danger_prs_168x48.png",
+      "w": 168,
+      "h": 48,
+      "tone": "danger",
+      "state": "prs"
+    },
+    {
+      "name": "ui_primary_rel_168x48.png",
+      "w": 168,
+      "h": 48,
+      "tone": "primary",
+      "state": "rel"
+    },
+    {
+      "name": "ui_primary_prs_168x48.png",
+      "w": 168,
+      "h": 48,
+      "tone": "primary",
+      "state": "prs"
+    }
+  ]
+}

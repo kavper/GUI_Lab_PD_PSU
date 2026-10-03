@@ -17,11 +17,16 @@ public:
 
     // API dla warstwy sprzętowej/modelu. Jednostki: mV, mA i 0.1 °C.
     void setMeasurements(uint32_t voltageMv, int32_t currentUa, int16_t temperatureDeciC);
+    void setTemperaturesDeciC(int16_t mosDeciC, int16_t pcbDeciC);
+    void setTelemetryAvailable(bool available, bool currentValid, bool temperatureValid = true);
     void setInputMetrics(uint32_t inputVoltageMv, uint32_t outputPowerMw);
     void setPcbTemperature(int16_t temperatureDeciC);
     void setRegulationMode(bool constantCurrent);
     void setCurrentMeasurementCalibrated(bool calibrated);
     void setControllerOutputState(bool enabled);
+    void syncControllerSetpoints(uint32_t mv, uint32_t ma);
+    void setHostAuxMetrics();
+    void setLinkStatus(const char *text);
     uint32_t getSetVoltageMv() const { return setVoltageMv; }
     uint32_t getCurrentLimitMa() const { return currentLimitMa; }
     bool isOutputEnabled() const { return outputEnabled; }
@@ -51,6 +56,8 @@ protected:
     void appendKey(char key);
     void loadEditorFromSetpoint();
     void refreshEditor();
+    void showEditorStatus(const char* text, bool warning = false);
+    void submitSetpoints();
     void refreshSetpoints();
     void applyPreset(uint8_t preset, uint32_t voltageMv, uint32_t currentMa);
     void updatePresetHighlight(uint8_t preset);

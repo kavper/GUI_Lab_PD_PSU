@@ -11,6 +11,7 @@ public:
     virtual ~ScreenSettingsView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void allOff();
 protected:
 };
 

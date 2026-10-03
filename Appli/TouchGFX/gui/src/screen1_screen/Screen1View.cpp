@@ -1,3 +1,4 @@
+#include "psu_edit.h"
 #include <gui/screen1_screen/Screen1View.hpp>
 #include <touchgfx/Unicode.hpp>
 #include <touchgfx/Color.hpp>
@@ -7,11 +8,13 @@
 #include <stdio.h>
 #include <string.h>
 
+extern "C" {
+#include "psu_app.h"
+#include "psu_format.h"
 #ifndef SIMULATOR
-extern "C" void PSU_SetOutputLed(uint8_t enabled);
-extern "C" void LDO_SetLimits(uint32_t voltage_mv, uint32_t current_ma);
-extern "C" void LDO_SetOutput(uint8_t enabled);
+void PSU_SetOutputLed(uint8_t enabled);
 #endif
+}
 
 Screen1View::Screen1View()
     : editTarget(EDIT_VOLTAGE),
@@ -30,8 +33,8 @@ Screen1View::Screen1View()
 void Screen1View::setupScreen()
 {
     Screen1ViewBase::setupScreen();
-    const touchgfx::colortype light = touchgfx::Color::getColorFromRGB(238, 244, 251);
-    const touchgfx::colortype dark = touchgfx::Color::getColorFromRGB(5, 19, 26);
+    const touchgfx::colortype light = touchgfx::Color::getColorFromRGB(23, 35, 55);
+    const touchgfx::colortype dark = touchgfx::Color::getColorFromRGB(255, 255, 255);
     Key0.setLabelColor(light); Key1.setLabelColor(light); Key2.setLabelColor(light);
     Key3.setLabelColor(light); Key4.setLabelColor(light); Key5.setLabelColor(light);
     Key6.setLabelColor(light); Key7.setLabelColor(light); Key8.setLabelColor(light);
@@ -41,7 +44,13 @@ void Screen1View::setupScreen()
     Preset2Button.setLabelColor(light);
     Preset3Button.setLabelColor(light);
     KeyEnter.setLabelColor(dark);
-    OutputLabel.setColor(dark);
+    OutputLabel.setColor(light);
+    psu_app_ensure();
+    PsuSnapshot initial;
+    psu_snapshot(&initial);
+    setVoltageMv = initial.requested_mv;
+    currentLimitMa = initial.requested_ma;
+    updatePresetHighlight(initial.preset_selected);
     refreshSetpoints();
     selectVoltage();
 #ifdef SIMULATOR
@@ -49,8 +58,13 @@ void Screen1View::setupScreen()
 #else
     setMeasurements(0, 0, 0);
 #endif
+#ifdef SIMULATOR
     setInputMetrics(20000, 14900);
     setPcbTemperature(412);
+#else
+    setInputMetrics(0, 0);
+    setPcbTemperature(0);
+#endif
 }
 
 void Screen1View::tearDownScreen()
@@ -60,20 +74,28 @@ void Screen1View::tearDownScreen()
 
 void Screen1View::handleGestureEvent(const touchgfx::GestureEvent& event)
 {
-    const bool overKeypad = event.getX() >= 510 && event.getX() < 800 &&
-                            event.getY() >= 70 && event.getY() < 480;
-    if (event.getType() != touchgfx::GestureEvent::SWIPE_VERTICAL || !overKeypad)
+    const bool onVoltageTile = editTarget == EDIT_VOLTAGE &&
+        event.getX() >= 300 && event.getX() < 500 &&
+        event.getY() >= 80 && event.getY() < 220;
+    const bool onCurrentTile = editTarget == EDIT_CURRENT &&
+        event.getX() >= 300 && event.getX() < 500 &&
+        event.getY() >= 230 && event.getY() < 380;
+    if (event.getType() != touchgfx::GestureEvent::SWIPE_VERTICAL ||
+        (!onVoltageTile && !onCurrentTile))
     {
         Screen1ViewBase::handleGestureEvent(event);
         return;
     }
 
+    const int speed = event.getVelocity() < 0 ? -event.getVelocity() : event.getVelocity();
     const bool increase = event.getVelocity() < 0;
     updatePresetHighlight(0);
 
     if (editTarget == EDIT_VOLTAGE)
     {
-        const uint32_t stepMv = 100U;
+        uint32_t stepMv = 10U;
+        if (speed > 2) stepMv = 100U;
+        if (speed > 8) stepMv = 500U;
         if (increase)
             setVoltageMv = setVoltageMv <= (27000U - stepMv)
                 ? setVoltageMv + stepMv : 27000U;
@@ -83,7 +105,9 @@ void Screen1View::handleGestureEvent(const touchgfx::GestureEvent& event)
     }
     else
     {
-        const uint32_t stepMa = 50U;
+        uint32_t stepMa = 10U;
+        if (speed > 2) stepMa = 50U;
+        if (speed > 8) stepMa = 200U;
         if (increase)
             currentLimitMa = currentLimitMa <= (5000U - stepMa)
                 ? currentLimitMa + stepMa : 5000U;
@@ -95,9 +119,7 @@ void Screen1View::handleGestureEvent(const touchgfx::GestureEvent& event)
     refreshSetpoints();
     loadEditorFromSetpoint();
     replaceOnNextKey = true;
-#ifndef SIMULATOR
-    LDO_SetLimits(setVoltageMv, currentLimitMa);
-#endif
+    submitSetpoints();
 }
 
 void Screen1View::setMeasurements(uint32_t voltageMv, int32_t currentUa, int16_t temperatureDeciC)
@@ -113,7 +135,7 @@ void Screen1View::setMeasurements(uint32_t voltageMv, int32_t currentUa, int16_t
     touchgfx::Unicode::snprintf(ActualCurrentValueBuffer, ACTUALCURRENTVALUE_SIZE,
                                "%d.%03d A", (int)(roundedCurrentMa / 1000),
                                (int)(roundedCurrentMa % 1000));
-    const int16_t absTemperature = temperatureDeciC < 0 ? -temperatureDeciC : temperatureDeciC;
+    const int32_t absTemperature = temperatureDeciC < 0 ? -(int32_t)temperatureDeciC : (int32_t)temperatureDeciC;
     if (temperatureDeciC < 0)
         touchgfx::Unicode::snprintf(TemperatureValueBuffer, TEMPERATUREVALUE_SIZE,
                                    "-%d.%d C", absTemperature / 10, absTemperature % 10);
@@ -154,17 +176,16 @@ void Screen1View::setCurrentMeasurementCalibrated(bool calibrated)
 
 void Screen1View::setControllerOutputState(bool enabled)
 {
-    if (outputEnabled == enabled)
-        return;
+    PsuSnapshot live;
+    psu_snapshot(&live);
     outputEnabled = enabled;
     OutputEnable.forceState(enabled);
-    touchgfx::Unicode::snprintf(OutputLabelBuffer, OUTPUTLABEL_SIZE,
-                               enabled ? "OUTPUT ON" : "OUTPUT OFF");
-    OutputLabel.setColor(enabled
-        ? touchgfx::Color::getColorFromRGB(255, 255, 255)
-        : touchgfx::Color::getColorFromRGB(5, 19, 26));
-    OutputEnable.invalidate();
-    OutputLabel.invalidate();
+    const char *label = live.shutdown_pending ? "STOPPING..." : live.shutdown_confirmed ? "PSU OFF" : !live.g0_connected ? "NO LINK" : live.output_requested != enabled
+        ? (live.output_requested ? "STARTING..." : "STOPPING...")
+        : (enabled ? "PSU ON" : live.psu_running ? "RAIL ON" : "PSU OFF");
+    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(label), OutputLabelBuffer, OUTPUTLABEL_SIZE);
+    OutputLabel.setColor(enabled ? touchgfx::Color::getColorFromRGB(255,255,255) : touchgfx::Color::getColorFromRGB(23,35,55));
+    OutputEnable.invalidate(); OutputLabel.invalidate();
 #ifndef SIMULATOR
     PSU_SetOutputLed(enabled ? 1U : 0U);
 #endif
@@ -172,7 +193,7 @@ void Screen1View::setControllerOutputState(bool enabled)
 
 void Screen1View::setPcbTemperature(int16_t temperatureDeciC)
 {
-    const int16_t absolute = temperatureDeciC < 0 ? -temperatureDeciC : temperatureDeciC;
+    const int32_t absolute = temperatureDeciC < 0 ? -(int32_t)temperatureDeciC : (int32_t)temperatureDeciC;
     if (temperatureDeciC < 0)
         touchgfx::Unicode::snprintf(PcbTemperatureValueBuffer, PCBTEMPERATUREVALUE_SIZE,
                                    "-%d.%d C", absolute / 10, absolute % 10);
@@ -184,12 +205,8 @@ void Screen1View::setPcbTemperature(int16_t temperatureDeciC)
 
 void Screen1View::refreshSetpoints()
 {
-    if (setVoltageMv < 10000)
-        touchgfx::Unicode::snprintf(SetVoltageValueBuffer, SETVOLTAGEVALUE_SIZE,
-                                   "%u.%03u V", setVoltageMv / 1000, setVoltageMv % 1000);
-    else
-        touchgfx::Unicode::snprintf(SetVoltageValueBuffer, SETVOLTAGEVALUE_SIZE,
-                                   "%u.%02u V", setVoltageMv / 1000, (setVoltageMv % 1000) / 10);
+    touchgfx::Unicode::snprintf(SetVoltageValueBuffer, SETVOLTAGEVALUE_SIZE,
+                               "%u.%03u V", setVoltageMv / 1000, setVoltageMv % 1000);
     touchgfx::Unicode::snprintf(SetCurrentValueBuffer, SETCURRENTVALUE_SIZE,
                                "%u.%03u A", currentLimitMa / 1000, currentLimitMa % 1000);
     SetVoltageValue.invalidate();
@@ -199,7 +216,7 @@ void Screen1View::refreshSetpoints()
 void Screen1View::loadEditorFromSetpoint()
 {
     const uint32_t value = (editTarget == EDIT_VOLTAGE) ? setVoltageMv : currentLimitMa;
-    const uint32_t decimals = (editTarget == EDIT_VOLTAGE && value >= 10000) ? 2 : 3;
+    const uint32_t decimals = 3;
     if (decimals == 2)
     {
         snprintf(editAscii, sizeof(editAscii), "%lu.%02lu",
@@ -214,10 +231,20 @@ void Screen1View::loadEditorFromSetpoint()
     }
     editLength = static_cast<uint8_t>(strlen(editAscii));
     refreshEditor();
+    showEditorStatus(editTarget == EDIT_VOLTAGE ? "VOLTAGE  /  0-27 V" : "CURRENT  /  0-5 A");
+}
+
+void Screen1View::showEditorStatus(const char* text, bool warning)
+{
+    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text), EditorStatusBuffer, EDITORSTATUS_SIZE);
+    EditorStatus.setColor(warning ? touchgfx::Color::getColorFromRGB(168, 91, 5)
+                                 : touchgfx::Color::getColorFromRGB(36, 87, 230));
+    EditorStatus.invalidate();
 }
 
 void Screen1View::refreshEditor()
 {
+    showEditorStatus(editTarget == EDIT_VOLTAGE ? "VOLTAGE - press APPLY" : "CURRENT - press APPLY", true);
     char displayAscii[16];
     snprintf(displayAscii, sizeof(displayAscii), "%s %c", editAscii,
              editTarget == EDIT_VOLTAGE ? 'V' : 'A');
@@ -250,6 +277,13 @@ void Screen1View::appendKey(char key)
         return;
     if (key == '.' && strchr(editAscii, '.') != 0)
         return;
+    const char* dot = strchr(editAscii, '.');
+    if (key != '.' && ((dot && strlen(dot + 1) >= 3) || (!dot && editLength >= 2)))
+    {
+        showEditorStatus("Max. 3 decimal places", true);
+        return;
+    }
+    if (key != '.' && editLength == 1 && editAscii[0] == '0') editLength = 0;
     if (key == '.' && editLength == 0)
     {
         editAscii[editLength++] = '0';
@@ -261,15 +295,16 @@ void Screen1View::appendKey(char key)
 
 void Screen1View::selectVoltage()
 {
+    refreshSetpoints();
     editTarget = EDIT_VOLTAGE;
     VoltageSelection.setVisible(true);
     CurrentSelection.setVisible(false);
     VoltageSelection.invalidate();
     CurrentSelection.invalidate();
-    SetVoltageLabel.setColor(touchgfx::Color::getColorFromRGB(42, 199, 217));
-    SetVoltageValue.setColor(touchgfx::Color::getColorFromRGB(42, 199, 217));
-    SetCurrentLabel.setColor(touchgfx::Color::getColorFromRGB(147, 163, 184));
-    SetCurrentValue.setColor(touchgfx::Color::getColorFromRGB(238, 244, 251));
+    SetVoltageLabel.setColor(touchgfx::Color::getColorFromRGB(36, 87, 230));
+    SetVoltageValue.setColor(touchgfx::Color::getColorFromRGB(36, 87, 230));
+    SetCurrentLabel.setColor(touchgfx::Color::getColorFromRGB(96, 112, 133));
+    SetCurrentValue.setColor(touchgfx::Color::getColorFromRGB(23, 35, 55));
     SetVoltageLabel.invalidate(); SetVoltageValue.invalidate();
     SetCurrentLabel.invalidate(); SetCurrentValue.invalidate();
     loadEditorFromSetpoint();
@@ -278,15 +313,16 @@ void Screen1View::selectVoltage()
 
 void Screen1View::selectCurrent()
 {
+    refreshSetpoints();
     editTarget = EDIT_CURRENT;
     VoltageSelection.setVisible(false);
     CurrentSelection.setVisible(true);
     VoltageSelection.invalidate();
     CurrentSelection.invalidate();
-    SetVoltageLabel.setColor(touchgfx::Color::getColorFromRGB(147, 163, 184));
-    SetVoltageValue.setColor(touchgfx::Color::getColorFromRGB(238, 244, 251));
-    SetCurrentLabel.setColor(touchgfx::Color::getColorFromRGB(42, 199, 217));
-    SetCurrentValue.setColor(touchgfx::Color::getColorFromRGB(42, 199, 217));
+    SetVoltageLabel.setColor(touchgfx::Color::getColorFromRGB(96, 112, 133));
+    SetVoltageValue.setColor(touchgfx::Color::getColorFromRGB(23, 35, 55));
+    SetCurrentLabel.setColor(touchgfx::Color::getColorFromRGB(36, 87, 230));
+    SetCurrentValue.setColor(touchgfx::Color::getColorFromRGB(36, 87, 230));
     SetVoltageLabel.invalidate(); SetVoltageValue.invalidate();
     SetCurrentLabel.invalidate(); SetCurrentValue.invalidate();
     loadEditorFromSetpoint();
@@ -295,21 +331,12 @@ void Screen1View::selectCurrent()
 
 void Screen1View::outputToggled()
 {
-    outputEnabled = OutputEnable.getState();
-    touchgfx::Unicode::snprintf(OutputLabelBuffer, OUTPUTLABEL_SIZE,
-                               outputEnabled ? "OUTPUT ON" : "OUTPUT OFF");
-    OutputLabel.setColor(outputEnabled
-        ? touchgfx::Color::getColorFromRGB(255, 255, 255)
-        : touchgfx::Color::getColorFromRGB(5, 19, 26));
-    OutputLabel.invalidate();
-    setRegulationMode(outputEnabled && measuredCurrentMa >= (int32_t)currentLimitMa);
-#ifndef SIMULATOR
-    PSU_SetOutputLed(outputEnabled ? 1U : 0U);
-    if (outputEnabled)
-        LDO_SetLimits(setVoltageMv, currentLimitMa);
-    LDO_SetOutput(outputEnabled ? 1U : 0U);
-#endif
-    // The Presenter/Model can forward this state to the hardware driver.
+    PsuSnapshot live;
+    psu_snapshot(&live);
+    if(live.output_requested || live.psu_running || live.output_confirmed)psu_app_shutdown();
+    else psu_app_set_output(1, PSU_SRC_LCD);
+    psu_snapshot(&live);
+    setControllerOutputState(live.output_confirmed != 0);
 }
 
 void Screen1View::setRegulationMode(bool constantCurrent)
@@ -349,14 +376,7 @@ void Screen1View::keyClear()
 void Screen1View::keyBack()
 {
     updatePresetHighlight(0);
-    if (replaceOnNextKey)
-    {
-        replaceOnNextKey = false;
-        editLength = 0;
-        editAscii[0] = '\0';
-        refreshEditor();
-        return;
-    }
+    replaceOnNextKey = false;
     if (editLength > 0)
     {
         editAscii[--editLength] = '\0';
@@ -366,36 +386,50 @@ void Screen1View::keyBack()
 
 void Screen1View::keyEnter()
 {
+    if (editLength == 0)
+    {
+        showEditorStatus("Enter a value first", true);
+        return;
+    }
+    PsuEditor input = {};
+    snprintf(input.text,sizeof(input.text),"%s",editAscii);input.length=strlen(input.text);
+    uint32_t entered=0;
+    if(!psu_editor_parse_milli(&input,&entered)){editLength=0;editAscii[0]=0;refreshEditor();return;}
+    const uint32_t maximum=editTarget==EDIT_VOLTAGE?27000U:5000U;
+    if(entered>maximum)entered=maximum;
     updatePresetHighlight(0);
-    const double entered = strtod(editAscii, 0);
-    if (editTarget == EDIT_VOLTAGE)
-    {
-        const double limited = entered < 0.0 ? 0.0 : (entered > 27.0 ? 27.0 : entered);
-        setVoltageMv = static_cast<uint32_t>(limited * 1000.0 + 0.5);
-    }
-    else
-    {
-        // Demonstration range: 0 to 5 A.
-        const double limited = entered < 0.0 ? 0.0 : (entered > 5.0 ? 5.0 : entered);
-        currentLimitMa = static_cast<uint32_t>(limited * 1000.0 + 0.5);
-    }
+    if (editTarget == EDIT_VOLTAGE) setVoltageMv = entered;
+    else currentLimitMa = entered;
     refreshSetpoints();
     loadEditorFromSetpoint();
     replaceOnNextKey = true;
     setRegulationMode(outputEnabled && measuredCurrentMa >= (int32_t)currentLimitMa);
-#ifndef SIMULATOR
-    LDO_SetLimits(setVoltageMv, currentLimitMa);
-#endif
+    submitSetpoints();
+}
+
+void Screen1View::setLinkStatus(const char *text)
+{
+    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text ? text : "G4 OFFLINE"),
+                               LinkStatusBuffer, LINKSTATUS_SIZE);
+    LinkStatus.setColor(touchgfx::Color::getColorFromRGB(
+        text && strstr(text, "ONLINE") ? 22 : 168,
+        text && strstr(text, "ONLINE") ? 117 : 91,
+        text && strstr(text, "ONLINE") ? 72 : 5));
+    LinkStatus.invalidate();
 }
 
 void Screen1View::updatePresetHighlight(uint8_t preset)
 {
     selectedPreset = preset;
+    {const PsuPreset* p=psu_preset_get(0);char b[40];if(p){snprintf(b,sizeof(b),"P1  %lu.%02lu V\n%lu.%03lu A",(unsigned long)(p->voltage_mv/1000),(unsigned long)(p->voltage_mv%1000/10),(unsigned long)(p->current_ma/1000),(unsigned long)(p->current_ma%1000));touchgfx::Unicode::fromUTF8((const uint8_t*)b,QuickPreset1Buffer,QUICKPRESET1_SIZE);QuickPreset1.invalidate();}}
+    {const PsuPreset* p=psu_preset_get(1);char b[40];if(p){snprintf(b,sizeof(b),"P2  %lu.%02lu V\n%lu.%03lu A",(unsigned long)(p->voltage_mv/1000),(unsigned long)(p->voltage_mv%1000/10),(unsigned long)(p->current_ma/1000),(unsigned long)(p->current_ma%1000));touchgfx::Unicode::fromUTF8((const uint8_t*)b,QuickPreset2Buffer,QUICKPRESET2_SIZE);QuickPreset2.invalidate();}}
+    {const PsuPreset* p=psu_preset_get(2);char b[40];if(p){snprintf(b,sizeof(b),"P3  %lu.%02lu V\n%lu.%03lu A",(unsigned long)(p->voltage_mv/1000),(unsigned long)(p->voltage_mv%1000/10),(unsigned long)(p->current_ma/1000),(unsigned long)(p->current_ma%1000));touchgfx::Unicode::fromUTF8((const uint8_t*)b,QuickPreset3Buffer,QUICKPRESET3_SIZE);QuickPreset3.invalidate();}}
+
 
     const touchgfx::Bitmap released(BITMAP_BTN_PRESET_V3_RELEASED_140X50_ID);
     const touchgfx::Bitmap selected(BITMAP_BTN_PRESET_V3_PRESSED_140X50_ID);
-    const touchgfx::colortype normalText = touchgfx::Color::getColorFromRGB(238, 244, 251);
-    const touchgfx::colortype selectedText = touchgfx::Color::getColorFromRGB(42, 199, 217);
+    const touchgfx::colortype normalText = touchgfx::Color::getColorFromRGB(23, 35, 55);
+    const touchgfx::colortype selectedText = touchgfx::Color::getColorFromRGB(36, 87, 230);
 
     Preset1Button.setBitmaps(preset == 1 ? selected : released, selected);
     Preset2Button.setBitmaps(preset == 2 ? selected : released, selected);
@@ -417,11 +451,93 @@ void Screen1View::applyPreset(uint8_t preset, uint32_t voltageMv, uint32_t curre
     loadEditorFromSetpoint();
     replaceOnNextKey = true;
     setRegulationMode(outputEnabled && measuredCurrentMa >= (int32_t)currentLimitMa);
-#ifndef SIMULATOR
-    LDO_SetLimits(setVoltageMv, currentLimitMa);
-#endif
+    submitSetpoints();
 }
 
-void Screen1View::preset1() { applyPreset(1, 5000, 1000); }
-void Screen1View::preset2() { applyPreset(2, 12000, 2000); }
-void Screen1View::preset3() { applyPreset(3, 20000, 3000); }
+void Screen1View::preset1() { const PsuPreset* p=psu_preset_get(0);if(p)applyPreset(1,p->voltage_mv,p->current_ma); }
+void Screen1View::preset2() { const PsuPreset* p=psu_preset_get(1);if(p)applyPreset(2,p->voltage_mv,p->current_ma); }
+void Screen1View::preset3() { const PsuPreset* p=psu_preset_get(2);if(p)applyPreset(3,p->voltage_mv,p->current_ma); }
+
+void Screen1View::submitSetpoints()
+{
+    const uint32_t requestedMv = setVoltageMv;
+    const uint32_t requestedMa = currentLimitMa;
+    const bool accepted = psu_app_set_limits(requestedMv, requestedMa, PSU_SRC_LCD) != 0;
+    PsuSnapshot current;
+    psu_snapshot(&current);
+    setVoltageMv = current.requested_mv;
+    currentLimitMa = current.requested_ma;
+    const bool limited = setVoltageMv != requestedMv || currentLimitMa != requestedMa;
+    if (!accepted || limited) updatePresetHighlight(0);
+    refreshSetpoints();
+    loadEditorFromSetpoint();
+    replaceOnNextKey = true;
+    showEditorStatus(!accepted ? "Blocked - check protection" :
+                     limited ? "Limited by protection" : "Setpoint requested", !accepted || limited);
+}
+
+void Screen1View::setTelemetryAvailable(bool available, bool currentValid, bool temperatureValid)
+{
+    PsuSnapshot live;
+    psu_snapshot(&live);
+    const bool showMode = available && live.regulation_mode != 0;
+    if (ModeTextFront.isVisible() != showMode) {
+        ModeTextFront.setVisible(showMode); ModePill.setVisible(showMode);
+        ModeTextFront.invalidate(); ModePill.invalidate();
+    }
+    if (!available) {
+        touchgfx::Unicode::snprintf(ActualVoltageValueBuffer, ACTUALVOLTAGEVALUE_SIZE, "-- V");
+        touchgfx::Unicode::snprintf(TemperatureValueBuffer, TEMPERATUREVALUE_SIZE, "-- C");
+        touchgfx::Unicode::snprintf(PcbTemperatureValueBuffer, PCBTEMPERATUREVALUE_SIZE, "-- C");
+        touchgfx::Unicode::snprintf(BatteryValueBuffer, BATTERYVALUE_SIZE, "-- V");
+        TemperatureValue.invalidate(); PcbTemperatureValue.invalidate(); BatteryValue.invalidate();
+    }
+    if (!temperatureValid) {
+        touchgfx::Unicode::snprintf(TemperatureValueBuffer, TEMPERATUREVALUE_SIZE, "-- C");
+        touchgfx::Unicode::snprintf(PcbTemperatureValueBuffer, PCBTEMPERATUREVALUE_SIZE, "-- C");
+        TemperatureValue.invalidate(); PcbTemperatureValue.invalidate();
+    }
+    if (!available || !currentValid) {
+        touchgfx::Unicode::snprintf(ActualCurrentValueBuffer, ACTUALCURRENTVALUE_SIZE, "-- A");
+        touchgfx::Unicode::snprintf(PowerValueBuffer, POWERVALUE_SIZE, "-- W");
+        PowerValue.invalidate();
+    }
+    ActualVoltageValue.setColor(available ? touchgfx::Color::getColorFromRGB(23, 35, 55) : touchgfx::Color::getColorFromRGB(96, 112, 133));
+    ActualCurrentValue.setColor(available && currentValid ? touchgfx::Color::getColorFromRGB(23, 35, 55) : touchgfx::Color::getColorFromRGB(96, 112, 133));
+    ActualVoltageValue.invalidate(); ActualCurrentValue.invalidate();
+}
+
+void Screen1View::setTemperaturesDeciC(int16_t mosDeciC, int16_t pcbDeciC)
+{
+    char text[16];
+    psu_format_deci_c(text, sizeof(text), mosDeciC);
+    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text), TemperatureValueBuffer, TEMPERATUREVALUE_SIZE);
+    psu_format_deci_c(text, sizeof(text), pcbDeciC);
+    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text), PcbTemperatureValueBuffer, PCBTEMPERATUREVALUE_SIZE);
+    TemperatureValue.invalidate(); PcbTemperatureValue.invalidate();
+}
+
+void Screen1View::syncControllerSetpoints(uint32_t mv, uint32_t ma)
+{
+    if (!replaceOnNextKey || (setVoltageMv == mv && currentLimitMa == ma)) return;
+    setVoltageMv = mv; currentLimitMa = ma;
+    refreshSetpoints(); loadEditorFromSetpoint();
+}
+
+void Screen1View::setHostAuxMetrics()
+{
+    G4Record rail, pd;
+    g4_record_snapshot(psu_g4(),G4_RECORD_T,&rail);
+    g4_record_snapshot(psu_g4(),G4_RECORD_TC,&pd);
+    int64_t value;
+    char text[20];
+    if(rail.valid && psu_app_now()-rail.ms<=1500U && g4_record_value(&rail,"vout_mv",&value))
+        snprintf(text,sizeof(text),"%lu.%lu V",(unsigned long)(value/1000),(unsigned long)((value%1000)/100));
+    else snprintf(text,sizeof(text),"-- V");
+    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text),TemperatureValueBuffer,TEMPERATUREVALUE_SIZE);
+    if(pd.valid && psu_app_now()-pd.ms<=1500U && g4_record_value(&pd,"pd_mv",&value))
+        snprintf(text,sizeof(text),"%lu.%lu V",(unsigned long)(value/1000),(unsigned long)((value%1000)/100));
+    else snprintf(text,sizeof(text),"-- V");
+    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text),PcbTemperatureValueBuffer,PCBTEMPERATUREVALUE_SIZE);
+    TemperatureValue.invalidate();PcbTemperatureValue.invalidate();
+}

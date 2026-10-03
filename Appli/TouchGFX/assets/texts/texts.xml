@@ -5,7 +5,7 @@
   </Languages>
   <Texts>
     <TextGroup Id="PSU">
-      <Text Id="TXT_TITLE" Alignment="Left" TypographyId="Title">
+      <Text Id="TXT_TITLE" Alignment="Center" TypographyId="Title">
         <Translation Language="GB">LAB PD PSU</Translation>
       </Text>
       <Text Id="TXT_CHANNEL" Alignment="Center" TypographyId="Label">
@@ -23,53 +23,53 @@
       <Text Id="TXT_OUTPUT_INITIAL" Alignment="Center" TypographyId="Output">
         <Translation Language="GB">OUTPUT OFF</Translation>
       </Text>
-      <Text Id="TXT_ACTUAL_V" Alignment="Left" TypographyId="Label">
+      <Text Id="TXT_ACTUAL_V" Alignment="Center" TypographyId="Label">
         <Translation Language="GB">MEASURED VOLTAGE</Translation>
       </Text>
-      <Text Id="TXT_ACTUAL_I" Alignment="Left" TypographyId="Label">
+      <Text Id="TXT_ACTUAL_I" Alignment="Center" TypographyId="Label">
         <Translation Language="GB">MEASURED CURRENT</Translation>
       </Text>
-      <Text Id="TXT_ACTUAL_I_UNCAL" Alignment="Left" TypographyId="Label">
+      <Text Id="TXT_ACTUAL_I_UNCAL" Alignment="Center" TypographyId="Label">
         <Translation Language="GB">MEASURED CURRENT (UNCAL.)</Translation>
       </Text>
-      <Text Id="TXT_SET_U" Alignment="Left" TypographyId="Small">
+      <Text Id="TXT_SET_U" Alignment="Center" TypographyId="Small">
         <Translation Language="GB">VOLTAGE SET</Translation>
       </Text>
-      <Text Id="TXT_LIMIT_I" Alignment="Left" TypographyId="Small">
+      <Text Id="TXT_LIMIT_I" Alignment="Center" TypographyId="Small">
         <Translation Language="GB">CURRENT LIMIT</Translation>
       </Text>
-      <Text Id="TXT_VOLTAGE_VALUE" Alignment="Left" TypographyId="Value">
+      <Text Id="TXT_VOLTAGE_VALUE" Alignment="Center" TypographyId="Value">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_CURRENT_VALUE" Alignment="Left" TypographyId="Value">
+      <Text Id="TXT_CURRENT_VALUE" Alignment="Center" TypographyId="Value">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_SET_VOLTAGE_VALUE" Alignment="Left" TypographyId="SetValue">
+      <Text Id="TXT_SET_VOLTAGE_VALUE" Alignment="Center" TypographyId="SetValue">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_SET_CURRENT_VALUE" Alignment="Left" TypographyId="SetValue">
+      <Text Id="TXT_SET_CURRENT_VALUE" Alignment="Center" TypographyId="SetValue">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_VOLTAGE_INITIAL" Alignment="Left" TypographyId="Value">
-        <Translation Language="GB">12.04 V</Translation>
+      <Text Id="TXT_VOLTAGE_INITIAL" Alignment="Center" TypographyId="Value">
+        <Translation Language="GB">0.000 V</Translation>
       </Text>
-      <Text Id="TXT_CURRENT_INITIAL" Alignment="Left" TypographyId="Value">
-        <Translation Language="GB">1.236 A</Translation>
+      <Text Id="TXT_CURRENT_INITIAL" Alignment="Center" TypographyId="Value">
+        <Translation Language="GB">0.000 A</Translation>
       </Text>
-      <Text Id="TXT_SET_VOLTAGE_INITIAL" Alignment="Left" TypographyId="SetValue">
+      <Text Id="TXT_SET_VOLTAGE_INITIAL" Alignment="Center" TypographyId="SetValue">
         <Translation Language="GB">12.00 V</Translation>
       </Text>
-      <Text Id="TXT_SET_CURRENT_INITIAL" Alignment="Left" TypographyId="SetValue">
+      <Text Id="TXT_SET_CURRENT_INITIAL" Alignment="Center" TypographyId="SetValue">
         <Translation Language="GB">2.000 A</Translation>
       </Text>
-      <Text Id="TXT_VOLTAGE_MAX" Alignment="Left" TypographyId="LimitHint">
+      <Text Id="TXT_VOLTAGE_MAX" Alignment="Center" TypographyId="LimitHint">
         <Translation Language="GB">MAX 27.00 V</Translation>
       </Text>
-      <Text Id="TXT_CURRENT_MAX" Alignment="Left" TypographyId="LimitHint">
+      <Text Id="TXT_CURRENT_MAX" Alignment="Center" TypographyId="LimitHint">
         <Translation Language="GB">MAX 5.000 A</Translation>
       </Text>
       <Text Id="TXT_TEMP" Alignment="Center" TypographyId="HeaderLabel">
-        <Translation Language="GB">MOS TEMP</Translation>
+        <Translation Language="GB">DCDC RAIL</Translation>
       </Text>
       <Text Id="TXT_BATTERY" Alignment="Center" TypographyId="HeaderLabel">
         <Translation Language="GB">VIN</Translation>
@@ -81,7 +81,7 @@
         <Translation Language="GB">20.00 V</Translation>
       </Text>
       <Text Id="TXT_PCB_TEMP" Alignment="Center" TypographyId="HeaderLabel">
-        <Translation Language="GB">PCB TEMP</Translation>
+        <Translation Language="GB">USB PD</Translation>
       </Text>
       <Text Id="TXT_PCB_TEMP_VALUE" Alignment="Center" TypographyId="HeaderValue">
         <Translation Language="GB">&lt;value&gt;</Translation>
@@ -99,10 +99,10 @@
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="TXT_TEMP_INITIAL" Alignment="Center" TypographyId="HeaderValue">
-        <Translation Language="GB">38.6 C</Translation>
+        <Translation Language="GB">-- C</Translation>
       </Text>
       <Text Id="TXT_POWER_INITIAL" Alignment="Center" TypographyId="HeaderValue">
-        <Translation Language="GB">14.9 W</Translation>
+        <Translation Language="GB">0.00 W</Translation>
       </Text>
       <Text Id="TXT_VOLTAGE_TAB" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">VOLTAGE</Translation>
@@ -110,13 +110,13 @@
       <Text Id="TXT_CURRENT_TAB" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">CURRENT</Translation>
       </Text>
-      <Text Id="TXT_INPUT_LABEL" Alignment="Left" TypographyId="Small">
+      <Text Id="TXT_INPUT_LABEL" Alignment="Center" TypographyId="Small">
         <Translation Language="GB">SET VALUE</Translation>
       </Text>
-      <Text Id="TXT_INPUT_VALUE" Alignment="Right" TypographyId="Input">
+      <Text Id="TXT_INPUT_VALUE" Alignment="Center" TypographyId="Input">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_INPUT_INITIAL" Alignment="Right" TypographyId="Input">
+      <Text Id="TXT_INPUT_INITIAL" Alignment="Center" TypographyId="Input">
         <Translation Language="GB">12.00</Translation>
       </Text>
       <Text Id="TXT_0" Alignment="Center" TypographyId="Key">
@@ -152,16 +152,16 @@
       <Text Id="TXT_DOT" Alignment="Center" TypographyId="Key">
         <Translation Language="GB">.</Translation>
       </Text>
-      <Text Id="TXT_CLEAR" Alignment="Center" TypographyId="Key">
-        <Translation Language="GB">CLR</Translation>
+      <Text Id="TXT_CLEAR" Alignment="Center" TypographyId="KeySmall">
+        <Translation Language="GB">CLEAR</Translation>
       </Text>
       <Text Id="TXT_BACK" Alignment="Center" TypographyId="KeySmall">
-        <Translation Language="GB">DEL</Translation>
+        <Translation Language="GB">DELETE</Translation>
       </Text>
       <Text Id="TXT_ENTER" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">APPLY</Translation>
       </Text>
-      <Text Id="TXT_PRESETS" Alignment="Left" TypographyId="Small">
+      <Text Id="TXT_PRESETS" Alignment="Center" TypographyId="Small">
         <Translation Language="GB">QUICK PRESETS</Translation>
       </Text>
       <Text Id="TXT_P1" Alignment="Center" TypographyId="Preset">
@@ -173,7 +173,7 @@
       <Text Id="TXT_P3" Alignment="Center" TypographyId="Preset">
         <Translation Language="GB">20 V  /  3 A</Translation>
       </Text>
-      <Text Id="TXT_SETTINGS_TITLE" Alignment="Left" TypographyId="SettingsTitle">
+      <Text Id="TXT_CONTROL_CENTER_TITLE" Alignment="Center" TypographyId="SettingsTitle">
         <Translation Language="GB">SETTINGS</Translation>
       </Text>
       <Text Id="TXT_SETTINGS_BACK" Alignment="Center" TypographyId="Button">
@@ -192,50 +192,1543 @@
         <Translation Language="GB">DISPLAY &amp; SYSTEM</Translation>
       </Text>
       <Text Id="TXT_MENU_HINT" Alignment="Center" TypographyId="MenuHint">
-        <Translation Language="GB">Menu preview - functions will be defined later</Translation>
+        <Translation Language="GB">Output stays off until the controller confirms it</Translation>
       </Text>
       <Text Id="TXT_DIAG_TITLE" Alignment="Left" TypographyId="SettingsTitle">
         <Translation Language="GB">UART DIAGNOSTICS</Translation>
       </Text>
-      <Text Id="TXT_DIAG_VALUES" Alignment="Left" TypographyId="Small">
+      <Text Id="TXT_DIAG_VALUES" Alignment="Left" TypographyId="UiDiagnostic">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_DIAG_INITIAL" Alignment="Left" TypographyId="Button">
+      <Text Id="TXT_DIAG_INITIAL" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">WAITING FOR UART DATA...</Translation>
       </Text>
       <Text Id="TXT_SPLASH_DESIGNER" Alignment="Center" TypographyId="SplashMeta">
-        <Translation Language="GB">DESIGNED &amp; ENGINEERED BY KACPER GAWEŁ</Translation>
+        <Translation Language="GB">Designed by Kacper Gaweł</Translation>
       </Text>
       <Text Id="TXT_SPLASH_FIRMWARE" Alignment="Center" TypographyId="SplashMeta">
-        <Translation Language="GB">FIRMWARE v0.1.0</Translation>
+        <Translation Language="GB">FIRMWARE v1.0.0</Translation>
       </Text>
       <Text Id="TXT_SPLASH_RELEASE" Alignment="Center" TypographyId="SplashMeta">
-        <Translation Language="GB">RELEASE 2026-07-24</Translation>
+        <Translation Language="GB">2026-09-27</Translation>
       </Text>
       <Text Id="TXT_SPLASH_STATUS" Alignment="Center" TypographyId="SplashStatus">
-        <Translation Language="GB">STARTING POWER SUPPLY</Translation>
+        <Translation Language="GB">STARTING POWER SYSTEM</Translation>
+      </Text>
+      <Text Id="TXT_CC_TITLE" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">Instrument tools</Translation>
+      </Text>
+      <Text Id="TXT_AGH" Alignment="Center" TypographyId="SplashStatus">
+        <Translation Language="GB">AGH UNIVERSITY OF KRAKOW</Translation>
+      </Text>
+      <Text Id="TXT_LINK_VALUE" Alignment="Center" TypographyId="HeaderValue">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_LINK_INITIAL" Alignment="Center" TypographyId="HeaderValue">
+        <Translation Language="GB">G4 OFFLINE</Translation>
+      </Text>
+      <Text Id="TXT_SPLASH_BUILD" Alignment="Center" TypographyId="HeaderValue">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_SPLASH_BUILD_INITIAL" Alignment="Center" TypographyId="HeaderValue">
+        <Translation Language="GB">FW 1.0.0  2026-09-27</Translation>
+      </Text>
+      <Text Id="TXT_BODY" Alignment="Center" TypographyId="Dynamic">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BODY_INITIAL" Alignment="Center" TypographyId="Dynamic">
+        <Translation Language="GB">WAITING</Translation>
+      </Text>
+      <Text Id="TXT_NAV_PRESETS" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">PRESETS</Translation>
+      </Text>
+      <Text Id="TXT_NAV_SEQ" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">SEQUENCER</Translation>
+      </Text>
+      <Text Id="TXT_NAV_MEAS" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">DCDC MONITOR</Translation>
+      </Text>
+      <Text Id="TXT_NAV_BMS" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">BMS</Translation>
+      </Text>
+      <Text Id="TXT_NAV_PACK" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">BATTERY</Translation>
+      </Text>
+      <Text Id="TXT_NAV_USB" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">USB-C</Translation>
+      </Text>
+      <Text Id="TXT_NAV_CHG" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">CHARGER</Translation>
+      </Text>
+      <Text Id="TXT_NAV_PATH" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">POWER CONTROL</Translation>
+      </Text>
+      <Text Id="TXT_NAV_LIM" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">PROTECTION</Translation>
+      </Text>
+      <Text Id="TXT_NAV_DIAG" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">DIAGNOSTICS</Translation>
+      </Text>
+      <Text Id="TXT_NAV_NET" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">NETWORK</Translation>
+      </Text>
+      <Text Id="TXT_NAV_SVC" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">SERVICE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_LOAD" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">LOAD</Translation>
+      </Text>
+      <Text Id="TXT_ACT_SAVE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">SAVE HERE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_DUP" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">COPY NEXT</Translation>
+      </Text>
+      <Text Id="TXT_ACT_RESET" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">RESET ALL</Translation>
+      </Text>
+      <Text Id="TXT_ACT_RUN" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">RUN</Translation>
+      </Text>
+      <Text Id="TXT_ACT_PAUSE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">PAUSE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_STOP" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">STOP</Translation>
+      </Text>
+      <Text Id="TXT_ACT_ADD" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">+ STEP</Translation>
+      </Text>
+      <Text Id="TXT_ACT_DEL" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">- STEP</Translation>
+      </Text>
+      <Text Id="TXT_ACT_PREV" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">PREV</Translation>
+      </Text>
+      <Text Id="TXT_ACT_NEXT" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">NEXT</Translation>
+      </Text>
+      <Text Id="TXT_ACT_BMS" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CONFIGURE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_BMS_OFF" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">BMS OFF</Translation>
+      </Text>
+      <Text Id="TXT_ACT_CLEAR" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CLEAR FAULT</Translation>
+      </Text>
+      <Text Id="TXT_ACT_STATUS" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">REFRESH</Translation>
+      </Text>
+      <Text Id="TXT_ACT_AUTO" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">USB AUTO</Translation>
+      </Text>
+      <Text Id="TXT_ACT_SINK" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">USB SINK</Translation>
+      </Text>
+      <Text Id="TXT_ACT_SOURCE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">SOURCE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_PROFILE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CHEMISTRY</Translation>
+      </Text>
+      <Text Id="TXT_ACT_CELLS" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CELLS</Translation>
+      </Text>
+      <Text Id="TXT_ACT_START" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">START</Translation>
+      </Text>
+      <Text Id="TXT_ACT_ABORT" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">ABORT</Translation>
+      </Text>
+      <Text Id="TXT_ACT_PERMIT" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">ALLOW PPS</Translation>
+      </Text>
+      <Text Id="TXT_ACT_REMOTE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">REQUEST REMOTE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_SERVICE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">SERVICE</Translation>
+      </Text>
+      <Text Id="TXT_ACT_HELP" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">HELP</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_PRESETS" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">PRESETS</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_SEQ" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">SEQUENCER</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_MEAS" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">MEASUREMENTS</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_BMS" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">BMS / CELLS</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_PACK" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">BATTERY PACK</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_USB" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">USB-C PD</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_CHG" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">BATTERY CHARGER</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_PATH" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">POWER PATH</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_LIM" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">PROTECTION</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_NET" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">NETWORK</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_SVC" Alignment="Left" TypographyId="SettingsTitle">
+        <Translation Language="GB">SERVICE</Translation>
+      </Text>
+      <Text Id="TXT_LBL_FOOTER" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">DIGITAL PD PSU</Translation>
+      </Text>
+      <Text Id="TXT_LBL_LINK" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">LINK</Translation>
+      </Text>
+      <Text Id="TXT_DIAGLINK" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_DIAGLINK_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">OFFLINE</Translation>
+      </Text>
+      <Text Id="TXT_LBL_VOLTAGE" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">VOLTAGE</Translation>
+      </Text>
+      <Text Id="TXT_DIAGVOLT" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_DIAGVOLT_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">0.000 V</Translation>
+      </Text>
+      <Text Id="TXT_LBL_CURRENT" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">CURRENT</Translation>
+      </Text>
+      <Text Id="TXT_DIAGAMP" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_DIAGAMP_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">0.000 A</Translation>
+      </Text>
+      <Text Id="TXT_LBL_FAULT" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">FAULT</Translation>
+      </Text>
+      <Text Id="TXT_DIAGFAULT" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_DIAGFAULT_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">NONE</Translation>
+      </Text>
+      <Text Id="TXT_P1NAME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P1NAME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">5 V</Translation>
+      </Text>
+      <Text Id="TXT_P1VOLT" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P1VOLT_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">5.000 V</Translation>
+      </Text>
+      <Text Id="TXT_P1AMP" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P1AMP_I" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">1.000 A</Translation>
+      </Text>
+      <Text Id="TXT_P2NAME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P2NAME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">12 V</Translation>
+      </Text>
+      <Text Id="TXT_P2VOLT" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P2VOLT_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">12.00 V</Translation>
+      </Text>
+      <Text Id="TXT_P2AMP" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P2AMP_I" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">2.000 A</Translation>
+      </Text>
+      <Text Id="TXT_P3NAME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P3NAME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">20 V</Translation>
+      </Text>
+      <Text Id="TXT_P3VOLT" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P3VOLT_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">20.00 V</Translation>
+      </Text>
+      <Text Id="TXT_P3AMP" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P3AMP_I" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">3.000 A</Translation>
+      </Text>
+      <Text Id="TXT_P4NAME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P4NAME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">USER</Translation>
+      </Text>
+      <Text Id="TXT_P4VOLT" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P4VOLT_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">0.000 V</Translation>
+      </Text>
+      <Text Id="TXT_P4AMP" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P4AMP_I" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">0.000 A</Translation>
+      </Text>
+      <Text Id="TXT_P5NAME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P5NAME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">P5</Translation>
+      </Text>
+      <Text Id="TXT_P5VOLT" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P5VOLT_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_P5AMP" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P5AMP_I" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_P6NAME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P6NAME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">P6</Translation>
+      </Text>
+      <Text Id="TXT_P6VOLT" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P6VOLT_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_P6AMP" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P6AMP_I" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_P7NAME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P7NAME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">P7</Translation>
+      </Text>
+      <Text Id="TXT_P7VOLT" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P7VOLT_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_P7AMP" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P7AMP_I" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_P8NAME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P8NAME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">P8</Translation>
+      </Text>
+      <Text Id="TXT_P8VOLT" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P8VOLT_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_P8AMP" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_P8AMP_I" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_STEP1NO" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP1NO_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">01</Translation>
+      </Text>
+      <Text Id="TXT_STEP1VOLT" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP1VOLT_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">5.000 V</Translation>
+      </Text>
+      <Text Id="TXT_STEP1AMP" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP1AMP_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">1.000 A</Translation>
+      </Text>
+      <Text Id="TXT_STEP1TIME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP1TIME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">2.0 s</Translation>
+      </Text>
+      <Text Id="TXT_STEP2NO" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP2NO_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">02</Translation>
+      </Text>
+      <Text Id="TXT_STEP2VOLT" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP2VOLT_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">12.00 V</Translation>
+      </Text>
+      <Text Id="TXT_STEP2AMP" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP2AMP_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">2.000 A</Translation>
+      </Text>
+      <Text Id="TXT_STEP2TIME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP2TIME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">5.0 s</Translation>
+      </Text>
+      <Text Id="TXT_STEP3NO" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP3NO_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">03</Translation>
+      </Text>
+      <Text Id="TXT_STEP3VOLT" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP3VOLT_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">20.00 V</Translation>
+      </Text>
+      <Text Id="TXT_STEP3AMP" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP3AMP_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">1.000 A</Translation>
+      </Text>
+      <Text Id="TXT_STEP3TIME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP3TIME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">1.0 s</Translation>
+      </Text>
+      <Text Id="TXT_STEP4NO" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP4NO_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">04</Translation>
+      </Text>
+      <Text Id="TXT_STEP4VOLT" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP4VOLT_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_STEP4AMP" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP4AMP_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_STEP4TIME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP4TIME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_STEP5NO" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP5NO_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">05</Translation>
+      </Text>
+      <Text Id="TXT_STEP5VOLT" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP5VOLT_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_STEP5AMP" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP5AMP_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_STEP5TIME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP5TIME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_STEP6NO" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP6NO_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">06</Translation>
+      </Text>
+      <Text Id="TXT_STEP6VOLT" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP6VOLT_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_STEP6AMP" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP6AMP_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_STEP6TIME" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_STEP6TIME_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_EDITVOLT" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_EDITVOLT_I" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">5.000 V</Translation>
+      </Text>
+      <Text Id="TXT_EDITAMP" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_EDITAMP_I" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">1.000 A</Translation>
+      </Text>
+      <Text Id="TXT_LBL_TIME" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">TIME</Translation>
+      </Text>
+      <Text Id="TXT_EDITTIME" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_EDITTIME_I" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">2.0 s</Translation>
+      </Text>
+      <Text Id="TXT_LBL_SLEW" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">SLEW</Translation>
+      </Text>
+      <Text Id="TXT_EDITSLEW" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_EDITSLEW_I" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">STEP</Translation>
+      </Text>
+      <Text Id="TXT_SEQSTATUS" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_SEQSTATUS_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">IDLE</Translation>
+      </Text>
+      <Text Id="TXT_MEASVOLT" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_MEASVOLT_I" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">12.00 V</Translation>
+      </Text>
+      <Text Id="TXT_MEASAMP" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_MEASAMP_I" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">2.000 A</Translation>
+      </Text>
+      <Text Id="TXT_LBL_POWER" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">POWER</Translation>
+      </Text>
+      <Text Id="TXT_MEASPOWER" Alignment="Center" TypographyId="LabRead">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_MEASPOWER_I" Alignment="Center" TypographyId="LabRead">
+        <Translation Language="GB">24.00 W</Translation>
+      </Text>
+      <Text Id="TXT_LBL_INPUT" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">INPUT</Translation>
+      </Text>
+      <Text Id="TXT_MEASVIN" Alignment="Center" TypographyId="LabRead">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_MEASVIN_I" Alignment="Center" TypographyId="LabRead">
+        <Translation Language="GB">24.00 V</Translation>
+      </Text>
+      <Text Id="TXT_LBL_TEMP" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">TEMP</Translation>
+      </Text>
+      <Text Id="TXT_MEASTEMP" Alignment="Center" TypographyId="LabRead">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_MEASTEMP_I" Alignment="Center" TypographyId="LabRead">
+        <Translation Language="GB">36.2 C</Translation>
+      </Text>
+      <Text Id="TXT_LBL_MODE" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">MODE</Translation>
+      </Text>
+      <Text Id="TXT_MEASMODE" Alignment="Center" TypographyId="UiState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_MEASMODE_I" Alignment="Center" TypographyId="LabRead">
+        <Translation Language="GB">CV</Translation>
+      </Text>
+      <Text Id="TXT_LBL_PACK" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">PACK</Translation>
+      </Text>
+      <Text Id="TXT_BATPACK" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATPACK_I" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_LBL_CELLS" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">CELLS</Translation>
+      </Text>
+      <Text Id="TXT_BATCELLS" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATCELLS_I" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="TXT_BATTEMP" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTEMP_I" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_BATFAULT" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATFAULT_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">NO PACK DATA</Translation>
+      </Text>
+      <Text Id="TXT_LBL_CELL1" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">CELL 1</Translation>
+      </Text>
+      <Text Id="TXT_CELL1VALUE" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CELL1VALUE_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">3.700 V</Translation>
+      </Text>
+      <Text Id="TXT_LBL_CELL2" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">CELL 2</Translation>
+      </Text>
+      <Text Id="TXT_CELL2VALUE" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CELL2VALUE_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">3.700 V</Translation>
+      </Text>
+      <Text Id="TXT_LBL_CELL3" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">CELL 3</Translation>
+      </Text>
+      <Text Id="TXT_CELL3VALUE" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CELL3VALUE_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">3.700 V</Translation>
+      </Text>
+      <Text Id="TXT_LBL_CELL4" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">CELL 4</Translation>
+      </Text>
+      <Text Id="TXT_CELL4VALUE" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CELL4VALUE_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">3.700 V</Translation>
+      </Text>
+      <Text Id="TXT_BMSLINK" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BMSLINK_I" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">OFFLINE</Translation>
+      </Text>
+      <Text Id="TXT_LBL_CHG" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">CHARGE</Translation>
+      </Text>
+      <Text Id="TXT_FETCHG" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_FETCHG_I" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">OFF</Translation>
+      </Text>
+      <Text Id="TXT_LBL_DSG" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">DISCHARGE</Translation>
+      </Text>
+      <Text Id="TXT_FETDSG" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_FETDSG_I" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">OFF</Translation>
+      </Text>
+      <Text Id="TXT_LBL_BAL" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">BALANCE</Translation>
+      </Text>
+      <Text Id="TXT_FETBAL" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_FETBAL_I" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">OFF</Translation>
+      </Text>
+      <Text Id="TXT_BMSFAULT" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BMSFAULT_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">NO PACK DATA</Translation>
+      </Text>
+      <Text Id="TXT_PATHLINK" Alignment="Center" TypographyId="UiState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PATHLINK_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">OFFLINE</Translation>
+      </Text>
+      <Text Id="TXT_LBL_PPS" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">PPS</Translation>
+      </Text>
+      <Text Id="TXT_PATHPPS" Alignment="Center" TypographyId="UiState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PATHPPS_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">LOCKED</Translation>
+      </Text>
+      <Text Id="TXT_LBL_TX" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">LAST COMMAND</Translation>
+      </Text>
+      <Text Id="TXT_PATHCMD" Alignment="Left" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PATHCMD_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_LBL_ROLE" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">ROLE</Translation>
+      </Text>
+      <Text Id="TXT_ROLEVALUE" Alignment="Center" TypographyId="UiState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_ROLEVALUE_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">SINK</Translation>
+      </Text>
+      <Text Id="TXT_PPSVALUE" Alignment="Center" TypographyId="UiState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PPSVALUE_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">LOCKED</Translation>
+      </Text>
+      <Text Id="TXT_USBLINK" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_USBLINK_I" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">OFFLINE</Translation>
+      </Text>
+      <Text Id="TXT_USBLAST" Alignment="Left" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_USBLAST_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_LBL_STATE" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">STATE</Translation>
+      </Text>
+      <Text Id="TXT_CHGSTATE" Alignment="Center" TypographyId="UiState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CHGSTATE_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">IDLE</Translation>
+      </Text>
+      <Text Id="TXT_CHGNOTE" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CHGNOTE_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">SELECT A PROFILE</Translation>
+      </Text>
+      <Text Id="TXT_LBL_PROFILE" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">PROFILE</Translation>
+      </Text>
+      <Text Id="TXT_CHGCHEM" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CHGCHEM_I" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">LI-ION</Translation>
+      </Text>
+      <Text Id="TXT_CHGVOLT" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CHGVOLT_I" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">4.200 V</Translation>
+      </Text>
+      <Text Id="TXT_CHGAMP" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CHGAMP_I" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">1.000 A</Translation>
+      </Text>
+      <Text Id="TXT_LBL_PROTECT" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">PROTECTION</Translation>
+      </Text>
+      <Text Id="TXT_PROTSTATE" Alignment="Center" TypographyId="UiState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PROTSTATE_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">SAFE</Translation>
+      </Text>
+      <Text Id="TXT_PROTNOTE" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PROTNOTE_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">OUTPUT OFF</Translation>
+      </Text>
+      <Text Id="TXT_LBL_VLIM" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">VOLTAGE LIMIT</Translation>
+      </Text>
+      <Text Id="TXT_PROTVLIM" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PROTVLIM_I" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">27.00 V</Translation>
+      </Text>
+      <Text Id="TXT_LBL_ILIM" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">CURRENT LIMIT</Translation>
+      </Text>
+      <Text Id="TXT_PROTILIM" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PROTILIM_I" Alignment="Center" TypographyId="Readout">
+        <Translation Language="GB">5.000 A</Translation>
+      </Text>
+      <Text Id="TXT_LBL_IP" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">IP ADDRESS</Translation>
+      </Text>
+      <Text Id="TXT_NETIP" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_NETIP_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">UNBOUND</Translation>
+      </Text>
+      <Text Id="TXT_LBL_MASK" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">MASK</Translation>
+      </Text>
+      <Text Id="TXT_NETMASK" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_NETMASK_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">UNBOUND</Translation>
+      </Text>
+      <Text Id="TXT_LBL_GW" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">GATEWAY</Translation>
+      </Text>
+      <Text Id="TXT_NETGW" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_NETGW_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">UNBOUND</Translation>
+      </Text>
+      <Text Id="TXT_NETLINK" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_NETLINK_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">NO ETHERNET</Translation>
+      </Text>
+      <Text Id="TXT_LBL_MAC" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">MAC</Translation>
+      </Text>
+      <Text Id="TXT_NETMAC" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_NETMAC_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">UNASSIGNED</Translation>
+      </Text>
+      <Text Id="TXT_SVCMODE" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_SVCMODE_I" Alignment="Center" TypographyId="LabHero">
+        <Translation Language="GB">LOCKED</Translation>
+      </Text>
+      <Text Id="TXT_SVCTX" Alignment="Left" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_SVCTX_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_LBL_RX" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">LAST REPLY</Translation>
+      </Text>
+      <Text Id="TXT_SVCRX" Alignment="Left" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_SVCRX_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_EDITOR_STATUS" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_EDITOR_INITIAL" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">VOLTAGE  /  0-27 V</Translation>
+      </Text>
+      <Text Id="TXT_EDITOR_HELP" Alignment="Left" TypographyId="LimitHint">
+        <Translation Language="GB">Select a value, type, then APPLY</Translation>
+      </Text>
+      <Text Id="TXT_PAGE_FEEDBACK" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_MENU_RETURN" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">MENU</Translation>
+      </Text>
+      <Text Id="TXT_PSU_RETURN" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">PSU</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenSettings" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Configure the instrument, inspect readings and manage connections.</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenDiagnostics" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Live link and controller details. Use PREV / NEXT for the log.</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenPresets" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Select a slot, then load it or store the current setpoints.</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenSequencer" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Select a step and a field to edit. APPLY saves the field.</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenMeasurements" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Live output readings and regulation mode.</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenBattery" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Battery pack overview. Missing telemetry is shown as --.</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenBms" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Cell readings, FET states and battery controller commands.</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenPowerPath" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Controller permissions and the most recent command.</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenUsbPd" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Select the USB role; controller confirmation may take a moment.</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenExtCharger" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">1. Choose chemistry   2. Set cells   3. Confirm polarity / start</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenProtection" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Output state and device limits. Clear a fault after checking its cause.</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenNetwork" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Current Ethernet configuration reported by the device.</Translation>
+      </Text>
+      <Text Id="TXT_HINT_ScreenService" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Service commands and controller replies.</Translation>
+      </Text>
+      <Text Id="TXT_MENU_GROUP_0" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">OUTPUT &amp; AUTOMATION</Translation>
+      </Text>
+      <Text Id="TXT_MENU_GROUP_1" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">BATTERY &amp; POWER</Translation>
+      </Text>
+      <Text Id="TXT_MENU_GROUP_2" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CONNECTIONS &amp; SERVICE</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_PREV" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">PREV</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_NEXT" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">NEXT</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_PAGE" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_PAGE_INITIAL" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">DETAILS  /  PAGE 1</Translation>
+      </Text>
+      <Text Id="TXT_SeqColumnNo" Alignment="Center" TypographyId="UiEyebrow">
+        <Translation Language="GB">STEP</Translation>
+      </Text>
+      <Text Id="TXT_SeqColumnV" Alignment="Center" TypographyId="UiEyebrow">
+        <Translation Language="GB">VOLTAGE</Translation>
+      </Text>
+      <Text Id="TXT_SeqColumnI" Alignment="Center" TypographyId="UiEyebrow">
+        <Translation Language="GB">CURRENT</Translation>
+      </Text>
+      <Text Id="TXT_SeqColumnT" Alignment="Center" TypographyId="UiEyebrow">
+        <Translation Language="GB">TIME</Translation>
+      </Text>
+      <Text Id="TXT_SEQ_DELETE" Alignment="Center" TypographyId="KeySmall">
+        <Translation Language="GB">DEL</Translation>
+      </Text>
+      <Text Id="TXT_SEQ_CLEAR" Alignment="Center" TypographyId="KeySmall">
+        <Translation Language="GB">CLR</Translation>
+      </Text>
+      <Text Id="TXT_CHG_CONFIRM" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">POLARITY OK?</Translation>
+      </Text>
+      <Text Id="TXT_SEQ_RESUME" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">RESUME</Translation>
+      </Text>
+      <Text Id="TXT_SERVICE_ENABLE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">ENABLE SERVICE</Translation>
+      </Text>
+      <Text Id="TXT_SERVICE_DISABLE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">LOCK SERVICE</Translation>
+      </Text>
+      <Text Id="TXT_DESC_TilePresets" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Saved setpoints</Translation>
+      </Text>
+      <Text Id="TXT_DESC_TileSeq" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Timed output steps</Translation>
+      </Text>
+      <Text Id="TXT_DESC_TileMeas" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Rail, PWM and stage currents</Translation>
+      </Text>
+      <Text Id="TXT_DESC_TileLim" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Limits and fault status</Translation>
+      </Text>
+      <Text Id="TXT_DESC_TilePack" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Pack current and cell spread</Translation>
+      </Text>
+      <Text Id="TXT_DESC_TileBms" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Cell channels and safety flags</Translation>
+      </Text>
+      <Text Id="TXT_DESC_TileChg" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">BQ25731 readings and limits</Translation>
+      </Text>
+      <Text Id="TXT_DESC_TilePath" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">PSU state, permit and sense</Translation>
+      </Text>
+      <Text Id="TXT_DESC_TileUsb" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">PD contract and Type-C state</Translation>
+      </Text>
+      <Text Id="TXT_DESC_TileDiag" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">UART and controller status</Translation>
+      </Text>
+      <Text Id="TXT_DESC_TileNet" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Ethernet configuration</Translation>
+      </Text>
+      <Text Id="TXT_DESC_TileSvc" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Controller commands</Translation>
+      </Text>
+      <Text Id="TXT_ALL_PSU_OFF" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">PSU OFF</Translation>
+      </Text>
+      <Text Id="TXT_TELEM_METRIC" Alignment="Left" TypographyId="TelemetryMetric">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_TELEM_DETAILS" Alignment="Left" TypographyId="TelemetryDetails">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_NEW_ScreenMeasurements" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">DCDC converter</Translation>
+      </Text>
+      <Text Id="TXT_TELEMETRY_EMPTY" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="TXT_ScreenMeasurements_LABEL0" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">INPUT VOLTAGE</Translation>
+      </Text>
+      <Text Id="TXT_ScreenMeasurements_LABEL1" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">DCDC RAIL</Translation>
+      </Text>
+      <Text Id="TXT_ScreenMeasurements_LABEL2" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">BUCK CURRENT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenMeasurements_LABEL3" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">BOOST CURRENT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenMeasurementsLeft" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Switching stage</Translation>
+      </Text>
+      <Text Id="TXT_ScreenMeasurementsRight" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Rail regulation</Translation>
+      </Text>
+      <Text Id="TXT_ACTION_refreshTelemetry" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">REFRESH</Translation>
+      </Text>
+      <Text Id="TXT_NEW_ScreenBattery" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">Battery pack</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBattery_LABEL0" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">PACK VOLTAGE</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBattery_LABEL1" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">PACK CURRENT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBattery_LABEL2" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CELL SPREAD</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBattery_LABEL3" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">SERIES CELLS</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBatteryLeft" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Pack measurements</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBatteryRight" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Battery readiness</Translation>
+      </Text>
+      <Text Id="TXT_NEW_ScreenBms" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">BMS / cell monitor</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBms_LABEL0" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CHANNEL 1</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBms_LABEL1" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CHANNEL 2</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBms_LABEL2" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CHANNEL 3</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBms_LABEL3" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CHANNEL 4</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBms_LABEL4" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CHANNEL 5</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBmsLeft" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Safety registers</Translation>
+      </Text>
+      <Text Id="TXT_ScreenBmsRight" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Device diagnostics</Translation>
+      </Text>
+      <Text Id="TXT_ACTION_initializeBms" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">INITIALIZE BMS</Translation>
+      </Text>
+      <Text Id="TXT_NEW_ScreenExtCharger" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">BQ25731 charger</Translation>
+      </Text>
+      <Text Id="TXT_ScreenExtCharger_LABEL0" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">BATTERY NODE</Translation>
+      </Text>
+      <Text Id="TXT_ScreenExtCharger_LABEL1" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">BATTERY CURRENT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenExtCharger_LABEL2" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">SYSTEM VOLTAGE</Translation>
+      </Text>
+      <Text Id="TXT_ScreenExtCharger_LABEL3" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">USB INPUT CURRENT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenExtChargerLeft" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Programmed limits / ADC</Translation>
+      </Text>
+      <Text Id="TXT_ScreenExtChargerRight" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Charger operation</Translation>
+      </Text>
+      <Text Id="TXT_NEW_ScreenUsbPd" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">USB-C / power delivery</Translation>
+      </Text>
+      <Text Id="TXT_ScreenUsbPd_LABEL0" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CONTRACT VOLTAGE</Translation>
+      </Text>
+      <Text Id="TXT_ScreenUsbPd_LABEL1" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CONTRACT CURRENT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenUsbPd_LABEL2" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CONTRACT LIMIT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenUsbPd_LABEL3" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">REPORTED ROLE</Translation>
+      </Text>
+      <Text Id="TXT_ScreenUsbPdLeft" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">USB input / actual measurements</Translation>
+      </Text>
+      <Text Id="TXT_ScreenUsbPdRight" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Power route / reported states</Translation>
+      </Text>
+      <Text Id="TXT_ACTION_roleAuto" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">AUTO ROLE</Translation>
+      </Text>
+      <Text Id="TXT_ACTION_roleSink" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">SINK ROLE</Translation>
+      </Text>
+      <Text Id="TXT_ACTION_roleSource" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">SOURCE ROLE</Translation>
+      </Text>
+      <Text Id="TXT_NEW_ScreenPowerPath" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">Power control</Translation>
+      </Text>
+      <Text Id="TXT_ScreenPowerPath_LABEL0" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">PSU PATH</Translation>
+      </Text>
+      <Text Id="TXT_ScreenPowerPath_LABEL1" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">LDO OUTPUT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenPowerPath_LABEL2" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">LDO PERMIT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenPowerPath_LABEL3" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">SENSE INPUT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenPowerPathLeft" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Enable states</Translation>
+      </Text>
+      <Text Id="TXT_ScreenPowerPathRight" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Startup and rail control</Translation>
+      </Text>
+      <Text Id="TXT_ACTION_togglePermit" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">TOGGLE PERMIT</Translation>
+      </Text>
+      <Text Id="TXT_ACTION_toggleSense" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">TOGGLE SENSE</Translation>
+      </Text>
+      <Text Id="TXT_NEW_ScreenProtection" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">Protection / faults</Translation>
+      </Text>
+      <Text Id="TXT_ScreenProtection_LABEL0" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">G4 FAULT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenProtection_LABEL1" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">G0 FAULT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenProtection_LABEL2" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">DRIVER FAULT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenProtection_LABEL3" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">LDO PERMIT</Translation>
+      </Text>
+      <Text Id="TXT_ScreenProtectionLeft" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Active G4 faults</Translation>
+      </Text>
+      <Text Id="TXT_ScreenProtectionRight" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Controller details</Translation>
+      </Text>
+      <Text Id="TXT_ACTION_clearFault" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CLEAR PSU FAULT</Translation>
+      </Text>
+      <Text Id="TXT_UX_ScreenPresets" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">Presets</Translation>
+      </Text>
+      <Text Id="TXT_UX_FEEDBACK" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PRESET_EDITOR" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PRESET_SLOT0" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">PRESET 1</Translation>
+      </Text>
+      <Text Id="TXT_PRESET_SUMMARY" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PRESET_SLOT1" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">PRESET 2</Translation>
+      </Text>
+      <Text Id="TXT_PRESET_SLOT2" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">PRESET 3</Translation>
+      </Text>
+      <Text Id="TXT_PRESET_V" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">VOLTAGE / V</Translation>
+      </Text>
+      <Text Id="TXT_PRESET_VALUE" Alignment="Left" TypographyId="TelemetryMetric">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PRESET_I" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CURRENT LIMIT / A</Translation>
+      </Text>
+      <Text Id="TXT_PRESET_LOAD" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">USE PRESET</Translation>
+      </Text>
+      <Text Id="TXT_PRESET_HINT" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Stored presets / output unchanged</Translation>
+      </Text>
+      <Text Id="TXT_OBVIOUS_SETTINGS" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">SETTINGS</Translation>
+      </Text>
+      <Text Id="TXT_SEQ_COMPACT_VALUE" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_SEQ_AddButton" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">+</Translation>
+      </Text>
+      <Text Id="TXT_SEQ_RemoveButton" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">-</Translation>
+      </Text>
+      <Text Id="TXT_SCROLL_PrevButton" Alignment="Center" TypographyId="UiCaption">
+        <Translation Language="GB">UP</Translation>
+      </Text>
+      <Text Id="TXT_SCROLL_NextButton" Alignment="Center" TypographyId="UiCaption">
+        <Translation Language="GB">DN</Translation>
+      </Text>
+      <Text Id="TXT_UX_ScreenSettings" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">Settings &amp; tools</Translation>
+      </Text>
+      <Text Id="TXT_UX_HOME" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">HOME</Translation>
+      </Text>
+      <Text Id="TXT_UX_NAV0" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Presets</Translation>
+      </Text>
+      <Text Id="TXT_UX_DESC0" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Three saved V / I settings</Translation>
+      </Text>
+      <Text Id="TXT_UX_NAV1" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Sequencer</Translation>
+      </Text>
+      <Text Id="TXT_UX_DESC1" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Timed output programs</Translation>
+      </Text>
+      <Text Id="TXT_UX_NAV2" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Charger</Translation>
+      </Text>
+      <Text Id="TXT_UX_DESC2" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Setup and charge session</Translation>
+      </Text>
+      <Text Id="TXT_UX_NAV3" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Battery</Translation>
+      </Text>
+      <Text Id="TXT_UX_DESC3" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Pack, cells and BMS</Translation>
+      </Text>
+      <Text Id="TXT_UX_NAV4" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">USB-C</Translation>
+      </Text>
+      <Text Id="TXT_UX_DESC4" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Power delivery and routing</Translation>
+      </Text>
+      <Text Id="TXT_UX_NAV5" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Diagnostics</Translation>
+      </Text>
+      <Text Id="TXT_UX_DESC5" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Telemetry and fault details</Translation>
+      </Text>
+      <Text Id="TXT_UX_NAV6" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Network</Translation>
+      </Text>
+      <Text Id="TXT_UX_DESC6" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Remote access and interfaces</Translation>
+      </Text>
+      <Text Id="TXT_THESIS" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">AGH / Laboratory power supply</Translation>
+      </Text>
+      <Text Id="TXT_THESIS_DETAIL" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Engineering thesis / HMI control system</Translation>
+      </Text>
+      <Text Id="TXT_UX_ScreenBattery" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">Battery / BMS</Translation>
+      </Text>
+      <Text Id="TXT_BATT_MET0" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">PACK VOLTAGE</Translation>
+      </Text>
+      <Text Id="TXT_BATT_MET1" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">PACK CURRENT</Translation>
+      </Text>
+      <Text Id="TXT_BATT_MET2" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CELL SPREAD</Translation>
+      </Text>
+      <Text Id="TXT_BATT_MET3" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CONFIGURATION</Translation>
+      </Text>
+      <Text Id="TXT_BATT_CELLS" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CELL VOLTAGES / PHYSICAL CHANNELS</Translation>
+      </Text>
+      <Text Id="TXT_BATT_CH0" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CH 1</Translation>
+      </Text>
+      <Text Id="TXT_CELL_DYNAMIC" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATT_CH1" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CH 2</Translation>
+      </Text>
+      <Text Id="TXT_BATT_CH2" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CH 3</Translation>
+      </Text>
+      <Text Id="TXT_BATT_CH3" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CH 4</Translation>
+      </Text>
+      <Text Id="TXT_BATT_CH4" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CH 5</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_FUTURE" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">SOC --    Remaining capacity --    Temperature --&#10;Balancing -- / awaiting BMS telemetry support</Translation>
+      </Text>
+      <Text Id="TXT_PD_CAPABILITY" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">PDO list / selected index / PPS range: not reported by G4&#10;Role buttons request a change; the contract above is confirmed telemetry.</Translation>
+      </Text>
+      <Text Id="TXT_PRESET_BLANK" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="TXT_QUICK_PRESET" Alignment="Center" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_UX_ScreenDiagnostics" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">Diagnostics</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_Parsed" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">PARSED</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_RAW_TAB" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">RAW UART</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_T" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">T / PSU</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_TB" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">TB / BMS</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_TC" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">TC / USB</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_FIELD" Alignment="Left" TypographyId="TelemetryDetails">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_RAW" Alignment="Left" TypographyId="TelemetryDetails">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_Up" Alignment="Center" TypographyId="UiCaption">
+        <Translation Language="GB">UP</Translation>
+      </Text>
+      <Text Id="TXT_DIAG_Down" Alignment="Center" TypographyId="UiCaption">
+        <Translation Language="GB">DN</Translation>
+      </Text>
+      <Text Id="TXT_FAULT_TEXT" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_FAULT_CLEAR" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CLEAR</Translation>
+      </Text>
+      <Text Id="TXT_UX_ScreenExtCharger" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">Charger</Translation>
+      </Text>
+      <Text Id="TXT_CHG_TAB_Setup" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">SETUP</Translation>
+      </Text>
+      <Text Id="TXT_CHG_TAB_Session" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">SESSION</Translation>
+      </Text>
+      <Text Id="TXT_CHG_TAB_Onboard" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">ONBOARD BQ</Translation>
+      </Text>
+      <Text Id="TXT_CHG_EDIT" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CHEM_CHOICE0" Alignment="Center" TypographyId="UiCaption">
+        <Translation Language="GB">Li-ion</Translation>
+      </Text>
+      <Text Id="TXT_CHEM_CHOICE1" Alignment="Center" TypographyId="UiCaption">
+        <Translation Language="GB">LiHV</Translation>
+      </Text>
+      <Text Id="TXT_CHEM_CHOICE2" Alignment="Center" TypographyId="UiCaption">
+        <Translation Language="GB">LiFePO4</Translation>
+      </Text>
+      <Text Id="TXT_CHEM_CHOICE3" Alignment="Center" TypographyId="UiCaption">
+        <Translation Language="GB">LTO</Translation>
+      </Text>
+      <Text Id="TXT_CHEM_CHOICE4" Alignment="Center" TypographyId="UiCaption">
+        <Translation Language="GB">Lead</Translation>
+      </Text>
+      <Text Id="TXT_CHG_FIELD0" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">SERIES CELLS</Translation>
+      </Text>
+      <Text Id="TXT_CHG_FIELD1" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CHARGE CURRENT / A</Translation>
+      </Text>
+      <Text Id="TXT_CHG_FIELD2" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CUTOFF CURRENT / A</Translation>
+      </Text>
+      <Text Id="TXT_CHG_FIELD3" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CAPACITY / Ah</Translation>
+      </Text>
+      <Text Id="TXT_CHG_PROFILE" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CHG_Polarity" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">POLARITY OK</Translation>
+      </Text>
+      <Text Id="TXT_CHG_Start" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">START</Translation>
+      </Text>
+      <Text Id="TXT_CHG_Stop" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">STOP</Translation>
+      </Text>
+      <Text Id="TXT_CHG_STATS" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CHG_AXIS" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_REMOTE_TOGGLE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">REMOTE ON / OFF</Translation>
+      </Text>
+      <Text Id="TXT_WIFI_FUTURE" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Wi-Fi / module not integrated</Translation>
+      </Text>
+      <Text Id="TXT_NEW_SplashTitle" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">LAB / POWER</Translation>
+      </Text>
+      <Text Id="TXT_NEW_SplashSubtitle" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">USB-C PD laboratory power supply</Translation>
+      </Text>
+      <Text Id="TXT_NEW_SplashThesis" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">AGH / Engineering thesis</Translation>
+      </Text>
+      <Text Id="TXT_START_CHECKS" Alignment="Left" TypographyId="TelemetryDetails">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_START_CONTINUE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CONTINUE</Translation>
+      </Text>
+      <Text Id="TXT_REMOTE_DISABLE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">DISABLE REMOTE</Translation>
+      </Text>
+      <Text Id="TXT_REMOTE_ENABLE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">ENABLE REMOTE</Translation>
       </Text>
     </TextGroup>
   </Texts>
   <Typographies>
-    <Typography Id="Title" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Label" Font="verdana.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Small" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() " />
-    <Typography Id="Value" Font="verdana.ttf" Size="60" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VA" WildcardCharacterRanges="0-9" />
-    <Typography Id="SetValue" Font="verdana.ttf" Size="30" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VA" WildcardCharacterRanges="0-9" />
-    <Typography Id="LimitHint" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="HeaderLabel" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="HeaderValue" Font="verdana.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". CW%" WildcardCharacterRanges="0-9" />
-    <Typography Id="Button" Font="verdana.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() " />
-    <Typography Id="Output" Font="verdana.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=" OUTPUTNF" />
-    <Typography Id="Input" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="." WildcardCharacterRanges="0-9" />
-    <Typography Id="Key" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="KeySmall" Font="verdana.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Preset" Font="verdana.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="SettingsTitle" Font="verdana.ttf" Size="26" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="MenuTitle" Font="verdana.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="MenuHint" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="SplashMeta" Font="verdana.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="SplashStatus" Font="verdana.ttf" Size="13" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Title" Font="IBMPlexSans-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Label" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Small" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="Value" Font="IBMPlexMono-Regular.ttf" Size="48" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ-|" WildcardCharacterRanges="0-9" />
+    <Typography Id="SetValue" Font="IBMPlexMono-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" WildcardCharacterRanges="0-9" />
+    <Typography Id="LimitHint" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="HeaderLabel" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="HeaderValue" Font="IBMPlexMono-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()%_&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="Button" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="Output" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=" OUTPUTNFąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="Input" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=".ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" WildcardCharacterRanges="0-9" />
+    <Typography Id="Key" Font="IBMPlexSans-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="KeySmall" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Preset" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="SettingsTitle" Font="IBMPlexSans-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="MenuTitle" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="MenuHint" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="SplashMeta" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="SplashStatus" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Dynamic" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="LabHero" Font="IBMPlexMono-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="Readout" Font="IBMPlexMono-Regular.ttf" Size="48" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". -VAWC|" WildcardCharacterRanges="0-9" />
+    <Typography Id="LabRead" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". -VAWC|" WildcardCharacterRanges="0-9" />
+    <Typography Id="LabBig" Font="IBMPlexMono-Regular.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. VAmWCRANGEs/-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="LabState" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="LabMid" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="LabTile" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="UiCaption" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
+    <Typography Id="UiEyebrow" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
+    <Typography Id="UiDiagnostic" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
+    <Typography Id="UiState" Font="IBMPlexSans-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
+    <Typography Id="TelemetryMetric" Font="IBMPlexMono-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
+    <Typography Id="TelemetryDetails" Font="IBMPlexMono-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
   </Typographies>
 </TextDatabase>
