@@ -1,0 +1,17 @@
+PASS four-corner pixel symmetry: dark panel
+PASS four-corner pixel symmetry: dark light selector
+PASS four-corner pixel symmetry: dark dark selector
+PASS four-corner pixel symmetry: dark blue accent
+PASS four-corner pixel symmetry: dark header shutdown
+PASS panel backdrop: dark
+PASS four-corner pixel symmetry: light panel
+PASS four-corner pixel symmetry: light light selector
+PASS four-corner pixel symmetry: light dark selector
+PASS four-corner pixel symmetry: light blue accent
+PASS four-corner pixel symmetry: light header shutdown
+PASS panel backdrop: light
+PASS four-corner pixel symmetry: main voltage card
+PASS four-corner pixel symmetry: key 1
+PASS four-corner pixel symmetry: key 2
+PASS four-corner pixel symmetry: apply
+PASS all: symmetric antialiased corners and correct light/dark parent backgrounds

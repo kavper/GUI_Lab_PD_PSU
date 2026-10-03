@@ -34,6 +34,7 @@ public:
     virtual void handleClickEvent(const touchgfx::ClickEvent& event);
     virtual void handleDragEvent(const touchgfx::DragEvent& event);
 private:
+    friend class ThemeScreen;
     touchgfx::Drawable* original;
     touchgfx::Button* button;
     touchgfx::ButtonWithLabel* label;
@@ -58,6 +59,7 @@ public:
     void image(touchgfx::Image& widget, SurfaceStyle style, touchgfx::Button* tile=0);
     void sync();
     void apply();
+    Role backgroundBehind(const touchgfx::Drawable& widget) const;
 private:
     struct TextBinding { touchgfx::TextArea* widget; int8_t role; };
     struct BoxBinding { touchgfx::Box* widget; Role role; };

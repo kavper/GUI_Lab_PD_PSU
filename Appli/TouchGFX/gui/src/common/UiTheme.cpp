@@ -1,4 +1,5 @@
 #include <gui/common/UiTheme.hpp>
+#include <gui/common/RoundedCorners.hpp>
 #include <touchgfx/hal/HAL.hpp>
 #include <touchgfx/Font.hpp>
 #include <images/BitmapDatabase.hpp>
@@ -35,14 +36,31 @@ bool selectedBitmap(touchgfx::BitmapId id){
     }
 }
 void fill(touchgfx::Rect rect,const touchgfx::Rect& clip,touchgfx::colortype color,uint8_t alpha=255){rect&=clip;if(!rect.isEmpty())touchgfx::HAL::lcd().fillRect(rect,color,alpha);}
-void rounded(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::colortype color,int radius){
-    if(radius<1){fill(rect,clip,color);return;}
-    fill(touchgfx::Rect(rect.x,rect.y+radius,rect.width,rect.height-2*radius),clip,color);
-    for(int y=0;y<radius;y++){
-        int inset=radius;while(inset>0 && (radius-inset)*(radius-inset)+(radius-y-1)*(radius-y-1)<=radius*radius)--inset;
-        ++inset;
-        fill(touchgfx::Rect(rect.x+inset,rect.y+y,rect.width-2*inset,1),clip,color);
-        fill(touchgfx::Rect(rect.x+inset,rect.bottom()-y-1,rect.width-2*inset,1),clip,color);
+touchgfx::colortype composite(touchgfx::colortype base,touchgfx::colortype border,touchgfx::colortype surface,unsigned outer,unsigned inner){
+    const unsigned b=outer-inner,a=64-outer;
+    return touchgfx::Color::getColorFromRGB(
+        (touchgfx::Color::getRed(base)*a+touchgfx::Color::getRed(border)*b+touchgfx::Color::getRed(surface)*inner+32)/64,
+        (touchgfx::Color::getGreen(base)*a+touchgfx::Color::getGreen(border)*b+touchgfx::Color::getGreen(surface)*inner+32)/64,
+        (touchgfx::Color::getBlue(base)*a+touchgfx::Color::getBlue(border)*b+touchgfx::Color::getBlue(surface)*inner+32)/64);
+}
+// Identical quarter-circle masks are mirrored across both axes. Each corner
+// pixel is composited once over its actual backdrop, avoiding dark fringes.
+void rounded(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::colortype border,touchgfx::colortype surface,touchgfx::colortype base,int radius){
+    fill(rect,clip,base);
+    fill(touchgfx::Rect(rect.x,rect.y+radius,rect.width,rect.height-2*radius),clip,border);
+    fill(touchgfx::Rect(rect.x+radius,rect.y,rect.width-2*radius,rect.height),clip,border);
+    fill(touchgfx::Rect(rect.x+1,rect.y+radius,rect.width-2,rect.height-2*radius),clip,surface);
+    fill(touchgfx::Rect(rect.x+radius,rect.y+1,rect.width-2*radius,rect.height-2),clip,surface);
+    for(int y=0;y<radius;y++)for(int x=0;x<radius;){
+        const auto color=composite(base,border,surface,ui::corners::coverage(radius,x,y),ui::corners::coverage(radius-1,x-1,y-1));
+        int end=x+1;
+        while(end<radius && composite(base,border,surface,ui::corners::coverage(radius,end,y),ui::corners::coverage(radius-1,end-1,y-1))==color)++end;
+        const int width=end-x;
+        fill(touchgfx::Rect(rect.x+x,rect.y+y,width,1),clip,color);
+        fill(touchgfx::Rect(rect.right()-end,rect.y+y,width,1),clip,color);
+        fill(touchgfx::Rect(rect.x+x,rect.bottom()-1-y,width,1),clip,color);
+        fill(touchgfx::Rect(rect.right()-end,rect.bottom()-1-y,width,1),clip,color);
+        x=end;
     }
 }
 }
@@ -109,12 +127,10 @@ void ThemedSurface::draw(const touchgfx::Rect& area) const {
     }
     else if(style==PILL){const bool cc=image && image->getBitmap().getId()==BITMAP_MODE_CC_58X36_ID;surface=Theme::color(cc?CAUTION:ACCENT);border=surface;}
     else if(style>=SWATCH_BLUE){surface=Theme::accentColor(style-SWATCH_BLUE);border=surface;ink=Theme::color(ON_ACCENT);}
-    fill(rect,clip,Theme::color(BACKGROUND));
-    const int radius=rect.height<40?5:7;
-    rounded(rect,clip,border,radius);
-    touchgfx::Rect inside(rect.x+1,rect.y+1,rect.width-2,rect.height-2);
-    rounded(inside,clip,surface,radius-1);
-    if(button && button->getAlpha()<255){rounded(inside,clip,Theme::color(RAISED),radius-1);ink=Theme::color(MUTED);}
+    if(button && button->getAlpha()<255){surface=Theme::color(RAISED);ink=Theme::color(MUTED);}
+    const int radius=style==PANEL?12:rect.height<40?6:8;
+    const auto backdrop=Theme::color(ThemeScreen::get().backgroundBehind(*original));
+    rounded(rect,clip,border,surface,backdrop,radius);
     if(label && label->getLabelText().hasValidId()){
         touchgfx::TextArea text;
         text.setTypedText(label->getLabelText());text.setColor(ink);
@@ -152,4 +168,20 @@ void ThemeScreen::sync(){
     for(unsigned i=0;i<surfaceCount;i++)surfaces[i].sync();
 }
 void ThemeScreen::apply(){sync();if(screen)screen->getRootContainer().invalidate();}
+}
+
+namespace ui {
+Role ThemeScreen::backgroundBehind(const touchgfx::Drawable& widget) const {
+    Role role=BACKGROUND;
+    if(!screen)return role;
+    const touchgfx::Rect target=widget.getRect();
+    for(touchgfx::Drawable* child=screen->getRootContainer().getFirstChild();child && child!=&widget;child=child->getNextSibling()){
+        if(!child->isVisible())continue;
+        const touchgfx::Rect r=child->getRect();
+        if(r.x>target.x||r.y>target.y||r.right()<target.right()||r.bottom()<target.bottom())continue;
+        for(unsigned i=0;i<boxCount;i++)if(boxes[i].widget==child && boxes[i].role>=BACKGROUND && boxes[i].role<=RAISED)role=boxes[i].role;
+        for(unsigned i=0;i<surfaceCount;i++)if(&surfaces[i]==child && surfaces[i].style==PANEL)role=SURFACE;
+    }
+    return role;
+}
 }

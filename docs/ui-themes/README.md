@@ -12,3 +12,5 @@ Audyt akceleracji (bez zmiany konfiguracji sprzętowej):
 - FingerSlideTransition wykorzystuje SnapshotWidget i pozycje wyrównane do dwóch pikseli dla RGB565.
 
 Konfiguracja akceleratorów jest aktywna; nie jest to pomiar FPS ani dowód maksymalnej wydajności. CPU nadal obsługuje logikę, układ i przygotowanie poleceń. JPEG jest zainicjowany do dekodowania wideo; GUI nie zawiera obecnie wideo, więc nie zwiększa płynności zwykłych ekranów. Nie dodawano GFXMMU dla prostokątnego framebufferu RGB565.
+
+Narożniki mają wspólne, symetryczne maski ćwiartki koła z wygładzaniem (64 próbki na piksel, małe tablice w NOR). Obrys i wypełnienie są składane raz na piksel. Tło poza zaokrągleniem odpowiada karcie lub nagłówkowi pod elementem, dzięki czemu zagnieżdżone przyciski nie mają ciemnych narożników. Karty mają promień 12 px, przyciski 8 px, drobne elementy 6 px. Bez nowych buforów PSRAM. Test corner-pixel-test.log porównuje wszystkie cztery rogi renderowanych kart, przycisków i klawiszy w obu motywach oraz sprawdza kolor ich tła. Testy nawigacji i gestów nadal przechodzą.
