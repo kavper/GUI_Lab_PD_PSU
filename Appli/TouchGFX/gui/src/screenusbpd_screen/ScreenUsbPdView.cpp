@@ -1,10 +1,14 @@
+#include <gui/common/UiTheme.hpp>
 #include <gui/screenusbpd_screen/ScreenUsbPdView.hpp>
 #include <gui/common/LabText.hpp>
+#include <gui/common/FrontendApplication.hpp>
 #include <gui/common/TelemetryData.hpp>
 ScreenUsbPdView::ScreenUsbPdView() : divider(0), noticeTicks(0) {notice[0]=0;}
-void ScreenUsbPdView::setupScreen() {ScreenUsbPdViewBase::setupScreen(); refresh();}
-void ScreenUsbPdView::tearDownScreen() {ScreenUsbPdViewBase::tearDownScreen();}
-void ScreenUsbPdView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=8){divider=0;refresh();}}
+void ScreenUsbPdView::setupScreen() {ScreenUsbPdViewBase::setupScreen(); static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->setSwipePage(FrontendApplication::USB_PD); refresh();
+    setupTheme();
+}
+void ScreenUsbPdView::tearDownScreen() {static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->setSwipePage(FrontendApplication::OTHER); ScreenUsbPdViewBase::tearDownScreen();}
+void ScreenUsbPdView::handleTickEvent() {if(static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->isScreenTransitionActive())return;if(noticeTicks)--noticeTicks;if(++divider>=8){divider=0;refresh();}}
 void ScreenUsbPdView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
 void ScreenUsbPdView::allOff() {psu_app_shutdown();notify("PSU OFF requested - stopping LDO, DCDC and automation");}
 void ScreenUsbPdView::refresh() {
@@ -36,3 +40,43 @@ void ScreenUsbPdView::roleAuto() {notify(psu_app_usb_role("AUTO",PSU_SRC_LCD)?"A
 void ScreenUsbPdView::roleSink() {notify(psu_app_usb_role("SINK",PSU_SRC_LCD)?"SINK requested; waiting for the reported role":"Role request blocked");}
 void ScreenUsbPdView::roleSource() {notify(psu_app_usb_role("SOURCE",PSU_SRC_LCD)?"SOURCE requested; waiting for the reported role":"Role request blocked");}
 void ScreenUsbPdView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"Refresh requested - waiting for T / TB / TC":"Command queue full");}
+
+void ScreenUsbPdView::saveSwipeNotice(char* text,uint16_t& ticks) const { memcpy(text,notice,sizeof(notice)); ticks=noticeTicks; }
+void ScreenUsbPdView::restoreSwipeNotice(const char* text,uint16_t ticks) { memcpy(notice,text,sizeof(notice)); noticeTicks=ticks; refresh(); }
+
+void ScreenUsbPdView::setupTheme()
+{
+    ui::ThemeScreen& theme=ui::ThemeScreen::get();
+    theme.begin(*this);
+    theme.box(LabBackground,ui::BACKGROUND);
+    theme.box(LabHeader,ui::SURFACE);
+    theme.box(ThemeHeaderDivider,ui::BORDER);
+    theme.text(PageTitle);
+    theme.text(PageFeedback);
+    theme.button(BackButton,ui::NORMAL);
+    theme.panel(MetricCard0);
+    theme.text(MetricLabel0);
+    theme.text(Metric0);
+    theme.panel(MetricCard1);
+    theme.text(MetricLabel1);
+    theme.text(Metric1);
+    theme.panel(MetricCard2);
+    theme.text(MetricLabel2);
+    theme.text(Metric2);
+    theme.panel(MetricCard3);
+    theme.text(MetricLabel3);
+    theme.text(Metric3);
+    theme.panel(LeftCard);
+    theme.text(LeftHeading);
+    theme.text(LeftDetails);
+    theme.panel(RightCard);
+    theme.text(RightHeading);
+    theme.text(RightDetails);
+    theme.button(AutoButton,ui::NORMAL);
+    theme.button(SinkButton,ui::NORMAL);
+    theme.button(SourceButton,ui::NORMAL);
+    theme.button(RefreshButton,ui::NORMAL);
+    theme.button(AllOffButton,ui::DANGER);
+    theme.text(CapabilityNote);
+    theme.apply();
+}

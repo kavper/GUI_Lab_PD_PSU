@@ -5,6 +5,7 @@
 #include <stdint.h>
 class ScreenBmsView : public ScreenBmsViewBase {
 public:
+    void setupTheme();
     ScreenBmsView();
     virtual ~ScreenBmsView() {}
     virtual void setupScreen();

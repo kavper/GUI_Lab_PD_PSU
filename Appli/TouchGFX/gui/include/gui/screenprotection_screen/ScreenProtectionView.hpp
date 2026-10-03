@@ -5,6 +5,7 @@
 #include <stdint.h>
 class ScreenProtectionView : public ScreenProtectionViewBase {
 public:
+    void setupTheme();
     ScreenProtectionView();
     virtual ~ScreenProtectionView() {}
     virtual void setupScreen();

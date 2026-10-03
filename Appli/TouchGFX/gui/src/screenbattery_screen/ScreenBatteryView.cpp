@@ -1,8 +1,11 @@
+#include <gui/common/UiTheme.hpp>
 #include <gui/screenbattery_screen/ScreenBatteryView.hpp>
 #include <gui/common/LabText.hpp>
 #include <gui/common/TelemetryData.hpp>
 ScreenBatteryView::ScreenBatteryView() : divider(0), noticeTicks(0) {notice[0]=0;}
-void ScreenBatteryView::setupScreen() {ScreenBatteryViewBase::setupScreen(); refresh();}
+void ScreenBatteryView::setupScreen() {ScreenBatteryViewBase::setupScreen(); refresh();
+    setupTheme();
+}
 void ScreenBatteryView::tearDownScreen() {ScreenBatteryViewBase::tearDownScreen();}
 void ScreenBatteryView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=8){divider=0;refresh();}}
 void ScreenBatteryView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
@@ -40,3 +43,58 @@ void ScreenBatteryView::refresh() {
 
 }
 void ScreenBatteryView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"Refresh requested - waiting for T / TB / TC":"Command queue full");}
+
+void ScreenBatteryView::setupTheme()
+{
+    ui::ThemeScreen& theme=ui::ThemeScreen::get();
+    theme.begin(*this);
+    theme.box(LabBackground,ui::BACKGROUND);
+    theme.box(LabHeader,ui::SURFACE);
+    theme.box(ThemeHeaderDivider,ui::BORDER);
+    theme.text(PageTitle);
+    theme.text(PageFeedback);
+    theme.button(AllOffButton,ui::DANGER);
+    theme.button(BackButton,ui::NORMAL);
+    theme.panel(MetricCard0);
+    theme.text(MetricLabel0);
+    theme.text(Metric0);
+    theme.panel(MetricCard1);
+    theme.text(MetricLabel1);
+    theme.text(Metric1);
+    theme.panel(MetricCard2);
+    theme.text(MetricLabel2);
+    theme.text(Metric2);
+    theme.panel(MetricCard3);
+    theme.text(MetricLabel3);
+    theme.text(Metric3);
+    theme.text(CellsHeading);
+    theme.panel(CellCard0);
+    theme.panel(CellTerminal0);
+    theme.text(CellLabel0);
+    theme.text(CellValue0);
+    theme.panel(CellBar0);
+    theme.panel(CellCard1);
+    theme.panel(CellTerminal1);
+    theme.text(CellLabel1);
+    theme.text(CellValue1);
+    theme.panel(CellBar1);
+    theme.panel(CellCard2);
+    theme.panel(CellTerminal2);
+    theme.text(CellLabel2);
+    theme.text(CellValue2);
+    theme.panel(CellBar2);
+    theme.panel(CellCard3);
+    theme.panel(CellTerminal3);
+    theme.text(CellLabel3);
+    theme.text(CellValue3);
+    theme.panel(CellBar3);
+    theme.panel(CellCard4);
+    theme.panel(CellTerminal4);
+    theme.text(CellLabel4);
+    theme.text(CellValue4);
+    theme.panel(CellBar4);
+    theme.text(LeftDetails);
+    theme.text(RightDetails);
+    theme.text(Future);
+    theme.apply();
+}

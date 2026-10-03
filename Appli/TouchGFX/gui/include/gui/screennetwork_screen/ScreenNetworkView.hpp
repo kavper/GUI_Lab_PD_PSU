@@ -8,6 +8,7 @@
 class ScreenNetworkView : public ScreenNetworkViewBase
 {
 public:
+    void setupTheme();
     ScreenNetworkView();
     virtual ~ScreenNetworkView() {}
     virtual void setupScreen();

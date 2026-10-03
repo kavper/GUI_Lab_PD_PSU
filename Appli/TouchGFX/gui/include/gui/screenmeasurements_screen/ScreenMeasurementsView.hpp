@@ -5,6 +5,7 @@
 #include <stdint.h>
 class ScreenMeasurementsView : public ScreenMeasurementsViewBase {
 public:
+    void setupTheme();
     ScreenMeasurementsView();
     virtual ~ScreenMeasurementsView() {}
     virtual void setupScreen();

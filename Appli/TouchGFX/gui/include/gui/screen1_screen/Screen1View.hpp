@@ -4,16 +4,21 @@
 #include <gui_generated/screen1_screen/Screen1ViewBase.hpp>
 #include <gui/screen1_screen/Screen1Presenter.hpp>
 #include <touchgfx/events/GestureEvent.hpp>
+#include <gui/common/FingerSwipeState.hpp>
 #include <stdint.h>
 
 class Screen1View : public Screen1ViewBase
 {
 public:
+    void setupTheme();
     Screen1View();
     virtual ~Screen1View() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void handleGestureEvent(const touchgfx::GestureEvent& event);
+
+    void saveSwipeEditor(MainSwipeEditorState& state) const;
+    void restoreSwipeEditor(const MainSwipeEditorState& state);
 
     // API dla warstwy sprzętowej/modelu. Jednostki: mV, mA i 0.1 °C.
     void setMeasurements(uint32_t voltageMv, int32_t currentUa, int16_t temperatureDeciC);

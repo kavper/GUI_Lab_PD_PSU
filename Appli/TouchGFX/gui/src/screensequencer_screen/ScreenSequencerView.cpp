@@ -1,3 +1,4 @@
+#include <gui/common/UiTheme.hpp>
 #include <gui/screensequencer_screen/ScreenSequencerView.hpp>
 #include <gui/common/LabText.hpp>
 #include <images/BitmapDatabase.hpp>
@@ -33,6 +34,8 @@ void ScreenSequencerView::setupScreen()
     poseKeypad(KEYPAD_HIDDEN_Y, 0);
     psu_seq_edit_select(&edit,psu_sequencer(),PSU_SEQ_FIELD_V);
     refresh();seqSyncKeypad();
+
+    setupTheme();
 }
 
 void ScreenSequencerView::tearDownScreen()
@@ -453,4 +456,73 @@ void ScreenSequencerView::handleClickEvent(const touchgfx::ClickEvent& e){
 void ScreenSequencerView::handleGestureEvent(const touchgfx::GestureEvent& e){
  if(e.getType()==touchgfx::GestureEvent::SWIPE_VERTICAL&&e.getX()<500&&e.getY()>100&&e.getY()<352){if(e.getVelocity()<0)seqNext();else seqPrev();}
  else ScreenSequencerViewBase::handleGestureEvent(e);
+}
+
+void ScreenSequencerView::setupTheme()
+{
+    ui::ThemeScreen& theme=ui::ThemeScreen::get();
+    theme.begin(*this);
+    theme.box(LabBackground,ui::BACKGROUND);
+    theme.box(LabHeader,ui::SURFACE);
+    theme.box(ThemeHeaderDivider,ui::BORDER);
+    theme.text(ScreenTitle);
+    theme.button(BackButton,ui::NORMAL);
+    theme.button(StepRow1,ui::NORMAL);
+    theme.button(StepRow2,ui::NORMAL);
+    theme.button(StepRow3,ui::NORMAL);
+    theme.button(StepRow4,ui::NORMAL);
+    theme.button(StepRow5,ui::NORMAL);
+    theme.button(StepRow6,ui::NORMAL);
+    theme.image(StepHighlight,ui::SELECTION);
+    theme.text(Step1No);
+    theme.text(Step1Volt);
+    theme.text(Step1Amp);
+    theme.text(Step1Time);
+    theme.text(Step2No);
+    theme.text(Step2Volt);
+    theme.text(Step2Amp);
+    theme.text(Step2Time);
+    theme.text(Step3No);
+    theme.text(Step3Volt);
+    theme.text(Step3Amp);
+    theme.text(Step3Time);
+    theme.text(Step4No);
+    theme.text(Step4Volt);
+    theme.text(Step4Amp);
+    theme.text(Step4Time);
+    theme.text(Step5No);
+    theme.text(Step5Volt);
+    theme.text(Step5Amp);
+    theme.text(Step5Time);
+    theme.text(Step6No);
+    theme.text(Step6Volt);
+    theme.text(Step6Amp);
+    theme.text(Step6Time);
+    theme.button(EditCardV,ui::NORMAL);
+    theme.text(LblEditV);
+    theme.text(EditVolt);
+    theme.button(EditCardI,ui::NORMAL);
+    theme.text(LblEditI);
+    theme.text(EditAmp);
+    theme.button(EditCardT,ui::NORMAL);
+    theme.text(LblEditT);
+    theme.text(EditTime);
+    theme.button(EditCardS,ui::NORMAL);
+    theme.text(LblEditS);
+    theme.text(EditSlew);
+    theme.text(SeqStatus);
+    theme.button(RunButton,ui::NORMAL);
+    theme.button(PauseButton,ui::NORMAL);
+    theme.button(StopButton,ui::DANGER);
+    theme.button(AddButton,ui::NORMAL);
+    theme.button(RemoveButton,ui::NORMAL);
+    theme.button(PrevButton,ui::NORMAL);
+    theme.button(NextButton,ui::NORMAL);
+    theme.text(PageFeedback);
+    theme.text(SeqColumnNo);
+    theme.text(SeqColumnV);
+    theme.text(SeqColumnI);
+    theme.text(SeqColumnT);
+    theme.button(AllOffButton,ui::DANGER);
+    theme.apply();
 }

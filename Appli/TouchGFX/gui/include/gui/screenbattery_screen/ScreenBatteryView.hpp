@@ -5,6 +5,7 @@
 #include <stdint.h>
 class ScreenBatteryView : public ScreenBatteryViewBase {
 public:
+    void setupTheme();
     ScreenBatteryView();
     virtual ~ScreenBatteryView() {}
     virtual void setupScreen();

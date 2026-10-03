@@ -6,6 +6,7 @@ extern "C" {
 }
 class ScreenPresetsView : public ScreenPresetsViewBase {
 public:
+    void setupTheme();
  ScreenPresetsView();
  virtual void setupScreen();
  virtual void tearDownScreen() {ScreenPresetsViewBase::tearDownScreen();}

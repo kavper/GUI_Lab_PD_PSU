@@ -11,6 +11,7 @@ extern "C" {
 class ScreenSequencerView : public ScreenSequencerViewBase
 {
 public:
+    void setupTheme();
     ScreenSequencerView();
     virtual ~ScreenSequencerView() {}
     virtual void setupScreen();

@@ -1,8 +1,11 @@
+#include <gui/common/UiTheme.hpp>
 #include <gui/screenmeasurements_screen/ScreenMeasurementsView.hpp>
 #include <gui/common/LabText.hpp>
 #include <gui/common/TelemetryData.hpp>
 ScreenMeasurementsView::ScreenMeasurementsView() : divider(0), noticeTicks(0) {notice[0]=0;}
-void ScreenMeasurementsView::setupScreen() {ScreenMeasurementsViewBase::setupScreen(); refresh();}
+void ScreenMeasurementsView::setupScreen() {ScreenMeasurementsViewBase::setupScreen(); refresh();
+    setupTheme();
+}
 void ScreenMeasurementsView::tearDownScreen() {ScreenMeasurementsViewBase::tearDownScreen();}
 void ScreenMeasurementsView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=8){divider=0;refresh();}}
 void ScreenMeasurementsView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
@@ -20,3 +23,36 @@ void ScreenMeasurementsView::refresh() {
     lab_enable(RefreshButton,true);
 }
 void ScreenMeasurementsView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"Refresh requested - waiting for T / TB / TC":"Command queue full");}
+
+void ScreenMeasurementsView::setupTheme()
+{
+    ui::ThemeScreen& theme=ui::ThemeScreen::get();
+    theme.begin(*this);
+    theme.box(LabBackground,ui::BACKGROUND);
+    theme.box(LabHeader,ui::SURFACE);
+    theme.box(ThemeHeaderDivider,ui::BORDER);
+    theme.text(PageTitle);
+    theme.text(PageFeedback);
+    theme.button(BackButton,ui::NORMAL);
+    theme.panel(MetricCard0);
+    theme.text(MetricLabel0);
+    theme.text(Metric0);
+    theme.panel(MetricCard1);
+    theme.text(MetricLabel1);
+    theme.text(Metric1);
+    theme.panel(MetricCard2);
+    theme.text(MetricLabel2);
+    theme.text(Metric2);
+    theme.panel(MetricCard3);
+    theme.text(MetricLabel3);
+    theme.text(Metric3);
+    theme.panel(LeftCard);
+    theme.text(LeftHeading);
+    theme.text(LeftDetails);
+    theme.panel(RightCard);
+    theme.text(RightHeading);
+    theme.text(RightDetails);
+    theme.button(RefreshButton,ui::NORMAL);
+    theme.button(AllOffButton,ui::DANGER);
+    theme.apply();
+}

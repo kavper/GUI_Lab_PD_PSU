@@ -1,3 +1,4 @@
+#include <gui/common/UiTheme.hpp>
 #include <gui/screenservice_screen/ScreenServiceView.hpp>
 #include <gui/common/LabText.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
@@ -14,6 +15,8 @@ void ScreenServiceView::setupScreen()
 {
     ScreenServiceViewBase::setupScreen();
     refresh();
+
+    setupTheme();
 }
 
 void ScreenServiceView::tearDownScreen()
@@ -73,3 +76,29 @@ extern "C" {
 #include "psu_app.h"
 }
 void ScreenServiceView::allOff() { psu_app_shutdown(); }
+
+void ScreenServiceView::setupTheme()
+{
+    ui::ThemeScreen& theme=ui::ThemeScreen::get();
+    theme.begin(*this);
+    theme.box(LabBackground,ui::BACKGROUND);
+    theme.box(LabHeader,ui::SURFACE);
+    theme.box(ThemeHeaderDivider,ui::BORDER);
+    theme.text(ScreenTitle);
+    theme.button(BackButton,ui::NORMAL);
+    theme.panel(SvcHero);
+    theme.text(LblSvc);
+    theme.text(SvcMode);
+    theme.panel(TxCard);
+    theme.text(LblTx);
+    theme.text(SvcTx);
+    theme.panel(RxCard);
+    theme.text(LblRx);
+    theme.text(SvcRx);
+    theme.button(ServiceButton,ui::NORMAL);
+    theme.button(HelpButton,ui::NORMAL);
+    theme.button(RefreshButton,ui::NORMAL);
+    theme.text(PageFeedback);
+    theme.button(AllOffButton,ui::DANGER);
+    theme.apply();
+}

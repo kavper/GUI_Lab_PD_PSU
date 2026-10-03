@@ -7,6 +7,7 @@ extern "C" {
 }
 class ScreenExtChargerView: public ScreenExtChargerViewBase {
 public:
+    void setupTheme();
  ScreenExtChargerView():page(0),field(1),divider(0),polarity(false){psu_editor_clear(&editor);}
  virtual void setupScreen();
  virtual void tearDownScreen(){ScreenExtChargerViewBase::tearDownScreen();}

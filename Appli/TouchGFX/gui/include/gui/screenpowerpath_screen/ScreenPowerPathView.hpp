@@ -5,6 +5,7 @@
 #include <stdint.h>
 class ScreenPowerPathView : public ScreenPowerPathViewBase {
 public:
+    void setupTheme();
     ScreenPowerPathView();
     virtual ~ScreenPowerPathView() {}
     virtual void setupScreen();

@@ -5,11 +5,14 @@
 #include <stdint.h>
 class ScreenUsbPdView : public ScreenUsbPdViewBase {
 public:
+    void setupTheme();
     ScreenUsbPdView();
     virtual ~ScreenUsbPdView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void handleTickEvent();
+    void saveSwipeNotice(char* text,uint16_t& ticks) const;
+    void restoreSwipeNotice(const char* text,uint16_t ticks);
     virtual void allOff();
     virtual void roleAuto();
     virtual void roleSink();

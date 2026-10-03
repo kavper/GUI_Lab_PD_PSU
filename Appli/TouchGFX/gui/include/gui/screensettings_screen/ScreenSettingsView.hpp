@@ -7,6 +7,7 @@
 class ScreenSettingsView : public ScreenSettingsViewBase
 {
 public:
+    void setupTheme();
     ScreenSettingsView();
     virtual ~ScreenSettingsView() {}
     virtual void setupScreen();

@@ -1,9 +1,12 @@
+#include <gui/common/UiTheme.hpp>
 #include <images/BitmapDatabase.hpp>
 #include <touchgfx/Bitmap.hpp>
 #include <gui/screenextcharger_screen/ScreenExtChargerView.hpp>
 #include <gui/common/TelemetryData.hpp>
 #include <gui/common/LabText.hpp>
-void ScreenExtChargerView::setupScreen(){ScreenExtChargerViewBase::setupScreen();chart.setPosition(24,196,752,184);add(chart);selectField(1);}
+void ScreenExtChargerView::setupScreen(){ScreenExtChargerViewBase::setupScreen();chart.setPosition(24,196,752,184);add(chart);selectField(1);
+    setupTheme();
+}
 void ScreenExtChargerView::selectField(unsigned i){field=i;PsuChgProfile& p=psu_charger()->profile;psu_editor_load_milli(&editor,i==0?p.cells*1000:i==1?p.cc_ma:i==2?p.term_ma:p.capacity_mah,3);if(i==0){snprintf(editor.text,sizeof(editor.text),"%u",p.cells);editor.length=strlen(editor.text);editor.replace_on_next=1;}refresh();}
 void ScreenExtChargerView::chooseChem(unsigned i){if(psu_charger()->running)return;psu_chg_profile_defaults(&psu_charger()->profile,i);polarity=false;selectField(field);}
 void ScreenExtChargerView::refresh(){
@@ -115,3 +118,60 @@ void ScreenExtChargerView::chargeKey7(){key('7');}
 void ScreenExtChargerView::chargeKey8(){key('8');}
 void ScreenExtChargerView::chargeKey9(){key('9');}
 void ScreenExtChargerView::chargeKeyDot(){key('.');}
+
+void ScreenExtChargerView::setupTheme()
+{
+    ui::ThemeScreen& theme=ui::ThemeScreen::get();
+    theme.begin(*this);
+    theme.box(LabBackground,ui::BACKGROUND);
+    theme.box(LabHeader,ui::SURFACE);
+    theme.box(ThemeHeaderDivider,ui::BORDER);
+    theme.text(PageTitle);
+    theme.text(PageFeedback);
+    theme.button(AllOffButton,ui::DANGER);
+    theme.button(BackButton,ui::NORMAL);
+    theme.button(ChargeKey1,ui::NORMAL);
+    theme.button(ChargeKey2,ui::NORMAL);
+    theme.button(ChargeKey3,ui::NORMAL);
+    theme.button(ChargeKey4,ui::NORMAL);
+    theme.button(ChargeKey5,ui::NORMAL);
+    theme.button(ChargeKey6,ui::NORMAL);
+    theme.button(ChargeKey7,ui::NORMAL);
+    theme.button(ChargeKey8,ui::NORMAL);
+    theme.button(ChargeKey9,ui::NORMAL);
+    theme.button(ChargeKeyClr,ui::NORMAL);
+    theme.button(ChargeKey0,ui::NORMAL);
+    theme.button(ChargeKeyDot,ui::NORMAL);
+    theme.button(ChargeKeyDel,ui::NORMAL);
+    theme.button(ChargeKeyApply,ui::PRIMARY);
+    theme.button(SetupButton,ui::NORMAL);
+    theme.button(SessionButton,ui::NORMAL);
+    theme.button(OnboardButton,ui::NORMAL);
+    theme.text(EditHeading);
+    theme.button(Chem0,ui::NORMAL);
+    theme.button(Chem1,ui::NORMAL);
+    theme.button(Chem2,ui::NORMAL);
+    theme.button(Chem3,ui::NORMAL);
+    theme.button(Chem4,ui::NORMAL);
+    theme.button(EditCard0,ui::NORMAL);
+    theme.text(EditLabel0);
+    theme.text(EditValue0);
+    theme.button(EditCard1,ui::NORMAL);
+    theme.text(EditLabel1);
+    theme.text(EditValue1);
+    theme.button(EditCard2,ui::NORMAL);
+    theme.text(EditLabel2);
+    theme.text(EditValue2);
+    theme.button(EditCard3,ui::NORMAL);
+    theme.text(EditLabel3);
+    theme.text(EditValue3);
+    theme.text(ProfileNote);
+    theme.button(PolarityButton,ui::NORMAL);
+    theme.button(StartButton,ui::NORMAL);
+    theme.button(StopButton,ui::DANGER);
+    theme.text(SessionStats);
+    theme.text(SessionAxis);
+    theme.text(OnboardData);
+    theme.text(OnboardRight);
+    theme.apply();
+}

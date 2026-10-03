@@ -1,8 +1,11 @@
+#include <gui/common/UiTheme.hpp>
 #include <gui/screenpowerpath_screen/ScreenPowerPathView.hpp>
 #include <gui/common/LabText.hpp>
 #include <gui/common/TelemetryData.hpp>
 ScreenPowerPathView::ScreenPowerPathView() : divider(0), noticeTicks(0) {notice[0]=0;}
-void ScreenPowerPathView::setupScreen() {ScreenPowerPathViewBase::setupScreen(); refresh();}
+void ScreenPowerPathView::setupScreen() {ScreenPowerPathViewBase::setupScreen(); refresh();
+    setupTheme();
+}
 void ScreenPowerPathView::tearDownScreen() {ScreenPowerPathViewBase::tearDownScreen();}
 void ScreenPowerPathView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=8){divider=0;refresh();}}
 void ScreenPowerPathView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
@@ -24,3 +27,38 @@ void ScreenPowerPathView::refresh() {
 void ScreenPowerPathView::togglePermit() {TelemetryRecord r(G4_RECORD_T);int64_t v;if(!r.get("permit",v)){notify("No fresh permit state");return;}notify(g4_permit(psu_g4(),v==0,0)?"Permit change requested; waiting for telemetry":"Request blocked");}
 void ScreenPowerPathView::toggleSense() {TelemetryRecord r(G4_RECORD_T);int64_t v;if(!r.get("rem_sense",v)){notify("No fresh sense state");return;}notify(g4_remote(psu_g4(),v==0,0)?"Sense change requested; waiting for telemetry":"Request blocked");}
 void ScreenPowerPathView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"Refresh requested - waiting for T / TB / TC":"Command queue full");}
+
+void ScreenPowerPathView::setupTheme()
+{
+    ui::ThemeScreen& theme=ui::ThemeScreen::get();
+    theme.begin(*this);
+    theme.box(LabBackground,ui::BACKGROUND);
+    theme.box(LabHeader,ui::SURFACE);
+    theme.box(ThemeHeaderDivider,ui::BORDER);
+    theme.text(PageTitle);
+    theme.text(PageFeedback);
+    theme.button(BackButton,ui::NORMAL);
+    theme.panel(MetricCard0);
+    theme.text(MetricLabel0);
+    theme.text(Metric0);
+    theme.panel(MetricCard1);
+    theme.text(MetricLabel1);
+    theme.text(Metric1);
+    theme.panel(MetricCard2);
+    theme.text(MetricLabel2);
+    theme.text(Metric2);
+    theme.panel(MetricCard3);
+    theme.text(MetricLabel3);
+    theme.text(Metric3);
+    theme.panel(LeftCard);
+    theme.text(LeftHeading);
+    theme.text(LeftDetails);
+    theme.panel(RightCard);
+    theme.text(RightHeading);
+    theme.text(RightDetails);
+    theme.button(PermitButton,ui::NORMAL);
+    theme.button(SenseButton,ui::NORMAL);
+    theme.button(RefreshButton,ui::NORMAL);
+    theme.button(AllOffButton,ui::DANGER);
+    theme.apply();
+}

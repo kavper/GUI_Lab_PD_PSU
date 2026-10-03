@@ -1,3 +1,4 @@
+#include <gui/common/UiTheme.hpp>
 #include <images/BitmapDatabase.hpp>
 #include <touchgfx/Bitmap.hpp>
 #include <gui/screendiagnostics_screen/ScreenDiagnosticsView.hpp>
@@ -85,4 +86,56 @@ void ScreenDiagnosticsView::clearFault(){psu_app_clear_fault();refresh();}
 void ScreenDiagnosticsView::handleDragEvent(const touchgfx::DragEvent& e){
  if(e.getOldY()>=144&&e.getOldY()<392){drag+=e.getDeltaY();while(drag<=-28){scrollDown();drag+=28;}while(drag>=28){scrollUp();drag-=28;}}
  else ScreenDiagnosticsViewBase::handleDragEvent(e);
+}
+
+void ScreenDiagnosticsView::setupTheme()
+{
+    ui::ThemeScreen& theme=ui::ThemeScreen::get();
+    theme.begin(*this);
+    theme.box(LabBackground,ui::BACKGROUND);
+    theme.box(LabHeader,ui::SURFACE);
+    theme.box(ThemeHeaderDivider,ui::BORDER);
+    theme.text(PageTitle);
+    theme.text(PageFeedback);
+    theme.button(AllOffButton,ui::DANGER);
+    theme.button(BackButton,ui::NORMAL);
+    theme.button(ParsedButton,ui::NORMAL);
+    theme.button(RawButton,ui::NORMAL);
+    theme.button(TButton,ui::NORMAL);
+    theme.button(TBButton,ui::NORMAL);
+    theme.button(TCButton,ui::NORMAL);
+    theme.panel(FieldBox0);
+    theme.text(Field0);
+    theme.panel(FieldBox1);
+    theme.text(Field1);
+    theme.panel(FieldBox2);
+    theme.text(Field2);
+    theme.panel(FieldBox3);
+    theme.text(Field3);
+    theme.panel(FieldBox4);
+    theme.text(Field4);
+    theme.panel(FieldBox5);
+    theme.text(Field5);
+    theme.panel(FieldBox6);
+    theme.text(Field6);
+    theme.panel(FieldBox7);
+    theme.text(Field7);
+    theme.panel(FieldBox8);
+    theme.text(Field8);
+    theme.panel(FieldBox9);
+    theme.text(Field9);
+    theme.panel(FieldBox10);
+    theme.text(Field10);
+    theme.panel(FieldBox11);
+    theme.text(Field11);
+    theme.panel(FieldBox12);
+    theme.text(Field12);
+    theme.panel(FieldBox13);
+    theme.text(Field13);
+    theme.text(RawText);
+    theme.button(UpButton,ui::NORMAL);
+    theme.button(DownButton,ui::NORMAL);
+    theme.text(FaultText);
+    theme.button(ClearButton,ui::NORMAL);
+    theme.apply();
 }

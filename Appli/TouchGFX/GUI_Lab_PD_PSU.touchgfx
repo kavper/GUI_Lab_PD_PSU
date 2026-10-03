@@ -146,11 +146,65 @@
         "Name": "Screen1",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "Background",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "bg_psu_v3_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeader",
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeVoltageCard",
+            "X": 16,
+            "Y": 80,
+            "Width": 484,
+            "Height": 151,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeCurrentCard",
+            "X": 16,
+            "Y": 240,
+            "Width": 484,
+            "Height": 151,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeKeypadCard",
+            "X": 512,
+            "Y": 76,
+            "Width": 272,
+            "Height": 372,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
           },
           {
             "Type": "TextArea",
@@ -1327,18 +1381,38 @@
         "Name": "ScreenSettings",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -1763,13 +1837,23 @@
             }
           },
           {
+            "Type": "Button",
+            "Name": "AppearanceButton",
+            "X": 276,
+            "Y": 344,
+            "Width": 248,
+            "Height": 112,
+            "Pressed": "ux_tile_sel_248x112.png",
+            "Released": "ux_tile_rel_248x112.png"
+          },
+          {
             "Type": "TextArea",
-            "Name": "Thesis",
-            "X": 296,
-            "Y": 372,
-            "Width": 460,
+            "Name": "AppearanceTitle",
+            "X": 300,
+            "Y": 362,
+            "Width": 208,
             "Height": 28,
-            "TextId": "TXT_THESIS",
+            "TextId": "TXT_APPEARANCE_TITLE",
             "TextRotation": "0",
             "Color": {
               "Red": 23,
@@ -1779,12 +1863,12 @@
           },
           {
             "Type": "TextArea",
-            "Name": "ThesisDetail",
-            "X": 296,
-            "Y": 408,
-            "Width": 460,
-            "Height": 28,
-            "TextId": "TXT_THESIS_DETAIL",
+            "Name": "AppearanceDesc",
+            "X": 292,
+            "Y": 414,
+            "Width": 220,
+            "Height": 30,
+            "TextId": "TXT_APPEARANCE_DESC",
             "TextRotation": "0",
             "Color": {
               "Red": 96,
@@ -1908,6 +1992,19 @@
               "ScreenTransitionDirection": "West",
               "ActionComponent": "ScreenNetwork"
             }
+          },
+          {
+            "InteractionName": "OpenAppearance",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AppearanceButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenAppearance"
+            }
           }
         ]
       },
@@ -1915,18 +2012,38 @@
         "Name": "ScreenDiagnostics",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -2805,18 +2922,38 @@
         "Name": "ScreenPresets",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -3756,18 +3893,38 @@
         "Name": "ScreenSequencer",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -5495,18 +5652,38 @@
         "Name": "ScreenMeasurements",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -5940,18 +6117,38 @@
         "Name": "ScreenBattery",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -6696,18 +6893,38 @@
         "Name": "ScreenBms",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -7222,18 +7439,38 @@
         "Name": "ScreenPowerPath",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -7733,18 +7970,38 @@
         "Name": "ScreenUsbPd",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -8292,18 +8549,38 @@
         "Name": "ScreenExtCharger",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -9585,18 +9862,38 @@
         "Name": "ScreenProtection",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -10063,18 +10360,38 @@
         "Name": "ScreenNetwork",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -10114,13 +10431,17 @@
             "TextRotation": "0"
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "IpCard",
             "X": 16,
             "Y": 80,
             "Width": 368,
             "Height": 128,
-            "RelativeFilename": "card_368x128.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
           },
           {
             "Type": "TextArea",
@@ -10158,13 +10479,17 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "MaskCard",
             "X": 416,
             "Y": 80,
             "Width": 368,
             "Height": 128,
-            "RelativeFilename": "card_368x128.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
           },
           {
             "Type": "TextArea",
@@ -10202,13 +10527,17 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "GwCard",
             "X": 16,
             "Y": 224,
             "Width": 368,
             "Height": 128,
-            "RelativeFilename": "card_368x128.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
           },
           {
             "Type": "TextArea",
@@ -10246,13 +10575,17 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LinkCard",
             "X": 416,
             "Y": 224,
             "Width": 368,
             "Height": 128,
-            "RelativeFilename": "card_368x128.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
           },
           {
             "Type": "TextArea",
@@ -10290,13 +10623,17 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "MacCard",
             "X": 16,
             "Y": 368,
             "Width": 768,
             "Height": 96,
-            "RelativeFilename": "card_768x96.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
           },
           {
             "Type": "TextArea",
@@ -10455,18 +10792,38 @@
         "Name": "ScreenService",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "lab_bg_800x480.png"
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "LabHeader",
             "Width": 800,
             "Height": 64,
-            "RelativeFilename": "lab_header_800x64.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
           },
           {
             "Type": "TextArea",
@@ -10506,13 +10863,17 @@
             "TextRotation": "0"
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "SvcHero",
             "X": 16,
             "Y": 80,
             "Width": 768,
             "Height": 96,
-            "RelativeFilename": "card_768x96.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
           },
           {
             "Type": "TextArea",
@@ -10550,13 +10911,17 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "TxCard",
             "X": 16,
             "Y": 192,
             "Width": 768,
             "Height": 96,
-            "RelativeFilename": "card_768x96.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
           },
           {
             "Type": "TextArea",
@@ -10594,13 +10959,17 @@
             }
           },
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "RxCard",
             "X": 16,
             "Y": 304,
             "Width": 768,
             "Height": 96,
-            "RelativeFilename": "card_768x96.png"
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
           },
           {
             "Type": "TextArea",
@@ -10802,6 +11171,434 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "allOff"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenAppearance",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "LabBackground",
+            "Width": 800,
+            "Height": 480,
+            "Color": {
+              "Red": 245,
+              "Green": 247,
+              "Blue": 252
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "LabHeader",
+            "Width": 800,
+            "Height": 64,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemeHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 221,
+              "Green": 227,
+              "Blue": 235
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PageTitle",
+            "X": 24,
+            "Y": 8,
+            "Width": 500,
+            "Height": 28,
+            "TextId": "TXT_APPEARANCE_TITLE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PageFeedback",
+            "X": 24,
+            "Y": 40,
+            "Width": 510,
+            "Height": 22,
+            "TextId": "TXT_UX_FEEDBACK",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 96,
+              "Green": 112,
+              "Blue": 133
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AllOffButton",
+            "X": 548,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "ui_danger_prs_112x48.png",
+            "Released": "ui_danger_rel_112x48.png",
+            "TextId": "TXT_ALL_PSU_OFF",
+            "ReleasedColor": {
+              "Red": 180,
+              "Green": 62,
+              "Blue": 69
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_MENU_RETURN",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "Box",
+            "Name": "ThemePanel",
+            "X": 16,
+            "Y": 92,
+            "Width": 768,
+            "Height": 126,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "AccentPanel",
+            "X": 16,
+            "Y": 248,
+            "Width": 768,
+            "Height": 126,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ThemeHeading",
+            "X": 32,
+            "Y": 110,
+            "Width": 240,
+            "Height": 28,
+            "TextId": "TXT_THEME_HEADING",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 96,
+              "Green": 112,
+              "Blue": 133
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AccentHeading",
+            "X": 32,
+            "Y": 266,
+            "Width": 240,
+            "Height": 24,
+            "TextId": "TXT_ACCENT_HEADING",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 96,
+              "Green": 112,
+              "Blue": 133
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "LightThemeButton",
+            "X": 300,
+            "Y": 122,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_LIGHTTHEMEBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "DarkThemeButton",
+            "X": 396,
+            "Y": 122,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_DARKTHEMEBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AccentBlueButton",
+            "X": 300,
+            "Y": 294,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_ACCENTBLUEBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AccentTealButton",
+            "X": 396,
+            "Y": 294,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_ACCENTTEALBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AccentVioletButton",
+            "X": 492,
+            "Y": 294,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_ACCENTVIOLETBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AccentAmberButton",
+            "X": 588,
+            "Y": 294,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_ACCENTAMBERBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ThemeHint",
+            "X": 32,
+            "Y": 390,
+            "Width": 728,
+            "Height": 28,
+            "TextId": "TXT_APPEARANCE_NOTE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 96,
+              "Green": 112,
+              "Blue": 133
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ThemeDetail",
+            "X": 32,
+            "Y": 158,
+            "Width": 240,
+            "Height": 44,
+            "TextId": "TXT_APPEARANCE_MODE_DETAIL",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 96,
+              "Green": 112,
+              "Blue": 133
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "allOff",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AllOffButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "allOff"
+            }
+          },
+          {
+            "InteractionName": "LightThemeButtonClicked",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "LightThemeButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "setLightTheme"
+            }
+          },
+          {
+            "InteractionName": "DarkThemeButtonClicked",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "DarkThemeButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "setDarkTheme"
+            }
+          },
+          {
+            "InteractionName": "AccentBlueButtonClicked",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AccentBlueButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "setBlueAccent"
+            }
+          },
+          {
+            "InteractionName": "AccentTealButtonClicked",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AccentTealButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "setTealAccent"
+            }
+          },
+          {
+            "InteractionName": "AccentVioletButtonClicked",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AccentVioletButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "setVioletAccent"
+            }
+          },
+          {
+            "InteractionName": "AccentAmberButtonClicked",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AccentAmberButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "setAmberAccent"
+            }
+          },
+          {
+            "InteractionName": "CloseAppearance",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
             }
           }
         ]

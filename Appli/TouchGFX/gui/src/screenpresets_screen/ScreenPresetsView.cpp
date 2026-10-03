@@ -1,3 +1,4 @@
+#include <gui/common/UiTheme.hpp>
 #include <images/BitmapDatabase.hpp>
 #include <touchgfx/Bitmap.hpp>
 #include <gui/screenpresets_screen/ScreenPresetsView.hpp>
@@ -6,7 +7,9 @@ extern "C" {
 #include "psu_app.h"
 }
 ScreenPresetsView::ScreenPresetsView():selected(0),field(0) {psu_editor_clear(&editor);}
-void ScreenPresetsView::setupScreen(){ScreenPresetsViewBase::setupScreen();FieldV.setHeight(80);FieldI.setHeight(80);lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,"Three editable output presets",lab_muted());select(0);}
+void ScreenPresetsView::setupScreen(){ScreenPresetsViewBase::setupScreen();FieldV.setHeight(80);FieldI.setHeight(80);lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,"Three editable output presets",lab_muted());select(0);
+    setupTheme();
+}
 void ScreenPresetsView::select(unsigned i){selected=i;const PsuPreset* p=psu_preset_get(i);psu_editor_load_milli(&editor,p?(field?p->current_ma:p->voltage_mv):0,3);refresh();}
 void ScreenPresetsView::refresh(){
  PresetCard1.setBitmaps(touchgfx::Bitmap(selected==0?BITMAP_UX_TAB_SEL_160X58_ID:BITMAP_UX_TAB_REL_160X58_ID),touchgfx::Bitmap(BITMAP_UX_TAB_SEL_160X58_ID));PresetCard1.invalidate();
@@ -43,3 +46,46 @@ void ScreenPresetsView::presetKey7(){key('7');}
 void ScreenPresetsView::presetKey8(){key('8');}
 void ScreenPresetsView::presetKey9(){key('9');}
 void ScreenPresetsView::presetKeyDot(){key('.');}
+
+void ScreenPresetsView::setupTheme()
+{
+    ui::ThemeScreen& theme=ui::ThemeScreen::get();
+    theme.begin(*this);
+    theme.box(LabBackground,ui::BACKGROUND);
+    theme.box(LabHeader,ui::SURFACE);
+    theme.box(ThemeHeaderDivider,ui::BORDER);
+    theme.text(PageTitle);
+    theme.text(PageFeedback);
+    theme.button(AllOffButton,ui::DANGER);
+    theme.button(BackButton,ui::NORMAL);
+    theme.button(PresetKey1,ui::NORMAL);
+    theme.button(PresetKey2,ui::NORMAL);
+    theme.button(PresetKey3,ui::NORMAL);
+    theme.button(PresetKey4,ui::NORMAL);
+    theme.button(PresetKey5,ui::NORMAL);
+    theme.button(PresetKey6,ui::NORMAL);
+    theme.button(PresetKey7,ui::NORMAL);
+    theme.button(PresetKey8,ui::NORMAL);
+    theme.button(PresetKey9,ui::NORMAL);
+    theme.button(PresetKeyClr,ui::NORMAL);
+    theme.button(PresetKey0,ui::NORMAL);
+    theme.button(PresetKeyDot,ui::NORMAL);
+    theme.button(PresetKeyDel,ui::NORMAL);
+    theme.button(PresetKeyApply,ui::PRIMARY);
+    theme.text(EditHeading);
+    theme.button(PresetCard1,ui::NORMAL);
+    theme.text(Summary1);
+    theme.button(PresetCard2,ui::NORMAL);
+    theme.text(Summary2);
+    theme.button(PresetCard3,ui::NORMAL);
+    theme.text(Summary3);
+    theme.panel(FieldBackgroundV);
+    theme.text(LabelV);
+    theme.text(ValueV);
+    theme.panel(FieldBackgroundI);
+    theme.text(LabelI);
+    theme.text(ValueI);
+    theme.button(LoadButton,ui::NORMAL);
+    theme.text(SaveHint);
+    theme.apply();
+}

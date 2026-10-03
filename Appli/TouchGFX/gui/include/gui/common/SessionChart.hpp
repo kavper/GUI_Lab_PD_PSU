@@ -2,6 +2,7 @@
 #include <touchgfx/widgets/Widget.hpp>
 #include <touchgfx/hal/HAL.hpp>
 #include <touchgfx/Color.hpp>
+#include <gui/common/UiTheme.hpp>
 extern "C" {
 #include "psu_app.h"
 }
@@ -10,8 +11,8 @@ public:
  virtual touchgfx::Rect getSolidRect() const {return touchgfx::Rect(0,0,getWidth(),getHeight());}
  virtual void draw(const touchgfx::Rect& invalid) const {
   touchgfx::Rect origin=getAbsoluteRect();touchgfx::Rect clip=invalid;clip.x+=origin.x;clip.y+=origin.y;
-  touchgfx::HAL::lcd().fillRect(clip,touchgfx::Color::getColorFromRGB(255,255,255));
-  for(int i=0;i<=4;i++)line(0,i*(getHeight()-1)/4,getWidth()-1,i*(getHeight()-1)/4,touchgfx::Color::getColorFromRGB(225,231,239),clip,origin);
+  touchgfx::HAL::lcd().fillRect(clip,ui::Theme::color(ui::SURFACE));
+  for(int i=0;i<=4;i++)line(0,i*(getHeight()-1)/4,getWidth()-1,i*(getHeight()-1)/4,ui::Theme::color(ui::BORDER),clip,origin);
   const PsuCharger* c=psu_charger();unsigned n=c->trace_count;if(n<2)return;
   uint32_t duration=c->elapsed_ms?c->elapsed_ms:1;
   uint32_t maxV=c->profile.cells*c->profile.cv_mv_cell*11/10; if(!maxV)maxV=5000;
@@ -19,8 +20,8 @@ public:
   for(unsigned i=0;i<n;i++){if(c->trace_mv[i]>maxV)maxV=c->trace_mv[i];if(c->trace_ma[i]>maxI)maxI=c->trace_ma[i];}
   for(unsigned i=1;i<n;i++){
    int x0=(uint64_t)c->trace_time[i-1]*(getWidth()-1)/duration,x1=(uint64_t)c->trace_time[i]*(getWidth()-1)/duration;
-   line(x0,getHeight()-1-(uint64_t)c->trace_mv[i-1]*(getHeight()-1)/maxV,x1,getHeight()-1-(uint64_t)c->trace_mv[i]*(getHeight()-1)/maxV,touchgfx::Color::getColorFromRGB(36,87,230),clip,origin);
-   line(x0,getHeight()-1-(uint64_t)c->trace_ma[i-1]*(getHeight()-1)/maxI,x1,getHeight()-1-(uint64_t)c->trace_ma[i]*(getHeight()-1)/maxI,touchgfx::Color::getColorFromRGB(16,139,115),clip,origin);
+   line(x0,getHeight()-1-(uint64_t)c->trace_mv[i-1]*(getHeight()-1)/maxV,x1,getHeight()-1-(uint64_t)c->trace_mv[i]*(getHeight()-1)/maxV,ui::Theme::color(ui::ACCENT),clip,origin);
+   line(x0,getHeight()-1-(uint64_t)c->trace_ma[i-1]*(getHeight()-1)/maxI,x1,getHeight()-1-(uint64_t)c->trace_ma[i]*(getHeight()-1)/maxI,ui::Theme::color(ui::POSITIVE),clip,origin);
   }
  }
 private:

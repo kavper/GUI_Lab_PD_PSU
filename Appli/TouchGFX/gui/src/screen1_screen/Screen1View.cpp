@@ -1,4 +1,6 @@
+#include <gui/common/UiTheme.hpp>
 #include "psu_edit.h"
+#include <gui/common/FrontendApplication.hpp>
 #include <gui/screen1_screen/Screen1View.hpp>
 #include <touchgfx/Unicode.hpp>
 #include <touchgfx/Color.hpp>
@@ -33,6 +35,7 @@ Screen1View::Screen1View()
 void Screen1View::setupScreen()
 {
     Screen1ViewBase::setupScreen();
+    static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->setSwipePage(FrontendApplication::MAIN);
     const touchgfx::colortype light = touchgfx::Color::getColorFromRGB(23, 35, 55);
     const touchgfx::colortype dark = touchgfx::Color::getColorFromRGB(255, 255, 255);
     Key0.setLabelColor(light); Key1.setLabelColor(light); Key2.setLabelColor(light);
@@ -65,10 +68,13 @@ void Screen1View::setupScreen()
     setInputMetrics(0, 0);
     setPcbTemperature(0);
 #endif
+
+    setupTheme();
 }
 
 void Screen1View::tearDownScreen()
 {
+    static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->setSwipePage(FrontendApplication::OTHER);
     Screen1ViewBase::tearDownScreen();
 }
 
@@ -540,4 +546,84 @@ void Screen1View::setHostAuxMetrics()
     else snprintf(text,sizeof(text),"-- V");
     touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text),PcbTemperatureValueBuffer,PCBTEMPERATUREVALUE_SIZE);
     TemperatureValue.invalidate();PcbTemperatureValue.invalidate();
+}
+
+void Screen1View::saveSwipeEditor(MainSwipeEditorState& state) const
+{
+    state.target=static_cast<uint8_t>(editTarget); state.length=editLength;
+    state.preset=selectedPreset; state.replace=replaceOnNextKey;
+    memcpy(state.text,editAscii,sizeof(editAscii));
+    memcpy(state.status,EditorStatusBuffer,sizeof(EditorStatusBuffer));
+    state.statusColor=EditorStatus.getColor();
+}
+void Screen1View::restoreSwipeEditor(const MainSwipeEditorState& state)
+{
+    if(state.target==EDIT_CURRENT) selectCurrent(); else selectVoltage();
+    editLength=state.length; replaceOnNextKey=state.replace;
+    memcpy(editAscii,state.text,sizeof(editAscii));
+    updatePresetHighlight(state.preset);
+    refreshEditor();
+    memcpy(EditorStatusBuffer,state.status,sizeof(EditorStatusBuffer));
+    EditorStatus.setColor(state.statusColor); EditorStatus.invalidate();
+}
+
+void Screen1View::setupTheme()
+{
+    ui::ThemeScreen& theme=ui::ThemeScreen::get();
+    theme.begin(*this);
+    theme.box(Background,ui::BACKGROUND);
+    theme.box(ThemeHeader,ui::SURFACE);
+    theme.panel(ThemeVoltageCard);
+    theme.panel(ThemeCurrentCard);
+    theme.panel(ThemeKeypadCard);
+    theme.text(TitleText);
+    theme.image(ModePill,ui::PILL);
+    theme.text(ModeTextFront,ui::ON_ACCENT);
+    theme.text(TemperatureLabel);
+    theme.text(TemperatureValue);
+    theme.text(PowerLabel);
+    theme.text(PowerValue);
+    theme.button(OutputEnable,ui::OUTPUT);
+    theme.text(OutputLabel);
+    theme.text(ActualVoltageLabel);
+    theme.text(ActualVoltageValue);
+    theme.text(SetVoltageLabel);
+    theme.text(SetVoltageValue);
+    theme.text(ActualCurrentLabel);
+    theme.text(ActualCurrentValue);
+    theme.text(SetCurrentLabel);
+    theme.text(SetCurrentValue);
+    theme.button(Key1,ui::NORMAL);
+    theme.button(Key2,ui::NORMAL);
+    theme.button(Key3,ui::NORMAL);
+    theme.button(Key4,ui::NORMAL);
+    theme.button(Key5,ui::NORMAL);
+    theme.button(Key6,ui::NORMAL);
+    theme.button(Key7,ui::NORMAL);
+    theme.button(Key8,ui::NORMAL);
+    theme.button(Key9,ui::NORMAL);
+    theme.button(KeyClear,ui::NORMAL);
+    theme.button(Key0,ui::NORMAL);
+    theme.button(KeyDot,ui::NORMAL);
+    theme.button(KeyBack,ui::NORMAL);
+    theme.button(KeyEnter,ui::PRIMARY);
+    theme.button(Preset1Button,ui::NORMAL);
+    theme.button(Preset2Button,ui::NORMAL);
+    theme.button(Preset3Button,ui::NORMAL);
+    theme.button(SettingsButton,ui::NORMAL);
+    theme.text(BatteryLabel);
+    theme.text(BatteryValue);
+    theme.text(PcbTemperatureLabel);
+    theme.text(PcbTemperatureValue);
+    theme.image(VoltageSelection,ui::SELECTION);
+    theme.image(CurrentSelection,ui::SELECTION);
+    theme.text(VoltageMaxHint);
+    theme.text(CurrentMaxHint);
+    theme.text(LinkStatus);
+    theme.text(EditorStatus);
+    theme.text(EditorHelp);
+    theme.text(QuickPreset1);
+    theme.text(QuickPreset2);
+    theme.text(QuickPreset3);
+    theme.apply();
 }

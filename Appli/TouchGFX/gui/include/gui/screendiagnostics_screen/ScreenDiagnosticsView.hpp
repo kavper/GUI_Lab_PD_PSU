@@ -3,8 +3,9 @@
 #include <gui/screendiagnostics_screen/ScreenDiagnosticsPresenter.hpp>
 class ScreenDiagnosticsView : public ScreenDiagnosticsViewBase {
 public:
+    void setupTheme();
  ScreenDiagnosticsView():kind(0),offset(0),raw(false),divider(0),drag(0){}
- virtual void setupScreen(){ScreenDiagnosticsViewBase::setupScreen();refresh();}
+ virtual void setupScreen(){ScreenDiagnosticsViewBase::setupScreen();refresh();setupTheme();}
  virtual void tearDownScreen(){ScreenDiagnosticsViewBase::tearDownScreen();}
  virtual void handleTickEvent(){if(++divider>=12){divider=0;refresh();}}
  virtual void handleDragEvent(const touchgfx::DragEvent& e);

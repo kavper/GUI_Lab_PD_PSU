@@ -1,8 +1,11 @@
+#include <gui/common/UiTheme.hpp>
 #include <gui/screenprotection_screen/ScreenProtectionView.hpp>
 #include <gui/common/LabText.hpp>
 #include <gui/common/TelemetryData.hpp>
 ScreenProtectionView::ScreenProtectionView() : divider(0), noticeTicks(0) {notice[0]=0;}
-void ScreenProtectionView::setupScreen() {ScreenProtectionViewBase::setupScreen(); refresh();}
+void ScreenProtectionView::setupScreen() {ScreenProtectionViewBase::setupScreen(); refresh();
+    setupTheme();
+}
 void ScreenProtectionView::tearDownScreen() {ScreenProtectionViewBase::tearDownScreen();}
 void ScreenProtectionView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=8){divider=0;refresh();}}
 void ScreenProtectionView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
@@ -22,3 +25,37 @@ void ScreenProtectionView::refresh() {
 }
 void ScreenProtectionView::clearFault() {notify(psu_app_clear_fault()?"CLR requested; confirm that reported faults clear":"No PSU fault to clear");}
 void ScreenProtectionView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"Refresh requested - waiting for T / TB / TC":"Command queue full");}
+
+void ScreenProtectionView::setupTheme()
+{
+    ui::ThemeScreen& theme=ui::ThemeScreen::get();
+    theme.begin(*this);
+    theme.box(LabBackground,ui::BACKGROUND);
+    theme.box(LabHeader,ui::SURFACE);
+    theme.box(ThemeHeaderDivider,ui::BORDER);
+    theme.text(PageTitle);
+    theme.text(PageFeedback);
+    theme.button(BackButton,ui::NORMAL);
+    theme.panel(MetricCard0);
+    theme.text(MetricLabel0);
+    theme.text(Metric0);
+    theme.panel(MetricCard1);
+    theme.text(MetricLabel1);
+    theme.text(Metric1);
+    theme.panel(MetricCard2);
+    theme.text(MetricLabel2);
+    theme.text(Metric2);
+    theme.panel(MetricCard3);
+    theme.text(MetricLabel3);
+    theme.text(Metric3);
+    theme.panel(LeftCard);
+    theme.text(LeftHeading);
+    theme.text(LeftDetails);
+    theme.panel(RightCard);
+    theme.text(RightHeading);
+    theme.text(RightDetails);
+    theme.button(ClearButton,ui::NORMAL);
+    theme.button(RefreshButton,ui::NORMAL);
+    theme.button(AllOffButton,ui::DANGER);
+    theme.apply();
+}

@@ -1694,6 +1694,45 @@
       <Text Id="TXT_REMOTE_ENABLE" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">ENABLE REMOTE</Translation>
       </Text>
+      <Text Id="TXT_THEME_HEADING" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">THEME</Translation>
+      </Text>
+      <Text Id="TXT_ACCENT_HEADING" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">ACCENT</Translation>
+      </Text>
+      <Text Id="TXT_LIGHTTHEMEBUTTON" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">LIGHT</Translation>
+      </Text>
+      <Text Id="TXT_DARKTHEMEBUTTON" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">DARK</Translation>
+      </Text>
+      <Text Id="TXT_ACCENTBLUEBUTTON" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">BLUE</Translation>
+      </Text>
+      <Text Id="TXT_ACCENTTEALBUTTON" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">TEAL</Translation>
+      </Text>
+      <Text Id="TXT_ACCENTVIOLETBUTTON" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">VIOLET</Translation>
+      </Text>
+      <Text Id="TXT_ACCENTAMBERBUTTON" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">AMBER</Translation>
+      </Text>
+      <Text Id="TXT_THEME_HINT" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Across all screens</Translation>
+      </Text>
+      <Text Id="TXT_APPEARANCE_TITLE" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">Appearance</Translation>
+      </Text>
+      <Text Id="TXT_APPEARANCE_DESC" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Theme and accent colors</Translation>
+      </Text>
+      <Text Id="TXT_APPEARANCE_NOTE" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Applies to all screens. Restart restores Light / Blue.</Translation>
+      </Text>
+      <Text Id="TXT_APPEARANCE_MODE_DETAIL" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Choose a light or dark&#10;interface.</Translation>
+      </Text>
     </TextGroup>
   </Texts>
   <Typographies>

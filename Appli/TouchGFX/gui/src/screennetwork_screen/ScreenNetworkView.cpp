@@ -1,3 +1,4 @@
+#include <gui/common/UiTheme.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 #include <gui/screennetwork_screen/ScreenNetworkView.hpp>
 #include <gui/common/LabText.hpp>
@@ -14,6 +15,8 @@ void ScreenNetworkView::setupScreen()
 {
     ScreenNetworkViewBase::setupScreen();
     refresh();
+
+    setupTheme();
 }
 
 void ScreenNetworkView::tearDownScreen()
@@ -81,3 +84,34 @@ extern "C" {
 void ScreenNetworkView::allOff() { psu_app_shutdown(); }
 
 void ScreenNetworkView::toggleRemote(){psu_remote_enable(!psu_remote_enabled());refresh();}
+
+void ScreenNetworkView::setupTheme()
+{
+    ui::ThemeScreen& theme=ui::ThemeScreen::get();
+    theme.begin(*this);
+    theme.box(LabBackground,ui::BACKGROUND);
+    theme.box(LabHeader,ui::SURFACE);
+    theme.box(ThemeHeaderDivider,ui::BORDER);
+    theme.text(ScreenTitle);
+    theme.button(BackButton,ui::NORMAL);
+    theme.panel(IpCard);
+    theme.text(LblIp);
+    theme.text(NetIp);
+    theme.panel(MaskCard);
+    theme.text(LblMask);
+    theme.text(NetMask);
+    theme.panel(GwCard);
+    theme.text(LblGw);
+    theme.text(NetGw);
+    theme.panel(LinkCard);
+    theme.text(LblNet);
+    theme.text(NetLink);
+    theme.panel(MacCard);
+    theme.text(LblMac);
+    theme.text(NetMac);
+    theme.text(PageFeedback);
+    theme.button(AllOffButton,ui::DANGER);
+    theme.button(RemoteButton,ui::NORMAL);
+    theme.text(WifiFuture);
+    theme.apply();
+}

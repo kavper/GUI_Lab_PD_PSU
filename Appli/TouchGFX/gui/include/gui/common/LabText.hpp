@@ -2,6 +2,7 @@
 #define LABTEXT_HPP
 
 #include <touchgfx/Color.hpp>
+#include <gui/common/UiTheme.hpp>
 #include <touchgfx/Unicode.hpp>
 #include <stdint.h>
 #include <stdio.h>
@@ -15,27 +16,27 @@ inline void lab_put(touchgfx::Unicode::UnicodeChar* buf, uint16_t n, const char*
 
 inline touchgfx::colortype lab_cyan()
 {
-    return touchgfx::Color::getColorFromRGB(36, 87, 230);
+    return ui::Theme::color(ui::ACCENT);
 }
 inline touchgfx::colortype lab_text()
 {
-    return touchgfx::Color::getColorFromRGB(23, 35, 55);
+    return ui::Theme::color(ui::TEXT);
 }
 inline touchgfx::colortype lab_muted()
 {
-    return touchgfx::Color::getColorFromRGB(96, 112, 133);
+    return ui::Theme::color(ui::MUTED);
 }
 inline touchgfx::colortype lab_green()
 {
-    return touchgfx::Color::getColorFromRGB(22, 117, 72);
+    return ui::Theme::color(ui::POSITIVE);
 }
 inline touchgfx::colortype lab_amber()
 {
-    return touchgfx::Color::getColorFromRGB(168, 91, 5);
+    return ui::Theme::color(ui::CAUTION);
 }
 inline touchgfx::colortype lab_red()
 {
-    return touchgfx::Color::getColorFromRGB(180, 62, 69);
+    return ui::Theme::color(ui::NEGATIVE);
 }
 
 template <typename Widget>

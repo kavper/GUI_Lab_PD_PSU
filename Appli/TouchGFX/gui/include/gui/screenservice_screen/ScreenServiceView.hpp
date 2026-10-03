@@ -8,6 +8,7 @@
 class ScreenServiceView : public ScreenServiceViewBase
 {
 public:
+    void setupTheme();
     ScreenServiceView();
     virtual ~ScreenServiceView() {}
     virtual void setupScreen();
