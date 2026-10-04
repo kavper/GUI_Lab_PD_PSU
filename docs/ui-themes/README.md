@@ -2,7 +2,7 @@
 
 Kafelek Appearance w ScreenSettings otwiera ScreenAppearance. LIGHT/DARK i cztery akcenty przeniesione z menu głównego ustawień. MENU wraca do ScreenSettings. Definicja ekranu i interakcji jest zapisana w pliku .touchgfx; logika znajduje się w gui/include/gui/screenappearance_screen i gui/src/screenappearance_screen. Nie edytowano ręcznie plików generowanych.
 
-Domyślnie aplikacja startuje z Dark / Amber. Karta klawiatury na ekranie głównym zajmuje Y=80..391, tak jak karty pomiarów. Klawisze mają wysokość 48 px. Presety mają 154x60 px i większą czcionkę, równo wypełniają szerokość lewej części. Nagłówek klawiatury zawiera edytowany parametr i zakres, a komunikaty edycji/wysłania nastaw trafiają do osobnej karty pod klawiaturą bez dodatkowego podpisu. Test symulatora sprawdza domyślne kolory i komunikat po APPLY; test gestów potwierdza wpisanie cyfry 7 przez zmieniony układ klawiszy.
+Domyślnie aplikacja startuje z Dark / Amber. Karta klawiatury na ekranie głównym zajmuje Y=80..464. Klawisze mają wysokość 64 px. Presety mają 154x60 px i większą czcionkę, równo wypełniają szerokość lewej części. Nagłówek klawiatury zawiera edytowany parametr i zakres; wynik wysłania i ostrzeżenia zastępują nagłówek na 180 klatek. Test symulatora sprawdza domyślne kolory i komunikat po APPLY; test gestów potwierdza wpisanie cyfry 7 przez zmieniony układ klawiszy.
 
 Test rzeczywistych próbek dotyku w symulatorze sprawdza otwarcie kafelka, oba tryby i cztery akcenty, powrót oraz siedem pozostałych stron ustawień bez zmiany parametrów PSU. Test gestów nadal przechodzi. Logi: appearance-test.log, appearance-finger.log. Zajętość: appearance-memory.json i appearance-memory.txt.
 
@@ -24,4 +24,9 @@ USB-C: obok aktualnego kontraktu PD (napięcie, limit prądu, maksymalna moc i r
 Liniowy wskaźnik BMS ma zero w środku, zakres -100..+100 W, zieloną prawą i bursztynową lewą stronę. Wskaźnik płynnie dochodzi do pomiaru, ogranicza pozycję na końcach skali i zachowuje pełną wartość liczbową powyżej zakresu. Przy braku ważnego pomiaru ukrywa wskaźnik i pokazuje --. Nie dodano bitmap ani buforów PSRAM. Definicja elementów w .touchgfx, logika w ScreenUsbPdView; test UsbSelfTest jest opcjonalny (PSU_USB_SELFTEST), bez wpływu na Run Simulator bez tej zmiennej. Testy: ładowanie, rozładowanie, zero, saturacja, nieważny ADC, przeterminowanie TB, SOURCE i jasny motyw. Nawigacja i wszystkie cztery gesty nadal przechodzą.
 
 Walidacja 2026-10-04: Generate / Run Target w Designer zakończone Download verified successfully i Hard reset. NOR: 3163116 B (suma segmentów LOAD o adresie ładowania 0x70000000..0x77ffffff); rozpiętość z przerwą rezerwacji kodu 4779648 B. PSRAM 2693120 B bez nowych buforów.
+
+
+Aktualizacja klawiatury: karta pod klawiaturą usunięta, panel powiększony do Y=80..464, klawisze 64 px wysokości (wiersze 116/186/256/326/396). Ostrzeżenia i wynik APPLY są wyświetlane przez 180 klatek w miejscu nagłówka; zwykłe podpowiedzi nie zajmują ekranu. Krótki/anulowany gest zachowuje komunikat i jego pozostały czas. Testy dotyku używają nowych środków klawiszy. Stare bitmapy 48 px zarchiwizowane poza aktywnym projektem.
+
+Run Target po powiększeniu klawiatury: Download verified successfully, Hard reset, Done. Test wygaśnięcia komunikatu APPLY przeszedł. NOR 3178260 B, PSRAM 2693120 B.
 

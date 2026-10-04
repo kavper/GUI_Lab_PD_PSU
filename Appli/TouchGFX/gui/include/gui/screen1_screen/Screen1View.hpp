@@ -15,6 +15,7 @@ public:
     virtual ~Screen1View() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void handleTickEvent();
     virtual void handleGestureEvent(const touchgfx::GestureEvent& event);
 
     void saveSwipeEditor(MainSwipeEditorState& state) const;
@@ -57,6 +58,7 @@ protected:
     uint8_t editLength;
     bool replaceOnNextKey;
     uint8_t selectedPreset;
+    uint16_t editorNoticeTicks;
 
     void appendKey(char key);
     void loadEditorFromSetpoint();

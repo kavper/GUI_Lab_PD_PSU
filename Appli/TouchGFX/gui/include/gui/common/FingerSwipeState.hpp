@@ -66,5 +66,6 @@ struct MainSwipeEditorState
     char text[12];
     uint16_t status[40];
     uint32_t statusColor;
+    uint16_t statusTicks;
 };
 #endif

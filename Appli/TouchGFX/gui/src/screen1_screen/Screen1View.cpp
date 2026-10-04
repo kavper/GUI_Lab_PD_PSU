@@ -27,7 +27,8 @@ Screen1View::Screen1View()
       constantCurrentMode(false),
       editLength(0),
       replaceOnNextKey(false),
-      selectedPreset(0)
+      selectedPreset(0),
+      editorNoticeTicks(0)
 {
     editAscii[0] = '\0';
 }
@@ -237,13 +238,16 @@ void Screen1View::loadEditorFromSetpoint()
     }
     editLength = static_cast<uint8_t>(strlen(editAscii));
     refreshEditor();
-    showEditorStatus("Ready to edit");
+
 }
 
 void Screen1View::showEditorStatus(const char* text, bool warning)
 {
     touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text), EditorStatusBuffer, EDITORSTATUS_SIZE);
-    EditorStatus.setColor(ui::Theme::color(warning ? ui::CAUTION : ui::MUTED));
+    editorNoticeTicks=180;
+    EditorHeading.setVisible(false); EditorHeading.invalidate();
+    EditorStatus.setVisible(true);
+    EditorStatus.setColor(ui::Theme::color(warning ? ui::CAUTION : ui::POSITIVE));
     EditorStatus.invalidate();
 }
 
@@ -251,7 +255,10 @@ void Screen1View::refreshEditor()
 {
     touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(editTarget == EDIT_VOLTAGE ? "VOLTAGE  /  0-27 V" : "CURRENT  /  0-5 A"),EditorHeadingBuffer,EDITORHEADING_SIZE);
     EditorHeading.invalidate();
-    showEditorStatus("Press APPLY to send");
+    editorNoticeTicks=0;
+    EditorStatus.setVisible(false);
+    EditorHeading.setVisible(true);
+    EditorStatus.invalidate();
     char displayAscii[16];
     snprintf(displayAscii, sizeof(displayAscii), "%s %c", editAscii,
              editTarget == EDIT_VOLTAGE ? 'V' : 'A');
@@ -556,6 +563,7 @@ void Screen1View::saveSwipeEditor(MainSwipeEditorState& state) const
     memcpy(state.text,editAscii,sizeof(editAscii));
     memcpy(state.status,EditorStatusBuffer,sizeof(EditorStatusBuffer));
     state.statusColor=EditorStatus.getColor();
+    state.statusTicks=editorNoticeTicks;
 }
 void Screen1View::restoreSwipeEditor(const MainSwipeEditorState& state)
 {
@@ -565,7 +573,11 @@ void Screen1View::restoreSwipeEditor(const MainSwipeEditorState& state)
     updatePresetHighlight(state.preset);
     refreshEditor();
     memcpy(EditorStatusBuffer,state.status,sizeof(EditorStatusBuffer));
-    EditorStatus.setColor(state.statusColor); EditorStatus.invalidate();
+    EditorStatus.setColor(state.statusColor);
+    editorNoticeTicks=state.statusTicks;
+    EditorStatus.setVisible(editorNoticeTicks!=0);
+    EditorHeading.setVisible(editorNoticeTicks==0);
+    EditorHeading.invalidate();EditorStatus.invalidate();
 }
 
 void Screen1View::setupTheme()
@@ -577,7 +589,6 @@ void Screen1View::setupTheme()
     theme.panel(ThemeVoltageCard);
     theme.panel(ThemeCurrentCard);
     theme.panel(ThemeKeypadCard);
-    theme.panel(ThemeStatusCard);
     theme.text(TitleText);
     theme.image(ModePill,ui::PILL);
     theme.text(ModeTextFront,ui::ON_ACCENT);
@@ -629,4 +640,13 @@ void Screen1View::setupTheme()
     theme.text(QuickPreset2);
     theme.text(QuickPreset3);
     theme.apply();
+}
+
+void Screen1View::handleTickEvent()
+{
+    if(static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->isScreenTransitionActive())return;
+    if(editorNoticeTicks && --editorNoticeTicks==0) {
+        EditorStatus.setVisible(false);EditorHeading.setVisible(true);
+        EditorStatus.invalidate();EditorHeading.invalidate();
+    }
 }
