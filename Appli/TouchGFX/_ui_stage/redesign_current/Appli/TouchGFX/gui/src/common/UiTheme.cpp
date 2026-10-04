@@ -97,7 +97,7 @@ bool ThemedSurface::sync(){
     return changed;
 }
 touchgfx::Rect ThemedSurface::getSolidRect() const {
-    if(style==SELECTION)return touchgfx::Rect(0,0,3,getHeight());
+    if(style==SELECTION)return touchgfx::Rect();
     return touchgfx::Rect(0,0,getWidth(),getHeight());
 }
 void ThemedSurface::draw(const touchgfx::Rect& area) const {
@@ -106,20 +106,26 @@ void ThemedSurface::draw(const touchgfx::Rect& area) const {
     if(style==SELECTION){
         const touchgfx::colortype accent=Theme::color(ACCENT);
         const touchgfx::colortype shadow=Theme::color(BACKGROUND);
-        // A transparent, raised selection frame.  It keeps the setpoint text
-        // readable, while the bright top/left edge and darker bottom/right
-        // edge make the selected tile visibly sit above its neighbour.
-        fill(touchgfx::Rect(rect.x+8,rect.y,rect.width-16,2),clip,accent);
-        fill(touchgfx::Rect(rect.x+3,rect.y+2,5,2),clip,accent,210);
-        fill(touchgfx::Rect(rect.right()-8,rect.y+2,5,2),clip,accent,210);
+        // One continuous outline around the complete voltage/current card.
+        // The darker lower/right edge gives a subtle raised-tile effect.
+        fill(touchgfx::Rect(rect.x+8,rect.y,rect.width-16,3),clip,accent);
+        fill(touchgfx::Rect(rect.x+4,rect.y+2,4,2),clip,accent);
+        fill(touchgfx::Rect(rect.x+2,rect.y+4,4,4),clip,accent);
         fill(touchgfx::Rect(rect.x,rect.y+8,3,rect.height-16),clip,accent);
-        fill(touchgfx::Rect(rect.right()-2,rect.y+8,2,rect.height-16),clip,accent,190);
-        fill(touchgfx::Rect(rect.x+8,rect.bottom()-2,rect.width-16,2),clip,accent,190);
-        fill(touchgfx::Rect(rect.x+5,rect.bottom()-5,rect.width-10,3),clip,shadow,90);
-        fill(touchgfx::Rect(rect.right()-5,rect.y+5,3,rect.height-10),clip,shadow,90);
-        // Keep the existing vertical cyan cue, but give it breathing room at
-        // the rounded ends instead of drawing a full-height hard edge.
-        fill(touchgfx::Rect(rect.x,rect.y+12,5,rect.height-24),clip,accent);
+        fill(touchgfx::Rect(rect.right()-8,rect.y,4,3),clip,accent,220);
+        fill(touchgfx::Rect(rect.right()-6,rect.y+3,4,5),clip,accent,220);
+        fill(touchgfx::Rect(rect.right()-3,rect.y+8,3,rect.height-16),clip,accent,210);
+        fill(touchgfx::Rect(rect.x,rect.bottom()-8,3,4),clip,accent,210);
+        fill(touchgfx::Rect(rect.x+2,rect.bottom()-6,4,4),clip,accent,210);
+        fill(touchgfx::Rect(rect.x+4,rect.bottom()-4,4,4),clip,accent,210);
+        fill(touchgfx::Rect(rect.x+8,rect.bottom()-3,rect.width-16,3),clip,accent,210);
+        fill(touchgfx::Rect(rect.right()-8,rect.bottom()-4,4,4),clip,accent,200);
+        fill(touchgfx::Rect(rect.right()-6,rect.bottom()-6,4,4),clip,accent,200);
+        fill(touchgfx::Rect(rect.right()-3,rect.bottom()-8,3,4),clip,accent,200);
+        fill(touchgfx::Rect(rect.x+8,rect.bottom()-1,rect.width-16,1),clip,shadow,120);
+        fill(touchgfx::Rect(rect.right()-1,rect.y+8,1,rect.height-16),clip,shadow,120);
+        // Preserve the useful divider between the measurement and setpoint.
+        fill(touchgfx::Rect(rect.x+305,rect.y+12,4,rect.height-24),clip,accent);
         return;
     }
     if(style==ICON && image){
