@@ -105,27 +105,22 @@ void ThemedSurface::draw(const touchgfx::Rect& area) const {
     touchgfx::Rect rect=getAbsoluteRect(),clip=area;clip.x+=rect.x;clip.y+=rect.y;
     if(style==SELECTION){
         const touchgfx::colortype accent=Theme::color(ACCENT);
-        const touchgfx::colortype shadow=Theme::color(BACKGROUND);
-        // One continuous outline around the complete voltage/current card.
-        // The darker lower/right edge gives a subtle raised-tile effect.
-        fill(touchgfx::Rect(rect.x+8,rect.y,rect.width-16,3),clip,accent);
-        fill(touchgfx::Rect(rect.x+4,rect.y+2,4,2),clip,accent);
-        fill(touchgfx::Rect(rect.x+2,rect.y+4,4,4),clip,accent);
-        fill(touchgfx::Rect(rect.x,rect.y+8,3,rect.height-16),clip,accent);
-        fill(touchgfx::Rect(rect.right()-8,rect.y,4,3),clip,accent,220);
-        fill(touchgfx::Rect(rect.right()-6,rect.y+3,4,5),clip,accent,220);
-        fill(touchgfx::Rect(rect.right()-3,rect.y+8,3,rect.height-16),clip,accent,210);
-        fill(touchgfx::Rect(rect.x,rect.bottom()-8,3,4),clip,accent,210);
-        fill(touchgfx::Rect(rect.x+2,rect.bottom()-6,4,4),clip,accent,210);
-        fill(touchgfx::Rect(rect.x+4,rect.bottom()-4,4,4),clip,accent,210);
-        fill(touchgfx::Rect(rect.x+8,rect.bottom()-3,rect.width-16,3),clip,accent,210);
-        fill(touchgfx::Rect(rect.right()-8,rect.bottom()-4,4,4),clip,accent,200);
-        fill(touchgfx::Rect(rect.right()-6,rect.bottom()-6,4,4),clip,accent,200);
-        fill(touchgfx::Rect(rect.right()-3,rect.bottom()-8,3,4),clip,accent,200);
-        fill(touchgfx::Rect(rect.x+8,rect.bottom()-1,rect.width-16,1),clip,shadow,120);
-        fill(touchgfx::Rect(rect.right()-1,rect.y+8,1,rect.height-16),clip,shadow,120);
+        // Thin, strictly symmetric two-pixel outline. Every corner is the
+        // exact horizontal/vertical mirror of the other three corners.
+        fill(touchgfx::Rect(rect.x+6,rect.y,rect.width-12,2),clip,accent);
+        fill(touchgfx::Rect(rect.x+3,rect.y+2,3,2),clip,accent);
+        fill(touchgfx::Rect(rect.x+1,rect.y+4,3,2),clip,accent);
+        fill(touchgfx::Rect(rect.x,rect.y+6,2,rect.height-12),clip,accent);
+        fill(touchgfx::Rect(rect.right()-6,rect.y+2,3,2),clip,accent);
+        fill(touchgfx::Rect(rect.right()-4,rect.y+4,3,2),clip,accent);
+        fill(touchgfx::Rect(rect.right()-2,rect.y+6,2,rect.height-12),clip,accent);
+        fill(touchgfx::Rect(rect.x+1,rect.bottom()-6,3,2),clip,accent);
+        fill(touchgfx::Rect(rect.x+3,rect.bottom()-4,3,2),clip,accent);
+        fill(touchgfx::Rect(rect.x+6,rect.bottom()-2,rect.width-12,2),clip,accent);
+        fill(touchgfx::Rect(rect.right()-4,rect.bottom()-6,3,2),clip,accent);
+        fill(touchgfx::Rect(rect.right()-6,rect.bottom()-4,3,2),clip,accent);
         // Preserve the useful divider between the measurement and setpoint.
-        fill(touchgfx::Rect(rect.x+305,rect.y+12,4,rect.height-24),clip,accent);
+        fill(touchgfx::Rect(rect.x+306,rect.y+12,2,rect.height-24),clip,accent);
         return;
     }
     if(style==ICON && image){
