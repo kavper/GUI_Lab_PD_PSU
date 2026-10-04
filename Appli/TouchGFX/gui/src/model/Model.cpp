@@ -13,8 +13,8 @@ static void publish(ModelListener *listener)
     psu_snapshot(&snap);
     listener->ldoTelemetryUpdated(
         snap.vin_mv, snap.vout_mv, snap.signed_current_ua,
-        static_cast<int16_t>(snap.mos_centi),
-        static_cast<int16_t>(snap.pcb_centi),
+        static_cast<int16_t>(snap.mos_centi / 10),
+        static_cast<int16_t>(snap.pcb_centi / 10),
         snap.mode_cc ? 2U : 1U, snap.g0_connected != 0,
         snap.output_confirmed != 0, snap.current_valid != 0,
         snap.current_valid != 0);

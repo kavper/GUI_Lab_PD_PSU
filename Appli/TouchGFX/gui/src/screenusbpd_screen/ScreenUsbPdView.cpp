@@ -8,7 +8,7 @@ void ScreenUsbPdView::setupScreen() {ScreenUsbPdViewBase::setupScreen(); static_
     setupTheme();
 }
 void ScreenUsbPdView::tearDownScreen() {static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->setSwipePage(FrontendApplication::OTHER); ScreenUsbPdViewBase::tearDownScreen();}
-void ScreenUsbPdView::handleTickEvent() {if(static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->isScreenTransitionActive())return;animateGauge();if(noticeTicks)--noticeTicks;if(++divider>=8){divider=0;refresh();}}
+void ScreenUsbPdView::handleTickEvent() {if(static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->isScreenTransitionActive())return;animateGauge();if(noticeTicks)--noticeTicks;if(++divider>=2){divider=0;refresh();}}
 void ScreenUsbPdView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
 void ScreenUsbPdView::allOff() {psu_app_shutdown();notify("PSU OFF requested - stopping LDO, DCDC and automation");}
 void ScreenUsbPdView::refresh() {
@@ -68,7 +68,7 @@ void ScreenUsbPdView::refresh() {
 void ScreenUsbPdView::roleAuto() {notify(psu_app_usb_role("AUTO",PSU_SRC_LCD)?"AUTO requested; role below is the actual PD contract":"Role request blocked");}
 void ScreenUsbPdView::roleSink() {notify(psu_app_usb_role("SINK",PSU_SRC_LCD)?"SINK requested; waiting for the reported role":"Role request blocked");}
 void ScreenUsbPdView::roleSource() {notify(psu_app_usb_role("SOURCE",PSU_SRC_LCD)?"SOURCE requested; waiting for the reported role":"Role request blocked");}
-void ScreenUsbPdView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"Refresh requested - waiting for T / TB / TC":"Command queue full");}
+void ScreenUsbPdView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"PING sent - telemetry streams automatically":"Command queue full");}
 
 void ScreenUsbPdView::saveSwipeNotice(char* text,uint16_t& ticks) const { memcpy(text,notice,sizeof(notice)); ticks=noticeTicks; }
 void ScreenUsbPdView::restoreSwipeNotice(const char* text,uint16_t ticks) { memcpy(notice,text,sizeof(notice)); noticeTicks=ticks; refresh(); }

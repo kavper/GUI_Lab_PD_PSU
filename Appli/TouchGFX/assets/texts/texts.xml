@@ -1365,7 +1365,7 @@
         <Translation Language="GB">SOURCE ROLE</Translation>
       </Text>
       <Text Id="TXT_NEW_ScreenPowerPath" Alignment="Left" TypographyId="Title">
-        <Translation Language="GB">Power control</Translation>
+        <Translation Language="GB">Remote sense / fan</Translation>
       </Text>
       <Text Id="TXT_ScreenPowerPath_LABEL0" Alignment="Left" TypographyId="UiEyebrow">
         <Translation Language="GB">PSU PATH</Translation>
@@ -1380,10 +1380,10 @@
         <Translation Language="GB">SENSE INPUT</Translation>
       </Text>
       <Text Id="TXT_ScreenPowerPathLeft" Alignment="Left" TypographyId="Small">
-        <Translation Language="GB">Enable states</Translation>
+        <Translation Language="GB">SENSE VOLTAGES</Translation>
       </Text>
       <Text Id="TXT_ScreenPowerPathRight" Alignment="Left" TypographyId="Small">
-        <Translation Language="GB">Startup and rail control</Translation>
+        <Translation Language="GB">TEST / FAN / TEMPERATURE</Translation>
       </Text>
       <Text Id="TXT_ACTION_togglePermit" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">TOGGLE PERMIT</Translation>
@@ -1533,10 +1533,10 @@
         <Translation Language="GB">PACK CURRENT</Translation>
       </Text>
       <Text Id="TXT_BATT_MET2" Alignment="Left" TypographyId="UiEyebrow">
-        <Translation Language="GB">CELL SPREAD</Translation>
+        <Translation Language="GB">SOC</Translation>
       </Text>
       <Text Id="TXT_BATT_MET3" Alignment="Left" TypographyId="UiEyebrow">
-        <Translation Language="GB">CONFIGURATION</Translation>
+        <Translation Language="GB">NET ENERGY</Translation>
       </Text>
       <Text Id="TXT_BATT_CELLS" Alignment="Left" TypographyId="UiEyebrow">
         <Translation Language="GB">CELL VOLTAGES / PHYSICAL CHANNELS</Translation>
@@ -1581,13 +1581,13 @@
         <Translation Language="GB">RAW UART</Translation>
       </Text>
       <Text Id="TXT_DIAG_T" Alignment="Center" TypographyId="Button">
-        <Translation Language="GB">T / PSU</Translation>
+        <Translation Language="GB">METER</Translation>
       </Text>
       <Text Id="TXT_DIAG_TB" Alignment="Center" TypographyId="Button">
-        <Translation Language="GB">TB / BMS</Translation>
+        <Translation Language="GB">BMS</Translation>
       </Text>
       <Text Id="TXT_DIAG_TC" Alignment="Center" TypographyId="Button">
-        <Translation Language="GB">TC / USB</Translation>
+        <Translation Language="GB">PD</Translation>
       </Text>
       <Text Id="TXT_DIAG_FIELD" Alignment="Left" TypographyId="TelemetryDetails">
         <Translation Language="GB">&lt;value&gt;</Translation>
@@ -1772,7 +1772,9 @@
       <Text Id="TXT_USB_POWER_VALUE" Alignment="Center" TypographyId="UsbPower">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-    </TextGroup>
+    <Text Id="TXT_FULL_POWER_OFF" Alignment="Center" TypographyId="Button"><Translation Language="GB">POWER OFF</Translation></Text>
+<Text Id="TXT_SENSE_DEBUG" Alignment="Center" TypographyId="Button"><Translation Language="GB">SENSE</Translation></Text>
+</TextGroup>
   </Texts>
   <Typographies>
     <Typography Id="Title" Font="IBMPlexSans-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />

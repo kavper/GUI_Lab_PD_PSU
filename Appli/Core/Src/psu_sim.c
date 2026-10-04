@@ -1,41 +1,18 @@
 #include "psu_app.h"
 #if defined(SIMULATOR) || defined(PSU_SIMULATOR)
-#include <stdio.h>
 #include <string.h>
-
-/* Demo controller uses the exact host parser, not fabricated UI snapshots.
-   Compiled out on hardware. Fixed readings exercise every telemetry page. */
-static void receive(const char *line,uint32_t now) {
-  g4_rx_bytes(psu_g4(),(const uint8_t*)line,strlen(line),now);
-}
-void psu_sim_tick(uint32_t now) {
-  static uint8_t initialized,on,permit=1,remote,role=1;
-  static uint32_t last,mv=12000,ma=1500;
-  char cmd[100],line[1536];
-  if(!initialized){initialized=1;psu_app_set_g4_uart(1);psu_g4()->need_session_init=1;}
-  g4_process(psu_g4(),now);
-  if(g4_pop_tx(psu_g4(),cmd,sizeof(cmd),now)) {
-    unsigned v,vd,i,id;
-    if(sscanf(cmd,"SET V=%u.%u I=%u.%u",&v,&vd,&i,&id)==4){mv=v*1000+vd;ma=i*1000+id;receive("OK SET\r\n",now);}
-    else if(!strncmp(cmd,"ON\r",3)){on=permit;receive("OK ON\r\n",now);}
-    else if(!strncmp(cmd,"OFF\r",4)){on=0;receive("OK OFF\r\n",now);}
-    else if(!strncmp(cmd,"PERMIT ",7)){permit=cmd[7]=='1';if(!permit)on=0;receive("OK PERMIT\r\n",now);}
-    else if(!strncmp(cmd,"REMOTE ",7)){remote=cmd[7]=='1';receive(remote?"OK REMOTE\r\n":"OK LOCAL\r\n",now);}
-    else if(!strncmp(cmd,"USB ",4)){role=strstr(cmd,"SOURCE")?2:1;receive("OK USB\r\n",now);}
-    else if(!strncmp(cmd,"TEL",3))receive("OK TEL 500 ms\r\n",now);
-    else if(!strncmp(cmd,"BMS",3))receive("OK BMS\r\n",now);
-    else if(!strncmp(cmd,"CLR",3))receive("OK CLR\r\n",now);
-    else if(!strncmp(cmd,"HELP",4))receive("HELP ON OFF SET CLR STATUS TEL USB PERMIT REMOTE\r\n",now);
-    last=0;
-  }
-  if(last && now-last<500)return;
-  last=now;
-  snprintf(line,sizeof(line),
-    "T vin_mv=20000 vout_mv=%lu iout_ma=%u i_buck_ma=%u i_boost_ma=5 set_mv=%lu ilim_ma=%lu duty_a_x10=%u duty_c_x10=0 ucc_a=0 ucc_c=0 run=%u mode=%s fault=0 pd=1 pd_mv=20000 pd_ma=3000 pd_mw=60000 permit=%u rem_sense=%u g0=%u g0_out=%u g0_want=%u g0_ctrl=%u g0_kill=0 g0_outoff=%u g0_fault=0 g0_vout_mv=%lu g0_iout_ma=%u vpre_req_mv=%lu vpre_cmd_mv=%lu reg_ok=1 stage_en=%u ps_en=%u flt=0 hold_ms=0 ps_err=0 g0_rx=12000 g0_tlm=400 g0_age_ms=80 g0_err=0 g0_uart=0 pm_st=2 fmt=0\r\n",
-    (unsigned long)(on?mv+1500:0),on?420:0,on?410:0,(unsigned long)mv,(unsigned long)ma,on?675:0,on,on?"CV":"IDLE",permit,remote,on,on,on,on?9:0,on?0:1,(unsigned long)(on?mv+10:0),on?410:0,(unsigned long)(on?mv+1500:0),(unsigned long)(on?mv+1500:0),on,on);
-  receive(line,now);
-  receive("TB bms=1 cfg=1 st=4 fault=0x0 alert=0 alarm=0x0 sa=0x0 sb=0x0 sc=0x0 fet=0x5 manuf=0x50 init_step=12 vcell_rb=0x0017 batt=0x0080 cfg_fail=0 chg=1 dsg=1 fets=1 series=4 c1_mv=4001 c2_mv=4002 c3_mv=4003 c4_mv=-1 c5_mv=4005 min_mv=4001 max_mv=4005 dV_mv=4 sum_mv=16011 pack_mv=16020 stack_mv=16011 i_pack_ma=320 i_cc2_ma=320 sample=1 alerts=2 i2c_err=0\r\n",now);
-  snprintf(line,sizeof(line),"TC bq_ok=1 bq_vbat_mv=16020 bq_vsys_mv=16400 bq_ibat_ma=320 bq_ichg_ma=352 bq_idchg_ma=0 bq_vbus_mv=19980 bq_iin_ma=600 bq_vreg_mv=16800 bq_ichg_set_ma=1500 bq_iin_set_ma=3000 bq_st=0x8400 bq_fault=0x0 bq_in=1 bq_pre=0 bq_fast=1 bq_otg=%u bq_iindpm=0 bq_vindpm=0 tps_vbus_mv=20010 cc1=2 cc2=0 role=%u conn=1 plug=1 typec=0x42 rst=1 rst_busy=0 pd_role=%u pd_mv=20000 pd_ma=3000\r\n",role==2,role,role);
-  receive(line,now);
+static void w16(uint8_t *p,uint16_t v){p[0]=v;p[1]=v>>8;}
+static void w32(uint8_t *p,uint32_t v){w16(p,v);w16(p+2,v>>16);}
+static uint32_t r32(uint8_t *p){return (uint32_t)p[0]|((uint32_t)p[1]<<8)|((uint32_t)p[2]<<16)|((uint32_t)p[3]<<24);}
+static void emit(uint8_t t,uint8_t seq,uint8_t *p,unsigned n,uint32_t now){uint8_t f[120];size_t len=g4_frame(f,t,seq,p,n);g4_rx_bytes(psu_g4(),f,len,now);}
+void psu_sim_tick(uint32_t now){static uint8_t init,on,remote,permit=1,role=1,seq,asleep;static uint32_t mv=12000,ma=1500,slow;uint8_t f[120],d[72];int n;unsigned i;
+ if(!init){init=1;psu_app_set_g4_uart(1);}g4_process(psu_g4(),now);
+ n=g4_pop_frame(psu_g4(),f,sizeof(f),now);if(n){uint8_t type=f[3];if(type==0x21&&f[2]==14&&!memcmp(f+5,"BMS SHUTDOWN",12)){asleep=1;on=remote=0;}if(type==1){mv=r32(f+5);ma=r32(f+9);}if(type==2){on=1;permit=1;}if(type==3){on=remote=0;}if(type==8){permit=f[5];if(!permit)on=0;}if(type==9)remote=f[5]&&on;if(type==11)role=f[5];d[0]=type;if(type!=7)emit(0x81,f[4],d,1,now);}
+ memset(d,0,sizeof(d));w32(d,20000);w32(d+4,on?mv+1500:0);w32(d+8,on?410:0);w32(d+16,mv);w32(d+20,ma);w32(d+24,on?mv:0);w32(d+28,on?410:0);w32(d+32,on?mv+1500:0);w32(d+36,mv);w32(d+40,ma);w32(d+44,on?mv+1500:0);w32(d+48,on?mv+1500:0);w16(d+52,4);w16(d+54,on?410:0);d[66]=(on?0xc3:8)|(permit?32:0);d[67]=64|(on?3:0)|(remote?8:0);d[68]=on?9:0;d[69]=on?1:0;emit(0x10,seq++,d,72,now);
+ if(slow&&now-slow<200){return;}
+ slow=now;
+ memset(d,0,sizeof(d));d[0]=d[1]=1;d[2]=4;d[13]=5;d[16]=12;w16(d+18,0x17);d[22]=d[23]=d[24]=asleep?0:1;d[25]=4;for(i=0;i<5;i++)w16(d+26+i*2,i==3?0xffff:4001+i);w16(d+36,4001);w16(d+38,4005);w16(d+40,4);w16(d+42,16011);w16(d+44,16020);w16(d+46,16011);w32(d+48,320);d[52]=1;w32(d+56,2450);w16(d+64,780);w16(d+66,315);w16(d+68,2982);d[70]=2;d[71]=31;emit(0x11,seq++,d,72,now);
+ memset(d,0,sizeof(d));d[0]=1;d[1]=0x85|(role==2?8:0);w16(d+2,0x8400);d[5]=2;d[7]=role;d[8]=1;d[9]=0x42;d[10]=role;w32(d+12,16020);w32(d+16,16400);w32(d+20,320);w32(d+24,352);w32(d+32,19980);w32(d+36,600);w32(d+40,16800);w32(d+44,1500);w32(d+48,3000);w32(d+52,20010);w32(d+56,20000);w32(d+60,3000);emit(0x12,seq++,d,64,now);
+ memset(d,0,sizeof(d));w32(d,1500);w32(d+4,350);for(i=0;i<4;i++)w16(d+8+i*2,253+i*10);d[16]=on?35:0;d[17]=1;d[18]=!on;d[19]=1;w16(d+20,on?mv:0);w16(d+22,on?mv-40:0);w16(d+24,on?20:0);d[26]=on?0:1;d[27]=remote?3:0;w16(d+28,on?1600:0);emit(0x13,seq++,d,32,now);
 }
 #endif

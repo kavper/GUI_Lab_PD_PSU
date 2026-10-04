@@ -544,11 +544,11 @@ void Screen1View::setHostAuxMetrics()
     g4_record_snapshot(psu_g4(),G4_RECORD_TC,&pd);
     int64_t value;
     char text[20];
-    if(rail.valid && psu_app_now()-rail.ms<=1500U && g4_record_value(&rail,"vout_mv",&value))
+    if(rail.valid && psu_app_now()-rail.ms<=50U && g4_record_value(&rail,"vout_mv",&value))
         snprintf(text,sizeof(text),"%lu.%lu V",(unsigned long)(value/1000),(unsigned long)((value%1000)/100));
     else snprintf(text,sizeof(text),"-- V");
     touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text),TemperatureValueBuffer,TEMPERATUREVALUE_SIZE);
-    if(pd.valid && psu_app_now()-pd.ms<=1500U && g4_record_value(&pd,"pd_mv",&value))
+    if(pd.valid && psu_app_now()-pd.ms<=1000U && g4_record_value(&pd,"pd_mv",&value))
         snprintf(text,sizeof(text),"%lu.%lu V",(unsigned long)(value/1000),(unsigned long)((value%1000)/100));
     else snprintf(text,sizeof(text),"-- V");
     touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text),PcbTemperatureValueBuffer,PCBTEMPERATUREVALUE_SIZE);
@@ -622,6 +622,7 @@ void Screen1View::setupTheme()
     theme.button(Preset2Button,ui::NORMAL);
     theme.button(Preset3Button,ui::NORMAL);
     theme.button(SettingsButton,ui::NORMAL);
+    theme.button(AllOffButton,ui::DANGER);
     theme.text(BatteryLabel);
     theme.text(BatteryValue);
     theme.text(PcbTemperatureLabel);
@@ -647,3 +648,5 @@ void Screen1View::handleTickEvent()
         EditorStatus.invalidate();
     }
 }
+
+void Screen1View::allOff() { psu_app_shutdown(); }

@@ -7,7 +7,7 @@ void ScreenMeasurementsView::setupScreen() {ScreenMeasurementsViewBase::setupScr
     setupTheme();
 }
 void ScreenMeasurementsView::tearDownScreen() {ScreenMeasurementsViewBase::tearDownScreen();}
-void ScreenMeasurementsView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=8){divider=0;refresh();}}
+void ScreenMeasurementsView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=2){divider=0;refresh();}}
 void ScreenMeasurementsView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
 void ScreenMeasurementsView::allOff() {psu_app_shutdown();notify("PSU OFF requested - stopping LDO, DCDC and automation");}
 void ScreenMeasurementsView::refresh() {
@@ -22,7 +22,7 @@ void ScreenMeasurementsView::refresh() {
     lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,noticeTicks?notice:data.status,data.fresh?lab_muted():lab_amber());
     lab_enable(RefreshButton,true);
 }
-void ScreenMeasurementsView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"Refresh requested - waiting for T / TB / TC":"Command queue full");}
+void ScreenMeasurementsView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"PING sent - telemetry streams automatically":"Command queue full");}
 
 void ScreenMeasurementsView::setupTheme()
 {

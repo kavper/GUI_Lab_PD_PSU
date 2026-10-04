@@ -287,7 +287,7 @@
             "Name": "PowerLabel",
             "X": 320,
             "Y": 8,
-            "Width": 150,
+            "Width": 104,
             "Height": 24,
             "TextId": "TXT_POWER",
             "TextRotation": "0",
@@ -302,7 +302,7 @@
             "Name": "PowerValue",
             "X": 320,
             "Y": 32,
-            "Width": 150,
+            "Width": 104,
             "Height": 24,
             "TextId": "TXT_POWER_VALUE",
             "TextRotation": "0",
@@ -511,7 +511,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Key1",
             "X": 526,
-            "Y": 100,
+            "Y": 97,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -533,7 +533,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Key2",
             "X": 610,
-            "Y": 100,
+            "Y": 97,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -555,7 +555,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Key3",
             "X": 694,
-            "Y": 100,
+            "Y": 97,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -577,7 +577,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Key4",
             "X": 526,
-            "Y": 170,
+            "Y": 169,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -599,7 +599,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Key5",
             "X": 610,
-            "Y": 170,
+            "Y": 169,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -621,7 +621,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Key6",
             "X": 694,
-            "Y": 170,
+            "Y": 169,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -643,7 +643,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Key7",
             "X": 526,
-            "Y": 240,
+            "Y": 241,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -665,7 +665,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Key8",
             "X": 610,
-            "Y": 240,
+            "Y": 241,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -687,7 +687,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Key9",
             "X": 694,
-            "Y": 240,
+            "Y": 241,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -709,7 +709,7 @@
             "Type": "ButtonWithLabel",
             "Name": "KeyClear",
             "X": 526,
-            "Y": 310,
+            "Y": 313,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -731,7 +731,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Key0",
             "X": 610,
-            "Y": 310,
+            "Y": 313,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -753,7 +753,7 @@
             "Type": "ButtonWithLabel",
             "Name": "KeyDot",
             "X": 694,
-            "Y": 310,
+            "Y": 313,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -775,7 +775,7 @@
             "Type": "ButtonWithLabel",
             "Name": "KeyBack",
             "X": 526,
-            "Y": 380,
+            "Y": 385,
             "Width": 76,
             "Height": 64,
             "Pressed": "main_key_sel_76x64.png",
@@ -797,7 +797,7 @@
             "Type": "ButtonWithLabel",
             "Name": "KeyEnter",
             "X": 610,
-            "Y": 380,
+            "Y": 386,
             "Width": 160,
             "Height": 64,
             "Pressed": "main_apply_sel_160x64.png",
@@ -884,13 +884,13 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "SettingsButton",
-            "X": 492,
-            "Y": 6,
-            "Width": 140,
-            "Height": 52,
-            "Pressed": "main_header_btn_sel_140x52.png",
-            "Released": "main_header_btn_rel_140x52.png",
-            "TextId": "TXT_OBVIOUS_SETTINGS",
+            "X": 432,
+            "Y": 8,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_MENU_RETURN",
             "ReleasedColor": {
               "Red": 23,
               "Green": 35,
@@ -1140,6 +1140,28 @@
               "UseBuffer": true,
               "BufferSize": 40
             }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AllOffButton",
+            "X": 526,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "ui_danger_prs_112x48.png",
+            "Released": "ui_danger_rel_112x48.png",
+            "TextId": "TXT_ALL_PSU_OFF",
+            "ReleasedColor": {
+              "Red": 180,
+              "Green": 62,
+              "Blue": 69
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -1374,6 +1396,17 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "West",
               "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "FullPowerOff",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AllOffButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "allOff"
             }
           }
         ]
@@ -2802,6 +2835,28 @@
               "Blue": 55
             },
             "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SenseDetailsButton",
+            "X": 280,
+            "Y": 80,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SENSE_DEBUG",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -2915,6 +2970,19 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "clearFault"
+            }
+          },
+          {
+            "InteractionName": "OpenSenseDebug",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SenseDetailsButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenPowerPath"
             }
           }
         ]
@@ -6156,7 +6224,7 @@
             "Name": "PageTitle",
             "X": 24,
             "Y": 8,
-            "Width": 500,
+            "Width": 380,
             "Height": 28,
             "TextId": "TXT_UX_ScreenBattery",
             "TextRotation": "0",
@@ -6171,7 +6239,7 @@
             "Name": "PageFeedback",
             "X": 24,
             "Y": 40,
-            "Width": 510,
+            "Width": 380,
             "Height": 22,
             "TextId": "TXT_UX_FEEDBACK",
             "TextRotation": "0",
@@ -6442,7 +6510,7 @@
             "Name": "CellCard0",
             "X": 16,
             "Y": 208,
-            "Width": 144,
+            "Width": 180,
             "Height": 100,
             "Color": {
               "Red": 22,
@@ -6469,7 +6537,7 @@
             "Name": "CellLabel0",
             "X": 28,
             "Y": 216,
-            "Width": 122,
+            "Width": 156,
             "Height": 20,
             "TextId": "TXT_BATT_CH0",
             "TextRotation": "0",
@@ -6484,7 +6552,7 @@
             "Name": "CellValue0",
             "X": 28,
             "Y": 246,
-            "Width": 125,
+            "Width": 156,
             "Height": 32,
             "TextId": "TXT_CELL_DYNAMIC",
             "TextRotation": "0",
@@ -6515,9 +6583,9 @@
           {
             "Type": "Box",
             "Name": "CellCard1",
-            "X": 172,
+            "X": 212,
             "Y": 208,
-            "Width": 144,
+            "Width": 180,
             "Height": 100,
             "Color": {
               "Red": 22,
@@ -6542,9 +6610,9 @@
           {
             "Type": "TextArea",
             "Name": "CellLabel1",
-            "X": 184,
+            "X": 224,
             "Y": 216,
-            "Width": 122,
+            "Width": 156,
             "Height": 20,
             "TextId": "TXT_BATT_CH1",
             "TextRotation": "0",
@@ -6557,9 +6625,9 @@
           {
             "Type": "TextArea",
             "Name": "CellValue1",
-            "X": 184,
+            "X": 224,
             "Y": 246,
-            "Width": 125,
+            "Width": 156,
             "Height": 32,
             "TextId": "TXT_CELL_DYNAMIC",
             "TextRotation": "0",
@@ -6577,7 +6645,7 @@
           {
             "Type": "Box",
             "Name": "CellBar1",
-            "X": 184,
+            "X": 224,
             "Y": 292,
             "Width": 120,
             "Height": 4,
@@ -6590,9 +6658,9 @@
           {
             "Type": "Box",
             "Name": "CellCard2",
-            "X": 328,
+            "X": 408,
             "Y": 208,
-            "Width": 144,
+            "Width": 180,
             "Height": 100,
             "Color": {
               "Red": 22,
@@ -6617,9 +6685,9 @@
           {
             "Type": "TextArea",
             "Name": "CellLabel2",
-            "X": 340,
+            "X": 420,
             "Y": 216,
-            "Width": 122,
+            "Width": 156,
             "Height": 20,
             "TextId": "TXT_BATT_CH2",
             "TextRotation": "0",
@@ -6632,9 +6700,9 @@
           {
             "Type": "TextArea",
             "Name": "CellValue2",
-            "X": 340,
+            "X": 420,
             "Y": 246,
-            "Width": 125,
+            "Width": 156,
             "Height": 32,
             "TextId": "TXT_CELL_DYNAMIC",
             "TextRotation": "0",
@@ -6652,7 +6720,7 @@
           {
             "Type": "Box",
             "Name": "CellBar2",
-            "X": 340,
+            "X": 420,
             "Y": 292,
             "Width": 120,
             "Height": 4,
@@ -6665,9 +6733,9 @@
           {
             "Type": "Box",
             "Name": "CellCard3",
-            "X": 484,
+            "X": 604,
             "Y": 208,
-            "Width": 144,
+            "Width": 180,
             "Height": 100,
             "Color": {
               "Red": 22,
@@ -6692,11 +6760,11 @@
           {
             "Type": "TextArea",
             "Name": "CellLabel3",
-            "X": 496,
+            "X": 616,
             "Y": 216,
-            "Width": 122,
+            "Width": 156,
             "Height": 20,
-            "TextId": "TXT_BATT_CH3",
+            "TextId": "TXT_BATT_CH4",
             "TextRotation": "0",
             "Color": {
               "Red": 167,
@@ -6707,9 +6775,9 @@
           {
             "Type": "TextArea",
             "Name": "CellValue3",
-            "X": 496,
+            "X": 616,
             "Y": 246,
-            "Width": 125,
+            "Width": 156,
             "Height": 32,
             "TextId": "TXT_CELL_DYNAMIC",
             "TextRotation": "0",
@@ -6727,23 +6795,10 @@
           {
             "Type": "Box",
             "Name": "CellBar3",
-            "X": 496,
+            "X": 616,
             "Y": 292,
             "Width": 120,
             "Height": 4,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "CellCard4",
-            "X": 640,
-            "Y": 208,
-            "Width": 144,
-            "Height": 100,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -6758,54 +6813,6 @@
             "Width": 44,
             "Height": 7,
             "Visible": false,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "CellLabel4",
-            "X": 652,
-            "Y": 216,
-            "Width": 122,
-            "Height": 20,
-            "TextId": "TXT_BATT_CH4",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "CellValue4",
-            "X": 652,
-            "Y": 246,
-            "Width": 125,
-            "Height": 32,
-            "TextId": "TXT_CELL_DYNAMIC",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 251,
-              "Green": 191,
-              "Blue": 36
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 32
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "CellBar4",
-            "X": 652,
-            "Y": 292,
-            "Width": 120,
-            "Height": 4,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -6859,13 +6866,40 @@
             "Y": 403,
             "Width": 750,
             "Height": 56,
-            "TextId": "TXT_BATTERY_FUTURE",
+            "TextId": "TXT_TELEM_DETAILS",
             "TextRotation": "0",
             "Color": {
               "Red": 167,
               "Green": 182,
               "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 512
             }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "PowerOffButton",
+            "X": 420,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "ui_danger_prs_112x48.png",
+            "Released": "ui_danger_rel_112x48.png",
+            "TextId": "TXT_FULL_POWER_OFF",
+            "ReleasedColor": {
+              "Red": 180,
+              "Green": 62,
+              "Blue": 69
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -6891,6 +6925,17 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "ShutdownBatteryPower",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "PowerOffButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "powerOff"
             }
           }
         ]

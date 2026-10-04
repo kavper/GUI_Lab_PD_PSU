@@ -8,15 +8,15 @@
 extern "C" {
 #endif
 
-/* HMI UART7 -> G4 USART1 host contract, 115200 8N1, ASCII CRLF.
-   Command limit is 95 chars; incoming telemetry lines are much longer. */
+/* Legacy filename retained for existing Designer/IDE source lists.
+   Production UART7 is binary at 460800 8N1; text is diagnostic TEXT only. */
 
 #define G4_LINE_MAX 96
 #define G4_RX_LINE_MAX 1536
 #define G4_QUEUE_LEN 10
 #define G4_RAW_LOG 12
-#define G4_SETPOINT_GAP_MS 120u
-#define G4_CMD_TIMEOUT_MS 2000u
+#define G4_SETPOINT_GAP_MS 0u
+#define G4_CMD_TIMEOUT_MS 800u
 
 /* Named numeric telemetry, including optional fields. Missing is not zero. */
 typedef struct {
@@ -25,7 +25,7 @@ typedef struct {
   uint32_t ms;
   uint8_t kind, valid;
 } G4Record;
-enum { G4_RECORD_T, G4_RECORD_TB, G4_RECORD_TC };
+enum { G4_RECORD_T, G4_RECORD_TB, G4_RECORD_TC, G4_RECORD_AUX };
 
 typedef struct {
   uint8_t valid, g0, out, want, mode, permit, remote;
@@ -33,6 +33,7 @@ typedef struct {
   int32_t iout_ma;
   uint32_t fault, g0_fault, g0_age_ms, g0_rx, g0_tlm, g0_err, g0_uart;
   uint32_t vpre_req_mv, vpre_cmd_mv, pd_mv, pd_ma;
+  uint32_t g0_vin_mv, g0_vset_mv, g0_iset_ma;
   uint8_t pd;
   uint8_t run, stage_en, ps_en;
 } G4Telemetry;
@@ -71,6 +72,25 @@ typedef struct
 
 typedef struct
 {
+  uint8_t raw_payload[4][72], raw_len[4];
+  uint16_t transaction_id[256];
+  uint8_t transaction_type[256], transaction_active[256];
+  uint32_t transaction_ms[256];
+  uint16_t replies_id[16];
+  uint8_t replies_state[16], reply_head, reply_tail, reply_count;
+  uint32_t parser_ms;
+  uint8_t frame[120], frame_len;
+  uint8_t wire_queue[10][120], wire_len[10], wire_seq[10];
+  uint16_t wire_id[10];
+  uint8_t pending_frame[120], pending_len, pending_seq;
+  uint8_t off_frame[120], off_len;
+  uint8_t safety_frames[8][120], safety_lengths[8], safety_head, safety_tail, safety_count;
+  uint16_t safety_ids[8];
+  uint16_t off_id, pending_id;
+  uint8_t inflight[2][120], inflight_len[2], inflight_seq[2];
+  uint16_t inflight_id[2];
+  uint32_t inflight_ms[2];
+  uint8_t sequence, nack_reason, rx_seq[4], rx_seen[4];
   G4Slot queue[G4_QUEUE_LEN];
   uint8_t head;
   uint8_t tail;
@@ -104,8 +124,8 @@ typedef struct
   G4Telemetry telemetry;
   G4Battery battery;
   G4Charger charger;
-  G4Record records[3];
-  char raw_records[3][G4_RX_LINE_MAX];
+  G4Record records[4];
+
   uint32_t ack_count, err_count, event_fault;
   uint16_t active_id, response_id, last_tx_id;
   uint8_t response_state, awaiting, retry_used;
@@ -122,6 +142,11 @@ typedef struct
   uint8_t service_mode;
 } G4Port;
 
+uint16_t g4_crc16(const uint8_t *data, size_t n);
+size_t g4_frame(uint8_t *out,uint8_t type,uint8_t seq,const uint8_t *payload,size_t n);
+int g4_pop_frame(G4Port *port,uint8_t *out,size_t n,uint32_t now_ms);
+void g4_reset_parser(G4Port *port);
+int g4_response(G4Port *port,uint16_t *id,uint8_t *state);
 void g4_init(G4Port *port);
 void g4_link_up(G4Port *port);
 void g4_link_lost(G4Port *port);
@@ -130,6 +155,7 @@ int g4_set_mv(G4Port *port, uint32_t voltage_mv, uint16_t cmd_id);
 int g4_set_limits(G4Port *port, uint32_t voltage_mv, uint32_t current_ma, uint16_t cmd_id);
 int g4_ilim_ma(G4Port *port, uint32_t current_ma, uint16_t cmd_id);
 int g4_off(G4Port *port, uint16_t cmd_id);
+int g4_power_shutdown(G4Port *port,uint16_t cmd_id);
 int g4_on(G4Port *port, uint16_t cmd_id);
 int g4_usb_role(G4Port *port, const char *role, uint16_t cmd_id);
 int g4_pps(G4Port *port, uint32_t voltage_mv, uint32_t current_ma, uint16_t cmd_id);

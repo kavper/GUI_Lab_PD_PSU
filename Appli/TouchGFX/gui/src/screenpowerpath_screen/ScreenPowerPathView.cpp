@@ -7,7 +7,7 @@ void ScreenPowerPathView::setupScreen() {ScreenPowerPathViewBase::setupScreen();
     setupTheme();
 }
 void ScreenPowerPathView::tearDownScreen() {ScreenPowerPathViewBase::tearDownScreen();}
-void ScreenPowerPathView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=8){divider=0;refresh();}}
+void ScreenPowerPathView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=2){divider=0;refresh();}}
 void ScreenPowerPathView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
 void ScreenPowerPathView::allOff() {psu_app_shutdown();notify("PSU OFF requested - stopping LDO, DCDC and automation");}
 void ScreenPowerPathView::refresh() {
@@ -25,8 +25,8 @@ void ScreenPowerPathView::refresh() {
     lab_enable(RefreshButton,true);
 }
 void ScreenPowerPathView::togglePermit() {TelemetryRecord r(G4_RECORD_T);int64_t v;if(!r.get("permit",v)){notify("No fresh permit state");return;}notify(g4_permit(psu_g4(),v==0,0)?"Permit change requested; waiting for telemetry":"Request blocked");}
-void ScreenPowerPathView::toggleSense() {TelemetryRecord r(G4_RECORD_T);int64_t v;if(!r.get("rem_sense",v)){notify("No fresh sense state");return;}notify(g4_remote(psu_g4(),v==0,0)?"Sense change requested; waiting for telemetry":"Request blocked");}
-void ScreenPowerPathView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"Refresh requested - waiting for T / TB / TC":"Command queue full");}
+void ScreenPowerPathView::toggleSense() {TelemetryRecord r(G4_RECORD_AUX);int64_t v;if(!r.get("sense_flags",v)){notify("No fresh sense state");return;}notify(g4_remote(psu_g4(),(v&2)==0,0)?"Sense change requested; waiting for telemetry":"Request blocked");}
+void ScreenPowerPathView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"PING sent - telemetry streams automatically":"Command queue full");}
 
 void ScreenPowerPathView::setupTheme()
 {

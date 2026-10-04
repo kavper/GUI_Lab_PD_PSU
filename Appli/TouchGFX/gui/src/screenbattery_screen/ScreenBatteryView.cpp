@@ -7,10 +7,11 @@ void ScreenBatteryView::setupScreen() {ScreenBatteryViewBase::setupScreen(); ref
     setupTheme();
 }
 void ScreenBatteryView::tearDownScreen() {ScreenBatteryViewBase::tearDownScreen();}
-void ScreenBatteryView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=8){divider=0;refresh();}}
+void ScreenBatteryView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=2){divider=0;refresh();}}
 void ScreenBatteryView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
 void ScreenBatteryView::allOff() {psu_app_shutdown();notify("PSU OFF requested - stopping LDO, DCDC and automation");}
 void ScreenBatteryView::refresh() {
+    PsuSnapshot snap;psu_snapshot(&snap);if(snap.power_shutdown_requested && !noticeTicks){snprintf(notice,sizeof(notice),"Power off requested - wake using TS2");noticeTicks=180;}
     TelemetryData data;
     telemetry_page(PAGE_BATTERY,data);
     lab_show(Metric0,Metric0Buffer,METRIC0_SIZE,data.metric[0],data.fresh?lab_text():lab_muted());
@@ -24,7 +25,14 @@ void ScreenBatteryView::refresh() {
     pack.flag(right,sizeof(right),"Charge FET","chg");pack.flag(right,sizeof(right),"Discharge FET","dsg");
     lab_show(LeftDetails,LeftDetailsBuffer,LEFTDETAILS_SIZE,left,lab_text());lab_show(RightDetails,RightDetailsBuffer,RIGHTDETAILS_SIZE,right,lab_text());
     lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,noticeTicks?notice:data.status,data.fresh?lab_muted():lab_amber());
-    char value[32];int64_t cell=0;
+    char extra[512]={0},value[32];int64_t cell=0;
+    char charge[40],temp[40],pwm[32],rpm[32],balance[32];int64_t kelvin;
+    pack.value(charge,sizeof(charge),"passq_mah"," mAh");pack.value(balance,sizeof(balance),"balance_mask");
+    if(pack.get("int_temp_dK",kelvin))snprintf(temp,sizeof(temp),"%.1f C",(double)kelvin/10-273.15);else strcpy(temp,"--");
+    TelemetryRecord aux(G4_RECORD_AUX);aux.value(pwm,sizeof(pwm),"fan"," %");aux.value(rpm,sizeof(rpm),"fan_rpm"," RPM");
+    snprintf(extra,sizeof(extra),"Charge: %s   AFE: %s   Balance: %s\nFan: %s / %s   Energy: signed total since H7 startup",charge,temp,balance,pwm,rpm);
+    lab_show(Future,FutureBuffer,FUTURE_SIZE,extra,lab_muted());
+
     pack.value(value,sizeof(value),"c1_mv"," V",1000,3);if(pack.get("c1_mv",cell)&&cell==-1)strcpy(value,"UNUSED");
     lab_show(CellValue0,CellValue0Buffer,CELLVALUE0_SIZE,value,lab_cyan());
     CellBar0.setColor(lab_cyan());CellBar0.setVisible(pack.get("c1_mv",cell)&&cell>=0);CellBar0.setWidth(cell>=0?static_cast<int16_t>((cell>5000?5000:cell)*120/5000):0);CellBar0.invalidate();
@@ -34,15 +42,12 @@ void ScreenBatteryView::refresh() {
     pack.value(value,sizeof(value),"c3_mv"," V",1000,3);if(pack.get("c3_mv",cell)&&cell==-1)strcpy(value,"UNUSED");
     lab_show(CellValue2,CellValue2Buffer,CELLVALUE2_SIZE,value,lab_cyan());
     CellBar2.setColor(lab_cyan());CellBar2.setVisible(pack.get("c3_mv",cell)&&cell>=0);CellBar2.setWidth(cell>=0?static_cast<int16_t>((cell>5000?5000:cell)*120/5000):0);CellBar2.invalidate();
-    pack.value(value,sizeof(value),"c4_mv"," V",1000,3);if(pack.get("c4_mv",cell)&&cell==-1)strcpy(value,"UNUSED");
-    lab_show(CellValue3,CellValue3Buffer,CELLVALUE3_SIZE,value,lab_cyan());
-    CellBar3.setColor(lab_cyan());CellBar3.setVisible(pack.get("c4_mv",cell)&&cell>=0);CellBar3.setWidth(cell>=0?static_cast<int16_t>((cell>5000?5000:cell)*120/5000):0);CellBar3.invalidate();
     pack.value(value,sizeof(value),"c5_mv"," V",1000,3);if(pack.get("c5_mv",cell)&&cell==-1)strcpy(value,"UNUSED");
-    lab_show(CellValue4,CellValue4Buffer,CELLVALUE4_SIZE,value,lab_cyan());
-    CellBar4.setColor(lab_cyan());CellBar4.setVisible(pack.get("c5_mv",cell)&&cell>=0);CellBar4.setWidth(cell>=0?static_cast<int16_t>((cell>5000?5000:cell)*120/5000):0);CellBar4.invalidate();
+    lab_show(CellValue3,CellValue3Buffer,CELLVALUE3_SIZE,value,lab_cyan());
+    CellBar3.setColor(lab_cyan());CellBar3.setVisible(pack.get("c5_mv",cell)&&cell>=0);CellBar3.setWidth(cell>=0?static_cast<int16_t>((cell>5000?5000:cell)*120/5000):0);CellBar3.invalidate();
 
 }
-void ScreenBatteryView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"Refresh requested - waiting for T / TB / TC":"Command queue full");}
+void ScreenBatteryView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"PING sent - telemetry streams automatically":"Command queue full");}
 
 void ScreenBatteryView::setupTheme()
 {
@@ -54,6 +59,7 @@ void ScreenBatteryView::setupTheme()
     theme.text(PageTitle);
     theme.text(PageFeedback);
     theme.button(AllOffButton,ui::DANGER);
+    theme.button(PowerOffButton,ui::DANGER);
     theme.button(BackButton,ui::NORMAL);
     theme.panel(MetricCard0);
     theme.text(MetricLabel0);
@@ -84,12 +90,10 @@ void ScreenBatteryView::setupTheme()
     theme.text(CellLabel3);
     theme.text(CellValue3);
     theme.box(CellBar3,ui::ACCENT);
-    theme.panel(CellCard4);
-    theme.text(CellLabel4);
-    theme.text(CellValue4);
-    theme.box(CellBar4,ui::ACCENT);
     theme.text(LeftDetails);
     theme.text(RightDetails);
     theme.text(Future);
     theme.apply();
 }
+
+void ScreenBatteryView::powerOff(){notify(psu_app_power_shutdown()?"Power off requested - wake using TS2":"Power-off request failed");}

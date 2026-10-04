@@ -12,6 +12,7 @@ public:
     virtual void tearDownScreen();
     virtual void handleTickEvent();
     virtual void allOff();
+    virtual void powerOff();
     virtual void refreshTelemetry();
 protected:
     uint8_t divider;

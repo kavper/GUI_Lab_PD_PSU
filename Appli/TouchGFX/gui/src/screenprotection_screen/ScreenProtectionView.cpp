@@ -7,7 +7,7 @@ void ScreenProtectionView::setupScreen() {ScreenProtectionViewBase::setupScreen(
     setupTheme();
 }
 void ScreenProtectionView::tearDownScreen() {ScreenProtectionViewBase::tearDownScreen();}
-void ScreenProtectionView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=8){divider=0;refresh();}}
+void ScreenProtectionView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=2){divider=0;refresh();}}
 void ScreenProtectionView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
 void ScreenProtectionView::allOff() {psu_app_shutdown();notify("PSU OFF requested - stopping LDO, DCDC and automation");}
 void ScreenProtectionView::refresh() {
@@ -24,7 +24,7 @@ void ScreenProtectionView::refresh() {
     lab_enable(RefreshButton,true);
 }
 void ScreenProtectionView::clearFault() {notify(psu_app_clear_fault()?"CLR requested; confirm that reported faults clear":"No PSU fault to clear");}
-void ScreenProtectionView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"Refresh requested - waiting for T / TB / TC":"Command queue full");}
+void ScreenProtectionView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"PING sent - telemetry streams automatically":"Command queue full");}
 
 void ScreenProtectionView::setupTheme()
 {

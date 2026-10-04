@@ -22,7 +22,7 @@ public:
     explicit TelemetryRecord(unsigned kind) {
         memset(&record, 0, sizeof(record));
         g4_record_snapshot(psu_g4(), static_cast<uint8_t>(kind), &record);
-        fresh = record.valid && psu_app_now() - record.ms <= 1500U;
+        fresh = record.valid && psu_app_now() - record.ms <= (kind==G4_RECORD_T?50U:1000U);
     }
     bool get(const char* key, int64_t& v) const { return fresh && g4_record_value(&record,key,&v); }
     bool is(const char* key, int64_t expected) const {int64_t v;return get(key,v) && v==expected;}
@@ -57,7 +57,7 @@ inline void telemetry_page(TelemetryPage page, TelemetryData& d) {
     TelemetryRecord r(kind);
     PsuSnapshot live;psu_snapshot(&live);
     d.fresh=r.fresh;d.fault=live.fault_latched;
-    if(!r.record.valid)snprintf(d.status,sizeof(d.status),"Waiting for %s telemetry",kind==0?"T":kind==1?"TB":"TC");
+    if(!r.record.valid)snprintf(d.status,sizeof(d.status),"Waiting for %s telemetry",kind==0?"METER":kind==1?"BMS":"PD");
     else snprintf(d.status,sizeof(d.status),"%s / updated %lu ms ago",r.fresh?"LIVE":"STALE - waiting for fresh data",static_cast<unsigned long>(psu_app_now()-r.record.ms));
 #define MV(i,k) r.value(d.metric[i],32,k," V",1000,3)
 #define MA(i,k) r.value(d.metric[i],32,k," A",1000,3)
@@ -77,7 +77,8 @@ inline void telemetry_page(TelemetryPage page, TelemetryData& d) {
     case PAGE_BATTERY: {
         TelemetryRecord analog=r;analog.fresh=r.fresh&&r.is("sample",1)&&r.is("bms",1);
         analog.value(d.metric[0],32,"pack_mv"," V",1000,3);analog.value(d.metric[1],32,"i_pack_ma"," A",1000,3);
-        analog.value(d.metric[2],32,"dV_mv"," mV");NUM(3,"series","S");
+        analog.value(d.metric[2],32,"dV_mv"," mV");r.value(d.metric[2],32,"soc_permille"," %",10,1);
+        if(live.battery_energy_valid)snprintf(d.metric[3],32,"%.3f Wh",(double)live.battery_energy_uwms/3600000000000.0);
         analog.row(d.left,sizeof(d.left),"Lowest cell","min_mv"," V",1000,3);analog.row(d.left,sizeof(d.left),"Highest cell","max_mv"," V",1000,3);
         analog.row(d.left,sizeof(d.left),"Cell sum","sum_mv"," V",1000,3);analog.row(d.left,sizeof(d.left),"Stack voltage","stack_mv"," V",1000,3);
         int64_t current;TelemetryRecord::append(d.left,sizeof(d.left),"Current direction",analog.get("i_pack_ma",current)?(current>0?"CHARGING":current<0?"DISCHARGING":"IDLE"):"--");
@@ -120,11 +121,22 @@ inline void telemetry_page(TelemetryPage page, TelemetryData& d) {
     }
     case PAGE_PATH: {
         STATE(0,"run","RUNNING","STOPPED");STATE(1,"g0_out","ON","OFF");STATE(2,"permit","ALLOWED","BLOCKED");STATE(3,"rem_sense","REMOTE","LOCAL");
-        r.flag(d.left,sizeof(d.left),"Power stage","stage_en");r.flag(d.left,sizeof(d.left),"Stage supply","ps_en");r.flag(d.left,sizeof(d.left),"LDO requested","g0_want");
-        r.flag(d.left,sizeof(d.left),"G0 kill input","g0_kill","ASSERTED","CLEAR");r.flag(d.left,sizeof(d.left),"G0 output-off","g0_outoff","ASSERTED","CLEAR");LEFT("Power manager","pm_st","",1,0);
-        const char *ctrl[]={"IDLE","WAIT LINK","WAIT PERMIT","WAIT VIN","SEND SET","WAIT SET ACK","WAIT DISCHARGE","SEND ON","WAIT ON ACK","RUNNING","SEND OFF","WAIT OFF ACK","FAULT"};
-        int64_t v;TelemetryRecord::append(d.right,sizeof(d.right),"LDO controller",r.get("g0_ctrl",v)&&v>=0&&v<13?ctrl[v]:"--");
-        RIGHT("Rail target","vpre_req_mv"," V",1000,3);RIGHT("Rail command","vpre_cmd_mv"," V",1000,3);RIGHT("Start hold","hold_ms"," ms",1,0);RIGHT("Stage error","ps_err","",1,0);
+        TelemetryRecord aux(G4_RECORD_AUX);
+        aux.row(d.left,sizeof(d.left),"Local output","local_mv"," V",1000,3);
+        aux.row(d.left,sizeof(d.left),"Remote plus","remote_p_mv"," V",1000,3);
+        aux.row(d.left,sizeof(d.left),"Remote minus","remote_n_mv"," V",1000,3);
+        int64_t local,plus,minus,code,flags;char text[48];
+        if(aux.get("remote_p_mv",plus)&&aux.get("remote_n_mv",minus))snprintf(text,sizeof(text),"%.3f V",(double)(plus-minus)/1000);else strcpy(text,"--");
+        TelemetryRecord::append(d.left,sizeof(d.left),"Load voltage",text);
+        if(aux.get("local_mv",local)&&aux.get("remote_p_mv",plus)&&aux.get("remote_n_mv",minus))snprintf(text,sizeof(text),"%ld / %ld mV",(long)(local-plus),(long)minus);else strcpy(text,"--");
+        TelemetryRecord::append(d.left,sizeof(d.left),"Drop P / N",text);
+        aux.row(d.left,sizeof(d.left),"MOSFET T1","t1"," C",10,1);aux.row(d.left,sizeof(d.left),"Ambient T2","t2"," C",10,1);
+        const char *codes[]={"OK","NOT READY","DROP PLUS","DROP SUM","REVERSED","MINUS ON PLUS","SHORT","DROP MINUS","NO SAMPLE","LOCAL HIGH","CV LOAD ERROR"};
+        TelemetryRecord::append(d.right,sizeof(d.right),"Sense test",aux.get("sense_code",code)&&code>=0&&code<11?codes[code]:"--");
+        if(aux.get("sense_flags",flags)){TelemetryRecord::append(d.right,sizeof(d.right),"Remote request",flags&2?"YES":"NO");TelemetryRecord::append(d.right,sizeof(d.right),"Relay K1",flags&1?"REMOTE":"LOCAL");TelemetryRecord::append(d.right,sizeof(d.right),"Sense fault latch",flags&4?"LATCHED":"CLEAR");}
+        aux.row(d.right,sizeof(d.right),"Fan PWM","fan"," %");aux.row(d.right,sizeof(d.right),"Fan speed","fan_rpm"," RPM");
+        aux.row(d.right,sizeof(d.right),"Bleeder T3","t3"," C",10,1);aux.row(d.right,sizeof(d.right),"LDO / PCB T4","t4"," C",10,1);
+        if(aux.get("sense_code",code))snprintf(d.status,sizeof(d.status),"%s",code==0?"Sense within limits; open wires after K1 activation may be undetected":code==1?"Low output: sense wiring has not been evaluated":"Sense test failed - inspect remote wiring");
         if(live.shutdown_pending)snprintf(d.status,sizeof(d.status),"Stopping PSU - waiting for LDO and DCDC to report off");
         else if(live.shutdown_confirmed)snprintf(d.status,sizeof(d.status),"PSU off confirmed: LDO and DCDC stopped");
         break;

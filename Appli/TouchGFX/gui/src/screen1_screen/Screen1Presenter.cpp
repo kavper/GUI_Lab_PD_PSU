@@ -19,7 +19,7 @@ void Screen1Presenter::activate()
     PsuSnapshot snap;
     psu_snapshot(&snap);
     ldoTelemetryUpdated(snap.vin_mv, snap.vout_mv, snap.signed_current_ua,
-        static_cast<int16_t>(snap.mos_centi), static_cast<int16_t>(snap.pcb_centi),
+        static_cast<int16_t>(snap.mos_centi / 10), static_cast<int16_t>(snap.pcb_centi / 10),
         snap.mode_cc ? 2U : 1U, snap.g0_connected != 0,
         snap.output_confirmed != 0, snap.current_valid != 0,
         snap.current_valid != 0);
@@ -48,8 +48,8 @@ void Screen1Presenter::ldoTelemetryUpdated(uint32_t inputVoltageMv,
         char link[24];
         psu_snapshot(&snap);
         view.syncControllerSetpoints(snap.requested_mv, snap.requested_ma);
-        view.setTemperaturesDeciC(snap.mos_centi, snap.pcb_centi);
-        view.setTelemetryAvailable(connected && !snap.g0_stale, currentValid, snap.temperature_valid);
+        view.setTemperaturesDeciC(snap.mos_centi / 10, snap.pcb_centi / 10);
+        view.setTelemetryAvailable(connected && !snap.g0_stale && currentValid, currentValid, snap.temperature_valid);
         if(snap.g4_uart_configured)view.setHostAuxMetrics();
         if (snap.g4_uart_configured && snap.g4_link != G4_LINK_ONLINE) snprintf(link, sizeof(link), "G4 OFFLINE");
         else if (!connected) snprintf(link, sizeof(link), "G0 OFFLINE");

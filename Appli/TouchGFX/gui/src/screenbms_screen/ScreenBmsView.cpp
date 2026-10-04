@@ -7,7 +7,7 @@ void ScreenBmsView::setupScreen() {ScreenBmsViewBase::setupScreen(); refresh();
     setupTheme();
 }
 void ScreenBmsView::tearDownScreen() {ScreenBmsViewBase::tearDownScreen();}
-void ScreenBmsView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=8){divider=0;refresh();}}
+void ScreenBmsView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=2){divider=0;refresh();}}
 void ScreenBmsView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
 void ScreenBmsView::allOff() {psu_app_shutdown();notify("PSU OFF requested - stopping LDO, DCDC and automation");}
 void ScreenBmsView::refresh() {
@@ -25,7 +25,7 @@ void ScreenBmsView::refresh() {
     lab_enable(RefreshButton,true);
 }
 void ScreenBmsView::initializeBms() {notify(psu_app_bms_cmd("BMS")?"BMS initialization requested; waiting for reported status":"BMS request blocked");}
-void ScreenBmsView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"Refresh requested - waiting for T / TB / TC":"Command queue full");}
+void ScreenBmsView::refreshTelemetry() {notify(g4_simple(psu_g4(),"STATUS",0)?"PING sent - telemetry streams automatically":"Command queue full");}
 
 void ScreenBmsView::setupTheme()
 {

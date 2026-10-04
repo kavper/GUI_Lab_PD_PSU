@@ -24,7 +24,7 @@ void ScreenDiagnosticsView::refresh(){
  TBButton.setBitmaps(touchgfx::Bitmap(kind==1?BITMAP_BTN_BACK_PRS_112X48_ID:BITMAP_BTN_BACK_REL_112X48_ID),touchgfx::Bitmap(BITMAP_BTN_BACK_PRS_112X48_ID));TBButton.invalidate();
  TCButton.setBitmaps(touchgfx::Bitmap(kind==2?BITMAP_BTN_BACK_PRS_112X48_ID:BITMAP_BTN_BACK_REL_112X48_ID),touchgfx::Bitmap(BITMAP_BTN_BACK_PRS_112X48_ID));TCButton.invalidate();
  TelemetryRecord rec(kind);G4Port* host=psu_g4();char b[1600];
- snprintf(b,sizeof(b),"%s / %s / RX %lu / parse errors %lu / ACK %lu / ERR %lu",kind==0?"T":kind==1?"TB":"TC",rec.fresh?"LIVE":"STALE",(unsigned long)host->rx_lines,(unsigned long)host->parse_error_count,(unsigned long)host->ack_count,(unsigned long)host->err_count);
+ snprintf(b,sizeof(b),"%s / %s / RX %lu / parse errors %lu / ACK %lu / ERR %lu",kind==0?"METER":kind==1?"BMS":"PD",rec.fresh?"LIVE":"STALE",(unsigned long)host->rx_lines,(unsigned long)host->parse_error_count,(unsigned long)host->ack_count,(unsigned long)host->err_count);
  lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,b,rec.fresh?lab_muted():lab_amber());
  unsigned count=0;while(g4_record_key(kind,count))++count;
  char source[G4_RX_LINE_MAX];g4_raw_snapshot(host,kind,source,sizeof(source));
@@ -101,6 +101,7 @@ void ScreenDiagnosticsView::setupTheme()
     theme.button(BackButton,ui::NORMAL);
     theme.button(ParsedButton,ui::NORMAL);
     theme.button(RawButton,ui::NORMAL);
+    theme.button(SenseDetailsButton,ui::NORMAL);
     theme.button(TButton,ui::NORMAL);
     theme.button(TBButton,ui::NORMAL);
     theme.button(TCButton,ui::NORMAL);
