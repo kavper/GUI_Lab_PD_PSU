@@ -103,7 +103,25 @@ touchgfx::Rect ThemedSurface::getSolidRect() const {
 void ThemedSurface::draw(const touchgfx::Rect& area) const {
     if(!original)return;
     touchgfx::Rect rect=getAbsoluteRect(),clip=area;clip.x+=rect.x;clip.y+=rect.y;
-    if(style==SELECTION){fill(touchgfx::Rect(rect.x,rect.y,3,rect.height),clip,Theme::color(ACCENT));return;}
+    if(style==SELECTION){
+        const touchgfx::colortype accent=Theme::color(ACCENT);
+        const touchgfx::colortype shadow=Theme::color(BACKGROUND);
+        // A transparent, raised selection frame.  It keeps the setpoint text
+        // readable, while the bright top/left edge and darker bottom/right
+        // edge make the selected tile visibly sit above its neighbour.
+        fill(touchgfx::Rect(rect.x+8,rect.y,rect.width-16,2),clip,accent);
+        fill(touchgfx::Rect(rect.x+3,rect.y+2,5,2),clip,accent,210);
+        fill(touchgfx::Rect(rect.right()-8,rect.y+2,5,2),clip,accent,210);
+        fill(touchgfx::Rect(rect.x,rect.y+8,3,rect.height-16),clip,accent);
+        fill(touchgfx::Rect(rect.right()-2,rect.y+8,2,rect.height-16),clip,accent,190);
+        fill(touchgfx::Rect(rect.x+8,rect.bottom()-2,rect.width-16,2),clip,accent,190);
+        fill(touchgfx::Rect(rect.x+5,rect.bottom()-5,rect.width-10,3),clip,shadow,90);
+        fill(touchgfx::Rect(rect.right()-5,rect.y+5,3,rect.height-10),clip,shadow,90);
+        // Keep the existing vertical cyan cue, but give it breathing room at
+        // the rounded ends instead of drawing a full-height hard edge.
+        fill(touchgfx::Rect(rect.x,rect.y+12,5,rect.height-24),clip,accent);
+        return;
+    }
     if(style==ICON && image){
         fill(rect,clip,Theme::color(selected()?ACCENT_SOFT:SURFACE));
         const touchgfx::Bitmap bitmap=image->getBitmap();

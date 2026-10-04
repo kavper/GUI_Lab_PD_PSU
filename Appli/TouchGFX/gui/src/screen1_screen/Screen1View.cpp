@@ -248,7 +248,6 @@ void Screen1View::showEditorStatus(const char* text, bool warning)
 {
     touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text), EditorStatusBuffer, EDITORSTATUS_SIZE);
     editorNoticeTicks=180;
-    EditorHeading.setVisible(false); EditorHeading.invalidate();
     EditorStatus.setVisible(true);
     EditorStatus.setColor(ui::Theme::color(warning ? ui::CAUTION : ui::POSITIVE));
     EditorStatus.invalidate();
@@ -256,11 +255,8 @@ void Screen1View::showEditorStatus(const char* text, bool warning)
 
 void Screen1View::refreshEditor()
 {
-    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(editTarget == EDIT_VOLTAGE ? "VOLTAGE  /  0-27 V" : "CURRENT  /  0-5 A"),EditorHeadingBuffer,EDITORHEADING_SIZE);
-    EditorHeading.invalidate();
     editorNoticeTicks=0;
     EditorStatus.setVisible(false);
-    EditorHeading.setVisible(true);
     EditorStatus.invalidate();
     char displayAscii[16];
     snprintf(displayAscii, sizeof(displayAscii), "%s %c", editAscii,
@@ -318,10 +314,10 @@ void Screen1View::selectVoltage()
     CurrentSelection.setVisible(false);
     VoltageSelection.invalidate();
     CurrentSelection.invalidate();
-    SetVoltageLabel.setColor(touchgfx::Color::getColorFromRGB(36, 87, 230));
-    SetVoltageValue.setColor(touchgfx::Color::getColorFromRGB(36, 87, 230));
-    SetCurrentLabel.setColor(touchgfx::Color::getColorFromRGB(96, 112, 133));
-    SetCurrentValue.setColor(touchgfx::Color::getColorFromRGB(23, 35, 55));
+    SetVoltageLabel.setColor(ui::Theme::color(ui::ACCENT));
+    SetVoltageValue.setColor(ui::Theme::color(ui::ACCENT));
+    SetCurrentLabel.setColor(ui::Theme::color(ui::MUTED));
+    SetCurrentValue.setColor(ui::Theme::color(ui::TEXT));
     SetVoltageLabel.invalidate(); SetVoltageValue.invalidate();
     SetCurrentLabel.invalidate(); SetCurrentValue.invalidate();
     loadEditorFromSetpoint();
@@ -336,10 +332,10 @@ void Screen1View::selectCurrent()
     CurrentSelection.setVisible(true);
     VoltageSelection.invalidate();
     CurrentSelection.invalidate();
-    SetVoltageLabel.setColor(touchgfx::Color::getColorFromRGB(96, 112, 133));
-    SetVoltageValue.setColor(touchgfx::Color::getColorFromRGB(23, 35, 55));
-    SetCurrentLabel.setColor(touchgfx::Color::getColorFromRGB(36, 87, 230));
-    SetCurrentValue.setColor(touchgfx::Color::getColorFromRGB(36, 87, 230));
+    SetVoltageLabel.setColor(ui::Theme::color(ui::MUTED));
+    SetVoltageValue.setColor(ui::Theme::color(ui::TEXT));
+    SetCurrentLabel.setColor(ui::Theme::color(ui::ACCENT));
+    SetCurrentValue.setColor(ui::Theme::color(ui::ACCENT));
     SetVoltageLabel.invalidate(); SetVoltageValue.invalidate();
     SetCurrentLabel.invalidate(); SetCurrentValue.invalidate();
     loadEditorFromSetpoint();
@@ -579,8 +575,7 @@ void Screen1View::restoreSwipeEditor(const MainSwipeEditorState& state)
     EditorStatus.setColor(state.statusColor);
     editorNoticeTicks=state.statusTicks;
     EditorStatus.setVisible(editorNoticeTicks!=0);
-    EditorHeading.setVisible(editorNoticeTicks==0);
-    EditorHeading.invalidate();EditorStatus.invalidate();
+    EditorStatus.invalidate();
 }
 
 void Screen1View::setupTheme()
@@ -636,7 +631,6 @@ void Screen1View::setupTheme()
     theme.text(VoltageMaxHint);
     theme.text(CurrentMaxHint);
     theme.text(LinkStatus);
-    theme.text(EditorHeading,ui::ACCENT);
     theme.text(EditorStatus);
     theme.text(EditorHelp);
     theme.text(QuickPreset1);
@@ -649,7 +643,7 @@ void Screen1View::handleTickEvent()
 {
     if(static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->isScreenTransitionActive())return;
     if(editorNoticeTicks && --editorNoticeTicks==0) {
-        EditorStatus.setVisible(false);EditorHeading.setVisible(true);
-        EditorStatus.invalidate();EditorHeading.invalidate();
+        EditorStatus.setVisible(false);
+        EditorStatus.invalidate();
     }
 }

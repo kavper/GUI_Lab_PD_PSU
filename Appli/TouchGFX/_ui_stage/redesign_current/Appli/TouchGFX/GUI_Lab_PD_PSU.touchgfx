@@ -1140,26 +1140,6 @@
               "UseBuffer": true,
               "BufferSize": 40
             }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "EditorHeading",
-            "X": 524,
-            "Y": 88,
-            "Width": 252,
-            "Height": 24,
-            "TextId": "TXT_MAIN_EDITOR_HEADING",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 251,
-              "Green": 191,
-              "Blue": 36
-            },
-            "Wildcard1": {
-              "TextId": "TXT_EDITOR_INITIAL",
-              "UseBuffer": true,
-              "BufferSize": 40
-            }
           }
         ],
         "Interactions": [
