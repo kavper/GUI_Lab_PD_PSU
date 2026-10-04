@@ -6,7 +6,7 @@
 #include <touchgfx/lcd/LCD.hpp>
 #include <stdlib.h>
 #include <simulator/mainBase.hpp>
-#include "ThemeSelfTest.hpp"
+#include "UsbSelfTest.hpp"
 
 using namespace touchgfx;
 
@@ -26,7 +26,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
     touchgfx::NoDMA dma; //For windows/linux, DMA transfers are simulated
     LCD& lcd = setupLCD();
-    ThemeSelfTest tc;
+    UsbSelfTest tc;
 
     touchgfx::HAL& hal = touchgfx::touchgfx_generic_init<touchgfx::HALSDL2>(dma, lcd, tc, SIM_WIDTH, SIM_HEIGHT, 0, 0);
 

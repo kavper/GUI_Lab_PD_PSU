@@ -1,0 +1,17 @@
+state valid=1 position=17 target=17
+PASS stage 0
+state valid=1 position=-165 target=-165
+PASS stage 1
+state valid=1 position=0 target=0
+PASS stage 2
+state valid=1 position=344 target=344
+PASS stage 3
+state valid=0 position=344 target=0
+PASS stage 4
+state valid=0 position=344 target=0
+PASS stage 5
+state valid=1 position=17 target=17
+PASS stage 6
+state valid=1 position=17 target=17
+PASS stage 7
+PASS charging, discharging, zero, saturation, invalid, stale, OTG and light theme

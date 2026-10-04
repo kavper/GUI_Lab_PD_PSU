@@ -1736,8 +1736,44 @@
       <Text Id="TXT_MAIN_EDITOR_HEADING" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_MAIN_STATUS_LABEL" Alignment="Left" TypographyId="UiEyebrow">
-        <Translation Language="GB">SETPOINT STATUS</Translation>
+      <Text Id="TXT_USB_CONTRACT" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">ACTIVE CONTRACT</Translation>
+      </Text>
+      <Text Id="TXT_USB_MEASURED" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">USB-C / MEASURED</Translation>
+      </Text>
+      <Text Id="TXT_USB_VOLTAGE" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Voltage</Translation>
+      </Text>
+      <Text Id="TXT_USB_CURRENT" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Current</Translation>
+      </Text>
+      <Text Id="TXT_USB_POWER" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Power</Translation>
+      </Text>
+      <Text Id="TXT_USB_BATTERY" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">BATTERY / BMS POWER</Translation>
+      </Text>
+      <Text Id="TXT_USB_READING" Alignment="Right" TypographyId="UsbReading">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_USB_ROLE" Alignment="Right" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_USB_DETAIL" Alignment="Right" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_USB_DISCHARGE" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">-100 W / DISCHARGING</Translation>
+      </Text>
+      <Text Id="TXT_USB_CHARGE" Alignment="Right" TypographyId="UiCaption">
+        <Translation Language="GB">CHARGING / +100 W</Translation>
+      </Text>
+      <Text Id="TXT_USB_ZERO" Alignment="Center" TypographyId="UiCaption">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="TXT_USB_POWER_VALUE" Alignment="Center" TypographyId="UsbPower">
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
     </TextGroup>
   </Texts>
@@ -1745,7 +1781,7 @@
     <Typography Id="Title" Font="IBMPlexSans-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="Label" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="Small" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
-    <Typography Id="Value" Font="IBMPlexMono-Regular.ttf" Size="48" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ-|" WildcardCharacterRanges="0-9" />
+    <Typography Id="Value" Font="IBMPlexMono-Regular.ttf" Size="60" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ-|" WildcardCharacterRanges="0-9" />
     <Typography Id="SetValue" Font="IBMPlexMono-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" WildcardCharacterRanges="0-9" />
     <Typography Id="LimitHint" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="HeaderLabel" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
@@ -1775,5 +1811,7 @@
     <Typography Id="UiState" Font="IBMPlexSans-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
     <Typography Id="TelemetryMetric" Font="IBMPlexMono-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
     <Typography Id="TelemetryDetails" Font="IBMPlexMono-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
+    <Typography Id="UsbReading" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. -VAW+" />
+    <Typography Id="UsbPower" Font="IBMPlexMono-Regular.ttf" Size="40" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. -W+" />
   </Typographies>
 </TextDatabase>

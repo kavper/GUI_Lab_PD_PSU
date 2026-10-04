@@ -623,7 +623,6 @@ void Screen1View::setupTheme()
     theme.text(CurrentMaxHint);
     theme.text(LinkStatus);
     theme.text(EditorHeading,ui::ACCENT);
-    theme.text(EditorStatusLabel,ui::MUTED);
     theme.text(EditorStatus);
     theme.text(EditorHelp);
     theme.text(QuickPreset1);

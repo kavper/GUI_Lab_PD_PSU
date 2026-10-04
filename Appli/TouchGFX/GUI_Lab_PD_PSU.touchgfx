@@ -363,9 +363,9 @@
           {
             "Type": "TextArea",
             "Name": "ActualVoltageLabel",
-            "X": 32,
-            "Y": 94,
-            "Width": 272,
+            "X": 24,
+            "Y": 99,
+            "Width": 288,
             "Height": 24,
             "TextId": "TXT_ACTUAL_V",
             "TextRotation": "0",
@@ -378,10 +378,10 @@
           {
             "Type": "TextArea",
             "Name": "ActualVoltageValue",
-            "X": 32,
-            "Y": 122,
-            "Width": 272,
-            "Height": 64,
+            "X": 24,
+            "Y": 130,
+            "Width": 288,
+            "Height": 82,
             "TextId": "TXT_VOLTAGE_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -433,9 +433,9 @@
           {
             "Type": "TextArea",
             "Name": "ActualCurrentLabel",
-            "X": 32,
-            "Y": 254,
-            "Width": 272,
+            "X": 24,
+            "Y": 259,
+            "Width": 288,
             "Height": 24,
             "TextId": "TXT_ACTUAL_I",
             "TextRotation": "0",
@@ -448,10 +448,10 @@
           {
             "Type": "TextArea",
             "Name": "ActualCurrentValue",
-            "X": 32,
-            "Y": 282,
-            "Width": 272,
-            "Height": 64,
+            "X": 24,
+            "Y": 290,
+            "Width": 288,
+            "Height": 82,
             "TextId": "TXT_CURRENT_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -1061,9 +1061,9 @@
             "Type": "TextArea",
             "Name": "EditorStatus",
             "X": 524,
-            "Y": 434,
+            "Y": 421,
             "Width": 248,
-            "Height": 24,
+            "Height": 28,
             "TextId": "TXT_EDITOR_STATUS",
             "TextRotation": "0",
             "Color": {
@@ -1171,21 +1171,6 @@
               "TextId": "TXT_EDITOR_INITIAL",
               "UseBuffer": true,
               "BufferSize": 40
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "EditorStatusLabel",
-            "X": 524,
-            "Y": 412,
-            "Width": 248,
-            "Height": 18,
-            "TextId": "TXT_MAIN_STATUS_LABEL",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
             }
           }
         ],
@@ -8109,12 +8094,34 @@
             "TextRotation": "0"
           },
           {
+            "Type": "ButtonWithLabel",
+            "Name": "AllOffButton",
+            "X": 548,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "ui_danger_prs_112x48.png",
+            "Released": "ui_danger_rel_112x48.png",
+            "TextId": "TXT_ALL_PSU_OFF",
+            "ReleasedColor": {
+              "Red": 180,
+              "Green": 62,
+              "Blue": 69
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
             "Type": "Box",
-            "Name": "MetricCard0",
+            "Name": "ContractCard",
             "X": 16,
             "Y": 80,
-            "Width": 180,
-            "Height": 96,
+            "Width": 376,
+            "Height": 160,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -8122,95 +8129,25 @@
             }
           },
           {
-            "Type": "TextArea",
-            "Name": "MetricLabel0",
-            "X": 28,
-            "Y": 92,
-            "Width": 156,
-            "Height": 22,
-            "TextId": "TXT_ScreenUsbPd_LABEL0",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "Metric0",
-            "X": 28,
-            "Y": 127,
-            "Width": 156,
-            "Height": 44,
-            "TextId": "TXT_TELEM_METRIC",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 232,
-              "Green": 238,
-              "Blue": 248
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 32
-            }
-          },
-          {
             "Type": "Box",
-            "Name": "MetricCard1",
-            "X": 212,
-            "Y": 80,
-            "Width": 180,
-            "Height": 96,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "MetricLabel1",
-            "X": 224,
-            "Y": 92,
-            "Width": 156,
-            "Height": 22,
-            "TextId": "TXT_ScreenUsbPd_LABEL1",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "Metric1",
-            "X": 224,
-            "Y": 127,
-            "Width": 156,
-            "Height": 44,
-            "TextId": "TXT_TELEM_METRIC",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 232,
-              "Green": 238,
-              "Blue": 248
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 32
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "MetricCard2",
+            "Name": "MeasuredCard",
             "X": 408,
             "Y": 80,
-            "Width": 180,
-            "Height": 96,
+            "Width": 376,
+            "Height": 160,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "BatteryCard",
+            "X": 16,
+            "Y": 252,
+            "Width": 768,
+            "Height": 152,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -8219,75 +8156,307 @@
           },
           {
             "Type": "TextArea",
-            "Name": "MetricLabel2",
-            "X": 420,
+            "Name": "ContractHeading",
+            "X": 32,
             "Y": 92,
-            "Width": 156,
-            "Height": 22,
-            "TextId": "TXT_ScreenUsbPd_LABEL2",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "Metric2",
-            "X": 420,
-            "Y": 127,
-            "Width": 156,
-            "Height": 44,
-            "TextId": "TXT_TELEM_METRIC",
+            "Width": 230,
+            "Height": 24,
+            "TextId": "TXT_USB_CONTRACT",
             "TextRotation": "0",
             "Color": {
               "Red": 232,
               "Green": 238,
               "Blue": 248
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 32
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "MetricCard3",
-            "X": 604,
-            "Y": 80,
-            "Width": 180,
-            "Height": 96,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "MetricLabel3",
-            "X": 616,
-            "Y": 92,
-            "Width": 156,
-            "Height": 22,
-            "TextId": "TXT_ScreenUsbPd_LABEL3",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
             }
           },
           {
             "Type": "TextArea",
             "Name": "Metric3",
-            "X": 616,
-            "Y": 127,
-            "Width": 156,
-            "Height": 44,
-            "TextId": "TXT_TELEM_METRIC",
+            "X": 270,
+            "Y": 92,
+            "Width": 106,
+            "Height": 24,
+            "TextId": "TXT_USB_ROLE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 32
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "MeasuredHeading",
+            "X": 424,
+            "Y": 92,
+            "Width": 344,
+            "Height": 24,
+            "TextId": "TXT_USB_MEASURED",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ContractLabel0",
+            "X": 32,
+            "Y": 129,
+            "Width": 100,
+            "Height": 22,
+            "TextId": "TXT_USB_VOLTAGE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Metric0",
+            "X": 140,
+            "Y": 122,
+            "Width": 236,
+            "Height": 38,
+            "TextId": "TXT_USB_READING",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 32
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "MeasuredLabel0",
+            "X": 424,
+            "Y": 129,
+            "Width": 100,
+            "Height": 22,
+            "TextId": "TXT_USB_VOLTAGE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Measured0",
+            "X": 532,
+            "Y": 122,
+            "Width": 236,
+            "Height": 38,
+            "TextId": "TXT_USB_READING",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 32
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ContractLabel1",
+            "X": 32,
+            "Y": 165,
+            "Width": 100,
+            "Height": 22,
+            "TextId": "TXT_USB_CURRENT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Metric1",
+            "X": 140,
+            "Y": 158,
+            "Width": 236,
+            "Height": 38,
+            "TextId": "TXT_USB_READING",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 32
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "MeasuredLabel1",
+            "X": 424,
+            "Y": 165,
+            "Width": 100,
+            "Height": 22,
+            "TextId": "TXT_USB_CURRENT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Measured1",
+            "X": 532,
+            "Y": 158,
+            "Width": 236,
+            "Height": 38,
+            "TextId": "TXT_USB_READING",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 32
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ContractLabel2",
+            "X": 32,
+            "Y": 201,
+            "Width": 100,
+            "Height": 22,
+            "TextId": "TXT_USB_POWER",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Metric2",
+            "X": 140,
+            "Y": 194,
+            "Width": 236,
+            "Height": 38,
+            "TextId": "TXT_USB_READING",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 32
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "MeasuredLabel2",
+            "X": 424,
+            "Y": 201,
+            "Width": 100,
+            "Height": 22,
+            "TextId": "TXT_USB_POWER",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Measured2",
+            "X": 532,
+            "Y": 194,
+            "Width": 236,
+            "Height": 38,
+            "TextId": "TXT_USB_READING",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 32
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BatteryHeading",
+            "X": 32,
+            "Y": 264,
+            "Width": 230,
+            "Height": 24,
+            "TextId": "TXT_USB_BATTERY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BatteryDetail",
+            "X": 440,
+            "Y": 267,
+            "Width": 328,
+            "Height": 22,
+            "TextId": "TXT_USB_DETAIL",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 80
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BatteryPower",
+            "X": 272,
+            "Y": 288,
+            "Width": 256,
+            "Height": 52,
+            "TextId": "TXT_USB_POWER_VALUE",
             "TextRotation": "0",
             "Color": {
               "Red": 232,
@@ -8302,98 +8471,112 @@
           },
           {
             "Type": "Box",
-            "Name": "LeftCard",
-            "X": 16,
-            "Y": 192,
-            "Width": 376,
-            "Height": 158,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "LeftHeading",
-            "X": 32,
-            "Y": 202,
+            "Name": "GaugeDischarge",
+            "X": 56,
+            "Y": 340,
             "Width": 344,
-            "Height": 24,
-            "TextId": "TXT_ScreenUsbPdLeft",
-            "TextRotation": "0",
+            "Height": 8,
             "Color": {
               "Red": 251,
               "Green": 191,
               "Blue": 36
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "LeftDetails",
-            "X": 32,
-            "Y": 234,
-            "Width": 344,
-            "Height": 108,
-            "TextId": "TXT_TELEM_DETAILS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 232,
-              "Green": 238,
-              "Blue": 248
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 512
             }
           },
           {
             "Type": "Box",
-            "Name": "RightCard",
-            "X": 408,
-            "Y": 192,
-            "Width": 376,
-            "Height": 158,
+            "Name": "GaugeCharge",
+            "X": 400,
+            "Y": 340,
+            "Width": 344,
+            "Height": 8,
             "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
+              "Red": 45,
+              "Green": 212,
+              "Blue": 191
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "GaugeZero",
+            "X": 399,
+            "Y": 334,
+            "Width": 2,
+            "Height": 20,
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "GaugeFill",
+            "X": 400,
+            "Y": 337,
+            "Width": 1,
+            "Height": 14,
+            "Color": {
+              "Red": 45,
+              "Green": 212,
+              "Blue": 191
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "GaugeNeedle",
+            "X": 398,
+            "Y": 330,
+            "Width": 4,
+            "Height": 28,
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
             "Type": "TextArea",
-            "Name": "RightHeading",
-            "X": 424,
-            "Y": 202,
-            "Width": 344,
-            "Height": 24,
-            "TextId": "TXT_ScreenUsbPdRight",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 251,
-              "Green": 191,
-              "Blue": 36
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "RightDetails",
-            "X": 424,
-            "Y": 234,
-            "Width": 344,
-            "Height": 108,
-            "TextId": "TXT_TELEM_DETAILS",
+            "Name": "DischargeLabel",
+            "X": 56,
+            "Y": 362,
+            "Width": 230,
+            "Height": 22,
+            "TextId": "TXT_USB_DISCHARGE",
             "TextRotation": "0",
             "Color": {
               "Red": 232,
               "Green": 238,
               "Blue": 248
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 512
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ZeroLabel",
+            "X": 380,
+            "Y": 362,
+            "Width": 40,
+            "Height": 22,
+            "TextId": "TXT_USB_ZERO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ChargeLabel",
+            "X": 530,
+            "Y": 362,
+            "Width": 214,
+            "Height": 22,
+            "TextId": "TXT_USB_CHARGE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
@@ -8483,43 +8666,6 @@
               "Blue": 55
             },
             "TextRotation": "0"
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "AllOffButton",
-            "X": 548,
-            "Y": 8,
-            "Width": 112,
-            "Height": 48,
-            "Pressed": "ui_danger_prs_112x48.png",
-            "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
-            "ReleasedColor": {
-              "Red": 180,
-              "Green": 62,
-              "Blue": 69
-            },
-            "PressedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "TextRotation": "0"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "CapabilityNote",
-            "X": 24,
-            "Y": 360,
-            "Width": 756,
-            "Height": 50,
-            "TextId": "TXT_PD_CAPABILITY",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            }
           }
         ],
         "Interactions": [

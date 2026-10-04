@@ -4,6 +4,7 @@
 #include <gui/screenusbpd_screen/ScreenUsbPdPresenter.hpp>
 #include <stdint.h>
 class ScreenUsbPdView : public ScreenUsbPdViewBase {
+    friend class UsbSelfTest;
 public:
     void setupTheme();
     ScreenUsbPdView();
@@ -19,6 +20,9 @@ public:
     virtual void roleSource();
     virtual void refreshTelemetry();
 protected:
+    int16_t gaugePosition, gaugeTarget;
+    bool gaugeValid;
+    void animateGauge();
     uint8_t divider;
     uint16_t noticeTicks;
     char notice[100];
