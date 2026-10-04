@@ -64,10 +64,10 @@ void ScreenDiagnosticsView::refresh(){
 
  lab_enable(UpButton,offset>0);lab_enable(DownButton,offset<maxOffset);
  PsuSnapshot live;psu_snapshot(&live);
- const char* phase=live.output_phase==G4_OUTPUT_STARTING?"START":live.output_phase==G4_OUTPUT_RUNNING?"RUN":"OFF";
- snprintf(b,sizeof(b),"H7 ON [%s%s]: %s\nLast local rejection: %s\nG4 fault=0x%lX ctrl=%u latch=%u | G0 fault=0x%lX kill=%u",
+ const char* phase=live.output_phase==G4_OUTPUT_STARTING?"START":live.output_phase==G4_OUTPUT_RUNNING?"RUN":live.output_phase==G4_OUTPUT_STOPPING?"STOP":"OFF";
+ snprintf(b,sizeof(b),"H7 ON [%s%s]: %s\nEvent: %s\nG4 fault=0x%lX ctrl=%u latch=%u | G0 fault=0x%lX kill=%u",
      phase,live.fault_latched?" / LATCH":"",live.on_block_reason,
-     live.last_on_reject[0]?live.last_on_reject:"none",
+     live.fault_latched?live.fault_context:(live.last_on_reject[0]?live.last_on_reject:"none"),
      (unsigned long)host->telemetry.fault,host->telemetry.ctrl,host->telemetry.fault_latch,
      (unsigned long)host->telemetry.g0_fault,host->telemetry.kill);
  size_t used=strlen(b);

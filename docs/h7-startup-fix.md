@@ -26,7 +26,41 @@ its timeout is 8000 ms. No changes or PERMIT overrides were made in either peer.
 | --- | --- |
 | OFF, no output/want, G4 ctrl IDLE or stopping, no control latch | MEAS_LOST, POWER_KILL and VIN_LOW are readiness states. Other fault bits still latch. |
 | Accepted user ON, no output, G4 ctrl 0..3 (IDLE/WAIT_LINK/WAIT_PERMIT/WAIT_VIN), no control latch | Allow delayed G0 freshness, MEAS_LOST, POWER_KILL and VIN_LOW while G4 starts its own sequence. METER must remain fresh; whole start is bounded by 8 seconds. |
-| Later startup or RUNNING (G0 output, ctrl RUNNING or ON ACK) | Measurement/link loss and POWER_KILL trip priority OFF and latch. VIN_LOW and other real fault bits are actionable. |
+| Later STARTING ctrl 4..8, still no output/control latch | POWER_KILL may wait for G4's PERMIT retry; measurement/link loss, VIN_LOW and other faults trip OFF/latch. |
+| RUNNING (G0 output, ctrl RUNNING or ON ACK) | Measurement/link loss and POWER_KILL trip priority OFF and latch. VIN_LOW and other real fault bits are actionable. |
+| Explicit OFF / STOPPING, output already off, ctrl <12 | Delayed want/ctrl/kill convergence is allowed for at most 800 ms; real faults remain actionable. |
+
+### Follow-up: delayed POWER_KILL and explicit stopping
+
+The photo from hardware running the first fix shows a local H7 `G0 POWER_KILL`
+latch with current G4 fault=0, ctrl=0, control latch=0, G0 fault=0 and kill=1.
+That is the state after the trip, not proof of the exact originating phase. The
+unmatched ON NACK UNSAFE is consistent with G4 cancelling ON after H7 OFF;
+`HostLink_ApplyOff()` does exactly that while `s_on_wait` is true.
+
+The previous H7 exception ended at ctrl=3. This missed G4 ctrl=7 SEND_OUT_ON,
+which explicitly returns to WAIT_PERMIT when `kill_reported` is set, and ctrl=8
+WAIT_OUT_ON_ACK, where `Ldo_RejectOutOn()` can return WAIT_PERMIT. METER mixes
+G4 control state and the last G0 sample, so a delayed kill bit must not make H7
+abort that recovery before G0 output / G4 RUNNING / ON ACK is confirmed.
+
+The corrected policy exempts only POWER_KILL throughout accepted STARTING
+ctrl=0..8, with no output and no control latch. MEAS_LOST/VIN_LOW still get only
+the earlier ctrl=0..3 exception. Running raw kill=1 remains an emergency even
+with a zero G0 fault mask. Actual G4/G0 faults, freshness checks, and 8-second
+startup timeout remain active. Explicit OFF now has STOPPING until the complete
+stopped telemetry arrives (bounded by 800 ms); delayed want/ctrl/kill flags after
+that user OFF do not create a false new latch while output is already off.
+
+Diagnostics preserves the originating METER for the first actionable event and
+prints `TRIP phase, ctrl, o/w/p/k, G4, G0, age`, so later idle packets cannot hide
+the cause. `o/w/p/k` means output / wanted / permit / kill. Phase numbers are
+0=OFF, 1=STARTING, 2=RUNNING, 3=STOPPING. The main SET rejection also displays
+the actual latch reason instead of the generic "Blocked - check protection".
+
+Additional tests reproduce late startup kill=1 with G0 fault=0, G4 retry to
+WAIT_PERMIT, delayed OFF convergence, raw kill during RUNNING and origin-frame
+preservation. This follow-up has not been flashed or validated on hardware.
 
 ON requires METER age <=50 ms, valid G0 telemetry age <=500 ms, no MEAS_LOST,
 no real/control fault, no H7 latch and no shutdown. It does not require PERMIT to

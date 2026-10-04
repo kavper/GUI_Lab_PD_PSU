@@ -124,6 +124,7 @@ typedef struct
   uint8_t output_phase;
   char on_block_reason[64];
   char last_on_reject[64];
+  char fault_context[128];
   uint8_t nack_valid, nack_type, nack_seq, nack_reason, nack_matched;
   uint16_t last_cmd_id;
   uint8_t last_cmd_state;

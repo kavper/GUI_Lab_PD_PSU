@@ -488,7 +488,8 @@ void Screen1View::submitSetpoints()
     refreshSetpoints();
     loadEditorFromSetpoint();
     replaceOnNextKey = true;
-    showEditorStatus(!accepted ? "Blocked - check protection" :
+    showEditorStatus(!accepted ? (current.fault_latched ? current.fault :
+                     current.power_shutdown_requested ? "POWER SHUTDOWN" : "SET TRANSPORT BUSY") :
                      limited ? "Limited by protection" : "Setpoint requested", !accepted || limited);
 }
 

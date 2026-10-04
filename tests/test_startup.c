@@ -75,6 +75,10 @@ int main(void) {
   assert_off_latched("POWER_KILL",20);
   tick_meter(21,0,0,0,1);assert(!snapshot().output_requested);
   puts("PASS: POWER_KILL during RUNNING is an emergency");
+  start_running();tick_meter(20,0,9,0xe7,1);
+  assert_off_latched("POWER_KILL",20);
+  tick_meter(21,0,0,4,1);assert(strstr(snapshot().fault_context,"ctrl=9"));
+  puts("PASS: raw kill=1 with zero G0 fault mask still trips during RUNNING; origin preserved");
 
   reset_off(G4_G0_POWER_KILL|G4_G0_VIN_LOW);
   assert(psu_app_set_output(1,PSU_SRC_LCD));uint8_t seq=transmit(11,2);
@@ -93,8 +97,29 @@ int main(void) {
   puts("PASS: complete delayed G0 start; no automatic OFF or forced PERMIT");
 
   reset_off(0);assert(psu_app_set_output(1,PSU_SRC_LCD));transmit(11,2);
-  tick_meter(20,G4_G0_POWER_KILL,4,0x26,1);assert_off_latched("POWER_KILL",20);
-  puts("PASS: POWER_KILL exemption ends after WAIT_VIN");
+  for(uint8_t ctrl=4;ctrl<=8;ctrl++) {
+    tick_meter(20+ctrl,0,ctrl,0x26,1); /* delayed raw kill; mask itself is zero */
+    assert(!snapshot().fault_latched&&snapshot().output_requested);
+    assert(!g4_pop_frame(psu_g4(),wire,sizeof(wire),20+ctrl));
+  }
+  tick_meter(30,0,2,0x46,1); /* G4 handles retry back to WAIT_PERMIT */
+  tick_meter(31,0,7,0xe2,1);tick_meter(32,0,9,0xe3,1);
+  assert(!snapshot().fault_latched&&snapshot().output_confirmed);
+  puts("PASS: late startup POWER_KILL with G0 fault=0 allows G4 PERMIT retry");
+
+  reset_off(0);assert(psu_app_set_output(1,PSU_SRC_LCD));transmit(11,2);
+  tick_meter(20,G4_G0_MEAS_LOST,4,0xe2,1);assert_off_latched("MEAS_LOST",20);
+  assert(strstr(snapshot().fault_context,"ctrl=4"));
+  puts("PASS: late-start measurement fault still trips and records originating frame");
+
+  start_running();assert(psu_app_shutdown());transmit(20,3);
+  tick_meter(21,0,8,0x26,1);assert(!snapshot().fault_latched);
+  assert(snapshot().output_phase==G4_OUTPUT_STOPPING);
+  assert(!psu_app_set_output(1,PSU_SRC_LCD));
+  tick_meter(22,0,0,4,1);assert(!snapshot().fault_latched);
+  assert(snapshot().output_phase==G4_OUTPUT_IDLE);
+  assert(psu_app_set_output(1,PSU_SRC_LCD));
+  puts("PASS: explicit OFF permits delayed want/ctrl/kill convergence; ON waits for stopped state");
 
   start_running();psu_app_tick(63);assert_off_latched("METER STALE",63);
   tick_meter(64,0,0,0,1);assert(snapshot().fault_latched&&!snapshot().output_requested);

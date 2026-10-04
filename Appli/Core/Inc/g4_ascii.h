@@ -18,7 +18,7 @@ extern "C" {
 #define G4_SETPOINT_GAP_MS 0u
 #define G4_CMD_TIMEOUT_MS 800u
 
-enum { G4_OUTPUT_IDLE, G4_OUTPUT_STARTING, G4_OUTPUT_RUNNING };
+enum { G4_OUTPUT_IDLE, G4_OUTPUT_STARTING, G4_OUTPUT_RUNNING, G4_OUTPUT_STOPPING };
 enum { G4_G0_POWER_KILL = 1u << 2, G4_G0_VIN_LOW = 1u << 3,
        G4_G0_MEAS_LOST = 1u << 8 };
 
@@ -132,6 +132,8 @@ typedef struct
 
   uint32_t ack_count, err_count, event_fault, event_g0_fault;
   uint8_t event_ctrl_fault, event_g0_stale, output_phase;
+  G4Telemetry event_meter;
+  uint8_t event_phase;
   uint8_t nack_valid, nack_type, nack_seq, nack_matched;
   uint32_t nack_ms;
   uint16_t active_id, response_id, last_tx_id;

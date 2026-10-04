@@ -57,7 +57,7 @@ static char lease_client[24];
 static uint8_t g0_seen;
 static uint32_t host_serial, host_tx_count;
 static uint8_t clear_ack_pending;
-static uint32_t clear_ack_serial, startup_ms;
+static uint32_t clear_ack_serial, startup_ms, stop_ms;
 static uint32_t energy_ms;
 static uint8_t energy_seen;
 static char web_page_storage[4096];
@@ -241,7 +241,7 @@ void psu_app_init(void)
   cmd_count = 0U;
   host_serial = host_tx_count = 0U;
   clear_ack_pending = 0U;
-  clear_ack_serial = startup_ms = app_now = 0U;
+  clear_ack_serial = startup_ms = stop_ms = app_now = 0U;
   energy_seen=0;energy_ms=0;
   g0_seen = 0U;
   g4_init(&g4);
@@ -295,6 +295,7 @@ static const char *on_block(uint8_t source)
   if (snap.fault_latched) return snap.fault;
   if (source == PSU_SRC_WEB && !remote_access) return "REMOTE ACCESS DISABLED";
   if (snap.shutdown_pending) return "WAITING FOR OFF CONFIRMATION";
+  if (g4.output_phase == G4_OUTPUT_STOPPING) return "WAITING FOR OFF CONFIRMATION";
   if (source == PSU_SRC_SEQ && sequencer.run != PSU_SEQ_RUN) return "SEQUENCER STOPPED";
   if (source == PSU_SRC_CHARGER && !charger.running) return "CHARGER STOPPED";
   if (!snap.g4_uart_configured) return NULL;
@@ -317,6 +318,14 @@ static void latch_fault(const char *reason)
   if (!snap.fault_latched) {
     snap.fault_latched = 1;
     snprintf(snap.fault, sizeof(snap.fault), "%s", reason);
+    {
+      const G4Telemetry *t=g4.event_meter.valid?&g4.event_meter:&g4.telemetry;
+      unsigned phase=g4.event_meter.valid?g4.event_phase:g4.output_phase;
+      snprintf(snap.fault_context,sizeof(snap.fault_context),
+        "TRIP phase=%u ctrl=%u o/w/p/k=%u%u%u%u G4=%lX G0=%lX age=%lu",
+        phase,t->ctrl,t->out,t->want,t->permit,t->kill,
+        (unsigned long)t->fault,(unsigned long)t->g0_fault,(unsigned long)t->g0_age_ms);
+    }
     /* Cancel queued ON/SET before the priority OFF. Keep the first cause. */
     g4_cancel_pending(&g4);
     (void)psu_app_shutdown();
@@ -378,7 +387,13 @@ int psu_app_set_output(int enabled, uint8_t source)
     if(enabled){snap.output_requested=0;snprintf(snap.last_on_reject,sizeof(snap.last_on_reject),"ON TRANSPORT BUSY");}
     touch();publish_end();return 0;
   }
-  g4.output_phase = enabled ? G4_OUTPUT_STARTING : G4_OUTPUT_IDLE;
+  g4.output_phase = enabled ? G4_OUTPUT_STARTING : G4_OUTPUT_STOPPING;
+  if(!enabled) {
+    const G4Telemetry *t=&g4.telemetry;
+    stop_ms=app_now;
+    if(t->valid && app_now-t->ms<=50U && !t->out && !t->want && !t->run &&
+       !t->stage_en && !t->ps_en && t->ctrl==0)g4.output_phase=G4_OUTPUT_IDLE;
+  }
   snap.output_phase = g4.output_phase;
   if(enabled){startup_ms=app_now;snap.last_on_reject[0]=0;}
   else clear_ack_pending=0;
@@ -541,6 +556,8 @@ void psu_app_tick(uint32_t now_ms)
     snap.psu_running=t->run;
     if (t->valid && host_serial != t->serial) {
       host_serial = t->serial;
+      if(g4.output_phase==G4_OUTPUT_STOPPING && age<=50U && !t->out && !t->want &&
+         !t->run && !t->stage_en && !t->ps_en && t->ctrl==0)g4.output_phase=G4_OUTPUT_IDLE;
       if(snap.shutdown_pending) {
         if(age<=50U && !t->run && !t->stage_en && !t->ps_en && !t->out) {
           snap.shutdown_pending=0;snap.shutdown_confirmed=1;
@@ -567,11 +584,13 @@ void psu_app_tick(uint32_t now_ms)
     }
     if(g4.event_g0_stale)latch_fault("H7 G0 STALE");
     g4.event_fault=0;g4.event_g0_fault=0;g4.event_ctrl_fault=0;g4.event_g0_stale=0;
-    if(snap.output_requested || t->out || g4.output_phase!=G4_OUTPUT_IDLE) {
+    g4.event_meter.valid=0;
+    if(snap.output_requested || t->out || g4.output_phase==G4_OUTPUT_STARTING || g4.output_phase==G4_OUTPUT_RUNNING) {
       if(!t->valid || age>50U)latch_fault("H7 METER STALE");
       else if(!g0.connected && !g4_start_wait(t,g4.output_phase))latch_fault("H7 G0 STALE");
       if(g4.output_phase==G4_OUTPUT_STARTING && now_ms-startup_ms>8000U)latch_fault("H7 START TIMEOUT");
     }
+    if(g4.output_phase==G4_OUTPUT_STOPPING && now_ms-stop_ms>800U)latch_fault("H7 OFF TIMEOUT");
     /* CLEAR ACK alone is not evidence that measurements/faults recovered.
        Require a fresh healthy METER received after that ACK, still OFF. */
     if(clear_ack_pending && t->serial!=clear_ack_serial && age<=50U &&

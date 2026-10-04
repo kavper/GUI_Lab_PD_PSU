@@ -80,6 +80,13 @@ uint32_t g4_blocking_g0_faults(const G4Telemetry *t, uint8_t phase) {
   if (t->kill) mask |= G4_G0_POWER_KILL;
   if (idle || g4_start_wait(t, phase))
     mask &= ~(G4_G0_MEAS_LOST | G4_G0_POWER_KILL | G4_G0_VIN_LOW);
+  /* G4 SEND_OUT_ON/WAIT_OUT_ON_ACK can return to WAIT_PERMIT on kill.
+     A kill sample is not a running trip before output/ON confirmation.
+     Only POWER_KILL gets this wider exception; measurement safety does not. */
+  if (phase == G4_OUTPUT_STARTING && !t->out && !t->fault_latch && t->ctrl < 9)
+    mask &= ~G4_G0_POWER_KILL;
+  if (phase == G4_OUTPUT_STOPPING && !t->out && !t->fault_latch && t->ctrl < 12)
+    mask &= ~(G4_G0_MEAS_LOST | G4_G0_POWER_KILL | G4_G0_VIN_LOW);
   return mask;
 }
 static void decode(G4Port *p,uint8_t type,uint8_t seq,const uint8_t *d,unsigned n,uint32_t now){
@@ -106,8 +113,11 @@ static void decode(G4Port *p,uint8_t type,uint8_t seq,const uint8_t *d,unsigned 
     frame later in the same RX batch must not erase a running fault. */
  p->event_fault|=t.fault;p->event_g0_fault|=g4_blocking_g0_faults(&t,p->output_phase);
  p->event_ctrl_fault|=t.fault_latch||t.ctrl==12;
- if((p->output_phase!=G4_OUTPUT_IDLE||t.out) && !g4_start_wait(&t,p->output_phase) &&
+ if((p->output_phase==G4_OUTPUT_RUNNING||p->output_phase==G4_OUTPUT_STARTING||t.out) && !g4_start_wait(&t,p->output_phase) &&
     (!t.g0||t.g0_age_ms>500U))p->event_g0_stale=1;
+ if(!p->event_meter.valid && (p->event_fault||p->event_g0_fault||p->event_ctrl_fault||p->event_g0_stale)){
+   p->event_meter=t;p->event_phase=p->output_phase;
+ }
  p->records[k]=r;unlock(irq);
  }else if(k==1){G4Battery b;memset(&b,0,sizeof(b));b.valid=1;b.ms=now;b.present=d[0];b.configured=d[1];b.fault=u32(d+4);b.chg=d[22];b.dsg=d[23];b.series=d[25];b.pack_mv=u16(d+44);b.stack_mv=u16(d+46);b.current_ma=(int32_t)u32(d+48);b.sample=d[52];for(i=0;i<5;i++){char key[10];b.cell_mv[i]=(int16_t)u16(d+26+2*i);snprintf(key,sizeof(key),"c%u_mv",i+1);F(key,b.cell_mv[i]);}
  F("bms",d[0]);F("cfg",d[1]);F("st",d[2]);F("alert",d[3]);U("fault",4);W("alarm",8);F("sa",d[10]);F("sb",d[11]);F("sc",d[12]);F("fet",d[13]);W("manuf",14);F("init_step",d[16]);F("cfg_fail",d[17]);W("vcell_rb",18);W("batt",20);F("chg",d[22]);F("dsg",d[23]);F("fets",d[24]);F("series",d[25]);I("min_mv",36);I("max_mv",38);I("dV_mv",40);W("sum_mv",42);W("pack_mv",44);W("stack_mv",46);S("i_pack_ma",48);F("sample",d[52]);if(d[71]&8)S("passq_mah",56);if((d[71]&1)&&u16(d+64)!=0xffff)W("soc_permille",64);I("cc1_ma",66);if(u16(d+68))I("int_temp_dK",68);F("balance_mask",d[70]);F("soc_flags",d[71]);irq=lock();p->battery=b;p->records[k]=r;unlock(irq);
