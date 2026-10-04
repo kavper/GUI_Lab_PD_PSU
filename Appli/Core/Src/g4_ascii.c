@@ -85,8 +85,15 @@ uint32_t g4_blocking_g0_faults(const G4Telemetry *t, uint8_t phase) {
      Only POWER_KILL gets this wider exception; measurement safety does not. */
   if (phase == G4_OUTPUT_STARTING && !t->out && !t->fault_latch && t->ctrl < 9)
     mask &= ~G4_G0_POWER_KILL;
-  if (phase == G4_OUTPUT_STOPPING && !t->out && !t->fault_latch && t->ctrl < 12)
-    mask &= ~(G4_G0_MEAS_LOST | G4_G0_POWER_KILL | G4_G0_VIN_LOW);
+  /* OFF removes PERMIT synchronously on G4, before G0's next telemetry
+     reports output=0. A STOPPING frame may therefore still have out=1,
+     want=1 or ctrl=RUNNING. Kill is expected after our explicit OFF;
+     all other faults remain actionable until G0 confirms output off. */
+  if (phase == G4_OUTPUT_STOPPING && !t->fault_latch && t->ctrl < 12) {
+    mask &= ~G4_G0_POWER_KILL;
+    if (!t->out)
+      mask &= ~(G4_G0_MEAS_LOST | G4_G0_VIN_LOW);
+  }
   return mask;
 }
 static void decode(G4Port *p,uint8_t type,uint8_t seq,const uint8_t *d,unsigned n,uint32_t now){

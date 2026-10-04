@@ -101,3 +101,22 @@ that full image with the STM32H7S78-DK MX66UW1G45G external loader. Internal
 bootloader image `intflash.hex` is unchanged. Designer Run Target keeps SWD ap=1,
 Under Reset, Hardware reset, 1000 kHz and verification after writing. Build
 success does not confirm programming success.
+
+## OFF before G0 output telemetry catches up
+
+G4 removes PERMIT immediately when it receives OFF. G0 publishes output
+state on a separate UART tick. Thus an explicit STOPPING phase can receive
+`kill=1` while `out=1`, `want=1` and `ctrl=RUNNING` still describe the previous
+state. This is expected shutdown, not a new running POWER_KILL fault.
+
+During STOPPING, POWER_KILL is excluded regardless of the reported OUT bit.
+MEAS_LOST and VIN_LOW remain actionable until OUT is reported off; other
+faults and the G4 fault latch remain actionable throughout. A normal RUNNING
+kill still triggers priority OFF and requires manual recovery. A new ON is
+blocked until the stopped state is confirmed. Regression coverage includes
+raw kill with a zero fault mask and stale ON/want/ctrl during explicit OFF.
+
+Run the host suite on macOS/Linux with `tests/run_host_tests.sh`; the existing
+PowerShell runner remains available. Host tests exercise the real H7 parser
+and application using binary METER/ACK/NACK frames. They do not replace a
+board test of analogue regulation, physical PERMIT polarity or DCDC drivers.

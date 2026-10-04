@@ -930,12 +930,12 @@ int psu_web_write_state(char *dst, size_t n)
                   "\"seq_status\":\"%s\",\"seq_mv\":%u,\"seq_ma\":%u,"
                   "\"fault\":%u,\"net\":%u,\"ip\":\"%u.%u.%u.%u\","
                   "\"cmd\":%u,\"cmd_state\":%u}",
-                  s.revision, s.requested_mv, s.requested_ma,
-                  s.applied_mv, s.applied_ma, s.applied_valid,
+                  (unsigned)s.revision, (unsigned)s.requested_mv, (unsigned)s.requested_ma,
+                  (unsigned)s.applied_mv, (unsigned)s.applied_ma, s.applied_valid,
                   s.output_requested, s.output_confirmed,
-                  s.vout_mv, s.vin_mv, (int)s.signed_current_ua, s.power_mw,
+                  (unsigned)s.vout_mv, (unsigned)s.vin_mv, (int)s.signed_current_ua, (unsigned)s.power_mw,
                   s.g0_connected, s.g4_link, s.pps_allowed,
-                  s.seq_status, s.seq_mv, s.seq_ma,
+                  s.seq_status, (unsigned)s.seq_mv, (unsigned)s.seq_ma,
                   s.fault_latched, s.net_state,
                   s.ip[0], s.ip[1], s.ip[2], s.ip[3],
                   s.last_cmd_id, s.last_cmd_state);
@@ -986,7 +986,7 @@ int psu_web_request(const char *method, const char *path, const char *body,
     {
       int ok = psu_app_set_limits(mv, ma, PSU_SRC_WEB);
       snprintf(dst, n, "{\"result\":\"%s\",\"requested_mv\":%u,\"requested_ma\":%u}",
-               ok ? "queued" : "rejected", snap.requested_mv, snap.requested_ma);
+               ok ? "queued" : "rejected", (unsigned)snap.requested_mv, (unsigned)snap.requested_ma);
       return (int)strlen(dst);
     }
     if (body && json_u32(body, "output", &en))

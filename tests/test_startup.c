@@ -113,6 +113,11 @@ int main(void) {
   puts("PASS: late-start measurement fault still trips and records originating frame");
 
   start_running();assert(psu_app_shutdown());transmit(20,3);
+  /* G4 drops PERMIT before G0 updates OUT. The first stopped-path
+     METER can legitimately retain out/want/RUNNING with raw kill=1. */
+  tick_meter(20,0,9,0xe7,1);
+  assert(!snapshot().fault_latched);
+  assert(snapshot().output_phase==G4_OUTPUT_STOPPING);
   tick_meter(21,0,8,0x26,1);assert(!snapshot().fault_latched);
   assert(snapshot().output_phase==G4_OUTPUT_STOPPING);
   assert(!psu_app_set_output(1,PSU_SRC_LCD));
@@ -120,6 +125,11 @@ int main(void) {
   assert(snapshot().output_phase==G4_OUTPUT_IDLE);
   assert(psu_app_set_output(1,PSU_SRC_LCD));
   puts("PASS: explicit OFF permits delayed want/ctrl/kill convergence; ON waits for stopped state");
+
+  start_running();assert(psu_app_shutdown());transmit(20,3);
+  tick_meter(21,G4_G0_MEAS_LOST,9,0xe7,1);
+  assert_off_latched("MEAS_LOST",21);
+  puts("PASS: explicit OFF tolerates expected kill but preserves measurement faults while OUT is still on");
 
   start_running();psu_app_tick(63);assert_off_latched("METER STALE",63);
   tick_meter(64,0,0,0,1);assert(snapshot().fault_latched&&!snapshot().output_requested);
