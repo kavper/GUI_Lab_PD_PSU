@@ -68,9 +68,23 @@ size_t g4_frame(uint8_t *o,uint8_t t,uint8_t seq,const uint8_t *d,size_t n){uint
 static void field(G4Record *r,const char *k,int64_t v){unsigned i;const char *const *ks=record_keys(r->kind);for(i=0;ks[i]&&i<64;i++)if(!strcmp(ks[i],k)){r->values[i]=v;r->present|=(uint64_t)1<<i;break;}}
 static void reply(G4Port *p,uint16_t id,uint8_t state){if(!id)return;if(p->reply_count==16){p->overflow_count++;return;}p->replies_id[p->reply_head]=id;p->replies_state[p->reply_head]=state;p->reply_head=(p->reply_head+1)%16;p->reply_count++;}
 int g4_response(G4Port *p,uint16_t *id,uint8_t *state){uint32_t irq=lock();if(!p->reply_count){unlock(irq);return 0;}*id=p->replies_id[p->reply_tail];*state=p->replies_state[p->reply_tail];p->reply_tail=(p->reply_tail+1)%16;p->reply_count--;unlock(irq);return 1;}
+/* These states mirror G4 f70489a LdoLink_CtrlState_t. DCDC/PERMIT
+ * readiness belongs to G4; H7 never forces PERMIT to bypass WAIT_PERMIT. */
+int g4_start_wait(const G4Telemetry *t, uint8_t phase) {
+  return phase == G4_OUTPUT_STARTING && !t->out && !t->fault_latch && t->ctrl <= 3;
+}
+uint32_t g4_blocking_g0_faults(const G4Telemetry *t, uint8_t phase) {
+  uint32_t mask = t->g0_fault;
+  int idle = phase == G4_OUTPUT_IDLE && !t->out && !t->want &&
+             !t->fault_latch && (t->ctrl == 0 || t->ctrl == 10 || t->ctrl == 11);
+  if (t->kill) mask |= G4_G0_POWER_KILL;
+  if (idle || g4_start_wait(t, phase))
+    mask &= ~(G4_G0_MEAS_LOST | G4_G0_POWER_KILL | G4_G0_VIN_LOW);
+  return mask;
+}
 static void decode(G4Port *p,uint8_t type,uint8_t seq,const uint8_t *d,unsigned n,uint32_t now){
  unsigned i,k;G4Record r;uint32_t irq;
- if(type==0x81||type==0x82){if(n!=(type==0x81?1u:2u)){p->parse_error_count++;return;}if(p->transaction_active[seq]!=1||p->transaction_type[seq]!=d[0])return;irq=lock();reply(p,p->transaction_id[seq],type==0x81?2:3);p->transaction_active[seq]=0;p->nack_reason=type==0x82?d[1]:0;for(i=0;i<2;i++)if(p->inflight_len[i]&&p->inflight_seq[i]==seq)p->inflight_len[i]=0;if(type==0x81)p->ack_count++;else p->err_count++;unlock(irq);return;}
+ if(type==0x81||type==0x82){if(n!=(type==0x81?1u:2u)){p->parse_error_count++;return;}if(type==0x82){p->nack_valid=1;p->nack_type=d[0];p->nack_seq=seq;p->nack_reason=d[1];p->nack_ms=now;p->nack_matched=p->transaction_active[seq]==1&&p->transaction_type[seq]==d[0];snprintf(p->last_rx,sizeof(p->last_rx),"NACK TYPE=%02X SEQ=%u reason=%u %s",d[0],seq,d[1],p->nack_matched?"matched":"unmatched");log_line(p,0,p->last_rx,now);}if(p->transaction_active[seq]!=1||p->transaction_type[seq]!=d[0])return;irq=lock();reply(p,p->transaction_id[seq],type==0x81?2:3);p->transaction_active[seq]=0;for(i=0;i<2;i++)if(p->inflight_len[i]&&p->inflight_seq[i]==seq)p->inflight_len[i]=0;if(type==0x81)p->ack_count++;else p->err_count++;unlock(irq);return;}
  if(type==0x20){if(n<1||n>96)return;memcpy(p->last_rx,d,n<sizeof(p->last_rx)?n:sizeof(p->last_rx)-1);p->last_rx[n<sizeof(p->last_rx)?n:sizeof(p->last_rx)-1]=0;log_line(p,0,p->last_rx,now);return;}
  k=type-0x10;if(k>3||n!=(k==2?64u:k==3?32u:72u)){p->parse_error_count++;return;}
  if(p->rx_seen[k]&&p->rx_seq[k]==seq)return;
@@ -81,12 +95,20 @@ static void decode(G4Port *p,uint8_t type,uint8_t seq,const uint8_t *d,unsigned 
 #define W(key,off) F(key,u16(d+off))
 #define I(key,off) F(key,(int16_t)u16(d+off))
 #define B(key,off,bit) F(key,(d[off]>>(bit))&1)
- if(k==0){G4Telemetry t;memset(&t,0,sizeof(t));t.valid=1;t.ms=now;t.serial=p->telemetry.serial+1;t.vin_mv=u32(d);t.rail_mv=u32(d+4);t.set_mv=u32(d+16);t.ilim_ma=u32(d+20);t.vout_mv=u32(d+24);t.iout_ma=(int32_t)u32(d+28);t.g0_vin_mv=u32(d+32);t.g0_vset_mv=u32(d+36);t.g0_iset_ma=u32(d+40);t.g0_age_ms=u16(d+52);t.g0=(d[67]>>6)&1;t.g0_tlm=t.g0;t.out=d[66]&1;t.want=(d[66]>>1)&1;t.permit=(d[66]>>5)&1;t.run=(d[66]>>6)&1;t.remote=(d[67]>>3)&1;t.stage_en=d[67]&1;t.ps_en=(d[67]>>1)&1;t.g0_fault=u32(d+58);t.fault=u32(d+62);t.mode=d[69];t.vpre_req_mv=u32(d+44);t.vpre_cmd_mv=u32(d+48);
+ if(k==0){G4Telemetry t;memset(&t,0,sizeof(t));t.valid=1;t.ms=now;t.serial=p->telemetry.serial+1;t.vin_mv=u32(d);t.rail_mv=u32(d+4);t.set_mv=u32(d+16);t.ilim_ma=u32(d+20);t.vout_mv=u32(d+24);t.iout_ma=(int32_t)u32(d+28);t.g0_vin_mv=u32(d+32);t.g0_vset_mv=u32(d+36);t.g0_iset_ma=u32(d+40);t.g0_age_ms=u16(d+52);t.g0=(d[67]>>6)&1;t.g0_tlm=t.g0;t.out=d[66]&1;t.want=(d[66]>>1)&1;t.permit=(d[66]>>5)&1;t.run=(d[66]>>6)&1;t.remote=(d[67]>>3)&1;t.stage_en=d[67]&1;t.ps_en=(d[67]>>1)&1;t.g0_fault=u32(d+58);t.fault=u32(d+62);t.mode=d[69];t.kill=(d[66]>>2)&1;t.ctrl=d[68];t.fault_latch=(d[67]>>7)&1;t.vpre_req_mv=u32(d+44);t.vpre_cmd_mv=u32(d+48);
  U("vin_mv",0);U("vout_mv",4);S("i_buck_ma",8);S("i_boost_ma",12);U("set_mv",16);U("ilim_ma",20);U("g0_vout_mv",24);U("g0_iout_ma",28);U("vpre_req_mv",44);U("vpre_cmd_mv",48);W("g0_age_ms",52);W("duty_a_x10",54);W("duty_c_x10",56);U("g0_fault",58);U("fault",62);
  B("g0_out",66,0);B("g0_want",66,1);B("g0_kill",66,2);B("g0_outoff",66,3);B("permit",66,5);B("run",66,6);B("reg_ok",66,7);B("stage_en",67,0);B("ps_en",67,1);B("flt",67,2);B("rem_sense",67,3);B("ucc_a",67,4);B("ucc_c",67,5);B("g0",67,6);F("g0_ctrl",d[68]);F("mode",d[69]);F("g0_tlm",t.g0);
  if(d[71])t.g0_age_ms=0xffff;
  if(t.g0_fault&256){unsigned a;const char *bad[]={"g0_vout_mv","g0_iout_ma"};for(a=0;a<2;a++){unsigned j;for(j=0;keys_t[j];j++)if(!strcmp(keys_t[j],bad[a]))r.present&=~((uint64_t)1<<j);}}
- irq=lock();p->telemetry=t;p->event_fault=t.fault|(t.g0_fault&~8u);p->records[k]=r;unlock(irq);
+ irq=lock();p->telemetry=t;
+ if(p->output_phase==G4_OUTPUT_STARTING&&(t.out||t.ctrl==9))p->output_phase=G4_OUTPUT_RUNNING;
+ /* Accumulate actionable faults until the app consumes them: a healthy
+    frame later in the same RX batch must not erase a running fault. */
+ p->event_fault|=t.fault;p->event_g0_fault|=g4_blocking_g0_faults(&t,p->output_phase);
+ p->event_ctrl_fault|=t.fault_latch||t.ctrl==12;
+ if((p->output_phase!=G4_OUTPUT_IDLE||t.out) && !g4_start_wait(&t,p->output_phase) &&
+    (!t.g0||t.g0_age_ms>500U))p->event_g0_stale=1;
+ p->records[k]=r;unlock(irq);
  }else if(k==1){G4Battery b;memset(&b,0,sizeof(b));b.valid=1;b.ms=now;b.present=d[0];b.configured=d[1];b.fault=u32(d+4);b.chg=d[22];b.dsg=d[23];b.series=d[25];b.pack_mv=u16(d+44);b.stack_mv=u16(d+46);b.current_ma=(int32_t)u32(d+48);b.sample=d[52];for(i=0;i<5;i++){char key[10];b.cell_mv[i]=(int16_t)u16(d+26+2*i);snprintf(key,sizeof(key),"c%u_mv",i+1);F(key,b.cell_mv[i]);}
  F("bms",d[0]);F("cfg",d[1]);F("st",d[2]);F("alert",d[3]);U("fault",4);W("alarm",8);F("sa",d[10]);F("sb",d[11]);F("sc",d[12]);F("fet",d[13]);W("manuf",14);F("init_step",d[16]);F("cfg_fail",d[17]);W("vcell_rb",18);W("batt",20);F("chg",d[22]);F("dsg",d[23]);F("fets",d[24]);F("series",d[25]);I("min_mv",36);I("max_mv",38);I("dV_mv",40);W("sum_mv",42);W("pack_mv",44);W("stack_mv",46);S("i_pack_ma",48);F("sample",d[52]);if(d[71]&8)S("passq_mah",56);if((d[71]&1)&&u16(d+64)!=0xffff)W("soc_permille",64);I("cc1_ma",66);if(u16(d+68))I("int_temp_dK",68);F("balance_mask",d[70]);F("soc_flags",d[71]);irq=lock();p->battery=b;p->records[k]=r;unlock(irq);
  }else if(k==2){G4Charger c;memset(&c,0,sizeof(c));c.valid=1;c.ms=now;c.online=d[0];c.vbat_mv=u32(d+12);c.vsys_mv=u32(d+16);c.ibat_ma=(int32_t)u32(d+20);c.vbus_mv=u32(d+32);c.fault=d[4];c.otg=(d[1]>>3)&1;c.plug=(d[1]>>7)&1;c.pd_role=d[10];c.pd_mv=u32(d+56);c.pd_ma=u32(d+60);
@@ -111,7 +133,7 @@ static int command(G4Port *p,uint8_t type,const uint8_t *d,size_t n,uint16_t id)
  for(j=0;j<p->count;j++){unsigned from=(p->tail+j)%10,to=(p->tail+kept)%10;if(p->wire_queue[from][3]==2){reply(p,p->wire_id[from],3);p->transaction_active[p->wire_queue[from][4]]=0;continue;}if(from!=to){memcpy(p->wire_queue[to],p->wire_queue[from],p->wire_len[from]);p->wire_len[to]=p->wire_len[from];p->wire_id[to]=p->wire_id[from];}kept++;}p->count=kept;p->head=(p->tail+kept)%10;
  if(p->inflight_len[1]){reply(p,p->inflight_id[1],3);p->transaction_active[p->inflight_seq[1]]=0;p->inflight_len[1]=0;}
  memcpy(p->safety_frames[p->safety_head],f,len);p->safety_lengths[p->safety_head]=len;p->safety_ids[p->safety_head]=id;p->safety_head=(p->safety_head+1)%8;p->safety_count++;p->safety_pending=1;}else if(type==1){if(p->has_set){reply(p,p->pending_id,3);p->transaction_active[p->pending_seq]=0;}memcpy(p->pending_frame,f,len);p->pending_len=len;p->pending_seq=seq;p->pending_id=id;p->has_set=1;}else{if(p->count==10){unlock(irq);return 0;}memcpy(p->wire_queue[p->head],f,len);p->wire_len[p->head]=len;p->wire_id[p->head]=id;p->head=(p->head+1)%10;p->count++;}p->transaction_active[seq]=2;p->transaction_id[seq]=id;p->transaction_type[seq]=type;unlock(irq);return 1;}
-void g4_process(G4Port *p,uint32_t now){unsigned i,j;uint32_t irq=lock();p->link=!p->records[0].valid?G4_LINK_OFFLINE:now-p->records[0].ms>50?G4_LINK_STALE:G4_LINK_ONLINE;for(i=0;i<256;i++)if(p->transaction_active[i]==1&&now-p->transaction_ms[i]>(p->transaction_type[i]==2?8000u:800u)){reply(p,p->transaction_id[i],4);p->transaction_active[i]=0;p->nack_reason=6;for(j=0;j<2;j++)if(p->inflight_len[j]&&p->inflight_seq[j]==i)p->inflight_len[j]=0;}unlock(irq);}
+void g4_process(G4Port *p,uint32_t now){unsigned i,j;uint32_t irq=lock();p->link=!p->records[0].valid?G4_LINK_OFFLINE:now-p->records[0].ms>50?G4_LINK_STALE:G4_LINK_ONLINE;for(i=0;i<256;i++)if(p->transaction_active[i]==1&&now-p->transaction_ms[i]>(p->transaction_type[i]==2?8000u:800u)){reply(p,p->transaction_id[i],4);p->transaction_active[i]=0;for(j=0;j<2;j++)if(p->inflight_len[j]&&p->inflight_seq[j]==i)p->inflight_len[j]=0;}unlock(irq);}
 int g4_pop_frame(G4Port *p,uint8_t *o,size_t n,uint32_t now){uint8_t len=0,*src=0,type;uint16_t id=0;uint32_t irq=lock();if(p->safety_count){src=p->safety_frames[p->safety_tail];len=p->safety_lengths[p->safety_tail];id=p->safety_ids[p->safety_tail];p->safety_tail=(p->safety_tail+1)%8;p->safety_count--;p->safety_pending=p->safety_count!=0;}else if(p->has_set&&!p->inflight_len[0]){src=p->pending_frame;len=p->pending_len;id=p->pending_id;p->has_set=0;}else if(p->count){src=p->wire_queue[p->tail];len=p->wire_len[p->tail];id=p->wire_id[p->tail];p->tail=(p->tail+1)%10;p->count--;}if(!len||n<len){unlock(irq);return 0;}memcpy(o,src,len);type=o[3];if(type==7)p->transaction_active[o[4]]=0;if(type!=7){p->transaction_id[o[4]]=id;p->transaction_type[o[4]]=type;p->transaction_ms[o[4]]=now;p->transaction_active[o[4]]=1;}if(type==1||type==2){unsigned i=type==2;memcpy(p->inflight[i],o,len);p->inflight_len[i]=len;p->inflight_seq[i]=o[4];p->inflight_id[i]=id;p->inflight_ms[i]=now;}else{p->active_id=o[4];p->awaiting=1;snprintf(p->active_cmd,sizeof(p->active_cmd),"%02X",type);}p->last_tx_id=id;p->tx_count++;snprintf(p->last_tx,sizeof(p->last_tx),"BIN type=%02X seq=%u",type,o[4]);log_line(p,1,p->last_tx,now);unlock(irq);return len;}
 int g4_pop_tx(G4Port *p,char *o,size_t n,uint32_t now){(void)p;(void)o;(void)n;(void)now;return 0;}
 int g4_set_limits(G4Port *p,uint32_t mv,uint32_t ma,uint16_t id){uint8_t d[8];if(mv>27000||ma>5000)return 0;put32(d,mv);put32(d+4,ma);return command(p,1,d,8,id);}

@@ -2736,7 +2736,7 @@
             "X": 24,
             "Y": 144,
             "Width": 700,
-            "Height": 252,
+            "Height": 234,
             "TextId": "TXT_DIAG_RAW",
             "TextRotation": "0",
             "Color": {
@@ -2798,9 +2798,9 @@
             "Type": "TextArea",
             "Name": "FaultText",
             "X": 24,
-            "Y": 400,
+            "Y": 382,
             "Width": 620,
-            "Height": 70,
+            "Height": 92,
             "TextId": "TXT_FAULT_TEXT",
             "TextRotation": "0",
             "Color": {
@@ -2811,7 +2811,7 @@
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
               "UseBuffer": true,
-              "BufferSize": 320
+              "BufferSize": 512
             }
           },
           {

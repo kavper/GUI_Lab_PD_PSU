@@ -29,10 +29,10 @@ void ScreenDiagnosticsView::refresh(){
  unsigned count=0;while(g4_record_key(kind,count))++count;
  char source[G4_RX_LINE_MAX];g4_raw_snapshot(host,kind,source,sizeof(source));
  const unsigned columns=76;unsigned rawLines=(strlen(source)+columns-1)/columns;
- unsigned maxOffset=raw?(rawLines>10?rawLines-10:0):(count>14?(count-14+1)/2:0);
+ unsigned maxOffset=raw?(rawLines>9?rawLines-9:0):(count>14?(count-14+1)/2:0);
  if(offset>maxOffset)offset=maxOffset;
  RawText.setVisible(raw);RawText.invalidate();
- if(raw){unsigned dst=0;for(unsigned i=offset*columns;source[i]&&dst<sizeof(b)-2;i++){if(i>offset*columns&&(i-offset*columns)%columns==0)b[dst++]='\n';if((i-offset*columns)/columns>=10)break;b[dst++]=source[i];}b[dst]=0;lab_show(RawText,RawTextBuffer,RAWTEXT_SIZE,source[0]?b:"Waiting for a complete UART frame",lab_text());}
+ if(raw){unsigned dst=0;for(unsigned i=offset*columns;source[i]&&dst<sizeof(b)-2;i++){if(i>offset*columns&&(i-offset*columns)%columns==0)b[dst++]='\n';if((i-offset*columns)/columns>=9)break;b[dst++]=source[i];}b[dst]=0;lab_show(RawText,RawTextBuffer,RAWTEXT_SIZE,source[0]?b:"Waiting for a complete UART frame",lab_text());}
  FieldBox0.setVisible(!raw);FieldBox0.invalidate();Field0.setVisible(!raw);Field0.invalidate();
  if(!raw){const char* key=g4_record_key(kind,offset*2+0);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field0,Field0Buffer,FIELD0_SIZE,b,rec.fresh?lab_text():lab_muted());}
  FieldBox1.setVisible(!raw);FieldBox1.invalidate();Field1.setVisible(!raw);Field1.invalidate();
@@ -63,16 +63,23 @@ void ScreenDiagnosticsView::refresh(){
  if(!raw){const char* key=g4_record_key(kind,offset*2+13);int64_t val;if(key&&rec.get(key,val)){char fv[40];formatValue(fv,sizeof(fv),key,val);snprintf(b,sizeof(b),"%-18s %s",key,fv);}else snprintf(b,sizeof(b),"%s%s",key?key:"",key?"  --":"");lab_show(Field13,Field13Buffer,FIELD13_SIZE,b,rec.fresh?lab_text():lab_muted());}
 
  lab_enable(UpButton,offset>0);lab_enable(DownButton,offset<maxOffset);
- TelemetryRecord faults(G4_RECORD_T);int64_t mask=0;b[0]=0;
- if(!faults.get("fault",mask))strcpy(b,"Fault status unavailable / waiting for T telemetry");
- else if(!mask)strcpy(b,"G4: no active fault bits");
- else {
-  const char* names[]={"Driver fault","Output overvoltage","Overcurrent trip","Input undervoltage","ADC measurement fault","BMS fault"};
-  for(unsigned i=0;i<6;i++)if(mask&(1<<i)){size_t n=strlen(b);snprintf(b+n,sizeof(b)-n,"%s%s",n?" / ":"",names[i]);}
-  if(mask&~63){size_t n=strlen(b);snprintf(b+n,sizeof(b)-n," / unknown bits 0x%lX",(unsigned long)(mask&~63));}
- }
- int64_t g0=0;if(faults.get("g0_fault",g0)&&g0){size_t n=strlen(b);snprintf(b+n,sizeof(b)-n,"\nG0 fault: 0x%lX (controller code)",(unsigned long)g0);}
- lab_show(FaultText,FaultTextBuffer,FAULTTEXT_SIZE,b,(mask||g0)?lab_red():lab_muted());lab_enable(ClearButton,faults.fresh&&(mask||g0));
+ PsuSnapshot live;psu_snapshot(&live);
+ const char* phase=live.output_phase==G4_OUTPUT_STARTING?"START":live.output_phase==G4_OUTPUT_RUNNING?"RUN":"OFF";
+ snprintf(b,sizeof(b),"H7 ON [%s%s]: %s\nLast local rejection: %s\nG4 fault=0x%lX ctrl=%u latch=%u | G0 fault=0x%lX kill=%u",
+     phase,live.fault_latched?" / LATCH":"",live.on_block_reason,
+     live.last_on_reject[0]?live.last_on_reject:"none",
+     (unsigned long)host->telemetry.fault,host->telemetry.ctrl,host->telemetry.fault_latch,
+     (unsigned long)host->telemetry.g0_fault,host->telemetry.kill);
+ size_t used=strlen(b);
+ if(host->nack_valid){
+   const char* reasons[]={"UNKNOWN CODE","UNKNOWN","BAD_PAYLOAD","RANGE","UNSAFE","BUSY","TIMEOUT","LINK"};
+   const char* reason=host->nack_reason<8?reasons[host->nack_reason]:reasons[0];
+   snprintf(b+used,sizeof(b)-used,"\nLast NACK: TYPE=0x%02X SEQ=%u reason=%u %s (%s)",host->nack_type,
+       host->nack_seq,host->nack_reason,reason,host->nack_matched?"matched":"unmatched");
+ }else snprintf(b+used,sizeof(b)-used,"\nLast NACK: none");
+ lab_show(FaultText,FaultTextBuffer,FAULTTEXT_SIZE,b,live.fault_latched?lab_red():strcmp(live.on_block_reason,"READY")?lab_amber():lab_muted());
+ lab_enable(ClearButton,live.fault_latched&&host->telemetry.valid&&psu_app_now()-host->telemetry.ms<=50U);
+
 }
 void ScreenDiagnosticsView::allOff(){psu_app_shutdown();}
 void ScreenDiagnosticsView::showParsed(){raw=false;offset=0;refresh();}

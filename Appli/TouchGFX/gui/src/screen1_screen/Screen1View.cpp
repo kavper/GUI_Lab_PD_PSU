@@ -347,7 +347,10 @@ void Screen1View::outputToggled()
     PsuSnapshot live;
     psu_snapshot(&live);
     if(live.output_requested || live.psu_running || live.output_confirmed)psu_app_shutdown();
-    else psu_app_set_output(1, PSU_SRC_LCD);
+    else if(!psu_app_set_output(1, PSU_SRC_LCD)) {
+        psu_snapshot(&live);
+        showEditorStatus(live.last_on_reject, true);
+    }
     psu_snapshot(&live);
     setControllerOutputState(live.output_confirmed != 0);
 }

@@ -121,6 +121,10 @@ typedef struct
   uint8_t mac[6];
   uint8_t fault_latched;
   char fault[40];
+  uint8_t output_phase;
+  char on_block_reason[64];
+  char last_on_reject[64];
+  uint8_t nack_valid, nack_type, nack_seq, nack_reason, nack_matched;
   uint16_t last_cmd_id;
   uint8_t last_cmd_state;
   uint8_t cold_output_off;

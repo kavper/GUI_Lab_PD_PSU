@@ -57,6 +57,7 @@ static char lease_client[24];
 static uint8_t g0_seen;
 static uint32_t host_serial, host_tx_count;
 static uint8_t clear_ack_pending;
+static uint32_t clear_ack_serial, startup_ms;
 static uint32_t energy_ms;
 static uint8_t energy_seen;
 static char web_page_storage[4096];
@@ -240,6 +241,7 @@ void psu_app_init(void)
   cmd_count = 0U;
   host_serial = host_tx_count = 0U;
   clear_ack_pending = 0U;
+  clear_ack_serial = startup_ms = app_now = 0U;
   energy_seen=0;energy_ms=0;
   g0_seen = 0U;
   g4_init(&g4);
@@ -286,11 +288,39 @@ void psu_app_set_hooks(const PsuHalHooks *next)
 
 void psu_app_set_g4_uart(int configured) { snap.g4_uart_configured = configured ? 1U : 0U; }
 
-static int guard_fault(void)
+static const char *on_block(uint8_t source)
 {
-  if (!snap.fault_latched)
-    return 1;
-  return 0;
+  const G4Telemetry *t = &g4.telemetry;
+  if (snap.power_shutdown_requested) return "POWER SHUTDOWN";
+  if (snap.fault_latched) return snap.fault;
+  if (source == PSU_SRC_WEB && !remote_access) return "REMOTE ACCESS DISABLED";
+  if (snap.shutdown_pending) return "WAITING FOR OFF CONFIRMATION";
+  if (source == PSU_SRC_SEQ && sequencer.run != PSU_SEQ_RUN) return "SEQUENCER STOPPED";
+  if (source == PSU_SRC_CHARGER && !charger.running) return "CHARGER STOPPED";
+  if (!snap.g4_uart_configured) return NULL;
+  if (!t->valid) return "WAITING FOR METER";
+  if (app_now - t->ms > 50U) return "METER STALE";
+  if (!t->g0 || t->g0_age_ms > 500U) return "WAITING FOR FRESH G0";
+  if (t->g0_fault & G4_G0_MEAS_LOST) return "WAITING FOR VALID MEASUREMENTS";
+  if (g4.event_g0_stale) return "G0 LINK LOSS PENDING";
+  if (t->fault || g4.event_fault) return "ACTIVE G4 FAULT";
+  if (t->fault_latch || t->ctrl == 12 || g4.event_ctrl_fault) return "G4 CONTROL FAULT";
+  if (g4_blocking_g0_faults(t, g4.output_phase) || g4.event_g0_fault) return "ACTIVE G0 FAULT";
+  if (snap.cold_output_off) return "WAITING FOR INITIAL OFF";
+  if (g4.output_phase == G4_OUTPUT_STARTING) return "START ALREADY PENDING";
+  return NULL;
+}
+
+static void latch_fault(const char *reason)
+{
+  clear_ack_pending = 0;
+  if (!snap.fault_latched) {
+    snap.fault_latched = 1;
+    snprintf(snap.fault, sizeof(snap.fault), "%s", reason);
+    /* Cancel queued ON/SET before the priority OFF. Keep the first cause. */
+    g4_cancel_pending(&g4);
+    (void)psu_app_shutdown();
+  }
 }
 
 int psu_app_set_limits(uint32_t voltage_mv, uint32_t current_ma, uint8_t source)
@@ -329,24 +359,29 @@ int psu_app_set_limits(uint32_t voltage_mv, uint32_t current_ma, uint8_t source)
 
 int psu_app_set_output(int enabled, uint8_t source)
 {
-  if(source == PSU_SRC_WEB && !remote_access)return 0;
   uint16_t id;
-  if (enabled && (!guard_fault() || snap.power_shutdown_requested || snap.shutdown_pending ||
-      (source==PSU_SRC_SEQ && sequencer.run!=PSU_SEQ_RUN) ||
-      (source==PSU_SRC_CHARGER && !charger.running) || (snap.g4_uart_configured &&
-      (!g0.connected || g0.stale || g4.link != G4_LINK_ONLINE))))
-  {
+  const char *reason = enabled ? on_block(source) : NULL;
+  if (!enabled && source == PSU_SRC_WEB && !remote_access) return 0;
+  if (reason) {
+    snprintf(snap.on_block_reason, sizeof(snap.on_block_reason), "%s", reason);
+    snprintf(snap.last_on_reject, sizeof(snap.last_on_reject), "%s", reason);
     id = push_cmd("ON", source, snap.requested_mv, snap.requested_ma, 0);
-    mark_cmd(id, PSU_CMD_REJECTED, 0U);
-    touch();
-    publish_end();
-    return 0;
+    mark_cmd(id, PSU_CMD_REJECTED, app_now);
+    touch(); publish_end(); return 0;
   }
   snap.output_requested = enabled ? 1U : 0U;
   if(enabled){snap.shutdown_pending=0;snap.shutdown_confirmed=0;}
   {uint8_t k;for(k=0;k<cmd_count;k++)if((!strcmp(cmds[k].name,"ON")||!strcmp(cmds[k].name,"OFF"))&&cmds[k].state<=PSU_CMD_SENT)cmds[k].state=PSU_CMD_REJECTED;}
   id = push_cmd(enabled ? "ON" : "OFF", source, snap.requested_mv, snap.requested_ma, 0);
-  if(!(enabled?g4_on(&g4,id):g4_off(&g4,id))){mark_cmd(id,PSU_CMD_REJECTED,app_now);if(enabled)snap.output_requested=0;return 0;}
+  if(!(enabled?g4_on(&g4,id):g4_off(&g4,id))){
+    mark_cmd(id,PSU_CMD_REJECTED,app_now);
+    if(enabled){snap.output_requested=0;snprintf(snap.last_on_reject,sizeof(snap.last_on_reject),"ON TRANSPORT BUSY");}
+    touch();publish_end();return 0;
+  }
+  g4.output_phase = enabled ? G4_OUTPUT_STARTING : G4_OUTPUT_IDLE;
+  snap.output_phase = g4.output_phase;
+  if(enabled){startup_ms=app_now;snap.last_on_reject[0]=0;}
+  else clear_ack_pending=0;
   if (hooks.ldo_output)
     hooks.ldo_output(enabled ? 1U : 0U);
   if (!g0.connected)
@@ -416,7 +451,8 @@ int psu_app_clear_fault(void)
     snap.fault_latched = 0U;
     snprintf(snap.fault, sizeof(snap.fault), "NONE");
   }
-  (void)g4_simple(&g4, "CLR", push_cmd("CLR", PSU_SRC_LCD, 0, 0, 0));
+  clear_ack_pending=0;
+  if(!g4_simple(&g4, "CLR", push_cmd("CLR", PSU_SRC_LCD, 0, 0, 0)))return 0;
   touch();
   publish_end();
   return 1;
@@ -518,14 +554,30 @@ void psu_app_tick(uint32_t now_ms)
        for(k=0;k<cmd_count;k++)if((!strcmp(cmds[k].name,"ON")||!strcmp(cmds[k].name,"OFF"))&&cmds[k].state<=PSU_CMD_SENT)pending_output=1;
        if(!pending_output && !t->want)snap.output_requested=0;}
       if (snap.cold_output_off) { snap.cold_output_off = 0; psu_app_set_output(0, PSU_SRC_BOOT); }
-      if (!g4.event_fault && clear_ack_pending) {
-        clear_ack_pending=0;snap.fault_latched=0;snprintf(snap.fault,sizeof(snap.fault),"NONE");
-      }
     }
     if (g4.event_fault) {
-      if (!snap.fault_latched) psu_app_set_output(0, PSU_SRC_BOOT);
-      snap.fault_latched=1;
-      snprintf(snap.fault,sizeof(snap.fault),"G4:%lX G0:%lX",(unsigned long)(t->fault|g4.event_fault),(unsigned long)t->g0_fault);
+      char why[40];snprintf(why,sizeof(why),"G4 FAULT 0x%lX",(unsigned long)g4.event_fault);latch_fault(why);
+    } else if (g4.event_ctrl_fault) latch_fault("G4 CONTROL FAULT");
+    else if (g4.event_g0_fault) {
+      char why[40];
+      if(g4.event_g0_fault&G4_G0_MEAS_LOST)snprintf(why,sizeof(why),"G0 MEAS_LOST");
+      else if(g4.event_g0_fault&G4_G0_POWER_KILL)snprintf(why,sizeof(why),"G0 POWER_KILL");
+      else snprintf(why,sizeof(why),"G0 FAULT 0x%lX",(unsigned long)g4.event_g0_fault);
+      latch_fault(why);
+    }
+    if(g4.event_g0_stale)latch_fault("H7 G0 STALE");
+    g4.event_fault=0;g4.event_g0_fault=0;g4.event_ctrl_fault=0;g4.event_g0_stale=0;
+    if(snap.output_requested || t->out || g4.output_phase!=G4_OUTPUT_IDLE) {
+      if(!t->valid || age>50U)latch_fault("H7 METER STALE");
+      else if(!g0.connected && !g4_start_wait(t,g4.output_phase))latch_fault("H7 G0 STALE");
+      if(g4.output_phase==G4_OUTPUT_STARTING && now_ms-startup_ms>8000U)latch_fault("H7 START TIMEOUT");
+    }
+    /* CLEAR ACK alone is not evidence that measurements/faults recovered.
+       Require a fresh healthy METER received after that ACK, still OFF. */
+    if(clear_ack_pending && t->serial!=clear_ack_serial && age<=50U &&
+       g0.connected && g0.current_valid && !t->fault && !t->fault_latch && t->ctrl!=12 &&
+       !g4_blocking_g0_faults(t,G4_OUTPUT_IDLE) && !t->out && !t->want) {
+      clear_ack_pending=0;snap.fault_latched=0;snprintf(snap.fault,sizeof(snap.fault),"NONE");
     }
     snap.bms_valid = g4.battery.valid && now_ms-g4.battery.ms<=1000U && g4.battery.present && g4.battery.configured && g4.battery.sample;
     memset(snap.cell_mv,0,sizeof(snap.cell_mv));
@@ -538,10 +590,12 @@ void psu_app_tick(uint32_t now_ms)
     if (host_tx_count != g4.tx_count) {host_tx_count=g4.tx_count;mark_cmd(g4.last_tx_id,PSU_CMD_SENT,now_ms);}
     while (g4_response(&g4,&g4.response_id,&g4.response_state)) {
       PsuCmdRec *r=find_cmd(g4.response_id);
-      if(r && g4.response_state==PSU_CMD_ACK && !strcmp(r->name,"CLR"))clear_ack_pending=1;
+      if(r && g4.response_state==PSU_CMD_ACK && !strcmp(r->name,"CLR")){clear_ack_pending=1;clear_ack_serial=t->serial;}
+      if(r && !strcmp(r->name,"ON") && g4.response_state==PSU_CMD_ACK && snap.output_requested)g4.output_phase=G4_OUTPUT_RUNNING;
+      if(r && !strcmp(r->name,"ON") && g4.response_state==PSU_CMD_REJECTED && snap.output_requested)latch_fault("H7 ON REJECTED BY G4");
       if(r)mark_cmd(g4.response_id,g4.response_state,now_ms);
       if(r && g4.response_state==PSU_CMD_TIMEOUT && (!strcmp(r->name,"LIMITS") || !strcmp(r->name,"ON"))){
-        snap.fault_latched=1;snprintf(snap.fault,sizeof(snap.fault),"COMMAND TIMEOUT");g4_cancel_pending(&g4);psu_app_set_output(0,PSU_SRC_BOOT);
+        latch_fault("H7 COMMAND TIMEOUT");
       }
       g4.response_id=0;
     }
@@ -618,7 +672,7 @@ void psu_app_tick(uint32_t now_ms)
   snap.service_mode = g4.service_mode;
   if (g0.connected)
     g0_seen = 1U;
-  if (g0_seen && !g0.connected && snap.output_requested && !snap.fault_latched)
+  if (!snap.g4_uart_configured && g0_seen && !g0.connected && snap.output_requested && !snap.fault_latched)
   {
     snap.fault_latched = 1U;
     snprintf(snap.fault, sizeof(snap.fault), "G0 OFFLINE");
@@ -626,10 +680,13 @@ void psu_app_tick(uint32_t now_ms)
   }
   if (g0.connected && blob.ovp_mv && g0.vout_mv > blob.ovp_mv && !snap.fault_latched)
   {
-    snap.fault_latched = 1U;
-    snprintf(snap.fault, sizeof(snap.fault), "OVP");
-    (void)psu_app_set_output(0, PSU_SRC_BOOT);
+    latch_fault("H7 OVP");
   }
+  snap.output_phase=g4.output_phase;
+  {const char *reason=on_block(PSU_SRC_LCD);snprintf(snap.on_block_reason,sizeof(snap.on_block_reason),"%s",reason?reason:"READY");}
+  snap.nack_valid=g4.nack_valid;snap.nack_type=g4.nack_type;snap.nack_seq=g4.nack_seq;
+  snap.nack_reason=g4.nack_reason;snap.nack_matched=g4.nack_matched;
+
 }
 
 void psu_snapshot(PsuSnapshot *out)

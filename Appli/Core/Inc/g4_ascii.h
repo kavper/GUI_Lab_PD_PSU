@@ -18,6 +18,10 @@ extern "C" {
 #define G4_SETPOINT_GAP_MS 0u
 #define G4_CMD_TIMEOUT_MS 800u
 
+enum { G4_OUTPUT_IDLE, G4_OUTPUT_STARTING, G4_OUTPUT_RUNNING };
+enum { G4_G0_POWER_KILL = 1u << 2, G4_G0_VIN_LOW = 1u << 3,
+       G4_G0_MEAS_LOST = 1u << 8 };
+
 /* Named numeric telemetry, including optional fields. Missing is not zero. */
 typedef struct {
   int64_t values[64];
@@ -35,7 +39,7 @@ typedef struct {
   uint32_t vpre_req_mv, vpre_cmd_mv, pd_mv, pd_ma;
   uint32_t g0_vin_mv, g0_vset_mv, g0_iset_ma;
   uint8_t pd;
-  uint8_t run, stage_en, ps_en;
+  uint8_t run, stage_en, ps_en, kill, ctrl, fault_latch;
 } G4Telemetry;
 typedef struct {
   uint8_t valid, present, configured, sample, chg, dsg, series;
@@ -126,7 +130,10 @@ typedef struct
   G4Charger charger;
   G4Record records[4];
 
-  uint32_t ack_count, err_count, event_fault;
+  uint32_t ack_count, err_count, event_fault, event_g0_fault;
+  uint8_t event_ctrl_fault, event_g0_stale, output_phase;
+  uint8_t nack_valid, nack_type, nack_seq, nack_matched;
+  uint32_t nack_ms;
   uint16_t active_id, response_id, last_tx_id;
   uint8_t response_state, awaiting, retry_used;
   uint32_t active_ms, set_due_ms;
@@ -147,6 +154,9 @@ size_t g4_frame(uint8_t *out,uint8_t type,uint8_t seq,const uint8_t *payload,siz
 int g4_pop_frame(G4Port *port,uint8_t *out,size_t n,uint32_t now_ms);
 void g4_reset_parser(G4Port *port);
 int g4_response(G4Port *port,uint16_t *id,uint8_t *state);
+/* Fault masks remain separate; OFF / early startup exceptions are contextual. */
+uint32_t g4_blocking_g0_faults(const G4Telemetry *t, uint8_t phase);
+int g4_start_wait(const G4Telemetry *t, uint8_t phase);
 void g4_init(G4Port *port);
 void g4_link_up(G4Port *port);
 void g4_link_lost(G4Port *port);
