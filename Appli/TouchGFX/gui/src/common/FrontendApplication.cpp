@@ -9,17 +9,8 @@
 #include <gui/screenusbpd_screen/ScreenUsbPdView.hpp>
 #include <gui/screenusbpd_screen/ScreenUsbPdPresenter.hpp>
 #include <touchgfx/transitions/NoTransition.hpp>
-#include <touchgfx/Bitmap.hpp>
 #include <touchgfx/hal/HAL.hpp>
 #include <stdlib.h>
-
-namespace
-{
-// Only the descriptor of the external destination snapshot lives here; its
-// pixels have a dedicated PSRAM buffer in FingerSlideTransition.cpp.
-LOCATION_PRAGMA_NOLOAD("TouchGFX_Framebuffer")
-uint16_t swipeBitmapCache[800] LOCATION_ATTRIBUTE_NOLOAD("TouchGFX_Framebuffer");
-}
 
 FrontendApplication::FrontendApplication(Model& m, FrontendHeap& heap)
     : FrontendApplicationBase(m,heap), page(OTHER),origin(OTHER),destination(OTHER),
@@ -27,7 +18,6 @@ FrontendApplication::FrontendApplication(Model& m, FrontendHeap& heap)
 {
     usbNotice[0]=0;
     touchgfx::HAL::getInstance()->setFrameRateCompensation(true);
-    touchgfx::Bitmap::setCache(swipeBitmapCache,sizeof(swipeBitmapCache),1);
 }
 void FrontendApplication::handleTickEvent()
 {
