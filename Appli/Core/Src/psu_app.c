@@ -314,7 +314,10 @@ static const char *on_block(uint8_t source)
 
 static void latch_fault(const char *reason)
 {
-  clear_ack_pending = 0;
+  /* An old ctrl=FAULT METER may already be in flight when CLEAR ACK
+     arrives. Let the requested OFF/recovery complete before judging it. */
+  if (!clear_ack_pending || strcmp(reason, "G4 CONTROL FAULT") != 0)
+    clear_ack_pending = 0;
   if (!snap.fault_latched) {
     snap.fault_latched = 1;
     snprintf(snap.fault, sizeof(snap.fault), "%s", reason);
@@ -588,7 +591,7 @@ void psu_app_tick(uint32_t now_ms)
     if(snap.output_requested || t->out || g4.output_phase==G4_OUTPUT_STARTING || g4.output_phase==G4_OUTPUT_RUNNING) {
       if(!t->valid || age>50U)latch_fault("H7 METER STALE");
       else if(!g0.connected && !g4_start_wait(t,g4.output_phase))latch_fault("H7 G0 STALE");
-      if(g4.output_phase==G4_OUTPUT_STARTING && now_ms-startup_ms>8000U)latch_fault("H7 START TIMEOUT");
+      if(g4.output_phase==G4_OUTPUT_STARTING && now_ms-startup_ms>10000U)latch_fault("H7 START TIMEOUT");
     }
     if(g4.output_phase==G4_OUTPUT_STOPPING && now_ms-stop_ms>800U)latch_fault("H7 OFF TIMEOUT");
     /* CLEAR ACK alone is not evidence that measurements/faults recovered.
@@ -697,10 +700,9 @@ void psu_app_tick(uint32_t now_ms)
     snprintf(snap.fault, sizeof(snap.fault), "G0 OFFLINE");
     (void)psu_app_set_output(0, PSU_SRC_BOOT);
   }
-  if (g0.connected && blob.ovp_mv && g0.vout_mv > blob.ovp_mv && !snap.fault_latched)
-  {
-    latch_fault("H7 OVP");
-  }
+  /* OVP is executed locally by G0. The legacy stored voltage ceiling
+     * already caps requests in psu_app_set_limits; do not compare noisy
+     * METER readings to that ceiling and create a third protection latch. */
   snap.output_phase=g4.output_phase;
   {const char *reason=on_block(PSU_SRC_LCD);snprintf(snap.on_block_reason,sizeof(snap.on_block_reason),"%s",reason?reason:"READY");}
   snap.nack_valid=g4.nack_valid;snap.nack_type=g4.nack_type;snap.nack_seq=g4.nack_seq;

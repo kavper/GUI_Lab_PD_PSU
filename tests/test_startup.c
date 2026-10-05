@@ -76,9 +76,10 @@ int main(void) {
   tick_meter(21,0,0,0,1);assert(!snapshot().output_requested);
   puts("PASS: POWER_KILL during RUNNING is an emergency");
   start_running();tick_meter(20,0,9,0xe7,1);
-  assert_off_latched("POWER_KILL",20);
-  tick_meter(21,0,0,4,1);assert(strstr(snapshot().fault_context,"ctrl=9"));
-  puts("PASS: raw kill=1 with zero G0 fault mask still trips during RUNNING; origin preserved");
+  assert(!snapshot().fault_latched); /* G4 owns interpretation of its kill pin. */
+  meter(21,0,12,4,1,0,1);psu_app_tick(21);
+  assert_off_latched("CONTROL FAULT",21);
+  puts("PASS: raw kill does not create a third latch; G4 supervisor fault is authoritative");
 
   reset_off(G4_G0_POWER_KILL|G4_G0_VIN_LOW);
   assert(psu_app_set_output(1,PSU_SRC_LCD));uint8_t seq=transmit(11,2);
@@ -88,7 +89,9 @@ int main(void) {
     tick_meter(ms,G4_G0_MEAS_LOST|G4_G0_POWER_KILL|G4_G0_VIN_LOW,
                ms<100?1:2,0x46,ms<100?0:1);
     assert(!snapshot().fault_latched&&snapshot().output_requested);
-    assert(!g4_pop_frame(psu_g4(),wire,sizeof(wire),ms)); /* no H7 OFF/PERMIT */
+    if(g4_pop_frame(psu_g4(),wire,sizeof(wire),ms)) {
+      assert(wire[3]==5);ack(ms,5,wire[4]); /* heartbeat, never OFF/PERMIT */
+    }
   }
   tick_meter(700,0,3,0xe2,1);
   for(uint8_t ctrl=4;ctrl<=8;ctrl++)tick_meter(700+ctrl,0,ctrl,0xe2,1);
@@ -162,6 +165,15 @@ int main(void) {
   reset_off(0);meter(20,0,0,0,1,0,1);psu_app_tick(20);assert_off_latched("CONTROL FAULT",20);
   puts("PASS: real G4/G0/control faults stay latched; CLEAR cannot bypass active fault");
 
+  reset_off(0);meter(20,0,12,4,1,0,1);psu_app_tick(20);
+  assert_off_latched("CONTROL FAULT",20);clear(21);
+  meter(22,0,12,4,1,0,1);psu_app_tick(22); /* buffered pre-CLEAR frame */
+  assert(snapshot().fault_latched);
+  tick_meter(23,0,10,4,1);tick_meter(24,0,11,4,1);tick_meter(25,0,0,4,1);
+  assert(!snapshot().fault_latched && !snapshot().output_requested);
+  assert(psu_app_set_output(1,PSU_SRC_LCD));
+  puts("PASS: CLEAR survives buffered ctrl=FAULT and completes G4 OFF recovery without auto ON");
+
   reset_off(0);assert(psu_app_set_output(1,PSU_SRC_LCD));seq=transmit(11,2);
   uint8_t nack[]={2,4};receive(0x82,seq,nack,2,12);psu_app_tick(12);
   assert_off_latched("REJECTED",12);PsuSnapshot s=snapshot();
@@ -171,8 +183,8 @@ int main(void) {
   puts("PASS: received NACK TYPE/SEQ/reason and correlation remain diagnostic");
 
   reset_off(0);assert(psu_app_set_output(1,PSU_SRC_LCD));transmit(11,2);
-  for(uint32_t ms=20;ms<=8040;ms+=20)tick_meter(ms,G4_G0_POWER_KILL,2,0x46,1);
+  for(uint32_t ms=20;ms<=10040;ms+=20)tick_meter(ms,G4_G0_POWER_KILL,2,0x46,1);
   assert(snapshot().fault_latched&&!snapshot().output_requested);
-  puts("PASS: startup wait remains bounded by 8-second timeout");
+  puts("PASS: startup wait remains bounded by 10-second host timeout after G4's 8-second deadline");
   return 0;
 }

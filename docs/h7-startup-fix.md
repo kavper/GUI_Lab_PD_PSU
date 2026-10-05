@@ -120,3 +120,28 @@ Run the host suite on macOS/Linux with `tests/run_host_tests.sh`; the existing
 PowerShell runner remains available. Host tests exercise the real H7 parser
 and application using binary METER/ACK/NACK frames. They do not replace a
 board test of analogue regulation, physical PERMIT polarity or DCDC drivers.
+
+## Coordinated recovery with the paired G4 update
+
+Use this H7 with the G4 CLEAR/heartbeat update, not the previous f70489a.
+G4 executes the physical protection and output sequence; G0 retains its
+local LDO protection. H7 no longer invents a fault from the raw kill bit.
+Explicit G0/G4 faults remain visible and stop UI consumers; CLEAR recovers
+through the G4 OFF transaction, without auto ON. A buffered pre-CLEAR
+ctrl=FAULT frame cannot invalidate the recovery ACK.
+
+H7 sends PING at 100 ms intervals while METER is current. G4 removes
+PERMIT locally if no CRC-valid host frame arrives for over 1000 ms during
+start or operation. This covers a broken H7-to-G4 direction or panel reset.
+An ON transaction has a 10-second host deadline; G4 owns the 8-second
+physical startup deadline. The 2-second difference allows its final reply.
+
+G0 owns runtime voltage protection. The persisted H7 voltage ceiling still
+limits requested setpoints; it is not an instantaneous measured OVP latch.
+This avoids tripping H7 on measurement error at a 27 V setpoint.
+
+Host validation: all three test suites, including CLEAR with an old FAULT
+frame, delayed G0 start, expected OFF kill and real running faults. Modified
+H7 communication/application units also compile for Cortex-M7. A complete
+firmware link requires the project's TouchGFX SDK/generated build files,
+which are not present in this Git checkout. No board validation is claimed.
