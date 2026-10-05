@@ -62,19 +62,23 @@ int main(void) {
   start_running();
   /* Lost then healthy in one RX batch still trips the running fault. */
   meter(20,G4_G0_MEAS_LOST,9,0xe3,1,0,0);meter(20,0,9,0xe3,1,0,0);
-  psu_app_tick(20);assert_off_latched("MEAS_LOST",20);
+  psu_app_tick(20);assert(!snapshot().fault_latched);
+  meter(20,G4_G0_MEAS_LOST,12,4,1,0,1);psu_app_tick(20);
+  assert_off_latched("MEAS_LOST",20);
   tick_meter(25,0,0,0,1);assert(!snapshot().output_requested);
   assert(!psu_app_set_output(1,PSU_SRC_LCD));
   clear(26);assert(snapshot().fault_latched);
   tick_meter(27,G4_G0_MEAS_LOST,0,4,1);assert(snapshot().fault_latched);
   tick_meter(28,0,0,0,1);assert(!snapshot().fault_latched&&!snapshot().output_requested);
   assert(psu_app_set_output(1,PSU_SRC_LCD));
-  puts("PASS: running MEAS_LOST trips priority OFF/latch; CLEAR requires later healthy data; no auto ON");
+  puts("PASS: G4-confirmed MEAS_LOST stops UI consumers; CLEAR requires healthy data; no auto ON");
 
   start_running();tick_meter(20,G4_G0_POWER_KILL,9,0xe6,1);
+  assert(!snapshot().fault_latched);
+  meter(20,G4_G0_POWER_KILL,12,4,1,0,1);psu_app_tick(20);
   assert_off_latched("POWER_KILL",20);
   tick_meter(21,0,0,0,1);assert(!snapshot().output_requested);
-  puts("PASS: POWER_KILL during RUNNING is an emergency");
+  puts("PASS: G4-confirmed running POWER_KILL is an emergency");
   start_running();tick_meter(20,0,9,0xe7,1);
   assert(!snapshot().fault_latched); /* G4 owns interpretation of its kill pin. */
   meter(21,0,12,4,1,0,1);psu_app_tick(21);
@@ -111,8 +115,10 @@ int main(void) {
   puts("PASS: late startup POWER_KILL with G0 fault=0 allows G4 PERMIT retry");
 
   reset_off(0);assert(psu_app_set_output(1,PSU_SRC_LCD));transmit(11,2);
-  tick_meter(20,G4_G0_MEAS_LOST,4,0xe2,1);assert_off_latched("MEAS_LOST",20);
-  assert(strstr(snapshot().fault_context,"ctrl=4"));
+  tick_meter(20,G4_G0_MEAS_LOST,4,0xe2,1);assert(!snapshot().fault_latched);
+  meter(20,G4_G0_MEAS_LOST,12,4,1,0,1);psu_app_tick(20);
+  assert_off_latched("MEAS_LOST",20);
+  assert(strstr(snapshot().fault_context,"ctrl=12"));
   puts("PASS: late-start measurement fault still trips and records originating frame");
 
   start_running();assert(psu_app_shutdown());transmit(20,3);
@@ -130,9 +136,10 @@ int main(void) {
   puts("PASS: explicit OFF permits delayed want/ctrl/kill convergence; ON waits for stopped state");
 
   start_running();assert(psu_app_shutdown());transmit(20,3);
-  tick_meter(21,G4_G0_MEAS_LOST,9,0xe7,1);
+  tick_meter(21,G4_G0_MEAS_LOST,9,0xe7,1);assert(!snapshot().fault_latched);
+  meter(21,G4_G0_MEAS_LOST,12,4,1,0,1);psu_app_tick(21);
   assert_off_latched("MEAS_LOST",21);
-  puts("PASS: explicit OFF tolerates expected kill but preserves measurement faults while OUT is still on");
+  puts("PASS: expected OFF kill does not trip H7; confirmed G4 measurement fault remains actionable");
 
   start_running();psu_app_tick(63);assert_off_latched("METER STALE",63);
   tick_meter(64,0,0,0,1);assert(snapshot().fault_latched&&!snapshot().output_requested);
@@ -143,11 +150,12 @@ int main(void) {
   puts("PASS: stale link trips during operation and blocks ON at idle");
 
   start_running();meter(20,0,9,0xe3,0,0,0);meter(20,0,9,0xe3,1,0,0);
-  psu_app_tick(20);assert_off_latched("G0 STALE",20);
-  puts("PASS: G0 loss in a multi-frame RX batch cannot be erased by recovery");
+  psu_app_tick(20);assert(!snapshot().fault_latched);
+  meter(20,0,12,4,0,0,1);psu_app_tick(20);assert_off_latched("CONTROL FAULT",20);
+  puts("PASS: G0 freshness transition does not invent H7 trip; confirmed G4 fault stops output");
 
   start_running();assert(psu_seq_start(psu_sequencer(),13));
-  tick_meter(20,G4_G0_MEAS_LOST,9,0xe3,1);
+  meter(20,G4_G0_MEAS_LOST,12,4,1,0,1);psu_app_tick(20);
   assert(snapshot().fault_latched&&psu_sequencer()->run!=PSU_SEQ_RUN);
   /* Shutdown may queue more than one OFF while stopping consumers. */
   while(g4_pop_frame(psu_g4(),wire,sizeof(wire),20))assert(wire[3]==3);
@@ -161,7 +169,8 @@ int main(void) {
   meter(22,0,0,0,1,4,0);psu_app_tick(22);assert(snapshot().fault_latched);
   tick_meter(23,0,0,0,1);assert(snapshot().fault_latched); /* new fault invalidated CLEAR */
   clear(24);tick_meter(25,0,0,0,1);assert(!snapshot().fault_latched);
-  reset_off(0);tick_meter(20,1,0,0,1);assert_off_latched("G0 FAULT",20);
+  reset_off(0);tick_meter(20,1,0,0,1);assert(!snapshot().fault_latched);
+  assert(!psu_app_set_output(1,PSU_SRC_LCD)); /* active HW_INIT blocks readiness */
   reset_off(0);meter(20,0,0,0,1,0,1);psu_app_tick(20);assert_off_latched("CONTROL FAULT",20);
   puts("PASS: real G4/G0/control faults stay latched; CLEAR cannot bypass active fault");
 

@@ -145,3 +145,19 @@ frame, delayed G0 start, expected OFF kill and real running faults. Modified
 H7 communication/application units also compile for Cortex-M7. A complete
 firmware link requires the project's TouchGFX SDK/generated build files,
 which are not present in this Git checkout. No board validation is claimed.
+
+## Final ownership of runtime protection
+
+G0 disables its own LDO on local faults. G4 supervises G0 and DCDC and
+publishes ctrl=FAULT / the control latch. H7 now consumes that confirmed
+supervisor fault; it does not independently trip on a raw G0 fault/stale
+transition or raw kill pin while G4 is still processing the event. Before
+ON, H7 still checks readiness and reports why a request cannot be made.
+During operation, a lost H7-G4 transport or expired command remains a
+communications failure (priority OFF), not a new interpretation of G0's
+analogue protection. G4's heartbeat handles failure of H7 itself.
+
+The H7 tests explicitly deliver the G0 transition first and then G4's
+supervisor FAULT, verifying that only the latter stops the UI consumers.
+The paired G4 is `1e4116c`; G0 remains `f974390`. Flash the coordinated H7
+and G4 pair together. The older G4 has neither heartbeat nor CLEAR recovery.

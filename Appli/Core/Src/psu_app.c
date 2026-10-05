@@ -316,7 +316,7 @@ static void latch_fault(const char *reason)
 {
   /* An old ctrl=FAULT METER may already be in flight when CLEAR ACK
      arrives. Let the requested OFF/recovery complete before judging it. */
-  if (!clear_ack_pending || strcmp(reason, "G4 CONTROL FAULT") != 0)
+  if (!clear_ack_pending || (strcmp(reason, "G4 CONTROL FAULT") != 0 && strncmp(reason, "G4: G0 ", 7) != 0))
     clear_ack_pending = 0;
   if (!snap.fault_latched) {
     snap.fault_latched = 1;
@@ -577,20 +577,18 @@ void psu_app_tick(uint32_t now_ms)
     }
     if (g4.event_fault) {
       char why[40];snprintf(why,sizeof(why),"G4 FAULT 0x%lX",(unsigned long)g4.event_fault);latch_fault(why);
-    } else if (g4.event_ctrl_fault) latch_fault("G4 CONTROL FAULT");
-    else if (g4.event_g0_fault) {
-      char why[40];
-      if(g4.event_g0_fault&G4_G0_MEAS_LOST)snprintf(why,sizeof(why),"G0 MEAS_LOST");
-      else if(g4.event_g0_fault&G4_G0_POWER_KILL)snprintf(why,sizeof(why),"G0 POWER_KILL");
-      else snprintf(why,sizeof(why),"G0 FAULT 0x%lX",(unsigned long)g4.event_g0_fault);
-      latch_fault(why);
+    } else if (g4.event_ctrl_fault) {
+      /* G4 is the supervisor. Report its confirmed fault, with G0's cause
+         when available; raw G0 transitions do not trip H7 independently. */
+      const G4Telemetry *cause = g4.event_meter.valid ? &g4.event_meter : t;
+      if(cause->g0_fault & G4_G0_MEAS_LOST) latch_fault("G4: G0 MEAS_LOST");
+      else if(cause->g0_fault & G4_G0_POWER_KILL) latch_fault("G4: G0 POWER_KILL");
+      else latch_fault("G4 CONTROL FAULT");
     }
-    if(g4.event_g0_stale)latch_fault("H7 G0 STALE");
     g4.event_fault=0;g4.event_g0_fault=0;g4.event_ctrl_fault=0;g4.event_g0_stale=0;
     g4.event_meter.valid=0;
     if(snap.output_requested || t->out || g4.output_phase==G4_OUTPUT_STARTING || g4.output_phase==G4_OUTPUT_RUNNING) {
       if(!t->valid || age>50U)latch_fault("H7 METER STALE");
-      else if(!g0.connected && !g4_start_wait(t,g4.output_phase))latch_fault("H7 G0 STALE");
       if(g4.output_phase==G4_OUTPUT_STARTING && now_ms-startup_ms>10000U)latch_fault("H7 START TIMEOUT");
     }
     if(g4.output_phase==G4_OUTPUT_STOPPING && now_ms-stop_ms>800U)latch_fault("H7 OFF TIMEOUT");
