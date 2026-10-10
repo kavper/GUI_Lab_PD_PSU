@@ -512,8 +512,7 @@ void Screen1View::setTelemetryAvailable(bool available, bool currentValid, bool 
         touchgfx::Unicode::snprintf(ActualVoltageValueBuffer, ACTUALVOLTAGEVALUE_SIZE, "-- V");
         touchgfx::Unicode::snprintf(TemperatureValueBuffer, TEMPERATUREVALUE_SIZE, "-- C");
         touchgfx::Unicode::snprintf(PcbTemperatureValueBuffer, PCBTEMPERATUREVALUE_SIZE, "-- C");
-        touchgfx::Unicode::snprintf(BatteryValueBuffer, BATTERYVALUE_SIZE, "-- V");
-        TemperatureValue.invalidate(); PcbTemperatureValue.invalidate(); BatteryValue.invalidate();
+        TemperatureValue.invalidate(); PcbTemperatureValue.invalidate();
     }
     if (!temperatureValid) {
         touchgfx::Unicode::snprintf(TemperatureValueBuffer, TEMPERATUREVALUE_SIZE, "-- C");

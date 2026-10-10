@@ -9724,10 +9724,10 @@
           {
             "Type": "TextArea",
             "Name": "ProfileNote",
-            "X": 188,
+            "X": 16,
             "Y": 366,
-            "Width": 308,
-            "Height": 44,
+            "Width": 480,
+            "Height": 52,
             "TextId": "TXT_CHG_PROFILE",
             "TextRotation": "0",
             "Color": {
@@ -9738,7 +9738,7 @@
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
               "UseBuffer": true,
-              "BufferSize": 120
+              "BufferSize": 240
             }
           },
           {
@@ -9886,28 +9886,6 @@
               "UseBuffer": true,
               "BufferSize": 700
             }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "CapacityButton",
-            "X": 16,
-            "Y": 366,
-            "Width": 160,
-            "Height": 48,
-            "Pressed": "ux_tab_sel_160x48.png",
-            "Released": "ux_tab_rel_160x48.png",
-            "TextId": "TXT_CAPACITY_EDIT",
-            "ReleasedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "PressedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -10252,17 +10230,6 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "stopCharge"
-            }
-          },
-          {
-            "InteractionName": "EditCapacity",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "CapacityButton"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "field3"
             }
           }
         ]

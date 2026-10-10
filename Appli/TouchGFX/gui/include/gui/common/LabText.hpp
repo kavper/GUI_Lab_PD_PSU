@@ -43,6 +43,7 @@ template <typename Widget>
 inline void lab_show(Widget& widget, touchgfx::Unicode::UnicodeChar* buf, uint16_t n,
                      const char* ascii, touchgfx::colortype color)
 {
+    widget.invalidate(); // Erase the previous text bounds before changing its width.
     lab_put(buf, n, ascii);
     widget.setColor(color);
     widget.invalidate();

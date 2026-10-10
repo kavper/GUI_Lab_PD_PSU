@@ -36,6 +36,7 @@ public:
             memset(p,0,sizeof(p));p[0]=1;p[1]=0x85;p[7]=p[10]=1;p[8]=1;w32(p+36,600);w32(p+52,20010);emit(0x12,p,64);
             psu_g4()->records[G4_RECORD_T].valid=1;psu_g4()->records[G4_RECORD_T].ms=psu_app_now();
             main->setHostAuxMetrics();
+            if(frame==10){main->BatteryValue.invalidate();touchgfx::Unicode::snprintf(main->BatteryValueBuffer,main->BATTERYVALUE_SIZE,"+5.0 W");main->BatteryValue.invalidate();}
             if(++frame<30)return false;
             check(main->BatteryValueBuffer[0]=='-' && main->BatteryValue.getColor()==ui::Theme::color(ui::NEGATIVE),"main screen has red net battery discharge");
             check(main->BatteryValue.getY()==32 && main->PowerLabel.getTypedText().getId()==T_TXT_HEADER_VPREREG,"battery power and correctly named prereg in header");
@@ -67,6 +68,7 @@ public:
         if(stage==13){
           ScreenExtChargerView* v=static_cast<ScreenExtChargerView*>(app->getCurrentScreen());
           if(frame==0){v->chooseChem(0);v->field0();v->chargeKey4();v->chargeKeyApply();v->field4();v->chargeKey1();v->chargeKey6();v->chargeKeyDot();v->chargeKey4();v->chargeKeyApply();check(psu_charger()->profile.cells==4 && psu_chg_target_mv(&psu_charger()->profile)==16400,"4S 16.4 V target through actual GUI keypad");}
+          if(frame==0){v->field1();v->chargeKey1();v->chargeKeyApply();check(psu_charger()->profile.cc_ma==1000,"explicit 1 A through GUI without capacity ceiling");v->field2();v->chargeKey0();v->chargeKeyDot();v->chargeKey1();v->chargeKeyApply();check(psu_charger()->profile.cc_ma==1000&&psu_charger()->profile.term_ma==100,"end threshold never changes charge current");}
           v->refresh();if(++frame<30)return false;
           static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("usb-selftest"),const_cast<char*>("charger-target.bmp"));
           v->allOff();PsuSnapshot snap;psu_snapshot(&snap);check(snap.power_shutdown_requested&&!snap.output_requested,"header requests complete power shutdown");

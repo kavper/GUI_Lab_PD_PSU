@@ -40,8 +40,8 @@ typedef struct
 {
   uint8_t chemistry;
   uint8_t cells;
-  uint32_t capacity_mah;
-  uint32_t c_rate_milli; /* 500 = 0.5C */
+  uint32_t capacity_mah; /* Legacy metadata, never limits operator current. */
+  uint32_t c_rate_milli; /* Legacy metadata, unused for charge current. */
   uint32_t precharge_mv_cell;
   uint32_t precharge_ma;
   uint32_t cc_ma;

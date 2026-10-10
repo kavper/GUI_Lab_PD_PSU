@@ -119,15 +119,9 @@ void psu_chg_init(PsuCharger *chg)
   (void)snprintf(chg->reason, sizeof(chg->reason), "IDLE");
 }
 
-static uint32_t c_rate_ma(const PsuChgProfile *p)
-{
-  return (uint32_t)(((uint64_t)p->capacity_mah * p->c_rate_milli) / 1000U);
-}
-
 int psu_chg_validate(const PsuChgProfile *profile, const PsuChgSense *sense, char *why, unsigned why_n)
 {
   uint32_t pack_cv;
-  uint32_t limit_ma;
   if (why && why_n)
     why[0] = '\0';
   if (profile == 0)
@@ -164,11 +158,9 @@ int psu_chg_validate(const PsuChgProfile *profile, const PsuChgSense *sense, cha
     if (why) (void)snprintf(why, why_n, "Pack voltage exceeds 27 V");
     return 0;
   }
-  limit_ma = c_rate_ma(profile);
-  if (profile->cc_ma == 0U || profile->cc_ma > PSU_CURRENT_MAX_MA ||
-      (limit_ma != 0U && profile->cc_ma > limit_ma))
+  if (profile->cc_ma == 0U || profile->cc_ma > PSU_CURRENT_MAX_MA)
   {
-    if (why) (void)snprintf(why, why_n, "Current exceeds C-rate or 5 A");
+    if (why) (void)snprintf(why, why_n, "Charge current must be 0-5 A");
     return 0;
   }
   if (sense == 0 || !sense->telemetry_ok || (!sense->permit && !sense->start_allowed))
@@ -354,7 +346,7 @@ void psu_chg_tick(PsuCharger *chg, const PsuChgSense *sense, uint32_t now_ms)
   pack_cv = psu_chg_target_mv(&chg->profile);
   pre_mv = (uint32_t)chg->profile.cells * chg->profile.precharge_mv_cell;
   if (chg->state == CHG_VALIDATE || chg->state == CHG_WAIT) {
-    send_limits(chg,pack_cv,chg->profile.precharge_ma);
+    send_limits(chg,pack_cv,sense->pack_mv>=pre_mv?chg->profile.cc_ma:chg->profile.precharge_ma);
     if(!chg->running)return;
     enter(chg,CHG_STARTING,now_ms);
     return;
@@ -364,7 +356,7 @@ void psu_chg_tick(PsuCharger *chg, const PsuChgSense *sense, uint32_t now_ms)
       chg->output_started=1;chg->io.output(1,chg->io.user);
       if(!chg->running)return;
     }
-    if(chg->output_started && sense->permit && sense->output_ready)enter(chg,CHG_PRECHARGE,now_ms);
+    if(chg->output_started && sense->permit && sense->output_ready)enter(chg,sense->pack_mv>=pre_mv?CHG_CC:CHG_PRECHARGE,now_ms);
     else if(now_ms-chg->state_since_ms>5000U)fault(chg,"G4/G0 start timeout");
     return;
   }
@@ -385,7 +377,7 @@ void psu_chg_tick(PsuCharger *chg, const PsuChgSense *sense, uint32_t now_ms)
   if (chg->state == CHG_CV || chg->state == CHG_ABSORPTION)
   {
     send_limits(chg,pack_cv,chg->profile.cc_ma);
-    if (held(chg, sense->current_ma >= 0 && (uint32_t)sense->current_ma <= chg->profile.term_ma, now_ms))
+    if (held(chg, sense->limits_applied && sense->pack_mv + 50U >= pack_cv && sense->current_ma >= 0 && (uint32_t)sense->current_ma <= chg->profile.term_ma, now_ms))
       enter(chg, CHG_TERMINATING, now_ms);
     return;
   }

@@ -292,14 +292,14 @@ int main(void) {
   assert_off_latched("POWER_KILL",12);
   puts("PASS: an actual G4 fault alongside NACK still latches and requires CLEAR");
   reset_off(0);charge_meter(11,0,4,12000,2000);
-  PsuCharger *chg=psu_charger();chg->profile.confirmed=chg->profile.polarity_checked=1;
+  PsuCharger *chg=psu_charger();chg->profile.confirmed=chg->profile.polarity_checked=1;chg->profile.cc_ma=1000;
   assert(psu_app_start_charging());charge_meter(12,0,4,12000,2000);
-  uint8_t set_seq=transmit(12,1);assert(chg->state==CHG_STARTING);
-  charge_meter(13,0,4,4200,100);assert(!snapshot().output_requested);
+  uint8_t set_seq=transmit(12,1);assert(chg->state==CHG_STARTING&&snapshot().requested_ma==1000);
+  charge_meter(13,0,4,4200,1000);assert(!snapshot().output_requested);
   ack(14,1,set_seq);assert(snapshot().output_requested);uint8_t on_seq=transmit(14,2);
-  charge_meter(30,7,6,4200,100);assert(chg->running&&chg->state==CHG_STARTING);
-  charge_meter(45,9,0xe3,4200,100);ack(45,2,on_seq);assert(chg->state==CHG_PRECHARGE);
-  puts("PASS: charger application starts with OFF/no PERMIT; readback alone cannot bypass SET ACK; ON starts G4; delayed PERMIT/output confirms precharge");
+  charge_meter(30,7,6,4200,1000);assert(chg->running&&chg->state==CHG_STARTING);
+  charge_meter(45,9,0xe3,4200,1000);ack(45,2,on_seq);assert(chg->state==CHG_CC);
+  puts("PASS: charger application starts with OFF/no PERMIT; readback alone cannot bypass SET ACK; ON starts G4; delayed PERMIT/output confirms CC");
   reset_off(0);external_pack_mv=0;charge_meter(11,0,4,12000,2000);
   chg=psu_charger();chg->profile.cells=4;chg->profile.confirmed=chg->profile.polarity_checked=1;assert(psu_chg_set_target(&chg->profile,16400));
   assert(psu_app_start_charging());charge_meter(12,0,4,12000,2000);set_seq=transmit(12,1);
@@ -307,7 +307,7 @@ int main(void) {
   charge_meter(13,0,4,16400,100);assert(!snapshot().output_requested);
   ack(14,1,set_seq);assert(snapshot().output_requested);on_seq=transmit(14,2);
   charge_meter(30,7,6,16400,100);assert(chg->state==CHG_STARTING);
-  external_pack_mv=13000;charge_meter(45,9,0xe3,16400,100);ack(45,2,on_seq);assert(chg->state==CHG_PRECHARGE);
+  external_pack_mv=13000;charge_meter(45,9,0xe3,16400,100);ack(45,2,on_seq);assert(chg->state==CHG_CC);
   puts("PASS: full binary 4S 16.4 V startup with zero OFF voltage; SET ACK then ON then delayed output/PERMIT, no forced permit");
   return 0;
 }

@@ -1644,7 +1644,7 @@
         <Translation Language="GB">CHARGE CURRENT / A</Translation>
       </Text>
       <Text Id="TXT_CHG_FIELD2" Alignment="Left" TypographyId="UiEyebrow">
-        <Translation Language="GB">CUTOFF CURRENT / A</Translation>
+        <Translation Language="GB">STOP BELOW / A</Translation>
       </Text>
       <Text Id="TXT_CHG_FIELD3" Alignment="Left" TypographyId="UiEyebrow">
         <Translation Language="GB">CAPACITY / Ah</Translation>
