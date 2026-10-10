@@ -83,8 +83,16 @@ public:
           uint8_t p[72]={0};w32(p+24,15000);w32(p+28,stage==14?400:1400);p[67]=64;p[66]=4;emit(0x10,p,72);psu_app_tick(psu_app_now());
           ui::Theme::setDark(stage==14);ui::ThemeScreen::get().sync();v->refresh();
           if(++frame<30)return false;
+          for(uint32_t boundary=10000;boundary<=14400000;boundary*=2){
+            uint32_t before=SessionChart::timeRange(boundary),after=SessionChart::timeRange(boundary+16);
+            check(after>=before&&after-before<=18,"time scale changes continuously across former doubling boundaries");
+            uint32_t x0=(uint64_t)boundary*643/before,x1=(uint64_t)boundary*643/after;
+            check(x0-x1<=1,"existing trace cannot jump to half width at time boundaries");
+          }
+          c->running=1;v->chart.update(c);check(v->chart.hasLiveTail(),"running chart uses fresh live tail between stored history samples");
+          c->running=0;v->chart.update(c);check(!v->chart.hasLiveTail(),"stopped session freezes historical tail");
           check(v->LiveVoltage.isVisible()&&v->LiveCurrent.isVisible()&&v->StopButton.isVisible(),"session live voltage/current and STOP visible");
-          check(v->chart.voltageMax==20000&&v->chart.currentMax==(stage==14?2000U:5000U)&&v->chart.timeMax>=c->elapsed_ms,"independent nice voltage/current/time auto scales");
+          check(v->chart.voltageMax==20000&&v->chart.currentMax==(stage==14?2000U:5000U)&&v->chart.timeMax==132000,"independent nice voltage/current/time auto scales");
           static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("usb-selftest"),const_cast<char*>(stage==14?"charger-session-dark.bmp":"charger-session-light.bmp"));
           if(stage==14){stage=15;frame=0;return false;}
           fprintf(log,"PASS session live readings, colored dual axes, automatic V/A/time scales, 3.2 A expansion and dark/light layout; no precharge\n");fclose(log);exit(0);

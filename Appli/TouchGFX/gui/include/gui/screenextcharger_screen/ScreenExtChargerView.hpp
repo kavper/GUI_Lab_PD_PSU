@@ -12,7 +12,7 @@ public:
  ScreenExtChargerView():page(0),field(1),divider(0),polarity(false){psu_editor_clear(&editor);}
  virtual void setupScreen();
  virtual void tearDownScreen(){ScreenExtChargerViewBase::tearDownScreen();}
- virtual void handleTickEvent(){if(++divider>=15){divider=0;refresh();}}
+ virtual void handleTickEvent(){if(++divider>=(page==1?2:15)){divider=0;refresh();}}
  virtual void allOff();
  virtual void showSetup();
  virtual void showSession();
