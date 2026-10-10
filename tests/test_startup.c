@@ -195,15 +195,64 @@ int main(void) {
 
   reset_off(0);assert(psu_app_set_output(1,PSU_SRC_LCD));seq=transmit(11,2);
   uint8_t nack[]={2,4};receive(0x82,seq,nack,2,12);psu_app_tick(12);
-  assert_off_latched("REJECTED",12);PsuSnapshot s=snapshot();
+  PsuSnapshot s=snapshot();
+  assert(!s.fault_latched&&!s.output_requested&&s.shutdown_pending);
+  assert(strstr(s.command_error,"ON REJECTED"));transmit(12,3);
   assert(s.nack_valid&&s.nack_type==2&&s.nack_seq==seq&&s.nack_reason==4&&s.nack_matched);
   uint8_t unmatched[]={1,5};receive(0x82,seq,unmatched,2,13);psu_app_tick(13);
   assert(snapshot().nack_reason==5&&!snapshot().nack_matched);
-  puts("PASS: received NACK TYPE/SEQ/reason and correlation remain diagnostic");
+  tick_meter(14,0,0,4,1);
+  assert(!snapshot().fault_latched&&!snapshot().output_requested);
+  assert(psu_app_set_output(1,PSU_SRC_LCD));
+  puts("PASS: ON NACK cancels request without H7 latch; fresh OFF allows manual retry without CLEAR");
 
   reset_off(0);assert(psu_app_set_output(1,PSU_SRC_LCD));transmit(11,2);
-  for(uint32_t ms=20;ms<=10040;ms+=20)tick_meter(ms,G4_G0_POWER_KILL,2,0x46,1);
-  assert(snapshot().fault_latched&&!snapshot().output_requested);
-  puts("PASS: startup wait remains bounded by 10-second host timeout after G4's 8-second deadline");
+  assert(psu_app_set_output(0,PSU_SRC_LCD)); /* Cancels old ON with an internal reply. */
+  assert(psu_app_set_output(1,PSU_SRC_LCD)); /* New explicit command, still fresh stopped METER. */
+  tick_meter(12,0,2,0x46,1);
+  assert(!snapshot().fault_latched&&snapshot().output_requested);
+  assert(!snapshot().command_error[0]);
+  transmit(12,3);seq=transmit(13,2);ack(14,2,seq);
+  tick_meter(15,0,9,0xe3,1);
+  assert(snapshot().output_requested&&snapshot().output_confirmed);
+  puts("PASS: a cancelled old ON cannot reject or acknowledge a new manual ON");
+
+  reset_off(0);assert(psu_app_set_output(1,PSU_SRC_LCD));seq=transmit(11,2);
+  for(uint32_t ms=20;ms<=10040;ms+=20) {
+    tick_meter(ms,G4_G0_POWER_KILL,2,0x46,1);
+    if(ms==9000)assert(snapshot().last_cmd_state==PSU_CMD_SENT && snapshot().output_requested);
+  }
+  assert(!snapshot().fault_latched&&!snapshot().output_requested);
+  assert(strstr(snapshot().command_error,"ON TIMEOUT"));
+  transmit(10041,3);
+  ack(10042,2,seq); /* Late/unmatched ACK cannot restore the old ON. */
+  tick_meter(10043,0,0,4,1);
+  assert(!snapshot().fault_latched&&!snapshot().output_requested);
+  assert(psu_app_set_output(1,PSU_SRC_LCD));
+  puts("PASS: ON timeout cancels transaction without protection latch or automatic restart");
+
+  start_running();assert(psu_app_shutdown());transmit(20,3);
+  tick_meter(1000,0,9,0xe7,1); /* Slow physical stopping, no G4 fault. */
+  assert(!snapshot().fault_latched&&snapshot().shutdown_pending);
+  assert(strstr(snapshot().command_error,"OFF TIMEOUT"));
+  assert(!psu_app_set_output(1,PSU_SRC_LCD));
+  tick_meter(1001,0,0,4,1);
+  assert(!snapshot().fault_latched&&snapshot().shutdown_confirmed);
+  assert(psu_app_set_output(1,PSU_SRC_LCD));
+  puts("PASS: delayed OFF is pending confirmation, not H7 fault; healthy OFF needs no CLEAR");
+
+  start_running();assert(psu_app_set_limits(13000,1500,PSU_SRC_LCD));transmit(20,1);
+  tick_meter(821,0,9,0xe3,1);
+  assert(!snapshot().fault_latched&&snapshot().output_requested&&snapshot().output_confirmed);
+  assert(strstr(snapshot().command_error,"LIMITS TIMEOUT"));
+  while(g4_pop_frame(psu_g4(),wire,sizeof(wire),821))assert(wire[3]!=3);
+  tick_meter(822,0,9,0xe3,1);
+  assert(psu_app_set_limits(13000,1500,PSU_SRC_LCD));
+  puts("PASS: SET timeout reports command error and preserves G4-supervised running output");
+
+  reset_off(0);assert(psu_app_set_output(1,PSU_SRC_LCD));seq=transmit(11,2);
+  receive(0x82,seq,nack,2,12);meter(12,G4_G0_POWER_KILL,12,4,1,0,1);psu_app_tick(12);
+  assert_off_latched("POWER_KILL",12);
+  puts("PASS: an actual G4 fault alongside NACK still latches and requires CLEAR");
   return 0;
 }

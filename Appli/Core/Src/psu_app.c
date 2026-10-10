@@ -57,7 +57,7 @@ static char lease_client[24];
 static uint8_t g0_seen;
 static uint32_t host_serial, host_tx_count;
 static uint8_t clear_ack_pending;
-static uint32_t clear_ack_serial, startup_ms, stop_ms;
+static uint32_t clear_ack_serial;
 static uint32_t energy_ms;
 static uint8_t energy_seen;
 static char web_page_storage[4096];
@@ -241,7 +241,7 @@ void psu_app_init(void)
   cmd_count = 0U;
   host_serial = host_tx_count = 0U;
   clear_ack_pending = 0U;
-  clear_ack_serial = startup_ms = stop_ms = app_now = 0U;
+  clear_ack_serial = app_now = 0U;
   energy_seen=0;energy_ms=0;
   g0_seen = 0U;
   g4_init(&g4);
@@ -393,12 +393,11 @@ int psu_app_set_output(int enabled, uint8_t source)
   g4.output_phase = enabled ? G4_OUTPUT_STARTING : G4_OUTPUT_STOPPING;
   if(!enabled) {
     const G4Telemetry *t=&g4.telemetry;
-    stop_ms=app_now;
     if(t->valid && app_now-t->ms<=G4_METER_FRESH_MS && !t->out && !t->want && !t->run &&
        !t->stage_en && !t->ps_en && t->ctrl==0)g4.output_phase=G4_OUTPUT_IDLE;
   }
   snap.output_phase = g4.output_phase;
-  if(enabled){startup_ms=app_now;snap.last_on_reject[0]=0;}
+  if(enabled){snap.last_on_reject[0]=0;snap.command_error[0]=0;}
   else clear_ack_pending=0;
   if (hooks.ldo_output)
     hooks.ldo_output(enabled ? 1U : 0U);
@@ -587,12 +586,9 @@ void psu_app_tick(uint32_t now_ms)
     }
     g4.event_fault=0;g4.event_g0_fault=0;g4.event_ctrl_fault=0;g4.event_g0_stale=0;
     g4.event_meter.valid=0;
-    if(snap.output_requested || t->out || g4.output_phase==G4_OUTPUT_STARTING || g4.output_phase==G4_OUTPUT_RUNNING) {
-      /* Telemetry age is diagnostic during operation. G4 owns the
-         host-link watchdog and the physical output shutdown. */
-      if(g4.output_phase==G4_OUTPUT_STARTING && now_ms-startup_ms>10000U)latch_fault("H7 START TIMEOUT");
-    }
-    if(g4.output_phase==G4_OUTPUT_STOPPING && now_ms-stop_ms>800U)latch_fault("H7 OFF TIMEOUT");
+    /* G4 owns start/stop deadlines and electrical supervision. H7 never
+       creates a protection latch just because a command is slow/rejected.
+       A failed ON transaction is cancelled below; OFF waits for real state. */
     /* CLEAR ACK alone is not evidence that measurements/faults recovered.
        Require a fresh healthy METER received after that ACK, still OFF. */
     if(clear_ack_pending && t->serial!=clear_ack_serial && age<=G4_METER_FRESH_MS &&
@@ -611,12 +607,20 @@ void psu_app_tick(uint32_t now_ms)
     if (host_tx_count != g4.tx_count) {host_tx_count=g4.tx_count;mark_cmd(g4.last_tx_id,PSU_CMD_SENT,now_ms);}
     while (g4_response(&g4,&g4.response_id,&g4.response_state)) {
       PsuCmdRec *r=find_cmd(g4.response_id);
+      const int pending=r && r->state<=PSU_CMD_SENT;
       if(r && g4.response_state==PSU_CMD_ACK && !strcmp(r->name,"CLR")){clear_ack_pending=1;clear_ack_serial=t->serial;}
-      if(r && !strcmp(r->name,"ON") && g4.response_state==PSU_CMD_ACK && snap.output_requested)g4.output_phase=G4_OUTPUT_RUNNING;
-      if(r && !strcmp(r->name,"ON") && g4.response_state==PSU_CMD_REJECTED && snap.output_requested)latch_fault("H7 ON REJECTED BY G4");
+      if(pending && !strcmp(r->name,"ON") && g4.response_state==PSU_CMD_ACK && snap.output_requested)g4.output_phase=G4_OUTPUT_RUNNING;
+      const int failed=g4.response_state==PSU_CMD_REJECTED || g4.response_state==PSU_CMD_TIMEOUT;
+      const int cancel_on=pending && failed && !strcmp(r->name,"ON") && snap.output_requested;
+      if(pending && failed && (strcmp(r->name,"ON")==0 || strcmp(r->name,"OFF")==0 || strcmp(r->name,"LIMITS")==0))
+        snprintf(snap.command_error,sizeof(snap.command_error),"%s %s - NO H7 FAULT LATCH",r->name,
+                 g4.response_state==PSU_CMD_TIMEOUT?"TIMEOUT":"REJECTED");
       if(r)mark_cmd(g4.response_id,g4.response_state,now_ms);
-      if(r && g4.response_state==PSU_CMD_TIMEOUT && (!strcmp(r->name,"LIMITS") || !strcmp(r->name,"ON"))){
-        latch_fault("H7 COMMAND TIMEOUT");
+      if(cancel_on){
+        snprintf(snap.last_on_reject,sizeof(snap.last_on_reject),"%s",snap.command_error);
+        /* Stop automation as well: a delayed ON must never become an
+           automatic restart. Retry needs a new command after confirmed OFF. */
+        (void)psu_app_shutdown();
       }
       g4.response_id=0;
     }
@@ -652,7 +656,7 @@ void psu_app_tick(uint32_t now_ms)
       cmds[i].state = PSU_CMD_ACK;
       snap.last_cmd_state = PSU_CMD_ACK;
     }
-    else if (cmds[i].state == PSU_CMD_SENT &&
+    else if (!snap.g4_uart_configured && cmds[i].state == PSU_CMD_SENT &&
              (cmds[i].track_readback || !strcmp(cmds[i].name,"ON") || !strcmp(cmds[i].name,"OFF")) &&
              (now_ms - cmds[i].sent_ms) > (!strcmp(cmds[i].name,"ON")?8000U:G4_CMD_TIMEOUT_MS))
     {

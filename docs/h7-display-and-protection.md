@@ -37,11 +37,18 @@ The following describes H7 logic, not a certification of physical protections.
    queued commands and request shutdown. Confirmed G0 MEAS_LOST/POWER_KILL causes
    are labelled when G4 reports that control fault. Raw kill or stale METER alone
    does not independently trip H7 during normal PSU operation.
-5. An uncompleted start exceeding 10 s causes H7 START TIMEOUT and shutdown.
-6. An uncompleted stop exceeding 800 ms causes H7 OFF TIMEOUT and shutdown.
-7. G4 rejection of a still-requested ON causes H7 ON REJECTED BY G4 and shutdown.
-8. Transport timeout of ON or LIMITS causes H7 COMMAND TIMEOUT and shutdown
-   (transport deadlines: ON 10 s, other commands 800 ms).
+5. G4 owns physical start/stop deadlines. H7 has no separate START/OFF TIMEOUT
+   protection latch. An unconfirmed OFF remains pending, blocking a new ON until
+   fresh telemetry confirms the stopped hardware state.
+6. Rejection or transport timeout of a still-requested ON cancels the request,
+   stops automation and requests OFF, without an H7 protection latch. A new
+   manual command can retry after confirmed OFF, without CLEAR.
+7. SET rejection/timeout is a command diagnostic, not a reason to shut down or
+   latch a fault while G4 reports normal operation. H7 never assumes the new
+   setpoint was applied from a failed command.
+8. Transport deadlines remain ON 10 s, other commands 800 ms. ON timeout is
+   transaction cleanup, not a second physical startup supervisor. Diagnostic
+   `command_error` is separate from the confirmed fault latch and NACK fields.
 9. Shutdown stops sequencer/charger, cancels pending ON/SET and prioritises OFF.
    Full power shutdown blocks later ON and setpoint writes in this boot session.
 10. CLEAR needs its ACK followed by a new, fresh, healthy METER with G0 ready,

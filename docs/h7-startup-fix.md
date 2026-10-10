@@ -1,5 +1,13 @@
 # H7 output startup classification
 
+Current policy is described in [h7-display-and-protection.md](h7-display-and-protection.md).
+The sections below record earlier startup fixes; their independent H7
+START/OFF/COMMAND timeout latches and ON-NACK latch have been removed.
+G4 owns physical protection and start/stop deadlines. H7 retains pre-ON
+readiness, explicit shutdown, confirmed G4 fault recovery and no automatic
+restart. Failed ON cancels the transaction with OFF but needs no CLEAR;
+failed SET stays diagnostic. See the final section for the latest behavior.
+
 Base: H7 `cc3b15e`, branch `codex/unify-main-header-controls`.
 Reviewed peers (unchanged): [G4 f70489a](https://github.com/kavper/Lab_PD_PSU/tree/f70489a)
 and [G0 f974390](https://github.com/kavper/LDO_controller/tree/f974390).
@@ -194,3 +202,30 @@ remain unverified here because the TouchGFX SDK/generated assets are missing.
 Paired runtime release: G4 `d1c40fe`, G0 `f974390`; H7 runtime source `9e9c9eb`
 plus this documentation update. See the G4 `docs/coordinated-link-audit.md`
 for test scope and the remaining board validation.
+
+## Minimal H7 supervisor (2026-10-10)
+
+H7 no longer latches a protection fault for an independent startup deadline,
+delayed OFF confirmation, received ON NACK or a command timeout. The G4/G0
+electrical protection and G4 physical startup deadline are unchanged.
+
+The ON transaction still expires after 10 s if no reply arrives. A matched ON
+NACK/timeout cancels the requested ON, stops automation and sends priority OFF.
+Fresh stopped telemetry then allows a new manual ON, without CLEAR. Late ACK
+or returning data cannot revive the expired request. A failed SET records an
+error but does not invent a hardware fault or stop normal G4-supervised output.
+An OFF timeout is diagnostic; H7 continues waiting for actual stopped telemetry
+and does not pretend the output is OFF just because an ACK/deadline was received.
+
+Diagnostics displays `command_error` separately from fault latch/context and
+received NACK TYPE/SEQ/reason. Actual G4 fault bits/control FAULT still latch,
+stop automation and require healthy CLEAR recovery without an automatic restart.
+Pre-ON freshness, command range caps, power shutdown and priority OFF remain.
+Charger/sequence application-specific validation remains; it is not a parallel
+electrical supervisor for normal PSU mode.
+
+Regression cases cover retry after NACK without CLEAR, ON expiry/late ACK,
+slow OFF followed by healthy confirmation, SET expiry while running, and an
+actual G4 control fault received alongside a NACK. Host tests do not prove board
+behavior or G4/G0 analogue protection. This policy requires the paired G4
+`d1c40fe` and G0 `f974390`.
