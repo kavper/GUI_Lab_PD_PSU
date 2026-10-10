@@ -81,7 +81,7 @@ void ScreenNetworkView::refresh()
 extern "C" {
 #include "psu_app.h"
 }
-void ScreenNetworkView::allOff() { psu_app_shutdown(); }
+void ScreenNetworkView::allOff() { psu_app_power_shutdown(); }
 
 void ScreenNetworkView::toggleRemote(){psu_remote_enable(!psu_remote_enabled());refresh();}
 

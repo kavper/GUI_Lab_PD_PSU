@@ -87,7 +87,7 @@ void ScreenDiagnosticsView::refresh(){
  lab_enable(ClearButton,live.fault_latched&&host->telemetry.valid&&psu_app_now()-host->telemetry.ms<=G4_METER_FRESH_MS);
 
 }
-void ScreenDiagnosticsView::allOff(){psu_app_shutdown();}
+void ScreenDiagnosticsView::allOff(){psu_app_power_shutdown();}
 void ScreenDiagnosticsView::showParsed(){raw=false;offset=0;refresh();}
 void ScreenDiagnosticsView::showRaw(){raw=true;offset=0;refresh();}
 void ScreenDiagnosticsView::frameT(){frame(0);}

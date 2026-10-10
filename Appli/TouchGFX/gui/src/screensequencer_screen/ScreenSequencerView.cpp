@@ -142,6 +142,14 @@ void ScreenSequencerView::refresh()
 
     psu_app_ensure();
     seq = psu_sequencer();
+    const bool cyclesVisible=edit.field==PSU_SEQ_FIELD_NONE && !cycleEditing;
+    CycleCountButton.setVisible(cyclesVisible);CycleLessButton.setVisible(cyclesVisible);CycleMoreButton.setVisible(cyclesVisible);CycleInfinityButton.setVisible(cyclesVisible);CycleValue.setVisible(cyclesVisible);
+    CycleCountButton.invalidate();CycleLessButton.invalidate();CycleMoreButton.invalidate();CycleInfinityButton.invalidate();CycleValue.invalidate();
+    lab_enable(CycleCountButton,!psu_seq_edit_locked(seq));lab_enable(CycleLessButton,!psu_seq_edit_locked(seq));lab_enable(CycleMoreButton,!psu_seq_edit_locked(seq));lab_enable(CycleInfinityButton,!psu_seq_edit_locked(seq));
+    char cycleText[64];
+    if(seq->mode==PSU_SEQ_INFINITE)snprintf(cycleText,sizeof(cycleText),"CONTINUOUS / cycle %u",seq->loop_index);
+    else snprintf(cycleText,sizeof(cycleText),"%u cycle%s / current %u",seq->mode==PSU_SEQ_ONCE?1:seq->loops_requested,seq->loops_requested==1?"":"s",seq->loop_index);
+    lab_show(CycleValue,CycleValueBuffer,CYCLEVALUE_SIZE,cycleText,lab_cyan());
     count = seq->count;
     sel = seq->selected;
     if (count == 0U)
@@ -191,7 +199,8 @@ void ScreenSequencerView::refresh()
     LblEditS.invalidate();
     {
         const int locked = psu_seq_edit_locked(seq);
-        setKeys(edit.field != PSU_SEQ_FIELD_NONE, locked == 0);
+        setKeys(edit.field != PSU_SEQ_FIELD_NONE || cycleEditing, locked == 0);
+        if(cycleEditing){SeqKeyDot.setTouchable(false);lab_show(SeqStatus,SeqStatusBuffer,SEQSTATUS_SIZE,cycleEditor.text,lab_cyan());}
     }
 
     const bool locked = psu_seq_edit_locked(seq) != 0;
@@ -208,6 +217,7 @@ void ScreenSequencerView::refresh()
         lab_show(PageFeedback, PageFeedbackBuffer, PAGEFEEDBACK_SIZE, "Sequence active. Stop it before changing steps.", lab_amber());
         return;
     }
+    if(cycleEditing)return;
     const char* hint = "Sequence editor";
     if (edit.field == PSU_SEQ_FIELD_V) hint = "Voltage / 0-27 V";
     if (edit.field == PSU_SEQ_FIELD_I) hint = "Current / 0-5 A";
@@ -310,7 +320,7 @@ void ScreenSequencerView::seqStepKeypad()
 
 void ScreenSequencerView::seqSyncKeypad()
 {
-    const bool show = edit.field != PSU_SEQ_FIELD_NONE;
+    const bool show = edit.field != PSU_SEQ_FIELD_NONE || cycleEditing;
     const int16_t targetY = show ? KEYPAD_SHOWN_Y : KEYPAD_HIDDEN_Y;
     const int16_t targetA = show ? 255 : 0;
     if (keypadMoving && keypadToY == targetY && keypadToA == targetA)
@@ -343,6 +353,7 @@ void ScreenSequencerView::syncEdit()
 
 void ScreenSequencerView::chooseField(uint8_t field)
 {
+    cycleEditing=false;
     psu_seq_edit_select(&edit, psu_sequencer(), field);
     refresh();
     seqSyncKeypad();
@@ -360,12 +371,27 @@ void ScreenSequencerView::pickRow(uint8_t row)
     refresh();
 }
 
+void ScreenSequencerView::seqCycles(){
+ if(psu_seq_edit_locked(psu_sequencer()))return;
+ cycleEditing=true;edit.field=PSU_SEQ_FIELD_NONE;
+ psu_editor_load_milli(&cycleEditor,psu_sequencer()->loops_requested*1000U,0);
+ refresh();seqSyncKeypad();
+}
+void ScreenSequencerView::seqCycleLess(){PsuSequencer* s=psu_sequencer();if(psu_seq_edit_locked(s))return;if(s->loops_requested>1)--s->loops_requested;s->mode=s->loops_requested==1?PSU_SEQ_ONCE:PSU_SEQ_N;refresh();}
+void ScreenSequencerView::seqCycleMore(){PsuSequencer* s=psu_sequencer();if(psu_seq_edit_locked(s))return;if(s->loops_requested<65535)++s->loops_requested;s->mode=s->loops_requested==1?PSU_SEQ_ONCE:PSU_SEQ_N;refresh();}
+void ScreenSequencerView::seqInfinity(){if(psu_seq_edit_locked(psu_sequencer()))return;psu_sequencer()->mode=PSU_SEQ_INFINITE;refresh();}
+void ScreenSequencerView::cycleKey(char key){if(!psu_seq_edit_locked(psu_sequencer())&&key!='.')psu_editor_key(&cycleEditor,key);}
 void ScreenSequencerView::seqRun()
 {
     PsuSequencer* seq = psu_sequencer();
     if (edit.field != PSU_SEQ_FIELD_NONE && !edit.editor.replace_on_next) return;
     if (seq->run == PSU_SEQ_PAUSE) psu_seq_resume(seq, psu_app_now());
-    else if (seq->run != PSU_SEQ_RUN) psu_seq_start(seq, psu_app_now());
+    else if (seq->run != PSU_SEQ_RUN) {
+      if(cycleEditing || psu_charger()->running)return;
+      /* RUN explicitly starts the output; KEEP is retained for later steps. */
+      for(unsigned i=0;i<seq->count;i++)if(seq->steps[i].enabled){if(seq->steps[i].output_action==PSU_STEP_KEEP)seq->steps[i].output_action=PSU_STEP_ON;break;}
+      psu_seq_start(seq, psu_app_now());
+    }
     edit.field = PSU_SEQ_FIELD_NONE;
     seqSyncKeypad();
     refresh();
@@ -415,22 +441,28 @@ void ScreenSequencerView::seqPick3() { pickRow(2); }
 void ScreenSequencerView::seqPick4() { pickRow(3); }
 void ScreenSequencerView::seqPick5() { pickRow(4); }
 void ScreenSequencerView::seqPick6() { pickRow(5); }
-void ScreenSequencerView::seqKey0() { psu_seq_edit_key(&edit, psu_sequencer(), '0'); refresh(); }
-void ScreenSequencerView::seqKey1() { psu_seq_edit_key(&edit, psu_sequencer(), '1'); refresh(); }
-void ScreenSequencerView::seqKey2() { psu_seq_edit_key(&edit, psu_sequencer(), '2'); refresh(); }
-void ScreenSequencerView::seqKey3() { psu_seq_edit_key(&edit, psu_sequencer(), '3'); refresh(); }
-void ScreenSequencerView::seqKey4() { psu_seq_edit_key(&edit, psu_sequencer(), '4'); refresh(); }
-void ScreenSequencerView::seqKey5() { psu_seq_edit_key(&edit, psu_sequencer(), '5'); refresh(); }
-void ScreenSequencerView::seqKey6() { psu_seq_edit_key(&edit, psu_sequencer(), '6'); refresh(); }
-void ScreenSequencerView::seqKey7() { psu_seq_edit_key(&edit, psu_sequencer(), '7'); refresh(); }
-void ScreenSequencerView::seqKey8() { psu_seq_edit_key(&edit, psu_sequencer(), '8'); refresh(); }
-void ScreenSequencerView::seqKey9() { psu_seq_edit_key(&edit, psu_sequencer(), '9'); refresh(); }
+void ScreenSequencerView::seqKey0() { if(cycleEditing)cycleKey('0');else psu_seq_edit_key(&edit, psu_sequencer(), '0'); refresh(); }
+void ScreenSequencerView::seqKey1() { if(cycleEditing)cycleKey('1');else psu_seq_edit_key(&edit, psu_sequencer(), '1'); refresh(); }
+void ScreenSequencerView::seqKey2() { if(cycleEditing)cycleKey('2');else psu_seq_edit_key(&edit, psu_sequencer(), '2'); refresh(); }
+void ScreenSequencerView::seqKey3() { if(cycleEditing)cycleKey('3');else psu_seq_edit_key(&edit, psu_sequencer(), '3'); refresh(); }
+void ScreenSequencerView::seqKey4() { if(cycleEditing)cycleKey('4');else psu_seq_edit_key(&edit, psu_sequencer(), '4'); refresh(); }
+void ScreenSequencerView::seqKey5() { if(cycleEditing)cycleKey('5');else psu_seq_edit_key(&edit, psu_sequencer(), '5'); refresh(); }
+void ScreenSequencerView::seqKey6() { if(cycleEditing)cycleKey('6');else psu_seq_edit_key(&edit, psu_sequencer(), '6'); refresh(); }
+void ScreenSequencerView::seqKey7() { if(cycleEditing)cycleKey('7');else psu_seq_edit_key(&edit, psu_sequencer(), '7'); refresh(); }
+void ScreenSequencerView::seqKey8() { if(cycleEditing)cycleKey('8');else psu_seq_edit_key(&edit, psu_sequencer(), '8'); refresh(); }
+void ScreenSequencerView::seqKey9() { if(cycleEditing)cycleKey('9');else psu_seq_edit_key(&edit, psu_sequencer(), '9'); refresh(); }
 void ScreenSequencerView::seqKeyDot() { psu_seq_edit_key(&edit, psu_sequencer(), '.'); refresh(); }
-void ScreenSequencerView::seqKeyClr() { psu_seq_edit_clear(&edit, psu_sequencer()); refresh(); }
-void ScreenSequencerView::seqKeyDel() { psu_seq_edit_backspace(&edit, psu_sequencer()); refresh(); }
+void ScreenSequencerView::seqKeyClr() { if(cycleEditing)psu_editor_clear(&cycleEditor);else psu_seq_edit_clear(&edit, psu_sequencer()); refresh(); }
+void ScreenSequencerView::seqKeyDel() { if(cycleEditing)psu_editor_backspace(&cycleEditor);else psu_seq_edit_backspace(&edit, psu_sequencer()); refresh(); }
 void ScreenSequencerView::seqKeyApply()
 {
-    psu_seq_edit_apply(&edit, psu_sequencer());
+    if(cycleEditing){
+      uint32_t value;if(!psu_seq_edit_locked(psu_sequencer())&&psu_editor_parse_milli(&cycleEditor,&value)){
+       value/=1000;if(value<1)value=1;if(value>65535)value=65535;
+       psu_sequencer()->loops_requested=value;psu_sequencer()->mode=value==1?PSU_SEQ_ONCE:PSU_SEQ_N;
+       cycleEditing=false;seqSyncKeypad();
+      }
+    }else psu_seq_edit_apply(&edit, psu_sequencer());
     refresh();
 }
 
@@ -438,7 +470,7 @@ void ScreenSequencerView::seqKeyApply()
 extern "C" {
 #include "psu_app.h"
 }
-void ScreenSequencerView::allOff() { psu_app_shutdown(); }
+void ScreenSequencerView::allOff() { psu_app_power_shutdown(); }
 
 void ScreenSequencerView::handleDragEvent(const touchgfx::DragEvent& e) {
  if(e.getOldX()<500 && e.getOldY()>=100 && e.getOldY()<352) {
@@ -524,5 +556,6 @@ void ScreenSequencerView::setupTheme()
     theme.text(SeqColumnI);
     theme.text(SeqColumnT);
     theme.button(AllOffButton,ui::DANGER);
+    theme.button(CycleCountButton,ui::NORMAL);theme.button(CycleLessButton,ui::NORMAL);theme.button(CycleMoreButton,ui::NORMAL);theme.button(CycleInfinityButton,ui::NORMAL);theme.text(CycleValue);
     theme.apply();
 }

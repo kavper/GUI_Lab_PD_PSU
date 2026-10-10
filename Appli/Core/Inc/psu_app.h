@@ -172,6 +172,7 @@ void psu_app_observe_g0(const PsuG0Sample *sample, uint32_t now_ms);
 void psu_app_user_button(int level_high, uint32_t now_ms);
 int psu_app_set_limits(uint32_t voltage_mv, uint32_t current_ma, uint8_t source);
 int psu_app_set_output(int enabled, uint8_t source);
+int psu_app_start_charging(void);
 int psu_app_shutdown(void);
 int psu_app_power_shutdown(void);
 int psu_app_usb_role(const char *role, uint8_t source);

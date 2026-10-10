@@ -21,7 +21,8 @@ typedef enum
   CHG_COMPLETE,
   CHG_PAUSED,
   CHG_ABORTED,
-  CHG_FAULT
+  CHG_FAULT,
+  CHG_STARTING
 } PsuChgState;
 
 typedef enum
@@ -73,6 +74,9 @@ typedef struct
   int16_t temp_centi;
   uint8_t telemetry_ok;
   uint8_t permit;
+  uint8_t start_allowed; /* admission before G4 obtains PERMIT */
+  uint8_t limits_applied;
+  uint8_t output_ready;
   uint8_t reverse_polarity; /* 1 only if hardware reported it */
   uint8_t reverse_hw;
 } PsuChgSense;

@@ -58,6 +58,7 @@ static uint8_t g0_seen;
 static uint32_t host_serial, host_tx_count;
 static uint8_t clear_ack_pending;
 static uint32_t clear_ack_serial;
+static uint16_t seq_limits_id, chg_limits_id;
 static uint32_t energy_ms;
 static uint8_t energy_seen;
 static char web_page_storage[4096];
@@ -165,25 +166,32 @@ static void mark_cmd(uint16_t id, uint8_t state, uint32_t now_ms)
 static void seq_limits(uint32_t mv, uint32_t ma, void *user)
 {
   (void)user;
-  (void)psu_app_set_limits(mv, ma, PSU_SRC_SEQ);
+  if(psu_app_set_limits(mv,ma,PSU_SRC_SEQ))seq_limits_id=snap.last_cmd_id;
+  else {seq_limits_id=0;psu_seq_stop(&sequencer,app_now,1);snprintf(sequencer.status,sizeof(sequencer.status),"SET REJECTED");}
 }
 
 static void seq_output(int on, void *user)
 {
   (void)user;
-  (void)psu_app_set_output(on, PSU_SRC_SEQ);
+  if(on && snap.output_requested && snap.output_confirmed)return;
+  if(!psu_app_set_output(on, PSU_SRC_SEQ) && on){
+    psu_seq_stop(&sequencer,app_now,1);
+    snprintf(sequencer.status,sizeof(sequencer.status),"%.47s",snap.last_on_reject);
+  }
 }
 
 static int seq_applied(uint32_t *mv, uint32_t *ma, void *user)
 {
   (void)user;
-  if (!snap.applied_valid)
+  PsuCmdRec *set=find_cmd(seq_limits_id);
+  if (!snap.applied_valid || !set || set->state!=PSU_CMD_ACK)
     return 0;
   if (mv) *mv = snap.applied_mv;
   if (ma) *ma = snap.applied_ma;
   return 1;
 }
 
+static int seq_ready(int on,void *user){(void)user;return on?snap.output_confirmed:!snap.output_confirmed&&!snap.output_requested;}
 static int seq_permit(void *user)
 {
   (void)user;
@@ -193,13 +201,15 @@ static int seq_permit(void *user)
 static void chg_limits(uint32_t mv, uint32_t ma, void *user)
 {
   (void)user;
-  (void)psu_app_set_limits(mv, ma, PSU_SRC_CHARGER);
+  if(psu_app_set_limits(mv,ma,PSU_SRC_CHARGER))chg_limits_id=snap.last_cmd_id;
+  else {chg_limits_id=0;psu_chg_abort(&charger,"SET REJECTED",app_now);}
 }
 
 static void chg_output(int on, void *user)
 {
   (void)user;
-  (void)psu_app_set_output(on, PSU_SRC_CHARGER);
+  if(!psu_app_set_output(on, PSU_SRC_CHARGER) && on)
+    psu_chg_abort(&charger,snap.last_on_reject,app_now);
 }
 
 static void refresh_snap_from_g0(void)
@@ -245,12 +255,14 @@ void psu_app_init(void)
   energy_seen=0;energy_ms=0;
   g0_seen = 0U;
   g4_init(&g4);
+  seq_limits_id=chg_limits_id=0;
   psu_seq_init(&sequencer);
   psu_chg_init(&charger);
   sequencer.io.limits = seq_limits;
   sequencer.io.output = seq_output;
   sequencer.io.applied = seq_applied;
   sequencer.io.permit_ok = seq_permit;
+  sequencer.io.output_ready = seq_ready;
   charger.io.limits = chg_limits;
   charger.io.output = chg_output;
   fill_defaults();
@@ -615,6 +627,10 @@ void psu_app_tick(uint32_t now_ms)
       if(pending && !strcmp(r->name,"ON") && g4.response_state==PSU_CMD_ACK && snap.output_requested)g4.output_phase=G4_OUTPUT_RUNNING;
       const int failed=g4.response_state==PSU_CMD_REJECTED || g4.response_state==PSU_CMD_TIMEOUT;
       const int cancel_on=pending && failed && !strcmp(r->name,"ON") && snap.output_requested;
+      if(pending && failed && !strcmp(r->name,"POWER OFF")){
+        snap.power_shutdown_requested=0;
+        snprintf(snap.command_error,sizeof(snap.command_error),"POWER OFF %s",g4.response_state==PSU_CMD_TIMEOUT?"TIMEOUT":"REJECTED");
+      }
       if(pending && failed && (strcmp(r->name,"ON")==0 || strcmp(r->name,"OFF")==0 || strcmp(r->name,"LIMITS")==0))
         snprintf(snap.command_error,sizeof(snap.command_error),"%s %s - NO H7 FAULT LATCH",r->name,
                  g4.response_state==PSU_CMD_TIMEOUT?"TIMEOUT":"REJECTED");
@@ -686,6 +702,8 @@ void psu_app_tick(uint32_t now_ms)
     sense.current_ma = (int32_t)(snap.display_current_ua / 1000);
     sense.telemetry_ok = g0.connected && !g0.stale && g0.current_valid && (!charger.profile.temp_sensor || snap.temperature_valid);
     sense.permit = !snap.fault_latched && (!snap.g4_uart_configured || g4.telemetry.permit);
+    sense.output_ready = snap.output_confirmed;
+    {PsuCmdRec *set=find_cmd(chg_limits_id);sense.limits_applied = set && set->state==PSU_CMD_ACK && snap.applied_valid && snap.applied_mv==charger.command_mv && snap.applied_ma==charger.command_ma;}
     sense.temp_centi = snap.mos_centi;
     if (charger.running)
       psu_chg_tick(&charger, &sense, now_ms);
@@ -1056,4 +1074,24 @@ const char *psu_web_page(void)
 int psu_remote_enabled(void){return remote_access!=0;}
 void psu_remote_enable(int enabled){remote_access=enabled?1:0;lease_client[0]=0;if(!enabled)psu_net_down();}
 
-int psu_app_power_shutdown(void){psu_app_shutdown();snap.power_shutdown_requested=1;return g4_power_shutdown(&g4,push_cmd("POWER OFF",PSU_SRC_LCD,0,0,0));}
+int psu_app_start_charging(void) {
+  PsuChgSense sense;
+  memset(&sense,0,sizeof(sense));
+  const char *reason=on_block(PSU_SRC_LCD);
+  if(charger.running || psu_seq_edit_locked(&sequencer))reason="Stop active automation first";
+  if(snap.output_requested || snap.output_confirmed)reason="Turn output OFF before charging";
+  if(reason){snprintf(charger.reason,sizeof(charger.reason),"%s",reason);return 0;}
+  sense.pack_mv=snap.vout_mv;sense.current_ma=snap.display_current_ua/1000;
+  sense.temp_centi=snap.mos_centi;
+  sense.telemetry_ok=snap.g0_connected && !snap.g0_stale && snap.current_valid && (!charger.profile.temp_sensor || snap.temperature_valid);
+  sense.start_allowed=1;sense.permit=g4.telemetry.permit;
+  return psu_chg_start(&charger,&charger.profile,&sense,app_now);
+}
+int psu_app_power_shutdown(void){
+  uint16_t id;
+  psu_app_shutdown();
+  id=push_cmd("POWER OFF",PSU_SRC_LCD,0,0,0);
+  if(!g4_power_shutdown(&g4,id)){mark_cmd(id,PSU_CMD_REJECTED,app_now);return 0;}
+  snap.power_shutdown_requested=1;
+  return 1;
+}

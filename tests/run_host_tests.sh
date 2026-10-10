@@ -4,7 +4,7 @@ cd "$(dirname "$0")/.."
 test_output=$(mktemp -d "${TMPDIR:-/tmp}/h7-host-tests.XXXXXX")
 trap 'rm -rf "$test_output"' EXIT
 units=(g4_ascii psu_app psu_sim psu_limits psu_store psu_seq psu_charger psu_format psu_edit)
-for test_name in test_binary test_binary_app test_startup; do
+for test_name in test_binary test_binary_app test_startup test_automation; do
   sources=()
   for unit in "${units[@]}"; do
     sources+=("Appli/Core/Src/$unit.c")

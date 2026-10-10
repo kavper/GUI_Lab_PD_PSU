@@ -3,6 +3,7 @@
 #include "ThemeSelfTest.hpp"
 #include <gui/screenusbpd_screen/ScreenUsbPdView.hpp>
 #include <gui/screen1_screen/Screen1View.hpp>
+#include <gui/screensequencer_screen/ScreenSequencerView.hpp>
 // Opt-in simulator checks use the production binary parser and rendered widgets.
 class UsbSelfTest : public ThemeSelfTest {
 public:
@@ -26,6 +27,32 @@ public:
             app->gotoScreenUsbPdScreenWipeTransitionWest();started=true;return false;
         }
         if(app->isScreenTransitionActive())return false;
+        if(stage==8){app->gotoScreen1ScreenWipeTransitionEast();stage=9;frame=0;return false;}
+        if(stage==9){
+            Screen1View* main=static_cast<Screen1View*>(app->getCurrentScreen());
+            uint8_t p[72]={0};p[0]=p[1]=p[52]=1;w16(p+44,16000);w32(p+48,static_cast<uint32_t>(-15625));emit(0x11,p,72);
+            memset(p,0,sizeof(p));p[0]=1;p[1]=0x85;p[7]=p[10]=1;p[8]=1;w32(p+36,600);w32(p+52,20010);emit(0x12,p,64);
+            main->setHostAuxMetrics();
+            if(++frame<30)return false;
+            check(main->BatteryFlowBuffer[0]=='B' && main->BatteryFlowBuffer[4]=='-' && main->BatteryFlow.getColor()==ui::Theme::color(ui::NEGATIVE),"main screen has red net battery discharge");
+            check(main->InputFlowBuffer[7]=='1',"main screen has USB input power");
+            static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("usb-selftest"),const_cast<char*>("main-power.bmp"));
+            app->gotoScreenSequencerScreenWipeTransitionWest();stage=10;frame=0;return false;
+        }
+        if(stage==10){
+            ScreenSequencerView* v=static_cast<ScreenSequencerView*>(app->getCurrentScreen());
+            if(frame==0){
+              v->seqCycleMore();v->seqCycleMore();check(psu_sequencer()->loops_requested==3&&psu_sequencer()->mode==PSU_SEQ_N,"three cycles GUI");
+              v->seqCycles();v->seqKey1();v->seqKey2();v->seqKeyApply();check(psu_sequencer()->loops_requested==12,"cycle count keypad stores integer");
+              v->seqInfinity();check(psu_sequencer()->mode==PSU_SEQ_INFINITE,"continuous GUI");
+            }
+            v->refresh();
+            if(++frame<30)return false;
+            check(v->CycleInfinityButton.isVisible(),"cycle controls visible without step keypad");
+            static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("usb-selftest"),const_cast<char*>("sequence-cycles.bmp"));
+            v->allOff();PsuSnapshot snap;psu_snapshot(&snap);check(snap.power_shutdown_requested&&!snap.output_requested,"header requests complete power shutdown");
+            fprintf(log,"PASS main battery/input power; cycle count integer keypad; continuous; header BMS shutdown\n");fclose(log);exit(0);
+        }
         ScreenUsbPdView* view=static_cast<ScreenUsbPdView*>(app->getCurrentScreen());
         const int current[]={320,-3000,0,-15625,320,320,320,-3000};
         uint8_t payload[72]={0};payload[0]=payload[1]=1;payload[52]=stage==4?0:1;
@@ -52,7 +79,7 @@ public:
             if(stage==6)check(view->Measured1Buffer[0]=='-'&&view->Measured1Buffer[1]=='-',"OTG input ADC not passed off as source measurement");
             char name[32];snprintf(name,sizeof(name),"usb-%d.bmp",stage);static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("usb-selftest"),name);
             fprintf(log,"PASS stage %d\n",stage);fflush(log);
-            if(++stage==8){fprintf(log,"PASS press selection, charging, red discharging, zero, dynamic 250 W range, invalid, stale, OTG and light theme\n");fclose(log);exit(0);}frame=0;
+            if(++stage==8){fprintf(log,"PASS press selection, charging, red discharging, zero, dynamic 250 W range, invalid, stale, OTG and light theme\n");}frame=0;
         }
         return false;
     }

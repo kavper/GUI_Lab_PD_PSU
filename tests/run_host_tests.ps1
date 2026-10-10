@@ -6,7 +6,7 @@ New-Item -ItemType Directory -Path $testOutput -Force | Out-Null
 $testSources = @('g4_ascii','psu_app','psu_sim','psu_limits','psu_store',
                  'psu_seq','psu_charger','psu_format','psu_edit') |
   ForEach-Object { Join-Path $testRepo "Appli/Core/Src/$_.c" }
-foreach ($testName in @('test_binary','test_binary_app','test_startup')) {
+foreach ($testName in @('test_binary','test_binary_app','test_startup','test_automation')) {
   $testInput = Join-Path $PSScriptRoot "$testName.c"
   $testExe = Join-Path $testOutput "$testName.exe"
   $testUnits = @(if ($testName -eq 'test_binary') { $testSources[0] } else { $testSources })

@@ -10,6 +10,7 @@ extern "C" {
 
 class ScreenSequencerView : public ScreenSequencerViewBase
 {
+    friend class UsbSelfTest;
 public:
     void setupTheme();
     ScreenSequencerView();
@@ -17,6 +18,10 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void handleTickEvent();
+    virtual void seqCycles();
+    virtual void seqCycleLess();
+    virtual void seqCycleMore();
+    virtual void seqInfinity();
     virtual void seqRun();
     virtual void seqPause();
     virtual void seqStop();
@@ -60,6 +65,9 @@ protected:
     bool listDragging = false;
     virtual void handleClickEvent(const touchgfx::ClickEvent& e);
     virtual void handleGestureEvent(const touchgfx::GestureEvent& e);
+    bool cycleEditing = false;
+    PsuEditor cycleEditor = {};
+    void cycleKey(char key);
     uint8_t divider;
     uint8_t visible_start;
     PsuSeqEdit edit;

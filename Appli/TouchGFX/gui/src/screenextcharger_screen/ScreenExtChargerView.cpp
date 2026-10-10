@@ -92,12 +92,11 @@ void ScreenExtChargerView::showOnboard(){page=2;refresh();}
 void ScreenExtChargerView::confirmPolarity(){polarity=true;snprintf(psu_charger()->reason,64,"POLARITY CONFIRMED");refresh();}
 void ScreenExtChargerView::startCharge(){PsuSnapshot live;psu_snapshot(&live);PsuCharger* c=psu_charger();
  if(!polarity||psu_seq_edit_locked(psu_sequencer())||live.shutdown_pending){snprintf(c->reason,64,"Stop other automation first");refresh();return;}
- PsuChgSense sense={};sense.pack_mv=live.vout_mv;sense.current_ma=live.display_current_ua/1000;sense.temp_centi=live.mos_centi;sense.telemetry_ok=live.g0_connected&&!live.g0_stale&&live.current_valid&&(!c->profile.temp_sensor||live.temperature_valid);sense.permit=!live.fault_latched&&psu_g4()->telemetry.permit;
  c->profile.confirmed=1;c->profile.polarity_checked=1;
- if(psu_chg_start(c,&c->profile,&sense,psu_app_now())){page=1;}
+ if(psu_app_start_charging()){page=1;}
  refresh();}
 void ScreenExtChargerView::stopCharge(){psu_chg_abort(psu_charger(),"Operator stop",psu_app_now());polarity=false;refresh();}
-void ScreenExtChargerView::allOff(){psu_app_shutdown();polarity=false;refresh();}
+void ScreenExtChargerView::allOff(){psu_app_power_shutdown();polarity=false;refresh();}
 void ScreenExtChargerView::chem0(){chooseChem(0);}
 void ScreenExtChargerView::chem1(){chooseChem(1);}
 void ScreenExtChargerView::chem2(){chooseChem(2);}

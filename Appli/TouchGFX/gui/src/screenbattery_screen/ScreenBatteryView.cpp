@@ -9,7 +9,7 @@ void ScreenBatteryView::setupScreen() {ScreenBatteryViewBase::setupScreen(); ref
 void ScreenBatteryView::tearDownScreen() {ScreenBatteryViewBase::tearDownScreen();}
 void ScreenBatteryView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=2){divider=0;refresh();}}
 void ScreenBatteryView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
-void ScreenBatteryView::allOff() {psu_app_shutdown();notify("PSU OFF requested - stopping LDO, DCDC and automation");}
+void ScreenBatteryView::allOff() {psu_app_power_shutdown();notify("POWER OFF requested - BMS shutdown / wake with TS2");}
 void ScreenBatteryView::refresh() {
     PsuSnapshot snap;psu_snapshot(&snap);if(snap.power_shutdown_requested && !noticeTicks){snprintf(notice,sizeof(notice),"Power off requested - wake using TS2");noticeTicks=180;}
     TelemetryData data;
@@ -59,7 +59,6 @@ void ScreenBatteryView::setupTheme()
     theme.text(PageTitle);
     theme.text(PageFeedback);
     theme.button(AllOffButton,ui::DANGER);
-    theme.button(PowerOffButton,ui::DANGER);
     theme.button(BackButton,ui::NORMAL);
     theme.panel(MetricCard0);
     theme.text(MetricLabel0);
@@ -95,5 +94,3 @@ void ScreenBatteryView::setupTheme()
     theme.text(Future);
     theme.apply();
 }
-
-void ScreenBatteryView::powerOff(){notify(psu_app_power_shutdown()?"Power off requested - wake using TS2":"Power-off request failed");}

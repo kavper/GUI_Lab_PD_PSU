@@ -75,7 +75,7 @@ void ScreenServiceView::serviceStatus()
 extern "C" {
 #include "psu_app.h"
 }
-void ScreenServiceView::allOff() { psu_app_shutdown(); }
+void ScreenServiceView::allOff() { psu_app_power_shutdown(); }
 
 void ScreenServiceView::setupTheme()
 {

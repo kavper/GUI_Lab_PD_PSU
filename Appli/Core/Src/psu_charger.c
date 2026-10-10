@@ -9,6 +9,7 @@ const char *psu_chg_state_name(PsuChgState state)
   {
   case CHG_IDLE: return "IDLE";
   case CHG_VALIDATE: return "VALIDATE";
+  case CHG_STARTING: return "WAITING FOR G4 / G0 START";
   case CHG_WAIT: return "WAIT_FOR_CONNECTION";
   case CHG_PRECHARGE: return "PRECHARGE";
   case CHG_CC: return "CONSTANT_CURRENT";
@@ -162,7 +163,7 @@ int psu_chg_validate(const PsuChgProfile *profile, const PsuChgSense *sense, cha
     if (why) (void)snprintf(why, why_n, "Current exceeds C-rate or 5 A");
     return 0;
   }
-  if (sense == 0 || !sense->telemetry_ok || !sense->permit)
+  if (sense == 0 || !sense->telemetry_ok || (!sense->permit && !sense->start_allowed))
   {
     if (why) (void)snprintf(why, why_n, "Telemetry or permit missing");
     return 0;
@@ -308,10 +309,13 @@ void psu_chg_tick(PsuCharger *chg, const PsuChgSense *sense, uint32_t now_ms)
   if (chg == 0 || !chg->running)
     return;
   chg->elapsed_ms=now_ms-chg->session_start_ms;
-  if (sense == 0 || !sense->telemetry_ok || !sense->permit)
+  if (sense == 0 || !sense->telemetry_ok)
   {
     fault(chg, "Telemetry lost");
     return;
+  }
+  if (chg->state != CHG_VALIDATE && chg->state != CHG_WAIT && chg->state != CHG_STARTING && (!sense->permit || !sense->output_ready)) {
+    fault(chg,"G4 output / PERMIT lost");return;
   }
   if (sense->temp_centi < chg->min_temp)
     chg->min_temp = sense->temp_centi;
@@ -342,20 +346,30 @@ void psu_chg_tick(PsuCharger *chg, const PsuChgSense *sense, uint32_t now_ms)
   pre_mv = (uint32_t)chg->profile.cells * chg->profile.precharge_mv_cell;
   if (chg->state == CHG_VALIDATE)
   {
-    if (chg->io.permit)
-      chg->io.permit(1, chg->io.user);
     enter(chg, CHG_WAIT, now_ms);
   }
   if (chg->state == CHG_WAIT)
   {
-    if (sense->pack_mv > 500U)
-      enter(chg, CHG_PRECHARGE, now_ms);
+    if (sense->pack_mv > 500U) {
+      /* Use pack CV with a limited precharge current; never drive below the battery. */
+      send_limits(chg,pack_cv,chg->profile.precharge_ma);
+      if(!chg->running)return;
+      enter(chg, CHG_STARTING, now_ms);
+    }
+    return;
+  }
+  if (chg->state == CHG_STARTING) {
+    if (!chg->output_started && sense->limits_applied && chg->io.output) {
+      chg->output_started=1;chg->io.output(1,chg->io.user);
+      if(!chg->running)return;
+    }
+    if(chg->output_started && sense->permit && sense->output_ready)enter(chg,CHG_PRECHARGE,now_ms);
+    else if(now_ms-chg->state_since_ms>5000U)fault(chg,"G4/G0 start timeout");
     return;
   }
   if (chg->state == CHG_PRECHARGE)
   {
-    send_limits(chg,pre_mv,chg->profile.precharge_ma);
-    if (!chg->output_started && chg->io.output) {chg->io.output(1, chg->io.user);chg->output_started=1;}
+    send_limits(chg,pack_cv,chg->profile.precharge_ma);
     if (held(chg, sense->pack_mv >= pre_mv, now_ms))
       enter(chg, CHG_CC, now_ms);
     return;

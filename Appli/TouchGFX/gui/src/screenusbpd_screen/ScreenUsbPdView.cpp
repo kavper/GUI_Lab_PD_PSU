@@ -10,7 +10,7 @@ void ScreenUsbPdView::setupScreen() {ScreenUsbPdViewBase::setupScreen(); static_
 void ScreenUsbPdView::tearDownScreen() {static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->setSwipePage(FrontendApplication::OTHER); ScreenUsbPdViewBase::tearDownScreen();}
 void ScreenUsbPdView::handleTickEvent() {if(static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->isScreenTransitionActive())return;animateGauge();if(noticeTicks)--noticeTicks;if(++divider>=2){divider=0;refresh();}}
 void ScreenUsbPdView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
-void ScreenUsbPdView::allOff() {psu_app_shutdown();notify("PSU OFF requested - stopping LDO, DCDC and automation");}
+void ScreenUsbPdView::allOff() {psu_app_power_shutdown();notify("POWER OFF requested - BMS shutdown / wake with TS2");}
 void ScreenUsbPdView::refresh() {
     TelemetryData data;
     telemetry_page(PAGE_USB,data);

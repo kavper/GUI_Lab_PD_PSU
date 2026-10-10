@@ -9,7 +9,7 @@ void ScreenBmsView::setupScreen() {ScreenBmsViewBase::setupScreen(); refresh();
 void ScreenBmsView::tearDownScreen() {ScreenBmsViewBase::tearDownScreen();}
 void ScreenBmsView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=2){divider=0;refresh();}}
 void ScreenBmsView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
-void ScreenBmsView::allOff() {psu_app_shutdown();notify("PSU OFF requested - stopping LDO, DCDC and automation");}
+void ScreenBmsView::allOff() {psu_app_power_shutdown();notify("POWER OFF requested - BMS shutdown / wake with TS2");}
 void ScreenBmsView::refresh() {
     TelemetryData data;
     telemetry_page(PAGE_BMS,data);

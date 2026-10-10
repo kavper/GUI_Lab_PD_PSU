@@ -9,7 +9,7 @@ void ScreenProtectionView::setupScreen() {ScreenProtectionViewBase::setupScreen(
 void ScreenProtectionView::tearDownScreen() {ScreenProtectionViewBase::tearDownScreen();}
 void ScreenProtectionView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++divider>=2){divider=0;refresh();}}
 void ScreenProtectionView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
-void ScreenProtectionView::allOff() {psu_app_shutdown();notify("PSU OFF requested - stopping LDO, DCDC and automation");}
+void ScreenProtectionView::allOff() {psu_app_power_shutdown();notify("POWER OFF requested - BMS shutdown / wake with TS2");}
 void ScreenProtectionView::refresh() {
     TelemetryData data;
     telemetry_page(PAGE_PROTECTION,data);

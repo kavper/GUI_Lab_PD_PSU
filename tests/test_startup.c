@@ -55,6 +55,10 @@ static void assert_off_latched(const char *why,uint32_t ms) {
 static void clear(uint32_t ms) {
   assert(psu_app_clear_fault());ack(ms,4,transmit(ms,4));
 }
+static void charge_meter(uint32_t ms,uint8_t ctrl,uint8_t flags,uint32_t mv,uint32_t ma){
+ uint8_t p[72]={0};put32(p+24,3700);put32(p+16,mv);put32(p+20,ma);put32(p+36,mv);put32(p+40,ma);
+ p[67]=64;p[66]=flags;p[68]=ctrl;receive(0x10,++meter_seq,p,72,ms);psu_app_tick(ms);
+}
 int main(void) {
   reset_off(G4_G0_MEAS_LOST|G4_G0_POWER_KILL);
   assert(snapshot().meter_ms==10&&snapshot().meter_serial==1);
@@ -257,5 +261,14 @@ int main(void) {
   receive(0x82,seq,nack,2,12);meter(12,G4_G0_POWER_KILL,12,4,1,0,1);psu_app_tick(12);
   assert_off_latched("POWER_KILL",12);
   puts("PASS: an actual G4 fault alongside NACK still latches and requires CLEAR");
+  reset_off(0);charge_meter(11,0,4,12000,2000);
+  PsuCharger *chg=psu_charger();chg->profile.confirmed=chg->profile.polarity_checked=1;
+  assert(psu_app_start_charging());charge_meter(12,0,4,12000,2000);
+  uint8_t set_seq=transmit(12,1);assert(chg->state==CHG_STARTING);
+  charge_meter(13,0,4,4200,100);assert(!snapshot().output_requested);
+  ack(14,1,set_seq);assert(snapshot().output_requested);uint8_t on_seq=transmit(14,2);
+  charge_meter(30,7,6,4200,100);assert(chg->running&&chg->state==CHG_STARTING);
+  charge_meter(45,9,0xe3,4200,100);ack(45,2,on_seq);assert(chg->state==CHG_PRECHARGE);
+  puts("PASS: charger application starts with OFF/no PERMIT; readback alone cannot bypass SET ACK; ON starts G4; delayed PERMIT/output confirms precharge");
   return 0;
 }

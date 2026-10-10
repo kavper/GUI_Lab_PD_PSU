@@ -1150,7 +1150,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -1162,6 +1162,46 @@
               "Blue": 55
             },
             "TextRotation": "0"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "BatteryFlow",
+            "X": 328,
+            "Y": 202,
+            "Width": 164,
+            "Height": 22,
+            "TextId": "TXT_SEQ_COMPACT_VALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 32
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "InputFlow",
+            "X": 328,
+            "Y": 362,
+            "Width": 164,
+            "Height": 22,
+            "TextId": "TXT_SEQ_COMPACT_VALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 32
+            }
           }
         ],
         "Interactions": [
@@ -1470,7 +1510,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -2110,7 +2150,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -3055,7 +3095,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -5322,7 +5362,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -5334,6 +5374,114 @@
               "Blue": 55
             },
             "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "CycleCountButton",
+            "X": 524,
+            "Y": 120,
+            "Width": 160,
+            "Height": 48,
+            "Pressed": "ux_tab_sel_160x48.png",
+            "Released": "ux_tab_rel_160x48.png",
+            "TextId": "TXT_CYCLES",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "CycleLessButton",
+            "X": 524,
+            "Y": 178,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_CYCLE_LESS",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "CycleMoreButton",
+            "X": 644,
+            "Y": 178,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_CYCLE_MORE",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "CycleInfinityButton",
+            "X": 524,
+            "Y": 236,
+            "Width": 160,
+            "Height": 48,
+            "Pressed": "ux_tab_sel_160x48.png",
+            "Released": "ux_tab_rel_160x48.png",
+            "TextId": "TXT_INFINITY",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "CycleValue",
+            "X": 524,
+            "Y": 300,
+            "Width": 244,
+            "Height": 50,
+            "TextId": "TXT_SEQ_COMPACT_VALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 251,
+              "Green": 191,
+              "Blue": 36
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
           }
         ],
         "Interactions": [
@@ -5700,6 +5848,50 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "allOff"
+            }
+          },
+          {
+            "InteractionName": "CycleCountButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "CycleCountButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqCycles"
+            }
+          },
+          {
+            "InteractionName": "CycleLessButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "CycleLessButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqCycleLess"
+            }
+          },
+          {
+            "InteractionName": "CycleMoreButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "CycleMoreButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqCycleMore"
+            }
+          },
+          {
+            "InteractionName": "CycleInfinityButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "CycleInfinityButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "seqInfinity"
             }
           }
         ]
@@ -6117,7 +6309,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -6250,7 +6442,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -6865,28 +7057,6 @@
               "UseBuffer": true,
               "BufferSize": 512
             }
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "PowerOffButton",
-            "X": 420,
-            "Y": 8,
-            "Width": 112,
-            "Height": 48,
-            "Pressed": "ui_danger_prs_112x48.png",
-            "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_FULL_POWER_OFF",
-            "ReleasedColor": {
-              "Red": 180,
-              "Green": 62,
-              "Blue": 69
-            },
-            "PressedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -6912,17 +7082,6 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "ScreenSettings"
-            }
-          },
-          {
-            "InteractionName": "ShutdownBatteryPower",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "PowerOffButton"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "powerOff"
             }
           }
         ]
@@ -7410,7 +7569,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -7930,7 +8089,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -8107,7 +8266,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -8883,7 +9042,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -10550,7 +10709,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -10956,7 +11115,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -11358,7 +11517,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,
@@ -11513,7 +11672,7 @@
             "Height": 48,
             "Pressed": "ui_danger_prs_112x48.png",
             "Released": "ui_danger_rel_112x48.png",
-            "TextId": "TXT_ALL_PSU_OFF",
+            "TextId": "TXT_FULL_POWER_OFF",
             "ReleasedColor": {
               "Red": 180,
               "Green": 62,

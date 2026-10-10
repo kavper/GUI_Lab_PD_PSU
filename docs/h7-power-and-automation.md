@@ -1,0 +1,11 @@
+# Power and automation controls
+
+The global header POWER OFF stops output and automation, then sends binary TEXT_CMD `BMS SHUTDOWN` to G4. This requests BQ76922 shutdown; waking uses TS2 according to the G4 contract. The main TURN ON/OFF toggle controls the PSU output. These actions are distinct. The duplicate Battery shutdown button was removed. Queue failure, NACK or timeout reports failure instead of leaving an irreversible local ON block. No failed command restarts output.
+
+Main displays BAT (signed net battery power from valid TB pack voltage/current) and USB IN (measured input current times TPS VBUS, for connected SINK). BAT is not a claim about gross consumption when USB simultaneously charges the pack. Invalid/stale samples show unavailable. Existing POWER remains output load power.
+
+External charger admission uses normal H7 ON readiness and manual chemistry/cell/polarity confirmation. OFF has no physical PERMIT; H7 does not force it. Charging waits for battery voltage, sends pack CV with limited precharge current, waits for SET ACK and G0 readback, then requests ON. STARTING waits for physical PERMIT and output confirmation for at most 5 seconds. Active-phase PERMIT/output loss stops charging. The precharge voltage threshold determines the current phase; it is not a voltage ceiling below an attached battery. Hardware operation is not established by host tests.
+
+Sequence GUI provides integer cycle count 1..65535, -1/+1 and explicit CONTINUOUS. RUN starts the first enabled KEEP step as ON; later KEEP steps retain the output state. SET ACK/readback precedes ON. Step duration starts after output confirmation; G4/G0 startup has a 5-second timeout. Configuration is locked while running or paused. Empty enabled-step lists are rejected. Continuous run requires explicit STOP or is cancelled by fault/shutdown; never resumes automatically.
+
+Validation: tests/run_host_tests.ps1 (binary protocol, application startup, charger/sequence lifecycle, voltage/gauge display) and opt-in PSU_USB_SELFTEST (main power labels, cycle keypad, continuous control, full header shutdown, existing gauge tests). Generate and both Designer compile paths use the executable project. No hardware flashing occurs during these checks.

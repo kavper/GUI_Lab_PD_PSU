@@ -27,7 +27,7 @@ void ScreenSettingsView::tearDownScreen()
 extern "C" {
 #include "psu_app.h"
 }
-void ScreenSettingsView::allOff() { psu_app_shutdown(); }
+void ScreenSettingsView::allOff() { psu_app_power_shutdown(); }
 
 void ScreenSettingsView::setupTheme()
 {

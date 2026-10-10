@@ -25,7 +25,7 @@ void ScreenPresetsView::refresh(){
  p=psu_preset_get(2);snprintf(b,sizeof(b),"%lu.%03lu V\n%lu.%03lu A",(unsigned long)(p->voltage_mv/1000),(unsigned long)(p->voltage_mv%1000),(unsigned long)(p->current_ma/1000),(unsigned long)(p->current_ma%1000));lab_show(Summary3,Summary3Buffer,SUMMARY3_SIZE,b,selected==2?lab_cyan():lab_muted());
 }
 void ScreenPresetsView::key(char c){psu_editor_key(&editor,c);refresh();}
-void ScreenPresetsView::allOff(){psu_app_shutdown();}
+void ScreenPresetsView::allOff(){psu_app_power_shutdown();}
 void ScreenPresetsView::editVoltage(){field=0;select(selected);}
 void ScreenPresetsView::editCurrent(){field=1;select(selected);}
 void ScreenPresetsView::loadPreset(){lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,psu_preset_apply(selected)?"Preset requested; output state unchanged":"Preset request blocked",lab_cyan());}
