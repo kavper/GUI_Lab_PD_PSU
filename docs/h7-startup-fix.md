@@ -171,3 +171,22 @@ freshness check before a new ON remains in place. G4 owns host-link loss shutdow
 timeouts and explicit OFF remain actionable. This change does not establish the
 cause of the observed sub-second shutdown; NACK and fault telemetry are still
 needed to distinguish G4/G0 faults from host-link loss.
+
+## Coordinated runtime service (2026-10-10)
+
+* PING every 100 ms is independent of METER reception. It occupies one
+  coalesced slot separate from the user command FIFO; OFF stays first.
+* Default UART/control task runs at CMSIS priority High1, above the GUI High
+  task. Its stack and priorities are also recorded in the CubeMX project.
+* RX overflow is determined by unread DMA bytes, not a 25 ms scheduling gap.
+* The shared METER readiness/display age is 200 ms. Exceeding it never causes
+  an independent H7 runtime OFF. G4 host timeout remains 1000 ms.
+* AUX byte 30 reports the retained G4 stop cause: 0 none/legacy, 1 H7 heartbeat,
+  2 G0 telemetry, 3 confirmed G0 KILL, 4 G0 fault, 5 G0 command/start failure.
+  Byte 31 stays zero and the 32-byte AUX length is unchanged. Diagnostics
+  displays this cause until G4 CLEAR or a new explicit ON.
+
+Host tests cover missing METER with a full user FIFO, coalescing, OFF priority,
+recovery and the cause decoder. Changed H7 C files compile for Cortex-M7 with
+-Wall -Wextra -Werror. Full TouchGFX linking and real board/DMA scheduling
+remain unverified here because the TouchGFX SDK/generated assets are missing.

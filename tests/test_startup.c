@@ -24,7 +24,12 @@ static void tick_meter(uint32_t ms,uint32_t fault,uint8_t ctrl,uint8_t flags,int
   meter(ms,fault,ctrl,flags,fresh,0,0);psu_app_tick(ms);
 }
 static uint8_t transmit(uint32_t ms, uint8_t type) {
-  assert(g4_pop_frame(psu_g4(),wire,sizeof(wire),ms)>0);assert(wire[3]==type);
+  int n;
+  do {
+    n=g4_pop_frame(psu_g4(),wire,sizeof(wire),ms);assert(n>0);
+    if(wire[3]==5){uint8_t ping=5;receive(0x81,wire[4],&ping,1,ms);}
+  } while(wire[3]==5);
+  assert(wire[3]==type);
   psu_app_tick(ms);return wire[4];
 }
 static void ack(uint32_t ms,uint8_t type,uint8_t seq) {
@@ -148,7 +153,7 @@ int main(void) {
   while(g4_pop_frame(psu_g4(),wire,sizeof(wire),600))assert(wire[3]!=3);
   tick_meter(601,0,9,0xe3,1);
   assert(!snapshot().fault_latched && snapshot().output_requested);
-  reset_off(0);psu_app_tick(61);assert(!psu_app_set_output(1,PSU_SRC_LCD));
+  reset_off(0);psu_app_tick(211);assert(!psu_app_set_output(1,PSU_SRC_LCD));
   assert(strstr(snapshot().last_on_reject,"METER STALE"));
   reset_off(0);tick_meter(20,0,0,0,0);assert(!psu_app_set_output(1,PSU_SRC_LCD));
   assert(strstr(snapshot().last_on_reject,"FRESH G0"));

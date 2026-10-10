@@ -11,7 +11,7 @@ static UART_HandleTypeDef *uart;
 static G4Port *host;
 static uint16_t tail,tx_len;
 static volatile uint32_t laps;
-static uint32_t consumed_laps,last_poll;
+static uint32_t consumed_laps;
 static volatile uint8_t restart,tx_busy;
 static volatile G4UartDiagnostics diag;
 static void invalidate(void *p,unsigned n){uintptr_t a=(uintptr_t)p&~(uintptr_t)31;SCB_InvalidateDCache_by_Addr((uint32_t*)a,(int32_t)(((uintptr_t)p+n+31-a)&~(uintptr_t)31));}
@@ -29,12 +29,12 @@ void HPDMA1_Channel2_IRQHandler(void){HAL_DMA_IRQHandler(&dma_rx);}
 void HPDMA1_Channel3_IRQHandler(void){HAL_DMA_IRQHandler(&dma_tx);}
 static void arm(void){__HAL_UART_DISABLE_IT(uart,UART_IT_IDLE);HAL_UART_AbortReceive(uart);__HAL_UART_CLEAR_IDLEFLAG(uart);__HAL_UART_SEND_REQ(uart,UART_RXDATA_FLUSH_REQUEST);invalidate(rx,sizeof(rx));tail=0;laps=consumed_laps=0;g4_reset_parser(host);__DSB();if(HAL_UARTEx_ReceiveToIdle_DMA(uart,rx,RX_SIZE)==HAL_OK){diag.rx_active=1;restart=0;}else{diag.rx_active=0;diag.rx_start_failures++;}}
 void G4_UartInit(UART_HandleTypeDef *u,G4Port *p){uart=u;host=p;memset((void*)&diag,0,sizeof(diag));tx_busy=0;tx_len=0;restart=1;if(setup_dma())arm();}
-void G4_UartProcess(uint32_t now){uint32_t epoch,w,absolute,read;uint8_t bytes[RX_SIZE];unsigned n=0;if(!uart||!host||!uart->hdmarx)return;if(restart||!diag.rx_active){arm();last_poll=now;goto transmit;}
+void G4_UartProcess(uint32_t now){uint32_t epoch,w,absolute,read;uint8_t bytes[RX_SIZE];unsigned n=0;if(!uart||!host||!uart->hdmarx)return;if(restart||!diag.rx_active){arm();goto transmit;}
  /* Epoch and CBR1 must describe the same lap. TC updates only the epoch. */
  {uint32_t irq=__get_PRIMASK();__disable_irq();epoch=laps;w=RX_SIZE-__HAL_DMA_GET_COUNTER(uart->hdmarx);if(!irq)__enable_irq();}
  if(w>=RX_SIZE){w=0;}
  absolute=epoch*RX_SIZE+w;read=consumed_laps*RX_SIZE+tail;
- if(absolute-read>=RX_SIZE||now-last_poll>25){diag.rx_overflows++;host->overflow_count++;g4_reset_parser(host);tail=(uint16_t)w;consumed_laps=epoch;}else{invalidate(rx,sizeof(rx));while(read<absolute&&n<RX_SIZE){bytes[n++]=rx[tail];tail=(tail+1)%RX_SIZE;read++;if(!tail)consumed_laps++;}if(n)g4_rx_bytes(host,bytes,n,now);}last_poll=now;
+ if(absolute-read>=RX_SIZE){diag.rx_overflows++;host->overflow_count++;g4_reset_parser(host);tail=(uint16_t)w;consumed_laps=epoch;}else{invalidate(rx,sizeof(rx));while(read<absolute&&n<RX_SIZE){bytes[n++]=rx[tail];tail=(tail+1)%RX_SIZE;read++;if(!tail)consumed_laps++;}if(n)g4_rx_bytes(host,bytes,n,now);}
  transmit:
  if(!tx_busy){if(!tx_len)tx_len=(uint16_t)g4_pop_frame(host,tx,sizeof(tx),now);if(tx_len){clean(tx,sizeof(tx));tx_busy=1;if(HAL_UART_Transmit_DMA(uart,tx,tx_len)==HAL_OK)tx_len=0;else{tx_busy=0;diag.tx_start_failures++;}}}}
 void G4_UartRxEvent(UART_HandleTypeDef *u,uint16_t size){(void)size;if(u==uart&&HAL_UARTEx_GetRxEventType(u)==HAL_UART_RXEVENT_TC)laps++;}

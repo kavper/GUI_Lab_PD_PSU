@@ -1,6 +1,9 @@
 #ifndef G4_ASCII_H
 #define G4_ASCII_H
 
+/* Readiness/display freshness; physical link-loss shutdown belongs to G4. */
+#define G4_METER_FRESH_MS 200U
+
 #include <stddef.h>
 #include <stdint.h>
 
@@ -84,6 +87,7 @@ typedef struct
   uint8_t replies_state[16], reply_head, reply_tail, reply_count;
   uint32_t parser_ms;
   uint32_t heartbeat_ms;
+  uint8_t heartbeat_frame[7], heartbeat_len;
   uint8_t frame[120], frame_len;
   uint8_t wire_queue[10][120], wire_len[10], wire_seq[10];
   uint16_t wire_id[10];

@@ -70,6 +70,12 @@ void ScreenDiagnosticsView::refresh(){
      live.fault_latched?live.fault_context:(live.last_on_reject[0]?live.last_on_reject:"none"),
      (unsigned long)host->telemetry.fault,host->telemetry.ctrl,host->telemetry.fault_latch,
      (unsigned long)host->telemetry.g0_fault,host->telemetry.kill);
+ int64_t stopReason=0;
+ if(g4_record_value(&host->records[G4_RECORD_AUX],"stop_reason",&stopReason) && stopReason>0) {
+   const char* causes[]={"NONE","H7 HEARTBEAT LOST","G0 TELEMETRY LOST","G0 KILL CONFIRMED","G0 FAULT","G0 START FAILED"};
+   size_t causeUsed=strlen(b);
+   snprintf(b+causeUsed,sizeof(b)-causeUsed," | Stop: %s",stopReason<6?causes[stopReason]:"UNKNOWN");
+ }
  size_t used=strlen(b);
  if(host->nack_valid){
    const char* reasons[]={"UNKNOWN CODE","UNKNOWN","BAD_PAYLOAD","RANGE","UNSAFE","BUSY","TIMEOUT","LINK"};
@@ -78,7 +84,7 @@ void ScreenDiagnosticsView::refresh(){
        host->nack_seq,host->nack_reason,reason,host->nack_matched?"matched":"unmatched");
  }else snprintf(b+used,sizeof(b)-used,"\nLast NACK: none");
  lab_show(FaultText,FaultTextBuffer,FAULTTEXT_SIZE,b,live.fault_latched?lab_red():strcmp(live.on_block_reason,"READY")?lab_amber():lab_muted());
- lab_enable(ClearButton,live.fault_latched&&host->telemetry.valid&&psu_app_now()-host->telemetry.ms<=50U);
+ lab_enable(ClearButton,live.fault_latched&&host->telemetry.valid&&psu_app_now()-host->telemetry.ms<=G4_METER_FRESH_MS);
 
 }
 void ScreenDiagnosticsView::allOff(){psu_app_shutdown();}

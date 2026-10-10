@@ -300,7 +300,7 @@ static const char *on_block(uint8_t source)
   if (source == PSU_SRC_CHARGER && !charger.running) return "CHARGER STOPPED";
   if (!snap.g4_uart_configured) return NULL;
   if (!t->valid) return "WAITING FOR METER";
-  if (app_now - t->ms > 50U) return "METER STALE";
+  if (app_now - t->ms > G4_METER_FRESH_MS) return "METER STALE";
   if (!t->g0 || t->g0_age_ms > 500U) return "WAITING FOR FRESH G0";
   if (t->g0_fault & G4_G0_MEAS_LOST) return "WAITING FOR VALID MEASUREMENTS";
   if (g4.event_g0_stale) return "G0 LINK LOSS PENDING";
@@ -394,7 +394,7 @@ int psu_app_set_output(int enabled, uint8_t source)
   if(!enabled) {
     const G4Telemetry *t=&g4.telemetry;
     stop_ms=app_now;
-    if(t->valid && app_now-t->ms<=50U && !t->out && !t->want && !t->run &&
+    if(t->valid && app_now-t->ms<=G4_METER_FRESH_MS && !t->out && !t->want && !t->run &&
        !t->stage_en && !t->ps_en && t->ctrl==0)g4.output_phase=G4_OUTPUT_IDLE;
   }
   snap.output_phase = g4.output_phase;
@@ -546,7 +546,7 @@ void psu_app_tick(uint32_t now_ms)
     const uint32_t age = now_ms - t->ms;
     memset(&g0, 0, sizeof(g0));
     /* g0=0 can mean idle pre-regulation; it is not proof of a dead UART. */
-    g0.connected = t->valid && age <= 50U && t->g0 && t->g0_age_ms <= 500U;
+    g0.connected = t->valid && age <= G4_METER_FRESH_MS && t->g0 && t->g0_age_ms <= 500U;
     g0.stale = !g0.connected;
     g0.current_valid = g0.connected && !g0.stale && !(t->g0_fault & 256U);
     g0.current_calibrated = g0.current_valid;
@@ -559,10 +559,10 @@ void psu_app_tick(uint32_t now_ms)
     snap.psu_running=t->run;
     if (t->valid && host_serial != t->serial) {
       host_serial = t->serial;
-      if(g4.output_phase==G4_OUTPUT_STOPPING && age<=50U && !t->out && !t->want &&
+      if(g4.output_phase==G4_OUTPUT_STOPPING && age<=G4_METER_FRESH_MS && !t->out && !t->want &&
          !t->run && !t->stage_en && !t->ps_en && t->ctrl==0)g4.output_phase=G4_OUTPUT_IDLE;
       if(snap.shutdown_pending) {
-        if(age<=50U && !t->run && !t->stage_en && !t->ps_en && !t->out) {
+        if(age<=G4_METER_FRESH_MS && !t->run && !t->stage_en && !t->ps_en && !t->out) {
           snap.shutdown_pending=0;snap.shutdown_confirmed=1;
         }
       }
@@ -595,7 +595,7 @@ void psu_app_tick(uint32_t now_ms)
     if(g4.output_phase==G4_OUTPUT_STOPPING && now_ms-stop_ms>800U)latch_fault("H7 OFF TIMEOUT");
     /* CLEAR ACK alone is not evidence that measurements/faults recovered.
        Require a fresh healthy METER received after that ACK, still OFF. */
-    if(clear_ack_pending && t->serial!=clear_ack_serial && age<=50U &&
+    if(clear_ack_pending && t->serial!=clear_ack_serial && age<=G4_METER_FRESH_MS &&
        g0.connected && g0.current_valid && !t->fault && !t->fault_latch && t->ctrl!=12 &&
        !g4_blocking_g0_faults(t,G4_OUTPUT_IDLE) && !t->out && !t->want) {
       clear_ack_pending=0;snap.fault_latched=0;snprintf(snap.fault,sizeof(snap.fault),"NONE");
