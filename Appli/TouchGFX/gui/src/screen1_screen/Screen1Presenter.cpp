@@ -14,6 +14,8 @@ Screen1Presenter::Screen1Presenter(Screen1View& v)
 
 void Screen1Presenter::activate()
 {
+    outputVoltageFilter.reset();
+    inputVoltageFilter.reset();
     // Prepare real values before the transition clears setup invalidations.
     // They remain stable throughout the reveal instead of painting over splash.
     PsuSnapshot snap;
@@ -37,8 +39,14 @@ void Screen1Presenter::ldoTelemetryUpdated(uint32_t inputVoltageMv,
                                           bool currentValid, bool currentCalibrated)
 {
     const int32_t shownUa = psu_display_current_ua(currentUa, currentValid ? 1 : 0);
-    view.setMeasurements(voltageMv, shownUa, mosfetDeciC);
-    view.setInputMetrics(inputVoltageMv, psu_output_power_mw(voltageMv, shownUa));
+    PsuSnapshot live;
+    psu_snapshot(&live);
+    const bool fresh = connected && !live.g0_stale && currentValid;
+    const uint32_t now = psu_app_now();
+    const uint32_t shownMv = outputVoltageFilter.update(voltageMv, now, fresh);
+    const uint32_t shownInputMv = inputVoltageFilter.update(inputVoltageMv, now, fresh);
+    view.setMeasurements(shownMv, shownUa, mosfetDeciC);
+    view.setInputMetrics(shownInputMv, psu_output_power_mw(voltageMv, shownUa));
     view.setPcbTemperature(pcbDeciC);
     view.setRegulationMode(mode == 2);
     view.setCurrentMeasurementCalibrated(currentValid && currentCalibrated);

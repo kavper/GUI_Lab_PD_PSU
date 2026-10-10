@@ -3,6 +3,7 @@
 
 #include <gui/model/ModelListener.hpp>
 #include <mvp/Presenter.hpp>
+#include <gui/common/DisplayVoltageFilter.hpp>
 
 using namespace touchgfx;
 
@@ -36,6 +37,8 @@ private:
     Screen1Presenter();
 
     Screen1View& view;
+    DisplayVoltageFilter outputVoltageFilter;
+    DisplayVoltageFilter inputVoltageFilter;
 };
 
 #endif // SCREEN1PRESENTER_HPP

@@ -16,3 +16,11 @@ foreach ($testName in @('test_binary','test_binary_app','test_startup')) {
   & $testExe
   if ($LASTEXITCODE -ne 0) { throw "Test failed: $testName" }
 }
+$displayCompiler = Join-Path (Split-Path $Compiler -Parent) 'g++.exe'
+$displayTest = Join-Path $testOutput 'test_display_voltage.exe'
+& $displayCompiler -std=c++11 -Wall -Wextra -Werror -static-libgcc -static-libstdc++ `
+  -I (Join-Path $testRepo 'Appli/TouchGFX/gui/include') `
+  (Join-Path $PSScriptRoot 'test_display_voltage.cpp') -o $displayTest
+if ($LASTEXITCODE -ne 0) { throw 'Compilation failed: test_display_voltage' }
+& $displayTest
+if ($LASTEXITCODE -ne 0) { throw 'Test failed: test_display_voltage' }
