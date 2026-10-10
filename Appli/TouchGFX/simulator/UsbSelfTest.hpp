@@ -92,10 +92,17 @@ public:
           c->running=1;v->chart.update(c);check(v->chart.hasLiveTail(),"running chart uses fresh live tail between stored history samples");
           c->running=0;v->chart.update(c);check(!v->chart.hasLiveTail(),"stopped session freezes historical tail");
           check(v->LiveVoltage.isVisible()&&v->LiveCurrent.isVisible()&&v->StopButton.isVisible(),"session live voltage/current and STOP visible");
-          check(v->chart.voltageMax==20000&&v->chart.currentMax==(stage==14?2000U:5000U)&&v->chart.timeMax==132000,"independent nice voltage/current/time auto scales");
+          check(v->chart.voltageMin>0&&v->chart.voltageMin<=12000&&v->chart.voltageMax>=15000&&v->chart.currentMax>=(stage==14?1000U:3200U)&&v->chart.timeMax==132000,"independent nice voltage/current/time auto scales");
           static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("usb-selftest"),const_cast<char*>(stage==14?"charger-session-dark.bmp":"charger-session-light.bmp"));
           if(stage==14){stage=15;frame=0;return false;}
-          fprintf(log,"PASS session live readings, colored dual axes, automatic V/A/time scales, 3.2 A expansion and dark/light layout; no precharge\n");fclose(log);exit(0);
+          c->running=1;v->refresh();check(v->StopButton.isTouchable(),"SESSION STOP is enabled after charger starts on SETUP");
+          uint8_t drain[120];while(g4_pop_frame(psu_g4(),drain,sizeof(drain),psu_app_now())){}
+          v->handleClickEvent(touchgfx::ClickEvent(touchgfx::ClickEvent::PRESSED,400,444));
+          v->handleClickEvent(touchgfx::ClickEvent(touchgfx::ClickEvent::RELEASED,400,444));
+          check(!c->running,"SESSION STOP touch cancels charger");
+          bool sawOff=false;while(g4_pop_frame(psu_g4(),drain,sizeof(drain),psu_app_now()))if(drain[3]==3)sawOff=true;
+          check(sawOff,"SESSION STOP touch actually queues OFF to G4");
+          fprintf(log,"PASS Y min/max autorange and actual SESSION STOP touch -> G4 OFF; session live readings, colored dual axes, automatic V/A/time scales, 3.2 A expansion and dark/light layout; no precharge\n");fclose(log);exit(0);
         }
         ScreenUsbPdView* view=static_cast<ScreenUsbPdView*>(app->getCurrentScreen());
         const int current[]={320,-3000,0,-15625,320,320,320,-3000};

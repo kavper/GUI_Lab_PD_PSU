@@ -20,7 +20,7 @@ $displayCompiler = Join-Path (Split-Path $Compiler -Parent) 'g++.exe'
 $displayRuntimePath = $env:PATH
 try {
   $env:PATH = (Split-Path $displayCompiler -Parent) + ';' + $env:PATH
-  foreach ($displayName in @('test_display_voltage','test_power_gauge')) {
+  foreach ($displayName in @('test_display_voltage','test_power_gauge','test_chart_axis')) {
     $displayTest = Join-Path $testOutput "$displayName.exe"
     & $displayCompiler -std=c++11 -Wall -Wextra -Werror `
       -I (Join-Path $testRepo 'Appli/TouchGFX/gui/include') `

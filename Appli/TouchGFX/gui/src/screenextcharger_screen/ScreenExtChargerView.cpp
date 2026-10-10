@@ -32,6 +32,7 @@ void ScreenExtChargerView::refresh(){
  PolarityButton.setVisible(setup);PolarityButton.invalidate();
  StartButton.setVisible(setup);StartButton.invalidate();
  StopButton.setVisible(setup||page==1);StopButton.invalidate();
+ PsuSnapshot stopStatus;psu_snapshot(&stopStatus);lab_enable(StopButton,c->running||stopStatus.output_requested||stopStatus.output_confirmed||stopStatus.shutdown_pending);
  Chem0.setVisible(setup);Chem0.invalidate();
  Chem1.setVisible(setup);Chem1.invalidate();
  Chem2.setVisible(setup);Chem2.invalidate();
@@ -72,7 +73,7 @@ void ScreenExtChargerView::refresh(){
  {uint32_t v=p.term_ma;snprintf(b,sizeof(b),"%lu.%03lu",(unsigned long)(v/1000),(unsigned long)(v%1000));lab_show(EditValue2,EditValue2Buffer,EDITVALUE2_SIZE,field==2?editor.text:b,field==2?lab_cyan():lab_text());lab_enable(EditCard2,!c->running);}
  {uint32_t v=psu_chg_target_mv(&p);snprintf(b,sizeof(b),"%lu.%03lu",(unsigned long)(v/1000),(unsigned long)(v%1000));lab_show(EditValue3,EditValue3Buffer,EDITVALUE3_SIZE,field==4?editor.text:b,field==4?lab_cyan():lab_text());lab_enable(EditCard3,!c->running);}
  snprintf(b,sizeof(b),"%s: set cells, target V, charge A. Confirm polarity, START.\nCharge A is used from startup. Stop below: only at target V.",names[p.chemistry<5?p.chemistry:0]);
- lab_show(ProfileNote,ProfileNoteBuffer,PROFILENOTE_SIZE,b,lab_muted());lab_enable(StartButton,!c->running&&polarity);lab_enable(PolarityButton,!c->running);lab_enable(StopButton,c->running);
+ lab_show(ProfileNote,ProfileNoteBuffer,PROFILENOTE_SIZE,b,lab_muted());lab_enable(StartButton,!c->running&&polarity);lab_enable(PolarityButton,!c->running);
  }
  chart.update(c);
  LiveVoltage.setVisible(page==1);LiveCurrent.setVisible(page==1);
@@ -91,19 +92,19 @@ void ScreenExtChargerView::refresh(){
  lab_show(LiveCurrent,LiveCurrentBuffer,LIVECURRENT_SIZE,b,SessionChart::currentColor());
  snprintf(b,sizeof(b),"Target %lu.%03lu V | Charge limit %lu.%03lu A | End below %lu mA\n%02lu:%02lu:%02lu   %lu mAh   %lu.%03lu Wh   %s",(unsigned long)(psu_chg_target_mv(&p)/1000),(unsigned long)(psu_chg_target_mv(&p)%1000),(unsigned long)(p.cc_ma/1000),(unsigned long)(p.cc_ma%1000),(unsigned long)p.term_ma,(unsigned long)(c->elapsed_ms/3600000),(unsigned long)(c->elapsed_ms/60000%60),(unsigned long)(c->elapsed_ms/1000%60),(unsigned long)c->delivered_mah,(unsigned long)(c->delivered_mwh/1000),(unsigned long)(c->delivered_mwh%1000),psu_chg_state_name(c->state));
  lab_show(SessionStats,SessionStatsBuffer,SESSIONSTATS_SIZE,b,lab_text());
- {uint32_t v=chart.voltageMax*4/4,ma=chart.currentMax*4/4;
+ {uint32_t v=chart.voltageMin+(chart.voltageMax-chart.voltageMin)*4/4,ma=chart.currentMin+(chart.currentMax-chart.currentMin)*4/4;
  snprintf(b,sizeof(b),"%lu.%02lu V",(unsigned long)(v/1000),(unsigned long)(v%1000/10));lab_show(AxisV0,AxisV0Buffer,AXISV0_SIZE,b,SessionChart::voltageColor());
  snprintf(b,sizeof(b),"%lu.%02lu A",(unsigned long)(ma/1000),(unsigned long)(ma%1000/10));lab_show(AxisI0,AxisI0Buffer,AXISI0_SIZE,b,SessionChart::currentColor());}
- {uint32_t v=chart.voltageMax*3/4,ma=chart.currentMax*3/4;
+ {uint32_t v=chart.voltageMin+(chart.voltageMax-chart.voltageMin)*3/4,ma=chart.currentMin+(chart.currentMax-chart.currentMin)*3/4;
  snprintf(b,sizeof(b),"%lu.%02lu V",(unsigned long)(v/1000),(unsigned long)(v%1000/10));lab_show(AxisV1,AxisV1Buffer,AXISV1_SIZE,b,SessionChart::voltageColor());
  snprintf(b,sizeof(b),"%lu.%02lu A",(unsigned long)(ma/1000),(unsigned long)(ma%1000/10));lab_show(AxisI1,AxisI1Buffer,AXISI1_SIZE,b,SessionChart::currentColor());}
- {uint32_t v=chart.voltageMax*2/4,ma=chart.currentMax*2/4;
+ {uint32_t v=chart.voltageMin+(chart.voltageMax-chart.voltageMin)*2/4,ma=chart.currentMin+(chart.currentMax-chart.currentMin)*2/4;
  snprintf(b,sizeof(b),"%lu.%02lu V",(unsigned long)(v/1000),(unsigned long)(v%1000/10));lab_show(AxisV2,AxisV2Buffer,AXISV2_SIZE,b,SessionChart::voltageColor());
  snprintf(b,sizeof(b),"%lu.%02lu A",(unsigned long)(ma/1000),(unsigned long)(ma%1000/10));lab_show(AxisI2,AxisI2Buffer,AXISI2_SIZE,b,SessionChart::currentColor());}
- {uint32_t v=chart.voltageMax*1/4,ma=chart.currentMax*1/4;
+ {uint32_t v=chart.voltageMin+(chart.voltageMax-chart.voltageMin)*1/4,ma=chart.currentMin+(chart.currentMax-chart.currentMin)*1/4;
  snprintf(b,sizeof(b),"%lu.%02lu V",(unsigned long)(v/1000),(unsigned long)(v%1000/10));lab_show(AxisV3,AxisV3Buffer,AXISV3_SIZE,b,SessionChart::voltageColor());
  snprintf(b,sizeof(b),"%lu.%02lu A",(unsigned long)(ma/1000),(unsigned long)(ma%1000/10));lab_show(AxisI3,AxisI3Buffer,AXISI3_SIZE,b,SessionChart::currentColor());}
- {uint32_t v=chart.voltageMax*0/4,ma=chart.currentMax*0/4;
+ {uint32_t v=chart.voltageMin+(chart.voltageMax-chart.voltageMin)*0/4,ma=chart.currentMin+(chart.currentMax-chart.currentMin)*0/4;
  snprintf(b,sizeof(b),"%lu.%02lu V",(unsigned long)(v/1000),(unsigned long)(v%1000/10));lab_show(AxisV4,AxisV4Buffer,AXISV4_SIZE,b,SessionChart::voltageColor());
  snprintf(b,sizeof(b),"%lu.%02lu A",(unsigned long)(ma/1000),(unsigned long)(ma%1000/10));lab_show(AxisI4,AxisI4Buffer,AXISI4_SIZE,b,SessionChart::currentColor());}
  {uint32_t sec=chart.timeMax/1000*0/2;snprintf(b,sizeof(b),"%lu:%02lu",(unsigned long)(sec/60),(unsigned long)(sec%60));lab_show(AxisT0,AxisT0Buffer,AXIST0_SIZE,b,lab_muted());}
@@ -132,7 +133,7 @@ void ScreenExtChargerView::startCharge(){PsuSnapshot live;psu_snapshot(&live);Ps
  c->profile.confirmed=1;c->profile.polarity_checked=1;
  if(psu_app_start_charging()){page=1;}
  refresh();}
-void ScreenExtChargerView::stopCharge(){psu_chg_abort(psu_charger(),"Operator stop",psu_app_now());polarity=false;refresh();}
+void ScreenExtChargerView::stopCharge(){psu_app_shutdown();snprintf(psu_charger()->reason,sizeof(psu_charger()->reason),"Operator stop");polarity=false;refresh();}
 void ScreenExtChargerView::allOff(){psu_app_power_shutdown();polarity=false;refresh();}
 void ScreenExtChargerView::chem0(){chooseChem(0);}
 void ScreenExtChargerView::chem1(){chooseChem(1);}
