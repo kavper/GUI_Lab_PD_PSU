@@ -159,7 +159,7 @@ analogue protection. G4's heartbeat handles failure of H7 itself.
 
 The H7 tests explicitly deliver the G0 transition first and then G4's
 supervisor FAULT, verifying that only the latter stops the UI consumers.
-The paired G4 is `1e4116c`; G0 remains `f974390`. Flash the coordinated H7
+The paired G4 is `d1c40fe`; G0 remains `f974390`. Flash the coordinated H7
 and G4 pair together. The older G4 has neither heartbeat nor CLEAR recovery.
 
 ## METER runtime age (2026-10-10)
@@ -190,3 +190,7 @@ Host tests cover missing METER with a full user FIFO, coalescing, OFF priority,
 recovery and the cause decoder. Changed H7 C files compile for Cortex-M7 with
 -Wall -Wextra -Werror. Full TouchGFX linking and real board/DMA scheduling
 remain unverified here because the TouchGFX SDK/generated assets are missing.
+
+Paired runtime release: G4 `d1c40fe`, G0 `f974390`; H7 runtime source `9e9c9eb`
+plus this documentation update. See the G4 `docs/coordinated-link-audit.md`
+for test scope and the remaining board validation.
