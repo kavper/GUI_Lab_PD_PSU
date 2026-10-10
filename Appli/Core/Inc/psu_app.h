@@ -92,7 +92,7 @@ typedef struct
   uint8_t output_requested;
   uint8_t output_confirmed;
   uint8_t psu_running;
-  uint8_t power_shutdown_requested;
+  uint8_t power_shutdown_requested; /* Request status only; does not inhibit SET/ON. */
   uint8_t shutdown_pending;
   uint8_t shutdown_confirmed;
   uint32_t power_mw;

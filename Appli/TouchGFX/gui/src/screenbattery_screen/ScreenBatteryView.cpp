@@ -11,7 +11,6 @@ void ScreenBatteryView::handleTickEvent() {if(noticeTicks)--noticeTicks;if(++div
 void ScreenBatteryView::notify(const char* text) {snprintf(notice,sizeof(notice),"%s",text);noticeTicks=180;refresh();}
 void ScreenBatteryView::allOff() {psu_app_power_shutdown();notify("POWER OFF requested - BMS shutdown / wake with TS2");}
 void ScreenBatteryView::refresh() {
-    PsuSnapshot snap;psu_snapshot(&snap);if(snap.power_shutdown_requested && !noticeTicks){snprintf(notice,sizeof(notice),"Power off requested - wake using TS2");noticeTicks=180;}
     TelemetryData data;
     telemetry_page(PAGE_BATTERY,data);
     lab_show(Metric0,Metric0Buffer,METRIC0_SIZE,data.metric[0],data.fresh?lab_text():lab_muted());

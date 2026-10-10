@@ -61,6 +61,35 @@ static void charge_meter(uint32_t ms,uint8_t ctrl,uint8_t flags,uint32_t mv,uint
  p[67]=64;p[66]=flags;p[68]=ctrl;receive(0x10,++meter_seq,p,72,ms);psu_app_tick(ms);
 }
 int main(void) {
+  reset_off(G4_G0_POWER_KILL);
+  assert(psu_app_power_shutdown());
+  uint8_t off_seq=transmit(11,3);
+  uint8_t power_seq=transmit(12,0x21);
+  assert(snapshot().power_shutdown_requested&&!snapshot().output_requested);
+  assert(psu_app_set_limits(9000,1000,PSU_SRC_LCD));
+  ack(13,1,transmit(13,1));
+  ack(14,3,off_seq);ack(15,0x21,power_seq);
+  tick_meter(16,G4_G0_POWER_KILL,0,4,1);
+  assert(snapshot().power_shutdown_requested&&!snapshot().output_requested);
+  psu_app_tick(220);assert(!psu_app_set_output(1,PSU_SRC_LCD));
+  assert(strstr(snapshot().last_on_reject,"METER STALE"));
+  tick_meter(221,G4_G0_MEAS_LOST|G4_G0_POWER_KILL,0,4,1);
+  assert(!psu_app_set_output(1,PSU_SRC_LCD));
+  assert(strstr(snapshot().last_on_reject,"VALID MEASUREMENTS"));
+  tick_meter(222,G4_G0_POWER_KILL,0,4,1);
+  assert(!snapshot().output_requested); /* External H7 supply does not auto-restart. */
+  assert(psu_app_set_output(1,PSU_SRC_LCD));
+  assert(!snapshot().power_shutdown_requested);transmit(222,2);
+  puts("PASS: externally powered H7 accepts SET after BMS shutdown; fresh healthy OFF permits manual ON only");
+
+  reset_off(0);assert(psu_app_power_shutdown());
+  off_seq=transmit(11,3);power_seq=transmit(12,0x21);
+  ack(13,3,off_seq);ack(14,0x21,power_seq);
+  meter(15,0,12,4,1,0,1);psu_app_tick(15);
+  assert(snapshot().fault_latched&&!psu_app_set_output(1,PSU_SRC_LCD));
+  assert(!psu_app_set_limits(9000,1000,PSU_SRC_LCD));
+  puts("PASS: removing the BMS request lock does not bypass a confirmed G4 fault");
+
   reset_off(G4_G0_MEAS_LOST|G4_G0_POWER_KILL);
   assert(snapshot().meter_ms==10&&snapshot().meter_serial==1);
   psu_app_tick(11);

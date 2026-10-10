@@ -305,7 +305,7 @@ void psu_app_set_g4_uart(int configured) { snap.g4_uart_configured = configured 
 static const char *on_block(uint8_t source)
 {
   const G4Telemetry *t = &g4.telemetry;
-  if (snap.power_shutdown_requested) return "POWER SHUTDOWN";
+  /* BMS shutdown is a request, not a local lock: H7 may stay externally powered. */
   if (snap.fault_latched) return snap.fault;
   if (source == PSU_SRC_WEB && !remote_access) return "REMOTE ACCESS DISABLED";
   if (snap.shutdown_pending) return "WAITING FOR OFF CONFIRMATION";
@@ -352,7 +352,6 @@ static void latch_fault(const char *reason)
 int psu_app_set_limits(uint32_t voltage_mv, uint32_t current_ma, uint8_t source)
 {
   if(source == PSU_SRC_WEB && !remote_access)return 0;
-  if(snap.power_shutdown_requested)return 0;
   if((source==PSU_SRC_SEQ && sequencer.run!=PSU_SEQ_RUN) ||
      (source==PSU_SRC_CHARGER && !charger.running))return 0;
   uint16_t id;
@@ -411,7 +410,7 @@ int psu_app_set_output(int enabled, uint8_t source)
        !t->stage_en && !t->ps_en && t->ctrl==0)g4.output_phase=G4_OUTPUT_IDLE;
   }
   snap.output_phase = g4.output_phase;
-  if(enabled){snap.last_on_reject[0]=0;snap.command_error[0]=0;}
+  if(enabled){snap.power_shutdown_requested=0;snap.last_on_reject[0]=0;snap.command_error[0]=0;}
   else clear_ack_pending=0;
   if (hooks.ldo_output)
     hooks.ldo_output(enabled ? 1U : 0U);
