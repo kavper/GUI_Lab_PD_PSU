@@ -1772,9 +1772,25 @@
       <Text Id="TXT_USB_POWER_VALUE" Alignment="Center" TypographyId="UsbPower">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-    <Text Id="TXT_FULL_POWER_OFF" Alignment="Center" TypographyId="Button"><Translation Language="GB">POWER OFF</Translation></Text>
-<Text Id="TXT_SENSE_DEBUG" Alignment="Center" TypographyId="Button"><Translation Language="GB">SENSE</Translation></Text>
-</TextGroup>
+      <Text Id="TXT_FULL_POWER_OFF" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">POWER OFF</Translation>
+      </Text>
+      <Text Id="TXT_SENSE_DEBUG" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">SENSE</Translation>
+      </Text>
+      <Text Id="TXT_CYCLES" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CYCLES</Translation>
+      </Text>
+      <Text Id="TXT_INFINITY" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CONTINUOUS</Translation>
+      </Text>
+      <Text Id="TXT_CYCLE_LESS" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">-1</Translation>
+      </Text>
+      <Text Id="TXT_CYCLE_MORE" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">+1</Translation>
+      </Text>
+    </TextGroup>
   </Texts>
   <Typographies>
     <Typography Id="Title" Font="IBMPlexSans-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
