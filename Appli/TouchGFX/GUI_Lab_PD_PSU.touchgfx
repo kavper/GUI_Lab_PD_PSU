@@ -9811,9 +9811,9 @@
             "Type": "TextArea",
             "Name": "SessionStats",
             "X": 24,
-            "Y": 128,
+            "Y": 164,
             "Width": 752,
-            "Height": 60,
+            "Height": 56,
             "TextId": "TXT_CHG_STATS",
             "TextRotation": "0",
             "Color": {
@@ -9834,6 +9834,7 @@
             "Y": 390,
             "Width": 752,
             "Height": 30,
+            "Visible": false,
             "TextId": "TXT_CHG_AXIS",
             "TextRotation": "0",
             "Color": {
@@ -9885,6 +9886,321 @@
               "TextId": "TXT_TELEMETRY_EMPTY",
               "UseBuffer": true,
               "BufferSize": 700
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LiveVoltage",
+            "X": 24,
+            "Y": 124,
+            "Width": 360,
+            "Height": 36,
+            "Visible": false,
+            "TextId": "TXT_SESSION_LIVE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LiveCurrent",
+            "X": 420,
+            "Y": 124,
+            "Width": 356,
+            "Height": 36,
+            "Visible": false,
+            "TextId": "TXT_SESSION_LIVE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisV0",
+            "X": 4,
+            "Y": 238,
+            "Width": 70,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisV1",
+            "X": 4,
+            "Y": 273,
+            "Width": 70,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisV2",
+            "X": 4,
+            "Y": 308,
+            "Width": 70,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisV3",
+            "X": 4,
+            "Y": 343,
+            "Width": 70,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisV4",
+            "X": 4,
+            "Y": 378,
+            "Width": 70,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisI0",
+            "X": 726,
+            "Y": 238,
+            "Width": 72,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisI1",
+            "X": 726,
+            "Y": 273,
+            "Width": 72,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisI2",
+            "X": 726,
+            "Y": 308,
+            "Width": 72,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisI3",
+            "X": 726,
+            "Y": 343,
+            "Width": 72,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisI4",
+            "X": 726,
+            "Y": 378,
+            "Width": 72,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisT0",
+            "X": 78,
+            "Y": 394,
+            "Width": 78,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisT1",
+            "X": 364,
+            "Y": 394,
+            "Width": 78,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AxisT2",
+            "X": 650,
+            "Y": 394,
+            "Width": 78,
+            "Height": 22,
+            "Visible": false,
+            "TextId": "TXT_CHG_AXIS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
             }
           }
         ],

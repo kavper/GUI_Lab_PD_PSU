@@ -1802,6 +1802,9 @@
       <Text Id="TXT_CAPACITY_EDIT" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">CAPACITY</Translation>
       </Text>
+      <Text Id="TXT_SESSION_LIVE" Alignment="Left" TypographyId="TelemetryMetric">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
     </TextGroup>
   </Texts>
   <Typographies>

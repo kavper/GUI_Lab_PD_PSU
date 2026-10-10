@@ -12,8 +12,8 @@ const char *psu_chg_state_name(PsuChgState state)
   case CHG_STARTING: return "WAITING FOR G4 / G0 START";
   case CHG_WAIT: return "WAIT_FOR_CONNECTION";
   case CHG_PRECHARGE: return "PRECHARGE";
-  case CHG_CC: return "CONSTANT_CURRENT";
-  case CHG_CV: return "CONSTANT_VOLTAGE";
+  case CHG_CC: return "CC / CHARGING";
+  case CHG_CV: return "CV / FINISHING";
   case CHG_ABSORPTION: return "ABSORPTION";
   case CHG_FLOAT: return "FLOAT";
   case CHG_TERMINATING: return "TERMINATING";
@@ -306,7 +306,6 @@ static void trace_sample(PsuCharger *chg,const PsuChgSense *sense,uint32_t now_m
 void psu_chg_tick(PsuCharger *chg, const PsuChgSense *sense, uint32_t now_ms)
 {
   uint32_t pack_cv;
-  uint32_t pre_mv;
   if (chg == 0 || !chg->running)
     return;
   chg->elapsed_ms=now_ms-chg->session_start_ms;
@@ -344,9 +343,8 @@ void psu_chg_tick(PsuCharger *chg, const PsuChgSense *sense, uint32_t now_ms)
     return;
   }
   pack_cv = psu_chg_target_mv(&chg->profile);
-  pre_mv = (uint32_t)chg->profile.cells * chg->profile.precharge_mv_cell;
   if (chg->state == CHG_VALIDATE || chg->state == CHG_WAIT) {
-    send_limits(chg,pack_cv,sense->pack_mv>=pre_mv?chg->profile.cc_ma:chg->profile.precharge_ma);
+    send_limits(chg,pack_cv,chg->profile.cc_ma);
     if(!chg->running)return;
     enter(chg,CHG_STARTING,now_ms);
     return;
@@ -356,15 +354,8 @@ void psu_chg_tick(PsuCharger *chg, const PsuChgSense *sense, uint32_t now_ms)
       chg->output_started=1;chg->io.output(1,chg->io.user);
       if(!chg->running)return;
     }
-    if(chg->output_started && sense->permit && sense->output_ready)enter(chg,sense->pack_mv>=pre_mv?CHG_CC:CHG_PRECHARGE,now_ms);
+    if(chg->output_started && sense->permit && sense->output_ready)enter(chg,CHG_CC,now_ms);
     else if(now_ms-chg->state_since_ms>5000U)fault(chg,"G4/G0 start timeout");
-    return;
-  }
-  if (chg->state == CHG_PRECHARGE)
-  {
-    send_limits(chg,pack_cv,chg->profile.precharge_ma);
-    if (held(chg, sense->pack_mv >= pre_mv, now_ms))
-      enter(chg, CHG_CC, now_ms);
     return;
   }
   if (chg->state == CHG_CC)

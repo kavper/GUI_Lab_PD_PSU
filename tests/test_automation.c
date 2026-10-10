@@ -29,16 +29,16 @@ int main(void){
  psu_chg_init(&c);c.io.limits=limits;c.io.output=output;
  c.profile.confirmed=c.profile.polarity_checked=1;c.profile.cc_ma=1000;c.profile.capacity_mah=1;
  s.pack_mv=2500;s.telemetry_ok=s.start_allowed=1;s.permit=s.output_ready=0;
- assert(psu_chg_start(&c,&c.profile,&s,7000));psu_chg_tick(&c,&s,7010);assert(ma==100);
+ assert(psu_chg_start(&c,&c.profile,&s,7000));psu_chg_tick(&c,&s,7010);assert(ma==1000);
  s.limits_applied=1;psu_chg_tick(&c,&s,7020);s.permit=s.output_ready=1;
- psu_chg_tick(&c,&s,7030);assert(c.state==CHG_PRECHARGE);
+ psu_chg_tick(&c,&s,7030);assert(c.state==CHG_CC);
  s.pack_mv=3700;psu_chg_tick(&c,&s,7600);psu_chg_tick(&c,&s,7610);
  assert(c.state==CHG_CC&&ma==1000); /* End threshold 100 mA never sets CC. */
  s.pack_mv=4200;s.current_ma=500;psu_chg_tick(&c,&s,8200);psu_chg_tick(&c,&s,8210);
  assert(c.state==CHG_CV&&ma==1000);
  s.current_ma=50;s.limits_applied=0;psu_chg_tick(&c,&s,8215);assert(c.state==CHG_CV);s.limits_applied=1;psu_chg_tick(&c,&s,8220);psu_chg_tick(&c,&s,8800);psu_chg_tick(&c,&s,8810);
  assert(c.state==CHG_COMPLETE&&!c.running);
- puts("PASS explicit 1 A independent of capacity: low battery 0.1 A -> healthy CC 1 A -> CV -> end threshold stops");
+ puts("PASS explicit 1 A independent of capacity: zero/low battery starts at selected 1 A -> CV -> end threshold stops");
  on_calls=off_calls=0;psu_seq_init(&q);q.io.limits=limits;q.io.output=output;q.io.applied=readback;q.io.permit_ok=allowed;q.io.output_ready=output_ready;
  q.steps[0].output_action=PSU_STEP_ON;q.steps[0].time_ms=100;q.mode=PSU_SEQ_N;q.loops_requested=2;
  assert(psu_seq_start(&q,0));psu_seq_tick(&q,0);assert(!on_calls);
@@ -68,7 +68,7 @@ int main(void){
  assert(!psu_chg_set_target(&c.profile,17000));assert(psu_chg_target_mv(&c.profile)==16400);
  c.io.limits=limits;c.io.output=output;s.pack_mv=0;s.start_allowed=s.telemetry_ok=1;s.permit=s.limits_applied=s.output_ready=0;
  assert(psu_chg_start(&c,&c.profile,&s,20000));psu_chg_tick(&c,&s,20010);
- assert(c.state==CHG_STARTING&&mv==16400&&ma==100);
+ assert(c.state==CHG_STARTING&&mv==16400&&ma==500);
  s.limits_applied=1;psu_chg_tick(&c,&s,20020);assert(c.output_started&&c.running);
  s.output_ready=s.permit=1;s.pack_mv=13000;psu_chg_tick(&c,&s,20030);assert(c.state==CHG_CC);
  puts("PASS 4S reduced target 16.4 V; 17 V rejected; zero OFF measurement does not deadlock current-limited start");

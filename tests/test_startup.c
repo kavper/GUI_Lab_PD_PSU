@@ -304,10 +304,10 @@ int main(void) {
   chg=psu_charger();chg->profile.cells=4;chg->profile.confirmed=chg->profile.polarity_checked=1;assert(psu_chg_set_target(&chg->profile,16400));
   assert(psu_app_start_charging());charge_meter(12,0,4,12000,2000);set_seq=transmit(12,1);
   assert(chg->state==CHG_STARTING&&snapshot().requested_mv==16400);
-  charge_meter(13,0,4,16400,100);assert(!snapshot().output_requested);
+  charge_meter(13,0,4,16400,500);assert(!snapshot().output_requested);
   ack(14,1,set_seq);assert(snapshot().output_requested);on_seq=transmit(14,2);
-  charge_meter(30,7,6,16400,100);assert(chg->state==CHG_STARTING);
-  external_pack_mv=13000;charge_meter(45,9,0xe3,16400,100);ack(45,2,on_seq);assert(chg->state==CHG_CC);
+  charge_meter(30,7,6,16400,500);assert(chg->state==CHG_STARTING);
+  external_pack_mv=13000;charge_meter(45,9,0xe3,16400,500);ack(45,2,on_seq);assert(chg->state==CHG_CC);
   puts("PASS: full binary 4S 16.4 V startup with zero OFF voltage; SET ACK then ON then delayed output/PERMIT, no forced permit");
   return 0;
 }

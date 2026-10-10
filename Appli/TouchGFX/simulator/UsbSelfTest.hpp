@@ -72,7 +72,22 @@ public:
           v->refresh();if(++frame<30)return false;
           static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("usb-selftest"),const_cast<char*>("charger-target.bmp"));
           v->allOff();PsuSnapshot snap;psu_snapshot(&snap);check(snap.power_shutdown_requested&&!snap.output_requested,"header requests complete power shutdown");
-          fprintf(log,"PASS header BAT PWR/VPREREG; dark/light nested sequence keypad; 4S 16.4 V target GUI; header shutdown\n");fclose(log);exit(0);
+          v->showSession();stage=14;frame=0;return false;
+
+        }
+        if(stage==14||stage==15){
+          ScreenExtChargerView* v=static_cast<ScreenExtChargerView*>(app->getCurrentScreen());
+          PsuCharger* c=psu_charger();c->running=0;c->state=CHG_CC;c->session_start_ms=1234;c->elapsed_ms=120000;c->trace_count=61;
+          for(unsigned k=0;k<61;k++){c->trace_time[k]=k*2000;c->trace_mv[k]=12000+k*50;c->trace_ma[k]=stage==14?1000-k*10:3200-k*30;}
+          c->delivered_mah=25;c->delivered_mwh=350;
+          uint8_t p[72]={0};w32(p+24,15000);w32(p+28,stage==14?400:1400);p[67]=64;p[66]=4;emit(0x10,p,72);psu_app_tick(psu_app_now());
+          ui::Theme::setDark(stage==14);ui::ThemeScreen::get().sync();v->refresh();
+          if(++frame<30)return false;
+          check(v->LiveVoltage.isVisible()&&v->LiveCurrent.isVisible()&&v->StopButton.isVisible(),"session live voltage/current and STOP visible");
+          check(v->chart.voltageMax==20000&&v->chart.currentMax==(stage==14?2000U:5000U)&&v->chart.timeMax>=c->elapsed_ms,"independent nice voltage/current/time auto scales");
+          static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("usb-selftest"),const_cast<char*>(stage==14?"charger-session-dark.bmp":"charger-session-light.bmp"));
+          if(stage==14){stage=15;frame=0;return false;}
+          fprintf(log,"PASS session live readings, colored dual axes, automatic V/A/time scales, 3.2 A expansion and dark/light layout; no precharge\n");fclose(log);exit(0);
         }
         ScreenUsbPdView* view=static_cast<ScreenUsbPdView*>(app->getCurrentScreen());
         const int current[]={320,-3000,0,-15625,320,320,320,-3000};
