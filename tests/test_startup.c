@@ -141,13 +141,18 @@ int main(void) {
   assert_off_latched("MEAS_LOST",21);
   puts("PASS: expected OFF kill does not trip H7; confirmed G4 measurement fault remains actionable");
 
-  start_running();psu_app_tick(63);assert_off_latched("METER STALE",63);
-  tick_meter(64,0,0,0,1);assert(snapshot().fault_latched&&!snapshot().output_requested);
+  start_running();psu_app_tick(63);
+  assert(!snapshot().fault_latched && snapshot().output_requested);
+  psu_app_tick(600);
+  assert(!snapshot().fault_latched && snapshot().output_requested);
+  while(g4_pop_frame(psu_g4(),wire,sizeof(wire),600))assert(wire[3]!=3);
+  tick_meter(601,0,9,0xe3,1);
+  assert(!snapshot().fault_latched && snapshot().output_requested);
   reset_off(0);psu_app_tick(61);assert(!psu_app_set_output(1,PSU_SRC_LCD));
   assert(strstr(snapshot().last_on_reject,"METER STALE"));
   reset_off(0);tick_meter(20,0,0,0,0);assert(!psu_app_set_output(1,PSU_SRC_LCD));
   assert(strstr(snapshot().last_on_reject,"FRESH G0"));
-  puts("PASS: stale link trips during operation and blocks ON at idle");
+  puts("PASS: stale METER does not queue OFF or latch H7; fresh data resumes and stale idle ON is blocked");
 
   start_running();meter(20,0,9,0xe3,0,0,0);meter(20,0,9,0xe3,1,0,0);
   psu_app_tick(20);assert(!snapshot().fault_latched);

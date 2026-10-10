@@ -161,3 +161,13 @@ The H7 tests explicitly deliver the G0 transition first and then G4's
 supervisor FAULT, verifying that only the latter stops the UI consumers.
 The paired G4 is `1e4116c`; G0 remains `f974390`. Flash the coordinated H7
 and G4 pair together. The older G4 has neither heartbeat nor CLEAR recovery.
+
+## METER runtime age (2026-10-10)
+
+H7 no longer queues OFF or latches a fault solely because METER is older than
+50 ms during STARTING/RUNNING. Telemetry age remains diagnostic and the existing
+freshness check before a new ON remains in place. G4 owns host-link loss shutdown
+(1000 ms without a valid host frame). Confirmed G4 faults, command/start/stop
+timeouts and explicit OFF remain actionable. This change does not establish the
+cause of the observed sub-second shutdown; NACK and fault telemetry are still
+needed to distinguish G4/G0 faults from host-link loss.

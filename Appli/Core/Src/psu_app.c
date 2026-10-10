@@ -588,7 +588,8 @@ void psu_app_tick(uint32_t now_ms)
     g4.event_fault=0;g4.event_g0_fault=0;g4.event_ctrl_fault=0;g4.event_g0_stale=0;
     g4.event_meter.valid=0;
     if(snap.output_requested || t->out || g4.output_phase==G4_OUTPUT_STARTING || g4.output_phase==G4_OUTPUT_RUNNING) {
-      if(!t->valid || age>50U)latch_fault("H7 METER STALE");
+      /* Telemetry age is diagnostic during operation. G4 owns the
+         host-link watchdog and the physical output shutdown. */
       if(g4.output_phase==G4_OUTPUT_STARTING && now_ms-startup_ms>10000U)latch_fault("H7 START TIMEOUT");
     }
     if(g4.output_phase==G4_OUTPUT_STOPPING && now_ms-stop_ms>800U)latch_fault("H7 OFF TIMEOUT");
