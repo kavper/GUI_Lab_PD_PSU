@@ -6,25 +6,40 @@
 class DisplayVoltageFilter
 {
 public:
-    DisplayVoltageFilter() : value(0), lastMs(0), ready(false) {}
-    void reset() { ready = false; }
-    uint32_t update(uint32_t mv, uint32_t now, bool valid)
+    DisplayVoltageFilter() { reset(); }
+    void reset() { sum = 0; count = 0; head = 0; shown = 0; lastSerial = 0; }
+    uint32_t update(uint32_t mv, uint32_t sampleMs, uint32_t serial,
+                    bool valid, bool bypass = false)
     {
         if (!valid) { reset(); return mv; }
-        const uint32_t dt = now - lastMs;
-        lastMs = now;
-        const uint32_t difference = mv > value ? mv - value : value - mv;
-        // No averaging or time delay: only hold insignificant last-digit jitter.
-        // Every change outside this band passes unchanged in this update.
-        // Even a slow ramp can never get more than 10 mV behind its raw sample.
-        if (!ready || dt > 500U || difference > 10U || mv == 0U)
-            value = mv;
-        ready = true;
-        return value;
+        // A GUI refresh of the same METER must not count as another reading.
+        if (count && serial == lastSerial) return shown;
+        const uint32_t previous = count ? values[(head + count - 1U) % 4U] : mv;
+        const uint32_t difference = mv > previous ? mv - previous : previous - mv;
+        // DMM-style moving average with a step window. Never average across
+        // a real step or a start/stop transition. No deadband or held voltage.
+        if (bypass || difference >= 50U || mv == 0U) reset();
+        // At most four received readings and at most 80 ms of history.
+        while (count && sampleMs - times[head] > 80U) removeOldest();
+        if (count == 4U) removeOldest();
+        const unsigned slot = (head + count) % 4U;
+        values[slot] = mv;
+        times[slot] = sampleMs;
+        sum += mv;
+        ++count;
+        lastSerial = serial;
+        shown = static_cast<uint32_t>((sum + count / 2U) / count);
+        return shown;
     }
 private:
-    uint32_t value;
-    uint32_t lastMs;
-    bool ready;
+    void removeOldest()
+    {
+        sum -= values[head];
+        head = (head + 1U) % 4U;
+        --count;
+    }
+    uint64_t sum;
+    uint32_t values[4], times[4], shown, lastSerial;
+    unsigned count, head;
 };
 #endif

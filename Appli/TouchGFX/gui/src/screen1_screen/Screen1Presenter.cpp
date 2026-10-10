@@ -7,7 +7,7 @@ extern "C" {
 }
 
 Screen1Presenter::Screen1Presenter(Screen1View& v)
-    : view(v)
+    : view(v), lastRequestedMv(0)
 {
 
 }
@@ -41,10 +41,15 @@ void Screen1Presenter::ldoTelemetryUpdated(uint32_t inputVoltageMv,
     const int32_t shownUa = psu_display_current_ua(currentUa, currentValid ? 1 : 0);
     PsuSnapshot live;
     psu_snapshot(&live);
-    const bool fresh = connected && !live.g0_stale && currentValid;
-    const uint32_t now = psu_app_now();
-    const uint32_t shownMv = outputVoltageFilter.update(voltageMv, now, fresh);
-    const uint32_t shownInputMv = inputVoltageFilter.update(inputVoltageMv, now, fresh);
+    const bool fresh = live.g0_connected && !live.g0_stale && live.current_valid;
+    // Use values and acquisition identity from the same snapshot. GUI ticks
+    // cannot turn one UART measurement into several samples of the average.
+    if (lastRequestedMv != live.requested_mv) outputVoltageFilter.reset();
+    lastRequestedMv = live.requested_mv;
+    const bool changing = live.output_phase == G4_OUTPUT_STARTING || live.output_phase == G4_OUTPUT_STOPPING;
+    const uint32_t shownMv = outputVoltageFilter.update(live.vout_mv, live.meter_ms, live.meter_serial, fresh, changing);
+    const uint32_t shownInputMv = inputVoltageFilter.update(live.vin_mv, live.meter_ms, live.meter_serial, fresh);
+    (void)inputVoltageMv;
     view.setMeasurements(shownMv, shownUa, mosfetDeciC);
     view.setInputMetrics(shownInputMv, psu_output_power_mw(voltageMv, shownUa));
     view.setPcbTemperature(pcbDeciC);

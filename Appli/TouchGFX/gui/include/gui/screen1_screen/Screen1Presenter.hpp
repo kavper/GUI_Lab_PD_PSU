@@ -39,6 +39,7 @@ private:
     Screen1View& view;
     DisplayVoltageFilter outputVoltageFilter;
     DisplayVoltageFilter inputVoltageFilter;
+    uint32_t lastRequestedMv;
 };
 
 #endif // SCREEN1PRESENTER_HPP

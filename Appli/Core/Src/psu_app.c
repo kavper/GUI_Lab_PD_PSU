@@ -496,10 +496,11 @@ int psu_app_bms_cmd(const char *cmd)
 void psu_app_observe_g0(const PsuG0Sample *sample, uint32_t now_ms)
 {
   uint8_t was = g0.connected;
-  (void)now_ms;
   if (sample == 0)
     return;
   g0 = *sample;
+  ++snap.meter_serial;
+  snap.meter_ms = now_ms;
   if (g0.connected && !was)
   {
     snap.output_requested = 0U;
@@ -543,6 +544,8 @@ void psu_app_tick(uint32_t now_ms)
   {
     const G4Telemetry *t = &g4.telemetry;
     const uint32_t age = now_ms - t->ms;
+    snap.meter_serial = t->serial;
+    snap.meter_ms = t->ms;
     memset(&g0, 0, sizeof(g0));
     /* g0=0 can mean idle pre-regulation; it is not proof of a dead UART. */
     g0.connected = t->valid && age <= G4_METER_FRESH_MS && t->g0 && t->g0_age_ms <= 500U;

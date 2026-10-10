@@ -108,6 +108,8 @@ typedef struct
   uint8_t temperature_valid;
   uint32_t vin_mv;
   uint32_t vout_mv;
+  uint32_t meter_serial;
+  uint32_t meter_ms;
   int16_t mos_centi;
   int16_t pcb_centi;
   uint8_t g4_link;

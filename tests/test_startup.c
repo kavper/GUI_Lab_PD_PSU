@@ -57,6 +57,9 @@ static void clear(uint32_t ms) {
 }
 int main(void) {
   reset_off(G4_G0_MEAS_LOST|G4_G0_POWER_KILL);
+  assert(snapshot().meter_ms==10&&snapshot().meter_serial==1);
+  psu_app_tick(11);
+  assert(snapshot().meter_ms==10&&snapshot().meter_serial==1);
   assert(!psu_app_set_output(1,PSU_SRC_LCD));
   assert(strstr(snapshot().last_on_reject,"VALID MEASUREMENTS"));
   assert(!snapshot().fault_latched);

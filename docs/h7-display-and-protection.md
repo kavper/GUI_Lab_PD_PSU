@@ -3,22 +3,41 @@
 ## Voltage display
 
 The main screen input/output voltage uses `DisplayVoltageFilter` in its presenter.
-It is a 10 mV display hysteresis, not a temporal low-pass filter. The displayed
-value is held while a valid raw sample differs by at most 10 mV; outside that band
-the exact new sample is displayed on the same update, including voltage collapse.
-Zero always passes immediately. Entry, invalid telemetry and a pause over 500 ms
-reset the state. This does not add settling time to a voltage step or ramp.
-The filter error relative to each valid sample is bounded by 10 mV before existing
-screen number formatting (1 mV digits below 10 V, 10 mV digits above).
+The previous 10 mV hold/hysteresis is removed. The displayed value is now the
+rounded arithmetic mean of up to four actual, distinct METER readings observed
+by the presenter, retaining at most 80 ms of acquisition history. It never holds
+an arbitrary first reading and even a permanent 1 mV change eventually replaces
+the entire history. No synthetic samples or setpoint values enter the average.
 
-This suppresses only small fluctuations. Noise exceeding that band remains
-visible, deliberately: smoothing larger fluctuations could hide real changes.
-The normal acquisition/UART/GUI refresh delay remains; this is not an oscilloscope.
+`PsuSnapshot.meter_serial`/`meter_ms` identify the UART acquisition and change only
+when a new METER arrives (or a legacy direct-G0 sample is observed). Repeated GUI
+ticks of the same snapshot do not add a reading. The G4 packet has no independent
+G0 ADC sequence number, so this is averaging received METER readings, not claiming
+that each is a different physical ADC conversion. Frames coalesced before a GUI
+tick contribute the latest snapshot only.
+
+This follows the moving-average/step-window approach described in the
+[Keithley 6430 reference manual, section 6-12](https://download.tek.com/manual/6430-901-01G_Jan_2021_Ref-2.pdf).
+The four-reading count, 80 ms history cap and 50 mV step window are H7 design
+choices, not manufacturer recommendations for this PSU. A change >=50 mV between
+consecutive readings flushes old history and passes the new sample immediately.
+Zero also passes immediately. STARTING/STOPPING bypass output-voltage averaging,
+and changing the requested voltage resets its history. Invalid data resets it.
+
+There is a real trade-off: small steady fluctuations are averaged and small slow
+ramps have a short delay. At a 20 ms METER period a full four-reading mean lags a
+linear ramp by 30 ms and a sub-50 mV step settles after four new samples (60 ms
+after its first sample). A large step/fast ramp or startup/shutdown has no added
+averaging delay. Large noise spikes are deliberately visible as steps too; the
+filter cannot distinguish a real instantaneous jump from noise without more data.
+Normal acquisition/UART/GUI latency remains. This is not an oscilloscope or an
+accuracy/calibration claim; existing number formatting is unchanged.
+
 Power calculation, diagnostics, telemetry, setpoints, charger and protection
 logic continue to consume unfiltered measurements. G4/G0 firmware is unchanged.
-
-Tests cover jitter, immediate steps in both directions, collapse, same-timestamp
-updates, 1/5/10/11/100/1000 mV rising/falling ramps, invalid data and reset.
+Tests cover different initial noise phases converging to the same mean, small DC
+changes, duplicate redraws, immediate bidirectional steps, transition bypass,
+slow/fast ramps, history expiry, invalid data and clock/serial/integer wrapping.
 
 ## Protection and command interlocks in the current H7 code
 
