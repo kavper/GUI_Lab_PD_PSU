@@ -91,6 +91,13 @@ void psu_chg_profile_defaults(PsuChgProfile *profile, uint8_t chemistry)
   }
 }
 
+uint32_t psu_chg_target_mv(const PsuChgProfile *p){return p->target_pack_mv?p->target_pack_mv:(uint32_t)p->cells*p->cv_mv_cell;}
+int psu_chg_set_target(PsuChgProfile *p,uint32_t mv){
+  uint32_t hi=(uint32_t)p->cells*p->cv_mv_cell;
+  uint32_t lo=(uint32_t)p->cells*p->precharge_mv_cell;
+  if(!mv||mv<lo||mv>hi||mv>PSU_VOLTAGE_MAX_MV)return 0;
+  p->target_pack_mv=mv;return 1;
+}
 uint8_t psu_chg_max_cells(const PsuChgProfile *profile)
 {
   uint32_t n;
@@ -150,7 +157,8 @@ int psu_chg_validate(const PsuChgProfile *profile, const PsuChgSense *sense, cha
     if (why) (void)snprintf(why, why_n, "Cell count");
     return 0;
   }
-  pack_cv = (uint32_t)profile->cells * profile->cv_mv_cell;
+  pack_cv = psu_chg_target_mv(profile);
+  if(profile->target_pack_mv && (pack_cv>(uint32_t)profile->cells*profile->cv_mv_cell || pack_cv<(uint32_t)profile->cells*profile->precharge_mv_cell)){if(why)snprintf(why,why_n,"Target outside chemistry range");return 0;}
   if (pack_cv > PSU_VOLTAGE_MAX_MV || profile->cv_mv_cell == 0U)
   {
     if (why) (void)snprintf(why, why_n, "Pack voltage exceeds 27 V");
@@ -168,6 +176,7 @@ int psu_chg_validate(const PsuChgProfile *profile, const PsuChgSense *sense, cha
     if (why) (void)snprintf(why, why_n, "Telemetry or permit missing");
     return 0;
   }
+  if(sense->pack_mv>pack_cv+50U){if(why)snprintf(why,why_n,"Pack above target - no charge");return 0;}
   if (sense->reverse_polarity)
   {
     if (why) (void)snprintf(why, why_n, "Reverse polarity");
@@ -342,20 +351,12 @@ void psu_chg_tick(PsuCharger *chg, const PsuChgSense *sense, uint32_t now_ms)
     fault(chg, "Session timeout");
     return;
   }
-  pack_cv = (uint32_t)chg->profile.cells * chg->profile.cv_mv_cell;
+  pack_cv = psu_chg_target_mv(&chg->profile);
   pre_mv = (uint32_t)chg->profile.cells * chg->profile.precharge_mv_cell;
-  if (chg->state == CHG_VALIDATE)
-  {
-    enter(chg, CHG_WAIT, now_ms);
-  }
-  if (chg->state == CHG_WAIT)
-  {
-    if (sense->pack_mv > 500U) {
-      /* Use pack CV with a limited precharge current; never drive below the battery. */
-      send_limits(chg,pack_cv,chg->profile.precharge_ma);
-      if(!chg->running)return;
-      enter(chg, CHG_STARTING, now_ms);
-    }
+  if (chg->state == CHG_VALIDATE || chg->state == CHG_WAIT) {
+    send_limits(chg,pack_cv,chg->profile.precharge_ma);
+    if(!chg->running)return;
+    enter(chg,CHG_STARTING,now_ms);
     return;
   }
   if (chg->state == CHG_STARTING) {
@@ -393,6 +394,7 @@ void psu_chg_tick(PsuCharger *chg, const PsuChgSense *sense, uint32_t now_ms)
     if (chg->profile.chemistry == CHEM_LEAD && chg->profile.float_mv_cell != 0U)
     {
       uint32_t fv = (uint32_t)chg->profile.cells * chg->profile.float_mv_cell;
+      if(fv>pack_cv)fv=pack_cv;
       send_limits(chg,fv,chg->profile.term_ma);
       enter(chg, CHG_FLOAT, now_ms);
       return;

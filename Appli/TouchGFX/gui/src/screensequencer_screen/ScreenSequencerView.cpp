@@ -221,7 +221,7 @@ void ScreenSequencerView::refresh()
     const char* hint = "Sequence editor";
     if (edit.field == PSU_SEQ_FIELD_V) hint = "Voltage / 0-27 V";
     if (edit.field == PSU_SEQ_FIELD_I) hint = "Current / 0-5 A";
-    if (edit.field == PSU_SEQ_FIELD_T) hint = "Duration / 0.1-3600 s";
+    if (edit.field == PSU_SEQ_FIELD_T) hint = "Hold after ramp / 0.1-3600 s";
     if (edit.field == PSU_SEQ_FIELD_S) hint = "Slew / 0-100 V/s / 0 = immediate";
     char range[100];snprintf(range,sizeof(range),"Steps %u-%u / %u   |   %s",start+1,(start+6<count?start+6:count),count,hint);
     lab_show(PageFeedback, PageFeedbackBuffer, PAGEFEEDBACK_SIZE, range, edit.fault ? lab_amber() : lab_muted());
@@ -556,6 +556,21 @@ void ScreenSequencerView::setupTheme()
     theme.text(SeqColumnI);
     theme.text(SeqColumnT);
     theme.button(AllOffButton,ui::DANGER);
+    theme.button(SeqKey0,ui::NORMAL);
+    theme.button(SeqKey1,ui::NORMAL);
+    theme.button(SeqKey2,ui::NORMAL);
+    theme.button(SeqKey3,ui::NORMAL);
+    theme.button(SeqKey4,ui::NORMAL);
+    theme.button(SeqKey5,ui::NORMAL);
+    theme.button(SeqKey6,ui::NORMAL);
+    theme.button(SeqKey7,ui::NORMAL);
+    theme.button(SeqKey8,ui::NORMAL);
+    theme.button(SeqKey9,ui::NORMAL);
+    theme.button(SeqKeyDot,ui::NORMAL);
+    theme.button(SeqKeyClr,ui::NORMAL);
+    theme.button(SeqKeyDel,ui::NORMAL);
+    theme.button(SeqKeyApply,ui::PRIMARY);
+
     theme.button(CycleCountButton,ui::NORMAL);theme.button(CycleLessButton,ui::NORMAL);theme.button(CycleMoreButton,ui::NORMAL);theme.button(CycleInfinityButton,ui::NORMAL);theme.text(CycleValue);
     theme.apply();
 }

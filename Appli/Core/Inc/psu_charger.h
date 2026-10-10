@@ -46,6 +46,7 @@ typedef struct
   uint32_t precharge_ma;
   uint32_t cc_ma;
   uint32_t cv_mv_cell;
+  uint32_t target_pack_mv; /* 0 = chemistry default times cells */
   uint32_t term_ma;
   uint32_t float_mv_cell;
   uint32_t max_session_ms;
@@ -117,6 +118,8 @@ typedef struct
   char reason[40];
 } PsuChgRecord;
 
+uint32_t psu_chg_target_mv(const PsuChgProfile *profile);
+int psu_chg_set_target(PsuChgProfile *profile,uint32_t mv);
 void psu_chg_init(PsuCharger *chg);
 void psu_chg_profile_defaults(PsuChgProfile *profile, uint8_t chemistry);
 /* Largest series count whose pack CV stays within 27 V, capped at 8. */

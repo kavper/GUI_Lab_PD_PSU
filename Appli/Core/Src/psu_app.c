@@ -191,6 +191,7 @@ static int seq_applied(uint32_t *mv, uint32_t *ma, void *user)
   return 1;
 }
 
+static uint32_t seq_voltage(void *user){(void)user;return snap.output_confirmed?snap.applied_mv:0;}
 static int seq_ready(int on,void *user){(void)user;return on?snap.output_confirmed:!snap.output_confirmed&&!snap.output_requested;}
 static int seq_permit(void *user)
 {
@@ -263,6 +264,7 @@ void psu_app_init(void)
   sequencer.io.applied = seq_applied;
   sequencer.io.permit_ok = seq_permit;
   sequencer.io.output_ready = seq_ready;
+  sequencer.io.voltage = seq_voltage;
   charger.io.limits = chg_limits;
   charger.io.output = chg_output;
   fill_defaults();

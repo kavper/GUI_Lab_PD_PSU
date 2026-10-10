@@ -6,6 +6,7 @@ extern "C" {
 #include "psu_edit.h"
 }
 class ScreenExtChargerView: public ScreenExtChargerViewBase {
+ friend class UsbSelfTest;
 public:
     void setupTheme();
  ScreenExtChargerView():page(0),field(1),divider(0),polarity(false){psu_editor_clear(&editor);}
@@ -28,6 +29,7 @@ public:
  virtual void field1();
  virtual void field2();
  virtual void field3();
+ virtual void field4();
  virtual void chargeKey0();
  virtual void chargeKey1();
  virtual void chargeKey2();

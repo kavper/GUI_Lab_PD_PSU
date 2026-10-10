@@ -1,9 +1,11 @@
 #ifndef USBSELFTEST_HPP
 #define USBSELFTEST_HPP
 #include "ThemeSelfTest.hpp"
+#include <texts/TextKeysAndLanguages.hpp>
 #include <gui/screenusbpd_screen/ScreenUsbPdView.hpp>
 #include <gui/screen1_screen/Screen1View.hpp>
 #include <gui/screensequencer_screen/ScreenSequencerView.hpp>
+#include <gui/screenextcharger_screen/ScreenExtChargerView.hpp>
 // Opt-in simulator checks use the production binary parser and rendered widgets.
 class UsbSelfTest : public ThemeSelfTest {
 public:
@@ -32,10 +34,11 @@ public:
             Screen1View* main=static_cast<Screen1View*>(app->getCurrentScreen());
             uint8_t p[72]={0};p[0]=p[1]=p[52]=1;w16(p+44,16000);w32(p+48,static_cast<uint32_t>(-15625));emit(0x11,p,72);
             memset(p,0,sizeof(p));p[0]=1;p[1]=0x85;p[7]=p[10]=1;p[8]=1;w32(p+36,600);w32(p+52,20010);emit(0x12,p,64);
+            psu_g4()->records[G4_RECORD_T].valid=1;psu_g4()->records[G4_RECORD_T].ms=psu_app_now();
             main->setHostAuxMetrics();
             if(++frame<30)return false;
-            check(main->BatteryFlowBuffer[0]=='B' && main->BatteryFlowBuffer[4]=='-' && main->BatteryFlow.getColor()==ui::Theme::color(ui::NEGATIVE),"main screen has red net battery discharge");
-            check(main->InputFlowBuffer[7]=='1',"main screen has USB input power");
+            check(main->BatteryValueBuffer[0]=='-' && main->BatteryValue.getColor()==ui::Theme::color(ui::NEGATIVE),"main screen has red net battery discharge");
+            check(main->BatteryValue.getY()==32 && main->PowerLabel.getTypedText().getId()==T_TXT_HEADER_VPREREG,"battery power and correctly named prereg in header");
             static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("usb-selftest"),const_cast<char*>("main-power.bmp"));
             app->gotoScreenSequencerScreenWipeTransitionWest();stage=10;frame=0;return false;
         }
@@ -50,8 +53,24 @@ public:
             if(++frame<30)return false;
             check(v->CycleInfinityButton.isVisible(),"cycle controls visible without step keypad");
             static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("usb-selftest"),const_cast<char*>("sequence-cycles.bmp"));
-            v->allOff();PsuSnapshot snap;psu_snapshot(&snap);check(snap.power_shutdown_requested&&!snap.output_requested,"header requests complete power shutdown");
-            fprintf(log,"PASS main battery/input power; cycle count integer keypad; continuous; header BMS shutdown\n");fclose(log);exit(0);
+            v->seqFieldVolt();ui::Theme::setDark(true);stage=11;frame=0;return false;
+        }
+        if(stage==11||stage==12){
+          ScreenSequencerView* v=static_cast<ScreenSequencerView*>(app->getCurrentScreen());
+          ui::ThemeScreen::get().sync();
+          if(++frame<40)return false;
+          check(v->SeqKey1.getParent()==&v->SeqKeypad && v->SeqKeypad.isVisible(),"keypad and themed surfaces share nested container");
+          static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("usb-selftest"),const_cast<char*>(stage==11?"sequence-keypad-dark.bmp":"sequence-keypad-light.bmp"));
+          if(stage==11){ui::Theme::setDark(false);stage=12;frame=0;return false;}
+          app->gotoScreenExtChargerScreenWipeTransitionWest();stage=13;frame=0;return false;
+        }
+        if(stage==13){
+          ScreenExtChargerView* v=static_cast<ScreenExtChargerView*>(app->getCurrentScreen());
+          if(frame==0){v->chooseChem(0);v->field0();v->chargeKey4();v->chargeKeyApply();v->field4();v->chargeKey1();v->chargeKey6();v->chargeKeyDot();v->chargeKey4();v->chargeKeyApply();check(psu_charger()->profile.cells==4 && psu_chg_target_mv(&psu_charger()->profile)==16400,"4S 16.4 V target through actual GUI keypad");}
+          v->refresh();if(++frame<30)return false;
+          static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("usb-selftest"),const_cast<char*>("charger-target.bmp"));
+          v->allOff();PsuSnapshot snap;psu_snapshot(&snap);check(snap.power_shutdown_requested&&!snap.output_requested,"header requests complete power shutdown");
+          fprintf(log,"PASS header BAT PWR/VPREREG; dark/light nested sequence keypad; 4S 16.4 V target GUI; header shutdown\n");fclose(log);exit(0);
         }
         ScreenUsbPdView* view=static_cast<ScreenUsbPdView*>(app->getCurrentScreen());
         const int current[]={320,-3000,0,-15625,320,320,320,-3000};

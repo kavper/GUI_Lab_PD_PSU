@@ -285,11 +285,11 @@
           {
             "Type": "TextArea",
             "Name": "PowerLabel",
-            "X": 320,
+            "X": 312,
             "Y": 8,
-            "Width": 104,
+            "Width": 112,
             "Height": 24,
-            "TextId": "TXT_POWER",
+            "TextId": "TXT_HEADER_VPREREG",
             "TextRotation": "0",
             "Color": {
               "Red": 167,
@@ -300,9 +300,9 @@
           {
             "Type": "TextArea",
             "Name": "PowerValue",
-            "X": 320,
+            "X": 312,
             "Y": 32,
-            "Width": 104,
+            "Width": 112,
             "Height": 24,
             "TextId": "TXT_POWER_VALUE",
             "TextRotation": "0",
@@ -906,11 +906,11 @@
           {
             "Type": "TextArea",
             "Name": "BatteryLabel",
-            "X": 200,
+            "X": 184,
             "Y": 8,
-            "Width": 96,
+            "Width": 124,
             "Height": 24,
-            "TextId": "TXT_BATTERY",
+            "TextId": "TXT_HEADER_BAT_PWR",
             "TextRotation": "0",
             "Color": {
               "Red": 167,
@@ -921,9 +921,9 @@
           {
             "Type": "TextArea",
             "Name": "BatteryValue",
-            "X": 200,
+            "X": 184,
             "Y": 32,
-            "Width": 96,
+            "Width": 124,
             "Height": 24,
             "TextId": "TXT_BATTERY_VALUE",
             "TextRotation": "0",
@@ -935,7 +935,7 @@
             "Wildcard1": {
               "TextId": "TXT_BATTERY_INITIAL",
               "UseBuffer": true,
-              "BufferSize": 8
+              "BufferSize": 32
             }
           },
           {
@@ -1162,46 +1162,6 @@
               "Blue": 55
             },
             "TextRotation": "0"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "BatteryFlow",
-            "X": 328,
-            "Y": 202,
-            "Width": 164,
-            "Height": 22,
-            "TextId": "TXT_SEQ_COMPACT_VALUE",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 32
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "InputFlow",
-            "X": 328,
-            "Y": 362,
-            "Width": 164,
-            "Height": 22,
-            "TextId": "TXT_SEQ_COMPACT_VALUE",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 32
-            }
           }
         ],
         "Interactions": [
@@ -9733,7 +9693,7 @@
             "Y": 286,
             "Width": 213,
             "Height": 22,
-            "TextId": "TXT_CHG_FIELD3",
+            "TextId": "TXT_TARGET_PACK_V",
             "TextRotation": "0",
             "Color": {
               "Red": 167,
@@ -9764,9 +9724,9 @@
           {
             "Type": "TextArea",
             "Name": "ProfileNote",
-            "X": 24,
+            "X": 188,
             "Y": 366,
-            "Width": 472,
+            "Width": 308,
             "Height": 44,
             "TextId": "TXT_CHG_PROFILE",
             "TextRotation": "0",
@@ -9926,6 +9886,28 @@
               "UseBuffer": true,
               "BufferSize": 700
             }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "CapacityButton",
+            "X": 16,
+            "Y": 366,
+            "Width": 160,
+            "Height": 48,
+            "Pressed": "ux_tab_sel_160x48.png",
+            "Released": "ux_tab_rel_160x48.png",
+            "TextId": "TXT_CAPACITY_EDIT",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -10236,7 +10218,7 @@
             },
             "Action": {
               "Type": "ActionCustom",
-              "FunctionName": "field3"
+              "FunctionName": "field4"
             }
           },
           {
@@ -10270,6 +10252,17 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "stopCharge"
+            }
+          },
+          {
+            "InteractionName": "EditCapacity",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "CapacityButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "field3"
             }
           }
         ]

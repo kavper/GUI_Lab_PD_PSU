@@ -1790,6 +1790,18 @@
       <Text Id="TXT_CYCLE_MORE" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">+1</Translation>
       </Text>
+      <Text Id="TXT_HEADER_BAT_PWR" Alignment="Center" TypographyId="HeaderLabel">
+        <Translation Language="GB">BAT PWR</Translation>
+      </Text>
+      <Text Id="TXT_HEADER_VPREREG" Alignment="Center" TypographyId="HeaderLabel">
+        <Translation Language="GB">VPREREG</Translation>
+      </Text>
+      <Text Id="TXT_TARGET_PACK_V" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">TARGET PACK / V</Translation>
+      </Text>
+      <Text Id="TXT_CAPACITY_EDIT" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">CAPACITY</Translation>
+      </Text>
     </TextGroup>
   </Texts>
   <Typographies>

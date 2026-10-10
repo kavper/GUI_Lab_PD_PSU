@@ -104,7 +104,8 @@ int psu_seq_start(PsuSequencer *seq, uint32_t now_ms)
   seq->command_valid = seq->output_issued = seq->waiting_output = 0U;
   seq->command_ms = 0U;
   seq->config_locked = 1U;
-  seq->ramp_mv = seq->steps[0].voltage_mv;
+  seq->ramp_mv=seq->io.voltage?seq->io.voltage(seq->io.user):0;
+  seq->ramp_clock_started=seq->hold_started=0;
   set_status(seq, "RUN");
   return 1;
 }
@@ -126,6 +127,7 @@ void psu_seq_resume(PsuSequencer *seq, uint32_t now_ms)
   held = now_ms - seq->pause_accum_ms;
   seq->step_started_ms += held;
   if(seq->command_valid)seq->command_ms += held;
+  if(seq->ramp_clock_started)seq->ramp_since_ms += held;
   seq->seq_started_ms += held;
   seq->run = PSU_SEQ_RUN;
   set_status(seq, "RUN");
@@ -167,101 +169,64 @@ static void emit_step(PsuSequencer *seq, const PsuSeqStep *step, uint32_t voltag
   seq->command_ms = now_ms;
 }
 
-void psu_seq_tick(PsuSequencer *seq, uint32_t now_ms)
+void psu_seq_tick(PsuSequencer *seq,uint32_t now_ms)
 {
-  PsuSeqStep *step;
-  uint8_t idx;
-  uint32_t elapsed;
-  if (seq == 0 || seq->run != PSU_SEQ_RUN)
-    return;
-  if (!next_enabled(seq, seq->step_index, &idx))
-  {
-    if (seq->mode == PSU_SEQ_INFINITE ||
-        (seq->mode == PSU_SEQ_N && seq->loop_index < seq->loops_requested))
-    {
+  PsuSeqStep *step;uint8_t idx;
+  if(!seq || seq->run!=PSU_SEQ_RUN)return;
+  if(!next_enabled(seq,seq->step_index,&idx)){
+    if(seq->mode==PSU_SEQ_INFINITE || (seq->mode==PSU_SEQ_N && seq->loop_index<seq->loops_requested)){
       if(seq->loop_index<65535U)++seq->loop_index;
-      seq->step_index = 0U;
-      seq->step_started_ms = now_ms;
-      seq->waiting_readback = 0U;
-      seq->command_valid=seq->output_issued=seq->waiting_output=0U;
-      return;
+      seq->step_index=0;seq->command_valid=seq->output_issued=seq->waiting_output=seq->waiting_readback=0;
+      seq->ramp_clock_started=seq->hold_started=0;return;
     }
-    apply_stop(seq);
-    seq->run = PSU_SEQ_DONE;
-    seq->config_locked = 0U;
-    set_status(seq, "DONE");
-    return;
+    apply_stop(seq);seq->run=PSU_SEQ_DONE;seq->config_locked=0;set_status(seq,"DONE");return;
   }
-  if (idx != seq->step_index)
-  {
-    seq->step_index = idx;
-    seq->step_started_ms = now_ms;
-    seq->waiting_readback = 0U;
-    seq->ramp_mv = 0U;
-  }
-  step = &seq->steps[seq->step_index];
-  if (!seq->command_valid && !seq->waiting_readback)
-  {
-    seq->ramp_mv = (step->slew_mv_per_s == 0U) ? step->voltage_mv : 0U;
-    emit_step(seq, step, seq->ramp_mv, now_ms);
+  if(idx!=seq->step_index){seq->step_index=idx;seq->command_valid=0;seq->ramp_clock_started=seq->hold_started=0;}
+  step=&seq->steps[seq->step_index];
+  if(!seq->command_valid){
+    if(!step->slew_mv_per_s)seq->ramp_mv=step->voltage_mv;
+    seq->ramp_start_mv=seq->ramp_mv;
+    emit_step(seq,step,seq->ramp_mv,now_ms);
     if(seq->run!=PSU_SEQ_RUN)return;
   }
-  if (step->slew_mv_per_s != 0U && seq->ramp_mv < step->voltage_mv)
-  {
-    uint32_t dt = now_ms - seq->command_ms;
-    uint32_t add = (step->slew_mv_per_s * dt) / 1000U;
-    uint32_t next = seq->ramp_mv + add;
-    if (dt >= 120U)
-    {
-      if (next > step->voltage_mv)
-        next = step->voltage_mv;
-      seq->ramp_mv = next;
-      seq->command_ms = now_ms;
-      if (seq->io.limits)
-        seq->io.limits(seq->ramp_mv, step->current_ma, seq->io.user);
-    }
+  if(seq->waiting_readback){
+    uint32_t v=0,i=0;
+    if(seq->io.applied && seq->io.applied(&v,&i,seq->io.user) && v==seq->ramp_mv && i==step->current_ma)seq->waiting_readback=0;
+    else if(now_ms-seq->command_ms>1000U){psu_seq_stop(seq,now_ms,1);return;}
+    else return;
   }
-  if (seq->waiting_readback)
-  {
-    uint32_t got_mv = 0, got_ma = 0;
-    int have = seq->io.applied ? seq->io.applied(&got_mv, &got_ma, seq->io.user) : 0;
-    if (have && got_mv == seq->ramp_mv && got_ma == step->current_ma) {
-      seq->waiting_readback = 0U;
-      seq->step_started_ms=now_ms;
-    }
-    else if ((now_ms - seq->step_started_ms) > 500U && seq->command_ms != 0U &&
-             (now_ms - seq->command_ms) > 500U)
-    {
-      psu_seq_stop(seq, now_ms, 1);
-      return;
-    }
-  }
-  if(!seq->waiting_readback && !seq->output_issued){
-    seq->output_issued=1U;
+  if(!seq->output_issued){
+    seq->output_issued=1;
     if(step->output_action!=PSU_STEP_KEEP && seq->io.output){
       const int on=step->output_action==PSU_STEP_ON;
       if(on && seq->io.permit_ok && !seq->io.permit_ok(seq->io.user)){psu_seq_stop(seq,now_ms,1);set_status(seq,"ON REJECTED");return;}
-      seq->waiting_output=1U;seq->command_ms=now_ms;
-      seq->io.output(on,seq->io.user);
+      seq->waiting_output=1;seq->command_ms=now_ms;seq->io.output(on,seq->io.user);
       if(seq->run!=PSU_SEQ_RUN)return;
     }
   }
   if(seq->waiting_output){
-    if(!seq->io.output_ready || seq->io.output_ready(step->output_action==PSU_STEP_ON,seq->io.user)){
-      seq->waiting_output=0U;seq->step_started_ms=now_ms;
-    }else if(now_ms-seq->command_ms>5000U){psu_seq_stop(seq,now_ms,1);set_status(seq,"G4/G0 START TIMEOUT");return;}
+    if(!seq->io.output_ready || seq->io.output_ready(step->output_action==PSU_STEP_ON,seq->io.user))seq->waiting_output=0;
+    else if(now_ms-seq->command_ms>5000U){psu_seq_stop(seq,now_ms,1);set_status(seq,"G4/G0 START TIMEOUT");return;}
     else {set_status(seq,"WAITING FOR G4 / G0");return;}
   }
-  elapsed = now_ms - seq->step_started_ms;
-  if (!seq->waiting_readback && elapsed >= step->time_ms)
-  {
-    uint8_t nidx = (uint8_t)(seq->step_index + 1U);
-    seq->step_index = nidx;
-    seq->step_started_ms = now_ms;
-    seq->waiting_readback = 0U;
-    seq->command_ms = 0U;
-    seq->command_valid=seq->output_issued=seq->waiting_output=0U;
-    (void)snprintf(seq->status, sizeof(seq->status), "STEP %u", (unsigned)(nidx + 1U));
+  if(!seq->ramp_clock_started){seq->ramp_clock_started=1;seq->ramp_since_ms=now_ms;}
+  if(seq->ramp_mv!=step->voltage_mv){
+    const uint64_t distance=(uint64_t)step->slew_mv_per_s*(uint32_t)(now_ms-seq->ramp_since_ms)/1000U;
+    const uint32_t span=seq->ramp_start_mv>step->voltage_mv?seq->ramp_start_mv-step->voltage_mv:step->voltage_mv-seq->ramp_start_mv;
+    const uint32_t moved=distance>span?span:(uint32_t)distance;
+    const uint32_t next=seq->ramp_start_mv>step->voltage_mv?seq->ramp_start_mv-moved:seq->ramp_start_mv+moved;
+    if(next!=seq->ramp_mv && (now_ms-seq->command_ms>=120U || next==step->voltage_mv)){
+      seq->ramp_mv=next;seq->command_ms=now_ms;seq->waiting_readback=1;
+      if(seq->io.limits)seq->io.limits(next,step->current_ma,seq->io.user);
+      if(seq->run!=PSU_SEQ_RUN)return;
+    }
+    set_status(seq,"RAMPING");return;
+  }
+  /* Duration is dwell at the reached target, after SET/output confirmation. */
+  if(!seq->hold_started){seq->hold_started=1;seq->step_started_ms=now_ms;set_status(seq,"HOLD");}
+  if(now_ms-seq->step_started_ms>=step->time_ms){
+    ++seq->step_index;seq->command_valid=seq->output_issued=seq->waiting_output=seq->waiting_readback=0;
+    seq->ramp_clock_started=seq->hold_started=0;
   }
 }
 

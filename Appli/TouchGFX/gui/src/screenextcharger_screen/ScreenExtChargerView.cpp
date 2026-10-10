@@ -7,7 +7,7 @@
 void ScreenExtChargerView::setupScreen(){ScreenExtChargerViewBase::setupScreen();chart.setPosition(24,196,752,184);add(chart);selectField(1);
     setupTheme();
 }
-void ScreenExtChargerView::selectField(unsigned i){field=i;PsuChgProfile& p=psu_charger()->profile;psu_editor_load_milli(&editor,i==0?p.cells*1000:i==1?p.cc_ma:i==2?p.term_ma:p.capacity_mah,3);if(i==0){snprintf(editor.text,sizeof(editor.text),"%u",p.cells);editor.length=strlen(editor.text);editor.replace_on_next=1;}refresh();}
+void ScreenExtChargerView::selectField(unsigned i){field=i;PsuChgProfile& p=psu_charger()->profile;psu_editor_load_milli(&editor,i==0?p.cells*1000:i==1?p.cc_ma:i==2?p.term_ma:i==3?p.capacity_mah:psu_chg_target_mv(&p),3);if(i==0){snprintf(editor.text,sizeof(editor.text),"%u",p.cells);editor.length=strlen(editor.text);editor.replace_on_next=1;}refresh();}
 void ScreenExtChargerView::chooseChem(unsigned i){if(psu_charger()->running)return;psu_chg_profile_defaults(&psu_charger()->profile,i);polarity=false;selectField(field);}
 void ScreenExtChargerView::refresh(){
  PsuCharger* c=psu_charger();const PsuChgProfile& p=c->profile;char b[700];const bool setup=page==0;
@@ -21,9 +21,10 @@ void ScreenExtChargerView::refresh(){
  Chem4.setBitmaps(touchgfx::Bitmap(p.chemistry==4?BITMAP_UX_ACTION_SEL_88X48_ID:BITMAP_UX_ACTION_REL_88X48_ID),touchgfx::Bitmap(BITMAP_UX_ACTION_SEL_88X48_ID));lab_enable(Chem4,!c->running);
  const char* names[]={"Li-ion","LiHV","LiFePO4","LTO","Lead"};
  snprintf(b,sizeof(b),"%s / %s / %s",page==2?"ONBOARD BQ25731":"EXTERNAL BATTERY / LDO",c->running?"RUNNING":"READY",c->reason);
- lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,b,lab_muted());
+ if(c->running&&c->state==CHG_STARTING){PsuSnapshot live;psu_snapshot(&live);snprintf(b,sizeof(b),"START / %s / G4 ctrl=%u permit=%u out=%u",c->output_started?"WAIT OUTPUT":"WAIT SET ACK",psu_g4()->telemetry.ctrl,psu_g4()->telemetry.permit,live.output_confirmed);}
+ lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,b,c->state==CHG_FAULT||c->state==CHG_ABORTED?lab_red():lab_muted());
  chart.setVisible(page==1);chart.invalidate();SessionStats.setVisible(page==1);SessionStats.invalidate();SessionAxis.setVisible(page==1);SessionAxis.invalidate();OnboardRight.setVisible(page==2);OnboardRight.invalidate();OnboardData.setVisible(page==2);OnboardData.invalidate();
- EditHeading.setVisible(setup);EditHeading.invalidate();
+ EditHeading.setVisible(setup);CapacityButton.setVisible(setup);CapacityButton.invalidate();lab_enable(CapacityButton,!c->running);EditHeading.invalidate();
  ProfileNote.setVisible(setup);ProfileNote.invalidate();
  PolarityButton.setVisible(setup);PolarityButton.invalidate();
  StartButton.setVisible(setup);StartButton.invalidate();
@@ -61,17 +62,17 @@ void ScreenExtChargerView::refresh(){
  ChargeKeyApply.setVisible(setup);ChargeKeyApply.invalidate();
  lab_enable(ChargeKeyDot,field!=0&&!c->running);
  if(setup){
- const char* fields[]={"SERIES CELLS","CHARGE CURRENT / A","CUTOFF CURRENT / A","CAPACITY / Ah"};
+ const char* fields[]={"SERIES CELLS","CHARGE CURRENT / A","CUTOFF CURRENT / A","CAPACITY / Ah","TARGET PACK VOLTAGE / V"};
  lab_show(EditHeading,EditHeadingBuffer,EDITHEADING_SIZE,fields[field],lab_cyan());
  {uint32_t v=p.cells*1000U;snprintf(b,sizeof(b),"%lu.%03lu",(unsigned long)(v/1000),(unsigned long)(v%1000));snprintf(b,sizeof(b),"%u S",p.cells);lab_show(EditValue0,EditValue0Buffer,EDITVALUE0_SIZE,field==0?editor.text:b,field==0?lab_cyan():lab_text());lab_enable(EditCard0,!c->running);}
  {uint32_t v=p.cc_ma;snprintf(b,sizeof(b),"%lu.%03lu",(unsigned long)(v/1000),(unsigned long)(v%1000));lab_show(EditValue1,EditValue1Buffer,EDITVALUE1_SIZE,field==1?editor.text:b,field==1?lab_cyan():lab_text());lab_enable(EditCard1,!c->running);}
  {uint32_t v=p.term_ma;snprintf(b,sizeof(b),"%lu.%03lu",(unsigned long)(v/1000),(unsigned long)(v%1000));lab_show(EditValue2,EditValue2Buffer,EDITVALUE2_SIZE,field==2?editor.text:b,field==2?lab_cyan():lab_text());lab_enable(EditCard2,!c->running);}
- {uint32_t v=p.capacity_mah;snprintf(b,sizeof(b),"%lu.%03lu",(unsigned long)(v/1000),(unsigned long)(v%1000));lab_show(EditValue3,EditValue3Buffer,EDITVALUE3_SIZE,field==3?editor.text:b,field==3?lab_cyan():lab_text());lab_enable(EditCard3,!c->running);}
- snprintf(b,sizeof(b),"%s / CV %lu.%03lu V / max %lu mA (0.5C)\nTemperature monitoring unavailable over UART",names[p.chemistry<5?p.chemistry:0],(unsigned long)(p.cells*p.cv_mv_cell/1000),(unsigned long)(p.cells*p.cv_mv_cell%1000),(unsigned long)(p.capacity_mah/2));
+ {uint32_t v=psu_chg_target_mv(&p);snprintf(b,sizeof(b),"%lu.%03lu",(unsigned long)(v/1000),(unsigned long)(v%1000));lab_show(EditValue3,EditValue3Buffer,EDITVALUE3_SIZE,field==4?editor.text:b,field==4?lab_cyan():lab_text());lab_enable(EditCard3,!c->running);}
+ snprintf(b,sizeof(b),"%s / %lu.%03lu Ah / CV %lu.%03lu V\n%s",names[p.chemistry<5?p.chemistry:0],(unsigned long)(p.capacity_mah/1000),(unsigned long)(p.capacity_mah%1000),(unsigned long)(psu_chg_target_mv(&p)/1000),(unsigned long)(psu_chg_target_mv(&p)%1000),field==3?editor.text:"Capacity sets 0.5C current ceiling");
  lab_show(ProfileNote,ProfileNoteBuffer,PROFILENOTE_SIZE,b,lab_muted());lab_enable(StartButton,!c->running&&polarity);lab_enable(PolarityButton,!c->running);lab_enable(StopButton,c->running);
  }
  if(page==1){snprintf(b,sizeof(b),"%02lu:%02lu:%02lu    %lu mAh    %lu.%03lu Wh\n%s",(unsigned long)(c->elapsed_ms/3600000),(unsigned long)(c->elapsed_ms/60000%60),(unsigned long)(c->elapsed_ms/1000%60),(unsigned long)c->delivered_mah,(unsigned long)(c->delivered_mwh/1000),(unsigned long)(c->delivered_mwh%1000),c->trace_count?psu_chg_state_name(c->state):"Start charging to record a session");lab_show(SessionStats,SessionStatsBuffer,SESSIONSTATS_SIZE,b,lab_text());
- uint32_t mv=p.cells*p.cv_mv_cell*11/10,ma=p.cc_ma*12/10;for(unsigned i=0;i<c->trace_count;i++){if(c->trace_mv[i]>mv)mv=c->trace_mv[i];if(c->trace_ma[i]>ma)ma=c->trace_ma[i];}
+ uint32_t mv=psu_chg_target_mv(&p)*11/10,ma=p.cc_ma*12/10;for(unsigned i=0;i<c->trace_count;i++){if(c->trace_mv[i]>mv)mv=c->trace_mv[i];if(c->trace_ma[i]>ma)ma=c->trace_ma[i];}
  snprintf(b,sizeof(b),"0 s   |   BLUE: 0-%lu.%02lu V    GREEN: 0-%lu.%02lu A   |   %lu s",(unsigned long)(mv/1000),(unsigned long)(mv%1000/10),(unsigned long)(ma/1000),(unsigned long)(ma%1000/10),(unsigned long)(c->elapsed_ms/1000));lab_show(SessionAxis,SessionAxisBuffer,SESSIONAXIS_SIZE,b,lab_muted());}
  if(page==2){TelemetryData d;telemetry_page(PAGE_CHARGER,d);snprintf(b,sizeof(b),"VBAT %s / IBAT %s\nVSYS %s / IIN %s\n\n%s",d.metric[0],d.metric[1],d.metric[2],d.metric[3],d.left);lab_show(OnboardData,OnboardDataBuffer,ONBOARDDATA_SIZE,b,lab_text());lab_show(OnboardRight,OnboardRightBuffer,ONBOARDRIGHT_SIZE,d.right,lab_text());}
 }
@@ -79,10 +80,11 @@ void ScreenExtChargerView::key(char k){if(psu_charger()->running)return;psu_edit
 void ScreenExtChargerView::chargeKeyClr(){if(psu_charger()->running)return;psu_editor_clear(&editor);refresh();}
 void ScreenExtChargerView::chargeKeyDel(){if(psu_charger()->running)return;psu_editor_backspace(&editor);refresh();}
 void ScreenExtChargerView::chargeKeyApply(){PsuCharger* c=psu_charger();if(c->running)return;uint32_t v;if(!psu_editor_parse_milli(&editor,&v)){psu_editor_clear(&editor);refresh();return;}PsuChgProfile& p=c->profile;
- if(field==0){v/=1000;if(v<1)v=1;if(v>psu_chg_max_cells(&p))v=psu_chg_max_cells(&p);p.cells=v;}
+ if(field==0){v/=1000;if(v<1)v=1;if(v>psu_chg_max_cells(&p))v=psu_chg_max_cells(&p);p.cells=v;p.target_pack_mv=0;}
  if(field==1){uint32_t max=p.capacity_mah/2;if(max>5000)max=5000;if(v>max)v=max;if(v<1)v=1;p.cc_ma=v;if(p.term_ma>v)p.term_ma=v;}
  if(field==2){if(v>p.cc_ma)v=p.cc_ma;if(v<1)v=1;p.term_ma=v;}
  if(field==3){if(v>100000)v=100000;if(v<2)v=2;p.capacity_mah=v;if(p.cc_ma>v/2)p.cc_ma=v/2;if(p.term_ma>p.cc_ma)p.term_ma=p.cc_ma;}
+ if(field==4 && !psu_chg_set_target(&p,v)){snprintf(c->reason,64,"Target must be %lu-%lu mV",(unsigned long)(p.cells*p.precharge_mv_cell),(unsigned long)(p.cells*p.cv_mv_cell));refresh();return;}
  if(p.precharge_ma>p.cc_ma)p.precharge_ma=p.cc_ma;
  polarity=false;selectField(field);
 }
@@ -106,6 +108,7 @@ void ScreenExtChargerView::field0(){selectField(0);}
 void ScreenExtChargerView::field1(){selectField(1);}
 void ScreenExtChargerView::field2(){selectField(2);}
 void ScreenExtChargerView::field3(){selectField(3);}
+void ScreenExtChargerView::field4(){selectField(4);}
 void ScreenExtChargerView::chargeKey0(){key('0');}
 void ScreenExtChargerView::chargeKey1(){key('1');}
 void ScreenExtChargerView::chargeKey2(){key('2');}
@@ -165,6 +168,7 @@ void ScreenExtChargerView::setupTheme()
     theme.text(EditLabel3);
     theme.text(EditValue3);
     theme.text(ProfileNote);
+    theme.button(CapacityButton,ui::NORMAL);
     theme.button(PolarityButton,ui::NORMAL);
     theme.button(StartButton,ui::NORMAL);
     theme.button(StopButton,ui::DANGER);

@@ -2,9 +2,9 @@
 #include "psu_seq.h"
 #include <assert.h>
 #include <stdio.h>
-static unsigned mv,ma,on_calls,off_calls,permit_calls,ready,applied;
-static void limits(uint32_t v,uint32_t i,void*u){(void)u;mv=v;ma=i;}
-static void output(int on,void*u){(void)u;if(on){assert(mv>0);on_calls++;}else off_calls++;}
+static unsigned mv,ma,on_calls,off_calls,permit_calls,ready,applied,limits_calls;
+static void limits(uint32_t v,uint32_t i,void*u){(void)u;mv=v;ma=i;++limits_calls;}
+static void output(int on,void*u){(void)u;if(on){assert(limits_calls>0);on_calls++;}else off_calls++;}
 static void permit(int on,void*u){(void)on;(void)u;permit_calls++;}
 static int readback(uint32_t*v,uint32_t*i,void*u){(void)u;*v=mv;*i=ma;return applied;}
 static int allowed(void*u){(void)u;return 1;}
@@ -38,5 +38,26 @@ int main(void){
  assert(q.run==PSU_SEQ_RUN&&q.loop_index>10);psu_seq_stop(&q,5000,0);assert(q.run==PSU_SEQ_IDLE);
  q.steps[0].enabled=0;assert(!psu_seq_start(&q,5010));
  puts("PASS sequencer: SET/readback before ON; duration begins at confirmed output; two cycles; continuous; explicit stop; reject empty sequence");
+ /* Both slopes use the preceding voltage, including a zero target. */
+ psu_seq_init(&q);q.io.limits=limits;q.io.output=output;q.io.applied=readback;q.io.permit_ok=allowed;q.io.output_ready=output_ready;
+ q.count=2;q.steps[0].voltage_mv=5000;q.steps[0].time_ms=100;q.steps[0].slew_mv_per_s=1000;q.steps[0].output_action=PSU_STEP_ON;
+ q.steps[1]=q.steps[0];q.steps[1].voltage_mv=0;q.steps[1].output_action=PSU_STEP_KEEP;
+ assert(psu_seq_start(&q,0));unsigned last=0,down=0;
+ for(t=0;t<11000;t+=10){
+  unsigned before=q.step_index;psu_seq_tick(&q,t);
+  if(before==0&&q.step_index==0){assert(q.ramp_mv>=last);assert(q.ramp_mv-last<=130);last=q.ramp_mv;}
+  if(q.step_index==1){if(!down){assert(q.ramp_mv==5000);down=1;last=5000;}else{assert(q.ramp_mv<=last);assert(last-q.ramp_mv<=130);last=q.ramp_mv;}}
+ }
+ assert(down&&q.run==PSU_SEQ_DONE&&q.ramp_mv==0);
+ puts("PASS bidirectional 1 V/s: 0 -> 5 V -> 0, no reset/jump at second step, target reached before dwell completes");
+ psu_chg_init(&c);c.profile.cells=4;c.profile.confirmed=c.profile.polarity_checked=1;
+ assert(psu_chg_set_target(&c.profile,16400));assert(psu_chg_target_mv(&c.profile)==16400);
+ assert(!psu_chg_set_target(&c.profile,17000));assert(psu_chg_target_mv(&c.profile)==16400);
+ c.io.limits=limits;c.io.output=output;s.pack_mv=0;s.start_allowed=s.telemetry_ok=1;s.permit=s.limits_applied=s.output_ready=0;
+ assert(psu_chg_start(&c,&c.profile,&s,20000));psu_chg_tick(&c,&s,20010);
+ assert(c.state==CHG_STARTING&&mv==16400&&ma==100);
+ s.limits_applied=1;psu_chg_tick(&c,&s,20020);assert(c.output_started&&c.running);
+ s.output_ready=s.permit=1;s.pack_mv=13000;psu_chg_tick(&c,&s,20030);assert(c.state==CHG_PRECHARGE);
+ puts("PASS 4S reduced target 16.4 V; 17 V rejected; zero OFF measurement does not deadlock current-limited start");
  return 0;
 }

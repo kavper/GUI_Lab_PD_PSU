@@ -57,6 +57,7 @@ typedef struct
   int (*applied)(uint32_t *mv, uint32_t *ma, void *user);
   int (*permit_ok)(void *user);
   int (*output_ready)(int on, void *user);
+  uint32_t (*voltage)(void *user);
   void *user;
 } PsuSeqIo;
 
@@ -76,6 +77,8 @@ typedef struct
   uint32_t pause_accum_ms;
   uint32_t ramp_mv;
   uint32_t command_ms;
+  uint32_t ramp_start_mv, ramp_since_ms;
+  uint8_t ramp_clock_started, hold_started;
   uint8_t waiting_readback;
   uint8_t command_valid, output_issued, waiting_output;
   uint8_t config_locked;

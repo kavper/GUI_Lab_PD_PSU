@@ -174,19 +174,9 @@ void Screen1View::setMeasurements(uint32_t voltageMv, int32_t currentUa, int16_t
 
 void Screen1View::setInputMetrics(uint32_t inputVoltageMv, uint32_t outputPowerMw)
 {
-    if (inputVoltageMv < 10000U)
-        touchgfx::Unicode::snprintf(BatteryValueBuffer, BATTERYVALUE_SIZE,
-                                   "%u.%03u V", inputVoltageMv / 1000U,
-                                   inputVoltageMv % 1000U);
-    else
-        touchgfx::Unicode::snprintf(BatteryValueBuffer, BATTERYVALUE_SIZE,
-                                   "%u.%02u V", inputVoltageMv / 1000U,
-                                   (inputVoltageMv % 1000U) / 10U);
-    touchgfx::Unicode::snprintf(PowerValueBuffer, POWERVALUE_SIZE,
-                               "%u.%02u W", outputPowerMw / 1000U,
-                               (outputPowerMw % 1000U) / 10U);
-    BatteryValue.invalidate();
-    PowerValue.invalidate();
+    (void)inputVoltageMv;(void)outputPowerMw;
+    // Header values are populated from independent atomic METER/TB records.
+
 }
 
 void Screen1View::setCurrentMeasurementCalibrated(bool calibrated)
@@ -573,16 +563,16 @@ void Screen1View::setHostAuxMetrics()
     else snprintf(text,sizeof(text),"-- V");
     touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text),PcbTemperatureValueBuffer,PCBTEMPERATUREVALUE_SIZE);
     TemperatureValue.invalidate();PcbTemperatureValue.invalidate();
-    TelemetryRecord battery(G4_RECORD_TB), input(G4_RECORD_TC);
+    TelemetryRecord battery(G4_RECORD_TB);
     int64_t mv=0,ma=0;char flow[32];
     const bool valid=battery.is("sample",1)&&battery.is("bms",1)&&battery.get("pack_mv",mv)&&battery.get("i_pack_ma",ma);
-    if(valid){const int64_t mw=mv*ma/1000;snprintf(flow,sizeof(flow),"BAT %s%ld.%01ld W",mw<0?"-":"+",(long)(llabs(mw)/1000),(long)(llabs(mw)%1000/100));}
-    else snprintf(flow,sizeof(flow),"BAT -- W");
-    lab_show(BatteryFlow,BatteryFlowBuffer,BATTERYFLOW_SIZE,flow,valid?(ma<0?lab_red():lab_green()):lab_muted());
-    if(input.is("role",1)&&input.is("plug",1)&&input.is("bq_ok",1)&&input.get("tps_vbus_mv",mv)&&input.get("bq_iin_ma",ma)){
-      const int64_t mw=mv*ma/1000;snprintf(flow,sizeof(flow),"USB IN %ld.%01ld W",(long)(mw/1000),(long)(llabs(mw)%1000/100));
-    }else snprintf(flow,sizeof(flow),"USB IN -- W");
-    lab_show(InputFlow,InputFlowBuffer,INPUTFLOW_SIZE,flow,lab_muted());
+    if(valid){const int64_t mw=mv*ma/1000;snprintf(flow,sizeof(flow),"%s%ld.%01ld W",mw<0?"-":mw>0?"+":"",(long)(llabs(mw)/1000),(long)(llabs(mw)%1000/100));}
+    else snprintf(flow,sizeof(flow),"-- W");
+    lab_show(BatteryValue,BatteryValueBuffer,BATTERYVALUE_SIZE,flow,valid?(ma<0?lab_red():ma>0?lab_green():lab_text()):lab_muted());
+    if(rail.valid && psu_app_now()-rail.ms<=50U && g4_record_value(&rail,"vout_mv",&mv))snprintf(flow,sizeof(flow),"%ld.%02ld V",(long)(mv/1000),(long)(mv%1000/10));
+    else snprintf(flow,sizeof(flow),"-- V");
+    lab_show(PowerValue,PowerValueBuffer,POWERVALUE_SIZE,flow,lab_text());
+
 }
 
 void Screen1View::saveSwipeEditor(MainSwipeEditorState& state) const
@@ -624,7 +614,6 @@ void Screen1View::setupTheme()
     theme.text(TemperatureValue);
     theme.text(PowerLabel);
     theme.text(PowerValue);
-    theme.text(BatteryFlow);theme.text(InputFlow);
     theme.button(OutputEnable,ui::OUTPUT);
     theme.text(OutputLabel);
     theme.text(ActualVoltageLabel);

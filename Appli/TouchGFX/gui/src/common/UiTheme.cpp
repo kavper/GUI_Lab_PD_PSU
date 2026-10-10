@@ -171,11 +171,11 @@ void ThemedSurface::handleDragEvent(const touchgfx::DragEvent& event){if(button 
 ThemeScreen::ThemeScreen():screen(0),surfaceCount(0),textCount(0),boxCount(0){}
 ThemeScreen& ThemeScreen::get(){static ThemeScreen theme;return theme;}
 void ThemeScreen::begin(touchgfx::Screen& value){assert(!screen);screen=&value;surfaceCount=textCount=boxCount=0;}
-void ThemeScreen::detach(){if(screen)for(unsigned i=0;i<surfaceCount;i++)screen->getRootContainer().remove(surfaces[i]);screen=0;surfaceCount=textCount=boxCount=0;}
+void ThemeScreen::detach(){if(screen)for(unsigned i=0;i<surfaceCount;i++)if(surfaces[i].getParent())static_cast<touchgfx::Container*>(surfaces[i].getParent())->remove(surfaces[i]);screen=0;surfaceCount=textCount=boxCount=0;}
 void ThemeScreen::text(touchgfx::TextArea& widget,int role){assert(textCount<64);texts[textCount++]={&widget,static_cast<int8_t>(role)};}
 void ThemeScreen::box(touchgfx::Box& widget,Role role){assert(boxCount<32);boxes[boxCount++]={&widget,role};}
 void ThemeScreen::add(touchgfx::Drawable& widget,SurfaceStyle style,touchgfx::Button* button,touchgfx::ButtonWithLabel* label,touchgfx::Image* image){
-    assert(screen && surfaceCount<48);ThemedSurface& surface=surfaces[surfaceCount++];surface.bind(widget,style,button,label,image);screen->getRootContainer().insert(&widget,surface);
+    assert(screen && surfaceCount<48);ThemedSurface& surface=surfaces[surfaceCount++];surface.bind(widget,style,button,label,image);assert(widget.getParent());static_cast<touchgfx::Container*>(widget.getParent())->insert(&widget,surface);
 }
 void ThemeScreen::panel(touchgfx::Box& widget){add(widget,PANEL,0,0,0);}
 void ThemeScreen::button(touchgfx::Button& widget,SurfaceStyle style){add(widget,style,&widget,0,0);}
@@ -194,10 +194,10 @@ namespace ui {
 Role ThemeScreen::backgroundBehind(const touchgfx::Drawable& widget) const {
     Role role=BACKGROUND;
     if(!screen)return role;
-    const touchgfx::Rect target=widget.getRect();
+    const touchgfx::Rect target=widget.getAbsoluteRect();
     for(touchgfx::Drawable* child=screen->getRootContainer().getFirstChild();child && child!=&widget;child=child->getNextSibling()){
         if(!child->isVisible())continue;
-        const touchgfx::Rect r=child->getRect();
+        const touchgfx::Rect r=child->getAbsoluteRect();
         if(r.x>target.x||r.y>target.y||r.right()<target.right()||r.bottom()<target.bottom())continue;
         for(unsigned i=0;i<boxCount;i++)if(boxes[i].widget==child && boxes[i].role>=BACKGROUND && boxes[i].role<=RAISED)role=boxes[i].role;
         for(unsigned i=0;i<surfaceCount;i++)if(&surfaces[i]==child && surfaces[i].style==PANEL)role=SURFACE;
