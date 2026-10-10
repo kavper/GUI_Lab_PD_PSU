@@ -69,6 +69,7 @@ void ScreenSettingsView::setupTheme()
     theme.text(Title6);
     theme.text(Desc6);
     theme.button(AppearanceButton,ui::NORMAL);
+    theme.image(AppearanceIcon,ui::ICON,&AppearanceButton);
     theme.text(AppearanceTitle);
     theme.text(AppearanceDesc);
     theme.apply();

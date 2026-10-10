@@ -1881,11 +1881,20 @@
             "Released": "ux_tile_rel_248x112.png"
           },
           {
+            "Type": "Image",
+            "Name": "AppearanceIcon",
+            "X": 292,
+            "Y": 358,
+            "Width": 40,
+            "Height": 40,
+            "RelativeFilename": "icon_appearance_40.png"
+          },
+          {
             "Type": "TextArea",
             "Name": "AppearanceTitle",
-            "X": 300,
+            "X": 344,
             "Y": 362,
-            "Width": 208,
+            "Width": 176,
             "Height": 28,
             "TextId": "TXT_APPEARANCE_TITLE",
             "TextRotation": "0",
@@ -2015,19 +2024,6 @@
             }
           },
           {
-            "InteractionName": "OpenSystemButton",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "SystemButton"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "ScreenNetwork"
-            }
-          },
-          {
             "InteractionName": "OpenAppearance",
             "Trigger": {
               "Type": "TriggerClicked",
@@ -2038,6 +2034,19 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "West",
               "ActionComponent": "ScreenAppearance"
+            }
+          },
+          {
+            "InteractionName": "OpenSystemButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SystemButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenNetwork"
             }
           }
         ]

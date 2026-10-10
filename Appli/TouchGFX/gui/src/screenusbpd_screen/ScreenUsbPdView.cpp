@@ -53,7 +53,7 @@ void ScreenUsbPdView::refresh() {
         gaugeTarget=static_cast<int16_t>(bounded*344/100000);
     }
     else gaugeTarget=0;
-    const touchgfx::colortype flow=ui::Theme::color(!gaugeValid?ui::MUTED:current>0?ui::POSITIVE:current<0?ui::CAUTION:ui::TEXT);
+    const touchgfx::colortype flow=ui::Theme::color(!gaugeValid?ui::MUTED:current>0?ui::POSITIVE:current<0?ui::NEGATIVE:ui::TEXT);
     lab_show(BatteryPower,BatteryPowerBuffer,BATTERYPOWER_SIZE,power,flow);
     lab_show(BatteryDetail,BatteryDetailBuffer,BATTERYDETAIL_SIZE,detail,lab_muted());
     GaugeNeedle.setColor(flow); GaugeFill.setColor(flow);
