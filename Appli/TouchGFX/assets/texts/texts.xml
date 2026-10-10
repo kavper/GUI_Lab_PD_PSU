@@ -1761,10 +1761,10 @@
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="TXT_USB_DISCHARGE" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">-100 W / DISCHARGING</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="TXT_USB_CHARGE" Alignment="Right" TypographyId="UiCaption">
-        <Translation Language="GB">CHARGING / +100 W</Translation>
+        <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="TXT_USB_ZERO" Alignment="Center" TypographyId="UiCaption">
         <Translation Language="GB">0</Translation>

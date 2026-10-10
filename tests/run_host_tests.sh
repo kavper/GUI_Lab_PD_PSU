@@ -15,3 +15,8 @@ for test_name in test_binary test_binary_app test_startup; do
     -o "$test_output/$test_name"
   "$test_output/$test_name"
 done
+for test_name in test_display_voltage test_power_gauge; do
+  "${CXX:-c++}" -std=c++11 -Wall -Wextra -Werror \
+    -IAppli/TouchGFX/gui/include "tests/$test_name.cpp" -o "$test_output/$test_name"
+  "$test_output/$test_name"
+done

@@ -9,6 +9,7 @@
 
 class Screen1View : public Screen1ViewBase
 {
+    friend class UsbSelfTest;
 public:
     void setupTheme();
     Screen1View();
@@ -18,6 +19,7 @@ public:
     virtual void tearDownScreen();
     virtual void handleTickEvent();
     virtual void handleGestureEvent(const touchgfx::GestureEvent& event);
+    virtual void handleClickEvent(const touchgfx::ClickEvent& event);
 
     void saveSwipeEditor(MainSwipeEditorState& state) const;
     void restoreSwipeEditor(const MainSwipeEditorState& state);

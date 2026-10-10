@@ -129,6 +129,20 @@ void Screen1View::handleGestureEvent(const touchgfx::GestureEvent& event)
     submitSetpoints();
 }
 
+void Screen1View::handleClickEvent(const touchgfx::ClickEvent& event)
+{
+    if (event.getType() == touchgfx::ClickEvent::PRESSED)
+    {
+        if (SetVoltageButton.isTouchable() && SetVoltageButton.getRect().intersect(event.getX(), event.getY()))
+            selectVoltage();
+        else if (SetCurrentButton.isTouchable() && SetCurrentButton.getRect().intersect(event.getX(), event.getY()))
+            selectCurrent();
+        ui::ThemeScreen::get().sync();
+    }
+    // Selection is not repeated on release: a vertical swipe keeps its edit.
+    Screen1ViewBase::handleClickEvent(event);
+}
+
 void Screen1View::setMeasurements(uint32_t voltageMv, int32_t currentUa, int16_t temperatureDeciC)
 {
     if (voltageMv < 10000)

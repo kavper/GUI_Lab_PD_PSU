@@ -42,6 +42,7 @@ void ScreenUsbPdView::refresh() {
     lab_show(Measured1,Measured1Buffer,MEASURED1_SIZE,measuredCurrent,inputValid?lab_text():lab_muted());
     lab_show(Measured2,Measured2Buffer,MEASURED2_SIZE,measuredPower,inputValid?lab_text():lab_muted());
     battery.fresh=battery.fresh && battery.is("sample",1) && battery.is("bms",1);
+    const bool wasValid=gaugeValid;
     gaugeValid=battery.get("pack_mv",voltage) && battery.get("i_pack_ma",current)
         && voltage>=0 && voltage<=100000 && current>=-100000 && current<=100000;
     char power[32]="--", detail[80]="Waiting for valid BMS sample";
@@ -49,15 +50,32 @@ void ScreenUsbPdView::refresh() {
         const int64_t mw=voltage*current/1000, magnitude=mw<0?-mw:mw;
         snprintf(power,sizeof(power),"%s%ld.%02ld W",mw<0?"-":mw>0?"+":"",(long)(magnitude/1000),(long)((magnitude%1000)/10));
         snprintf(detail,sizeof(detail),"%ld.%03ld V / %s%ld.%03ld A",(long)(voltage/1000),(long)(voltage%1000),current<0?"-":"",(long)((current<0?-current:current)/1000),(long)((current<0?-current:current)%1000));
-        const int64_t bounded=mw<-100000?-100000:mw>100000?100000:mw;
-        gaugeTarget=static_cast<int16_t>(bounded*344/100000);
+        const uint32_t oldRange=gaugeScale.range();
+        gaugeScale.update(mw,psu_app_now(),true);
+        if(oldRange!=gaugeScale.range())
+            gaugePosition=static_cast<int16_t>(static_cast<int64_t>(gaugePosition)*oldRange/gaugeScale.range());
+        gaugeTarget=gaugeScale.position(mw);
+        if(!wasValid)gaugePosition=gaugeTarget;
+        else if((gaugePosition<0 && gaugeTarget>=0)||(gaugePosition>0 && gaugeTarget<=0))gaugePosition=0;
     }
-    else gaugeTarget=0;
+    else {gaugeTarget=gaugePosition=0;gaugeScale.update(0,psu_app_now(),false);}
+    char rangeLabel[32];
+    const unsigned long rangeW=gaugeScale.range()/1000U;
+    snprintf(rangeLabel,sizeof(rangeLabel),"-%lu W / DISCHARGING",rangeW);
+    lab_show(DischargeLabel,DischargeLabelBuffer,DISCHARGELABEL_SIZE,rangeLabel,lab_red());
+    snprintf(rangeLabel,sizeof(rangeLabel),"CHARGING / +%lu W",rangeW);
+    lab_show(ChargeLabel,ChargeLabelBuffer,CHARGELABEL_SIZE,rangeLabel,lab_green());
+    snprintf(rangeLabel,sizeof(rangeLabel),"AUTO +/- %lu W",rangeW);
+    lab_show(GaugeRangeLabel,GaugeRangeLabelBuffer,GAUGERANGELABEL_SIZE,rangeLabel,lab_muted());
     const touchgfx::colortype flow=ui::Theme::color(!gaugeValid?ui::MUTED:current>0?ui::POSITIVE:current<0?ui::NEGATIVE:ui::TEXT);
     lab_show(BatteryPower,BatteryPowerBuffer,BATTERYPOWER_SIZE,power,flow);
     lab_show(BatteryDetail,BatteryDetailBuffer,BATTERYDETAIL_SIZE,detail,lab_muted());
     GaugeNeedle.setColor(flow); GaugeFill.setColor(flow);
     GaugeNeedle.setVisible(gaugeValid); GaugeFill.setVisible(gaugeValid);
+    GaugeNeedle.invalidate();GaugeFill.invalidate();
+    GaugeNeedle.setX(398+gaugePosition);
+    GaugeFill.setX(gaugePosition<0?400+gaugePosition:400);
+    GaugeFill.setWidth(gaugePosition<0?-gaugePosition:gaugePosition?gaugePosition:1);
     GaugeNeedle.invalidate();GaugeFill.invalidate();
     lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,noticeTicks?notice:data.status,data.fresh?lab_muted():lab_amber());
     lab_enable(AutoButton,data.fresh);
@@ -94,8 +112,11 @@ void ScreenUsbPdView::setupTheme()
     theme.text(ContractLabel0,ui::MUTED);theme.text(ContractLabel1,ui::MUTED);theme.text(ContractLabel2,ui::MUTED);
     theme.text(MeasuredLabel0,ui::MUTED);theme.text(MeasuredLabel1,ui::MUTED);theme.text(MeasuredLabel2,ui::MUTED);
     theme.text(BatteryDetail,ui::MUTED);
-    theme.text(DischargeLabel,ui::CAUTION);theme.text(ChargeLabel,ui::POSITIVE);theme.text(ZeroLabel,ui::MUTED);
-    theme.box(GaugeDischarge,ui::CAUTION);theme.box(GaugeCharge,ui::POSITIVE);theme.box(GaugeZero,ui::MUTED);
+    theme.text(DischargeLabel,ui::NEGATIVE);theme.text(ChargeLabel,ui::POSITIVE);theme.text(ZeroLabel,ui::MUTED);
+    theme.text(GaugeRangeLabel,ui::MUTED);
+    theme.box(GaugeDischarge,ui::NEGATIVE);theme.box(GaugeCharge,ui::POSITIVE);theme.box(GaugeZero,ui::MUTED);
+    theme.box(GaugeNegTick,ui::MUTED);theme.box(GaugePosTick,ui::MUTED);
+    GaugeDischarge.setAlpha(70);GaugeCharge.setAlpha(70);
     theme.button(AutoButton,ui::NORMAL);
     theme.button(SinkButton,ui::NORMAL);
     theme.button(SourceButton,ui::NORMAL);

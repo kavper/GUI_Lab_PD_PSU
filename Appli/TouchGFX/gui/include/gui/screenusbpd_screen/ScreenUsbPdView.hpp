@@ -3,6 +3,7 @@
 #include <gui_generated/screenusbpd_screen/ScreenUsbPdViewBase.hpp>
 #include <gui/screenusbpd_screen/ScreenUsbPdPresenter.hpp>
 #include <stdint.h>
+#include <gui/common/PowerGaugeScale.hpp>
 class ScreenUsbPdView : public ScreenUsbPdViewBase {
     friend class UsbSelfTest;
 public:
@@ -22,6 +23,7 @@ public:
 protected:
     int16_t gaugePosition, gaugeTarget;
     bool gaugeValid;
+    PowerGaugeScale gaugeScale;
     void animateGauge();
     uint8_t divider;
     uint16_t noticeTicks;
