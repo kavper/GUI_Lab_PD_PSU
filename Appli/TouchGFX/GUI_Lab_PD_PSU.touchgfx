@@ -818,12 +818,12 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Preset1Button",
-            "X": 16,
+            "X": 176,
             "Y": 404,
-            "Width": 154,
+            "Width": 100,
             "Height": 60,
-            "Pressed": "main_preset_sel_154x60.png",
-            "Released": "main_preset_rel_154x60.png",
+            "Pressed": "main_preset_sel_100x60.png",
+            "Released": "main_preset_rel_100x60.png",
             "TextId": "TXT_PRESET_BLANK",
             "ReleasedColor": {
               "Red": 23,
@@ -840,12 +840,12 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Preset2Button",
-            "X": 181,
+            "X": 288,
             "Y": 404,
-            "Width": 154,
+            "Width": 100,
             "Height": 60,
-            "Pressed": "main_preset_sel_154x60.png",
-            "Released": "main_preset_rel_154x60.png",
+            "Pressed": "main_preset_sel_100x60.png",
+            "Released": "main_preset_rel_100x60.png",
             "TextId": "TXT_PRESET_BLANK",
             "ReleasedColor": {
               "Red": 23,
@@ -862,12 +862,12 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "Preset3Button",
-            "X": 346,
+            "X": 400,
             "Y": 404,
-            "Width": 154,
+            "Width": 100,
             "Height": 60,
-            "Pressed": "main_preset_sel_154x60.png",
-            "Released": "main_preset_rel_154x60.png",
+            "Pressed": "main_preset_sel_100x60.png",
+            "Released": "main_preset_rel_100x60.png",
             "TextId": "TXT_PRESET_BLANK",
             "ReleasedColor": {
               "Red": 23,
@@ -1084,11 +1084,11 @@
           {
             "Type": "TextArea",
             "Name": "QuickPreset1",
-            "X": 22,
-            "Y": 412,
-            "Width": 142,
+            "X": 180,
+            "Y": 413,
+            "Width": 92,
             "Height": 46,
-            "TextId": "TXT_QUICK_PRESET",
+            "TextId": "TXT_SENSE_PRESET",
             "TextRotation": "0",
             "Color": {
               "Red": 232,
@@ -1104,11 +1104,11 @@
           {
             "Type": "TextArea",
             "Name": "QuickPreset2",
-            "X": 187,
-            "Y": 412,
-            "Width": 142,
+            "X": 292,
+            "Y": 413,
+            "Width": 92,
             "Height": 46,
-            "TextId": "TXT_QUICK_PRESET",
+            "TextId": "TXT_SENSE_PRESET",
             "TextRotation": "0",
             "Color": {
               "Red": 232,
@@ -1124,11 +1124,11 @@
           {
             "Type": "TextArea",
             "Name": "QuickPreset3",
-            "X": 352,
-            "Y": 412,
-            "Width": 142,
+            "X": 404,
+            "Y": 413,
+            "Width": 92,
             "Height": 46,
-            "TextId": "TXT_QUICK_PRESET",
+            "TextId": "TXT_SENSE_PRESET",
             "TextRotation": "0",
             "Color": {
               "Red": 232,
@@ -1162,6 +1162,48 @@
               "Blue": 55
             },
             "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "RemoteSenseButton",
+            "X": 16,
+            "Y": 404,
+            "Width": 148,
+            "Height": 60,
+            "Pressed": "main_sense_sel_148x60.png",
+            "Released": "main_sense_rel_148x60.png",
+            "TextId": "TXT_PRESET_BLANK",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "RemoteSenseText",
+            "X": 20,
+            "Y": 413,
+            "Width": 140,
+            "Height": 46,
+            "TextId": "TXT_SENSE_MAIN",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 64
+            }
           }
         ],
         "Interactions": [
@@ -1385,6 +1427,17 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "allOff"
+            }
+          },
+          {
+            "InteractionName": "MainRemoteSense",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "RemoteSenseButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "toggleRemoteSense"
             }
           }
         ]

@@ -73,6 +73,7 @@ void Screen1View::setupScreen()
 #endif
 
     setupTheme();
+    refreshRemoteSense();
 }
 
 void Screen1View::tearDownScreen()
@@ -448,8 +449,8 @@ void Screen1View::updatePresetHighlight(uint8_t preset)
     {const PsuPreset* p=psu_preset_get(2);char b[40];if(p){snprintf(b,sizeof(b),"P3  %lu.%02lu V\n%lu.%03lu A",(unsigned long)(p->voltage_mv/1000),(unsigned long)(p->voltage_mv%1000/10),(unsigned long)(p->current_ma/1000),(unsigned long)(p->current_ma%1000));touchgfx::Unicode::fromUTF8((const uint8_t*)b,QuickPreset3Buffer,QUICKPRESET3_SIZE);QuickPreset3.invalidate();}}
 
 
-    const touchgfx::Bitmap released(BITMAP_MAIN_PRESET_REL_154X60_ID);
-    const touchgfx::Bitmap selected(BITMAP_MAIN_PRESET_SEL_154X60_ID);
+    const touchgfx::Bitmap released(BITMAP_MAIN_PRESET_REL_100X60_ID);
+    const touchgfx::Bitmap selected(BITMAP_MAIN_PRESET_SEL_100X60_ID);
     const touchgfx::colortype normalText = touchgfx::Color::getColorFromRGB(23, 35, 55);
     const touchgfx::colortype selectedText = touchgfx::Color::getColorFromRGB(36, 87, 230);
 
@@ -640,6 +641,8 @@ void Screen1View::setupTheme()
     theme.button(Preset1Button,ui::NORMAL);
     theme.button(Preset2Button,ui::NORMAL);
     theme.button(Preset3Button,ui::NORMAL);
+    theme.button(RemoteSenseButton,ui::NORMAL);
+    theme.text(RemoteSenseText);
     theme.button(SettingsButton,ui::NORMAL);
     theme.button(AllOffButton,ui::DANGER);
     theme.text(BatteryLabel);
@@ -662,6 +665,7 @@ void Screen1View::setupTheme()
 void Screen1View::handleTickEvent()
 {
     if(static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->isScreenTransitionActive())return;
+    refreshRemoteSense();
     if(editorNoticeTicks && --editorNoticeTicks==0) {
         EditorStatus.setVisible(false);
         EditorStatus.invalidate();
@@ -669,3 +673,26 @@ void Screen1View::handleTickEvent()
 }
 
 void Screen1View::allOff() { showEditorStatus(psu_app_power_shutdown()?"POWER OFF requested / wake TS2":"POWER OFF request failed",true); }
+
+void Screen1View::refreshRemoteSense(){
+ TelemetryRecord aux(G4_RECORD_AUX);int64_t flags=0,code=0;
+ const bool fresh=aux.get("sense_flags",flags)&&aux.get("sense_code",code);
+ const char* label=!fresh?"REMOTE SENSE\nNO DATA":flags&4?"REMOTE SENSE\nFAULT >":flags&1?"REMOTE SENSE\nON":flags&2?"REMOTE SENSE\nARMED":"REMOTE SENSE\nOFF / LOCAL";
+ lab_show(RemoteSenseText,RemoteSenseTextBuffer,REMOTESENSETEXT_SIZE,label,
+     !fresh?lab_muted():(flags&4)?lab_red():(flags&2 && !(flags&1))?lab_amber():lab_text());
+ const touchgfx::BitmapId released=fresh&&(flags&1)?BITMAP_MAIN_SENSE_SEL_148X60_ID:BITMAP_MAIN_SENSE_REL_148X60_ID;
+ if(RemoteSenseButton.getCurrentlyDisplayedBitmap().getId()!=released && !RemoteSenseButton.getPressedState()){
+     RemoteSenseButton.setBitmaps(touchgfx::Bitmap(released),touchgfx::Bitmap(BITMAP_MAIN_SENSE_SEL_148X60_ID));RemoteSenseButton.invalidate();
+ }
+ lab_enable(RemoteSenseButton,fresh);
+}
+void Screen1View::toggleRemoteSense(){
+ TelemetryRecord aux(G4_RECORD_AUX);int64_t flags=0;
+ if(!aux.get("sense_flags",flags)){showEditorStatus("No fresh SENSE data",true);return;}
+ if(flags&4){
+     static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->gotoScreenPowerPathScreenWipeTransitionWest();return;
+ }
+ const bool accepted=g4_remote(psu_g4(),(flags&2)==0,0)!=0;
+ showEditorStatus(accepted?"SENSE requested; waiting for telemetry":"SENSE request blocked",!accepted);
+ refreshRemoteSense();
+}

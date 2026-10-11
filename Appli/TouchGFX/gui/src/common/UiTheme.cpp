@@ -31,7 +31,8 @@ bool selectedBitmap(touchgfx::BitmapId id){
     // Kept as bitmap IDs so existing tab/chemistry/selection logic still works.
     case BITMAP_UX_TAB_SEL_160X58_ID: case BITMAP_UX_TAB_SEL_160X38_ID:
     case BITMAP_UX_ACTION_SEL_88X48_ID: case BITMAP_UX_ROW_SEL_432X36_ID:
-    case BITMAP_UX_TILE_SEL_248X112_ID: case BITMAP_MAIN_PRESET_SEL_154X60_ID: return true;
+    case BITMAP_UX_TILE_SEL_248X112_ID: case BITMAP_MAIN_PRESET_SEL_154X60_ID:
+    case BITMAP_MAIN_PRESET_SEL_100X60_ID:case BITMAP_MAIN_SENSE_SEL_148X60_ID:return true;
     default:return false;
     }
 }

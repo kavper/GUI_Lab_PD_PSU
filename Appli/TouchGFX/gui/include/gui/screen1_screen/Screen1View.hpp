@@ -16,6 +16,8 @@ public:
     virtual ~Screen1View() {}
     virtual void setupScreen();
     virtual void allOff();
+    virtual void toggleRemoteSense();
+    void refreshRemoteSense();
     virtual void tearDownScreen();
     virtual void handleTickEvent();
     virtual void handleGestureEvent(const touchgfx::GestureEvent& event);

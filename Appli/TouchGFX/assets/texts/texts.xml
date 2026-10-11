@@ -1806,6 +1806,14 @@
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
     </TextGroup>
+    <TextGroup Id="MainRemoteSense">
+      <Text Id="TXT_SENSE_PRESET" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_SENSE_MAIN" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+    </TextGroup>
   </Texts>
   <Typographies>
     <Typography Id="Title" Font="IBMPlexSans-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
