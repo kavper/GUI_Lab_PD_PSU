@@ -18,6 +18,9 @@ public:
     virtual void allOff();
     virtual void toggleRemoteSense();
     void refreshRemoteSense();
+    virtual void nudgeVoltUp();
+    virtual void nudgeVoltDown();
+    virtual void stepVolt();
     virtual void tearDownScreen();
     virtual void handleTickEvent();
     virtual void handleGestureEvent(const touchgfx::GestureEvent& event);
@@ -64,6 +67,8 @@ protected:
     bool replaceOnNextKey;
     uint8_t selectedPreset;
     uint16_t editorNoticeTicks;
+    uint8_t voltageStep;
+    void nudgeVoltage(bool up);
 
     void appendKey(char key);
     void loadEditorFromSetpoint();

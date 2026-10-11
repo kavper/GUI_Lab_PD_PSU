@@ -7,3 +7,5 @@ SENSE displays actual AUX flags (LOCAL, ARMED, REMOTE, stale or fault). Switchin
 Designer Generate, simulator and target compilation passed. Simulator test passes four complete swipe routes; its cancelled-drag/editor-preservation assertion fails with the unchanged old selection logic, which this deliberately minimal change does not modify. Flash verification is recorded in stable_gui_sense_flash.log. SWD programming settings remain AP1, Under Reset, Hardware reset, 1000 kHz, with verification.
 
 The broader GUI work remains on codex/task-focused-gui. Previously uncommitted local edits were preserved in a named Git stash before switching branches.
+
+Main voltage controls: minus / step / plus, 10 mV / 100 mV / 1 V (default 100 mV), bounded to 0..27 V through the existing setpoint API. The touch simulator test PSU_VSTEP_SELFTEST confirms the three steps, both directions, and unchanged current limit/output state. Generate, simulator and target builds pass.

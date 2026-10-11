@@ -1007,7 +1007,8 @@
               "Red": 167,
               "Green": 182,
               "Blue": 203
-            }
+            },
+            "Visible": false
           },
           {
             "Type": "TextArea",
@@ -1204,6 +1205,72 @@
               "UseBuffer": true,
               "BufferSize": 64
             }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "VoltMinus",
+            "X": 328,
+            "Y": 181,
+            "Width": 42,
+            "Height": 40,
+            "Pressed": "task_sel_42x40.png",
+            "Released": "task_rel_42x40.png",
+            "TextId": "TXT_TASK_VoltMinus_79",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "VoltStep",
+            "X": 374,
+            "Y": 181,
+            "Width": 52,
+            "Height": 40,
+            "Pressed": "task_sel_52x40.png",
+            "Released": "task_rel_52x40.png",
+            "TextId": "TXT_TASK_STEP_1",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "VoltPlus",
+            "X": 430,
+            "Y": 181,
+            "Width": 42,
+            "Height": 40,
+            "Pressed": "task_sel_42x40.png",
+            "Released": "task_rel_42x40.png",
+            "TextId": "TXT_TASK_VoltPlus_81",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -1438,6 +1505,39 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "toggleRemoteSense"
+            }
+          },
+          {
+            "InteractionName": "TaskVoltMinus",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "VoltMinus"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "nudgeVoltDown"
+            }
+          },
+          {
+            "InteractionName": "TaskVoltStep",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "VoltStep"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "stepVolt"
+            }
+          },
+          {
+            "InteractionName": "TaskVoltPlus",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "VoltPlus"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "nudgeVoltUp"
             }
           }
         ]

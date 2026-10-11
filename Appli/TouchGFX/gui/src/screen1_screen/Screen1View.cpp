@@ -30,7 +30,8 @@ Screen1View::Screen1View()
       editLength(0),
       replaceOnNextKey(false),
       selectedPreset(0),
-      editorNoticeTicks(0)
+      editorNoticeTicks(0),
+      voltageStep(1)
 {
     editAscii[0] = '\0';
 }
@@ -643,6 +644,7 @@ void Screen1View::setupTheme()
     theme.button(Preset3Button,ui::NORMAL);
     theme.button(RemoteSenseButton,ui::NORMAL);
     theme.text(RemoteSenseText);
+    theme.button(VoltMinus);theme.button(VoltStep);theme.button(VoltPlus);
     theme.button(SettingsButton,ui::NORMAL);
     theme.button(AllOffButton,ui::DANGER);
     theme.text(BatteryLabel);
@@ -695,4 +697,22 @@ void Screen1View::toggleRemoteSense(){
  const bool accepted=g4_remote(psu_g4(),(flags&2)==0,0)!=0;
  showEditorStatus(accepted?"SENSE requested; waiting for telemetry":"SENSE request blocked",!accepted);
  refreshRemoteSense();
+}
+
+void Screen1View::nudgeVoltage(bool up) {
+    const uint32_t steps[]={10,100,1000};
+    const uint32_t step=steps[voltageStep];
+    selectVoltage();
+    setVoltageMv=up?(setVoltageMv<=27000U-step?setVoltageMv+step:27000U):(setVoltageMv>=step?setVoltageMv-step:0U);
+    updatePresetHighlight(0);
+    submitSetpoints();
+}
+void Screen1View::nudgeVoltUp(){nudgeVoltage(true);}
+void Screen1View::nudgeVoltDown(){nudgeVoltage(false);}
+void Screen1View::stepVolt(){
+    voltageStep=(voltageStep+1)%3;
+    const touchgfx::TypedTextId labels[]={T_TXT_TASK_STEP_0,T_TXT_TASK_STEP_1,T_TXT_TASK_STEP_2};
+    VoltStep.setLabelText(touchgfx::TypedText(labels[voltageStep]));VoltStep.invalidate();
+    const char* messages[]={"Voltage step: 10 mV","Voltage step: 100 mV","Voltage step: 1 V"};
+    showEditorStatus(messages[voltageStep]);
 }

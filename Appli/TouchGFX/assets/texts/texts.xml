@@ -1814,6 +1814,23 @@
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
     </TextGroup>
+    <TextGroup Id="MainVoltageStep">
+      <Text Id="TXT_TASK_VoltMinus_79" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">-</Translation>
+      </Text>
+      <Text Id="TXT_TASK_VoltPlus_81" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">+</Translation>
+      </Text>
+      <Text Id="TXT_TASK_STEP_0" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">0.01</Translation>
+      </Text>
+      <Text Id="TXT_TASK_STEP_1" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">0.1</Translation>
+      </Text>
+      <Text Id="TXT_TASK_STEP_2" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">1</Translation>
+      </Text>
+    </TextGroup>
   </Texts>
   <Typographies>
     <Typography Id="Title" Font="IBMPlexSans-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
