@@ -1,12 +1,43 @@
 /* IS25LX256 (32 MiB, 3.3 V), APS256XXN-OB9 (32 MiB, 1.8 V).
  * Both links start at 100 MHz from PLL2S=200 MHz. Flash clock MUST be PN6/CLK.
- * APS256 powers up with read/write latency 5, unlike the DK RAM (latency 4).
+ * APS256 LC=5 includes the final address clock: XSPI dummy count is LC-1.
  */
 #include "board_memory.h"
 #include "extmem_manager.h"
 #include <string.h>
 
 extern XSPI_HandleTypeDef hxspi1, hxspi2;
+volatile uint32_t BoardRamDiagnostics[4];
+
+static int psram_x16_config(void)
+{
+    XSPI_RegularCmdTypeDef cmd = {0};
+    uint8_t data[2] = {0x44, 0x44};
+    cmd.OperationType = HAL_XSPI_OPTYPE_COMMON_CFG;
+    cmd.IOSelect = HAL_XSPI_SELECT_IO_7_0;
+    cmd.Instruction = 0xC0;
+    cmd.InstructionMode = HAL_XSPI_INSTRUCTION_8_LINES;
+    cmd.InstructionWidth = HAL_XSPI_INSTRUCTION_8_BITS;
+    cmd.Address = 8;
+    cmd.AddressMode = HAL_XSPI_ADDRESS_8_LINES;
+    cmd.AddressWidth = HAL_XSPI_ADDRESS_32_BITS;
+    cmd.AddressDTRMode = HAL_XSPI_ADDRESS_DTR_ENABLE;
+    cmd.DataMode = HAL_XSPI_DATA_8_LINES;
+    cmd.DataDTRMode = HAL_XSPI_DATA_DTR_ENABLE;
+    cmd.DataLength = 2;
+    /* LC=1 includes the final address clock; no extra dummy clock for MR writes. */
+    cmd.DummyCycles = 0;
+    if (HAL_XSPI_Command(&hxspi1, &cmd, 100) != HAL_OK ||
+        HAL_XSPI_Transmit(&hxspi1, data, 100) != HAL_OK) return 0;
+    cmd.Instruction = 0x40;
+    cmd.DummyCycles = 4;
+    cmd.DQSMode = HAL_XSPI_DQS_ENABLE;
+    data[0] = data[1] = 0;
+    if (HAL_XSPI_Command(&hxspi1, &cmd, 100) != HAL_OK ||
+        HAL_XSPI_Receive(&hxspi1, data, 100) != HAL_OK) return 0;
+    BoardRamDiagnostics[0] = data[0] | ((uint32_t)data[1] << 8);
+    return (data[0] & 0xC7) == 0x44;
+}
 
 static int link_init(XSPI_HandleTypeDef *h, XSPI_TypeDef *instance, uint32_t type, uint32_t port)
 {
@@ -66,20 +97,21 @@ int BoardMemory_Init(int with_psram)
     EXTMEM_DRIVER_PSRAM_ObjectTypeDef *p = &extmem_list_config[1].PsramObject;
     p->psram_public.MemorySize = HAL_XSPI_SIZE_256MB;
     p->psram_public.FreqMax = 100000000;
-    p->psram_public.NumberOfConfig = 1;
+    p->psram_public.NumberOfConfig = 0; /* MR write handled with latency/readback below */
     p->psram_public.config[0].WriteMask = 0x47;
     p->psram_public.config[0].WriteValue = 0x44;
     p->psram_public.config[0].REGAddress = 8; /* MR8: X16, hybrid 16-word = 32-byte wrap */
     p->psram_public.ReadREG = 0x40;
     p->psram_public.WriteREG = 0xC0;
     p->psram_public.ReadREGSize = 2;
-    p->psram_public.REG_DummyCycle = 5;
+    p->psram_public.REG_DummyCycle = 4;
     p->psram_public.Write_command = 0xA0;
-    p->psram_public.Write_DummyCycle = 5;
+    p->psram_public.Write_DummyCycle = 4;
     p->psram_public.Read_command = 0x20;
     p->psram_public.WrapRead_command = 0x00;
-    p->psram_public.Read_DummyCycle = 5;
-    return EXTMEM_Init(EXTMEMORY_2, HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_XSPI1)) == EXTMEM_OK;
+    p->psram_public.Read_DummyCycle = 4;
+    return EXTMEM_Init(EXTMEMORY_2, HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_XSPI1)) == EXTMEM_OK &&
+           psram_x16_config();
 }
 
 void BoardQuietDisplay(void)

@@ -6,7 +6,7 @@ OUT := Board/loader/build
 HAL := Drivers/STM32H7RSxx_HAL_Driver
 SRCS := Board/boot_main.c Board/boot_msp.c Board/board_memory.c Board/loader/api.c \
  Boot/Core/Src/system_stm32h7rsxx.c \
- $(MW)/stm32_extmem.c $(MW)/nor_sfdp/stm32_sfdp_data.c $(MW)/nor_sfdp/stm32_sfdp_driver.c \
+ $(MW)/stm32_extmem.c Board/sfdp_issi.c $(MW)/nor_sfdp/stm32_sfdp_driver.c \
  $(MW)/psram/stm32_psram_driver.c $(MW)/sal/stm32_sal_xspi.c \
  $(LOADER)/STM32Cube/stm32_device_info.c $(LOADER)/core/memory_wrapper.c $(LOADER)/core/systick_management.c \
  $(filter-out %template.c,$(wildcard $(HAL)/Src/*.c))

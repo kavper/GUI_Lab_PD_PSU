@@ -3,14 +3,25 @@
  */
 #include "board_backlight.h"
 #define LP8556_ADDR (0x2CU << 1)
+/* Last register, requested value, readback and HAL status for SWD diagnosis. */
+volatile uint32_t BoardBacklightDiagnostics[4];
+volatile uint32_t BoardBacklightReady;
 static int write_verify(I2C_HandleTypeDef *h, uint8_t reg, uint8_t val)
 {
     uint8_t readback = 0;
-    return HAL_I2C_Mem_Write(h, LP8556_ADDR, reg, I2C_MEMADD_SIZE_8BIT, &val, 1, 50) == HAL_OK &&
-           HAL_I2C_Mem_Read(h, LP8556_ADDR, reg, I2C_MEMADD_SIZE_8BIT, &readback, 1, 50) == HAL_OK && readback == val;
+    BoardBacklightDiagnostics[0] = reg;
+    BoardBacklightDiagnostics[1] = val;
+    BoardBacklightDiagnostics[2] = 0x100;
+    HAL_StatusTypeDef status = HAL_I2C_Mem_Write(h, LP8556_ADDR, reg, I2C_MEMADD_SIZE_8BIT, &val, 1, 50);
+    if (status == HAL_OK)
+        status = HAL_I2C_Mem_Read(h, LP8556_ADDR, reg, I2C_MEMADD_SIZE_8BIT, &readback, 1, 50);
+    BoardBacklightDiagnostics[2] = readback;
+    BoardBacklightDiagnostics[3] = status;
+    return status == HAL_OK && readback == val;
 }
 int BoardBacklight_Init40mA(I2C_HandleTypeDef *h)
 {
+    BoardBacklightReady = 0;
     /* EN powers the control logic. Brightness=0 and BL_CTL=0 prevent LED current
      * until all configuration writes have been read back. FAST avoids EPROM reload. */
     HAL_GPIO_WritePin(GPIOG, GPIO_PIN_15, GPIO_PIN_SET);
@@ -24,6 +35,7 @@ int BoardBacklight_Init40mA(I2C_HandleTypeDef *h)
     /* 5V supply: clear 5.2V UVLO threshold, external ISET and PWM-only BL_ON; clear PWM_DIRECT. */
     if (!write_verify(h, 0xA2, cfg2 & ~0x1C) || !write_verify(h, 0xA5, cfg5 & ~0x80) ||
         !write_verify(h, 0x00, 0xFF) || !write_verify(h, 0x01, 0x85)) goto fail;
+    BoardBacklightReady = 1;
     return 1;
 fail:
     HAL_GPIO_WritePin(GPIOG, GPIO_PIN_15, GPIO_PIN_RESET);

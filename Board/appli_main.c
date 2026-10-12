@@ -213,7 +213,9 @@ int main(void)
   MX_JPEG_Init();
   /* Option bytes are configured by the programmer, never changed by the GUI. */
   MX_I2C1_Init();
-  if (!BoardBacklight_Init40mA(&hi2c1)) Error_Handler();
+  /* A missing/faulty LED driver leaves BL_EN low; retain the diagnostic
+   * registers and allow the GUI, touch and UART to start. */
+  (void)BoardBacklight_Init40mA(&hi2c1);
   MX_GPU2D_Init();
   MX_ICACHE_GPU2D_Init();
   MX_UART7_Init();

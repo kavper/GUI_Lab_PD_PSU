@@ -12,12 +12,18 @@ Projekt wykonawczy Designer: `Appli/TouchGFX/GUI_Lab_PD_PSU.touchgfx`.
 - Test preflight: PASS; poprawne/niepoprawne MCU, brak sondy, blad zapisu i bledny odczyt opcji.
 - Test LP8556: PASS; wszystkie awarie transakcji I2C i bledne odczyty kontrolne koncza sie wylaczeniem BL_EN.
 - Proba na PCB 2026-10-12: ST-Link wykryl STM32H7RS (Device ID 0x485, Rev B, 3.21 V).
-- Preflight ustawil i odczytal kontrolnie wymagane option bytes.
+- Preflight ustawil i odczytal kontrolnie wymagane option bytes (XSPI1 HSLV=1, XSPI2 HSLV=0).
 - Boot w wewnetrznej Flash zapisany i zweryfikowany przez STM32CubeProgrammer.
-- Appli w zewnetrznej Flash: BLAD przy kasowaniu sektorow [0 123]. Wgranie calego projektu NIE jest zakonczone.
-- Dalsza diagnostyka loadera: ST-Link pozostaje widoczny, lecz MCU przestalo odpowiadac (Access Port Number 0). Potrzebne przywrocenie zasilania/polaczenia.
-- Start GUI, test PSRAM na sprzecie i pomiar pradu LED: NIE POTWIERDZONO.
-- Log rzeczywistej proby: `Board/hardware_flash.log` (lokalny, ignorowany przez Git).
+- Po poprawce parsera SFDP Flash zostala skasowana i zapisana. Oddzielny odczyt calego kodu (505180 bajtow HEX) i grafiki (3130236 bajtow HEX) potwierdzil zgodnosc bajt po bajcie.
+- Standardowe `-v` w laczonej probie zglosilo blad odczytu przy 0x70200000; procedura Run Target wymaga dalszego sprawdzenia.
+- PSRAM: po poprawce liczby dummy clocks (LC-1) oraz kontrolnym odczycie MR8, test adresow 32 MiB, linii danych, granicy 2 KiB i ostatniej linii przeszedl na PCB. Boot uruchomil Appli.
+- BOOT0: uzytkownik usunal R23 do 3.3 V, pozostawil R38=10 kOhm do GND. Po tej poprawce zwykly reset uruchamia program; wczesniej oba rezystory powodowaly start ROM bootloadera.
+- LP8556: pierwsze adresowanie I2C (0x2C, zapis rejestru 0x00) zakonczylo sie NACK. SDA/SCL sa w stanie wysokim w spoczynku. Uzytkownik potwierdzil zasilanie zewnetrzne 5 V; zasilanie przy samym LP8556 wymaga sprawdzenia.
+- Dodano `BoardBacklightDiagnostics` i `BoardBacklightReady`; przy bledzie BL_EN pozostaje niskie, a nowa wersja pozwala GUI/dotykowi/UART wystartowac.
+- Poprawiono linker loadera: segment kodu/danych miesci sie w DTCM, StorageInfo jest w osobnym segmencie; usunieto nakladanie segmentow i sztuczny zakres 64 MiB. Weryfikacja programowania nowym loaderem czeka na probe.
+- ST-Link zniknal z USB podczas diagnostyki LP8556. Ostatnie zmiany aplikacji/loadera nie zostaly jeszcze zweryfikowane na PCB.
+- Widoczny start GUI, dotyk i pomiar pradu LED: NIE POTWIERDZONO.
+- Logi rzeczywistych prob: `Board/hardware_flash_retry.log`, `Board/graphics_readback.log`, `Board/code_readback.log` (lokalne, ignorowane przez Git).
 
 ## Polaczenie zegara Flash
 
@@ -40,7 +46,7 @@ Loader sprawdza producenta ISSI i pojemnosc 32 MiB. Uklad o innej pojemnosci nie
 | Flash CLK | PN6 / J14; potwierdzone zrzutem schematu uzytkownika |
 | PSRAM | APS256XXN-OB9, XSPI1 / XSPIM P1, 16 linii, 32 MiB, 1.8 V |
 | Zegary pamieci | 100 MHz na start, PLL2S=200 MHz i dzielnik 2 |
-| PSRAM latencja | odczyt/rejestry 5, zapis 5; domyslne MR0/MR4 ukladu APS256 |
+| PSRAM latencja | MR0/MR4 LC=5; XSPI dummy clocks 4 (LC-1); zapis MR: 0 dodatkowych dummy clocks |
 | PSRAM MR8 | 0x44 z maska 0x47: X16, hybrid wrap 16 slow = 32 bajty |
 | PSRAM granica / refresh | 2 KiB / 300 cykli = 3 us przy 100 MHz; ponizej tCEM=4 us |
 | Mapa Flash | 0x70000000: 2 MiB kodu; 0x70200000: 30 MiB zasobow |
@@ -55,8 +61,14 @@ Loader sprawdza producenta ISSI i pojemnosc 32 MiB. Uklad o innej pojemnosci nie
 
 LP8556: LED_EN=0x03, CURRENT=0xFFF, CURRENT_MAX=20 mA, ISET_EN=0,
 BRT_MODE=I2C, PWM_DIRECT=0, FAST=1. Ustawienia sa ulotne; EPROM nie jest wypalany.
-Prog UVLO jest ustawiony na 2.5 V dla zasilania 5 V. Kazdy zapis jest odczytywany kontrolnie. BL_EN jest wylaczany po bledzie.
+Prog UVLO jest ustawiony na 2.5 V dla zasilania 5 V. Kazdy zapis jest odczytywany kontrolnie. BL_EN jest wylaczany po bledzie; GUI moze dalej wystartowac, a stan sterownika jest dostepny przez SWD.
 
+IS25LX256 nie udostepnia w SFDP mapy SCCR wymaganej przez ogolny parser ST.
+Adapter `Board/sfdp_issi.c` najpierw odczytuje w SPI VCR[1], sprawdza domyslna wartosc 1F/00,
+a po przejsciu w Octal DDR ustawia 16 dummy cycles przy zegarze <=100 MHz. Inne bledy pozostaja bledami.
+Adapter obejmuje Boot i loader; oryginalny parser ST jest wlaczany tylko do odczytu.
+
+MR8 jest zapisywany osobnym poleceniem z wlasciwym taktowaniem i odczytywany kontrolnie.
 Boot resetuje PSRAM poleceniem Global Reset FF i sprawdza adresy w calych 32 MiB,
 linie danych, przejscie przez granice 2 KiB oraz ostatnia linie pamieci przed uruchomieniem GUI.
 Niepowodzenie zatrzymuje start; test uruchomi sie dopiero na rzeczywistej plytce.

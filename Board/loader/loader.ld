@@ -92,22 +92,6 @@ SECTIONS
   } >RAM_D1 :Loader
 
 
-  /* Uninitialized data section */
-  . = ALIGN(4);
-  .bss :
-  {
-    /* This is used by the startup in order to initialize the .bss section */
-    _sbss = .;         /* define a global symbol at bss start */
-    __bss_start__ = _sbss;
-    *(.bss)
-    *(.bss*)
-    *(COMMON)
-
-    . = ALIGN(4);
-    _ebss = .;         /* define a global symbol at bss end */
-    __bss_end__ = _ebss;
-  } >RAM_D2 :Loader
-
   /* The program code and other data goes into FLASH */
   .text :
   {
@@ -129,7 +113,7 @@ SECTIONS
   {
     KEEP(*stm32_device_info.* ( .rodata* ))
 
-  } :SgInfo
+  } >RAM_D2 :SgInfo
 
 
 
@@ -137,11 +121,26 @@ SECTIONS
   .rodata :
   {
     . = ALIGN(4);
-    *(.rodata)         /* .rodata sections (constants, strings, etc.) */
-    *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
+    *(.rodata .rodata*)
     . = ALIGN(4);
   } >RAM_D1 :Loader
 
+
+  /* Uninitialized data section */
+  . = ALIGN(4);
+  .bss :
+  {
+    /* This is used by the startup in order to initialize the .bss section */
+    _sbss = .;         /* define a global symbol at bss start */
+    __bss_start__ = _sbss;
+    *(.bss)
+    *(.bss*)
+    *(COMMON)
+
+    . = ALIGN(4);
+    _ebss = .;         /* define a global symbol at bss end */
+    __bss_end__ = _ebss;
+  } >RAM_D1 :Loader
 
   /* User_heap_stack section, used to check that there is enough RAM left */
   ._user_heap_stack :

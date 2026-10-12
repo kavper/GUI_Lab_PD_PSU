@@ -58,4 +58,6 @@ Boot/build/
 # Custom board build products
 Board/loader/build/
 Board/*.log
+Board/*.bin
+Board/*.hex
 Board/loader/*.log
