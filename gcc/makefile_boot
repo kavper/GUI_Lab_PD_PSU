@@ -50,8 +50,9 @@ binary_output_path := $(build_root_path)/bin
 
 ifeq ($(UNAME), Linux)
 else
-stldr := MX66UW1G45G_STM32H7S78-DK.stldr
+stldr := IS25LX256_GUI_Lab_PD_PSU.stldr
 include $(application_path)/gcc/include/cube_programmer.mk
+stm32cube_loader_relative_path := $(application_path)/gcc/$(stldr)
 endif
 
 target_executable := target.elf
@@ -180,6 +181,8 @@ include_paths += platform/os $(board_include_paths) $(os_include_paths)
 
 c_source_files := $(makefile_path_relative)/sysmem.c $(makefile_path_relative)/syscalls.c $(call find, $(source_paths),*.c) $(os_source_files) $(board_c_files)
 source_files += $(board_cpp_files)
+include $(application_path)/Board/boot.mk
+
 object_files := $(source_files) $(c_source_files)
 
 # start converting paths

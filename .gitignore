@@ -54,3 +54,8 @@ MDK-ARM/Boot/*vguix.*
 build/*
 Appli/build/
 Boot/build/
+
+# Custom board build products
+Board/loader/build/
+Board/*.log
+Board/loader/*.log
