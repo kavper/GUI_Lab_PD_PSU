@@ -128,9 +128,13 @@ SECTIONS
 
   /* Uninitialized data section */
   . = ALIGN(4);
+  /* Include runtime state in loaded bytes so programmer scratch allocation
+   * cannot overlap variables that would otherwise occupy a NOLOAD section. */
   .bss :
   {
     /* This is used by the startup in order to initialize the .bss section */
+    BYTE(0);
+    . = ALIGN(4);
     _sbss = .;         /* define a global symbol at bss start */
     __bss_start__ = _sbss;
     *(.bss)

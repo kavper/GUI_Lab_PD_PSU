@@ -15,11 +15,12 @@ Projekt wykonawczy Designer: `Appli/TouchGFX/GUI_Lab_PD_PSU.touchgfx`.
 - Preflight ustawil i odczytal kontrolnie wymagane option bytes (XSPI1 HSLV=1, XSPI2 HSLV=0).
 - Boot w wewnetrznej Flash zapisany i zweryfikowany przez STM32CubeProgrammer.
 - Po poprawce parsera SFDP Flash zostala skasowana i zapisana. Oddzielny odczyt calego kodu (505180 bajtow HEX) i grafiki (3130236 bajtow HEX) potwierdzil zgodnosc bajt po bajcie.
-- Standardowe `-v` w laczonej probie zglosilo blad odczytu przy 0x70200000; procedura Run Target wymaga dalszego sprawdzenia.
+- Run Target / make flash: PASS na PCB. Boot, kod i grafika zapisane i automatycznie zweryfikowane przez -v. Kod i zasoby sa programowane w oddzielnych sesjach, aby ominac blad drugiego segmentu HEX w CubeProgrammer 2.23.
 - PSRAM: po poprawce liczby dummy clocks (LC-1) oraz kontrolnym odczycie MR8, test adresow 32 MiB, linii danych, granicy 2 KiB i ostatniej linii przeszedl na PCB. Boot uruchomil Appli.
 - BOOT0: uzytkownik usunal R23 do 3.3 V, pozostawil R38=10 kOhm do GND. Po tej poprawce zwykly reset uruchamia program; wczesniej oba rezystory powodowaly start ROM bootloadera.
-- LP8556: pierwsze adresowanie I2C (0x2C, zapis rejestru 0x00) zakonczylo sie NACK. SDA/SCL sa w stanie wysokim w spoczynku. Uzytkownik potwierdzil zasilanie zewnetrzne 5 V; zasilanie przy samym LP8556 wymaga sprawdzenia.
-- Dodano `BoardBacklightDiagnostics` i `BoardBacklightReady`; przy bledzie BL_EN pozostaje niskie, a nowa wersja pozwala GUI/dotykowi/UART wystartowac.
+- LP8556 i GT911 (0x2C, 0x5D, 0x14): NACK. Uzytkownik zmierzyl VDD LP=4.7 V, EN=3.3 V i VLDO=3 V. Test niezaleznego sciagania SDA/SCL nie wykryl zwarcia miedzy liniami. Uzytkownik znalazl blednie zamontowane pull-upy 100 Ohm do 3.3 V zamiast R600/R601=4.7 kOhm; wymagaja wymiany i ponownego testu.
+- Dodano `BoardBacklightDiagnostics` i `BoardBacklightReady`; przy bledzie BL_EN pozostaje niskie, a GUI/UART dalej dzialaja. Na prosbe uzytkownika podswietlenie pozostawiono wylaczone podczas dalszych prob LCD.
+- LCD bez podswietlenia: PASS renderowania. LTDC jest aktywny, pozycja skanowania zmienia sie, bufor 0x90000000 zawiera poprawny ekran startowy 800x480 odczytany przez SWD. Tick HAL i RTOS rosna, brak faultow CPU. Obrazu na fizycznym panelu i dotyku jeszcze nie potwierdzono.
 - Poprawiono linker loadera: segment kodu/danych miesci sie w DTCM, StorageInfo jest w osobnym segmencie; usunieto nakladanie segmentow i sztuczny zakres 64 MiB. Weryfikacja programowania nowym loaderem czeka na probe.
 - ST-Link zniknal z USB podczas diagnostyki LP8556. Ostatnie zmiany aplikacji/loadera nie zostaly jeszcze zweryfikowane na PCB.
 - Widoczny start GUI, dotyk i pomiar pradu LED: NIE POTWIERDZONO.
@@ -88,7 +89,7 @@ Run Target buduje `gcc/IS25LX256_GUI_Lab_PD_PSU.stldr`, sprawdza MCU i odczytuje
 Jesli potrzeba, ustawia tylko XSPI1_HSLV=1, XSPI2_HSLV=0, I2C_NI3C=1, IWDG_HW=1 i VDDIO_HSLV=0,
 po czym ponownie odczytuje je kontrolnie. Blad odczytu/zapisu przerywa programowanie.
 Loader pochodzi z tego projektu; nie trzeba kopiowac go do instalacji STM32CubeProgrammer.
-Pozostaja SWD ap=1, Under Reset, Hardware reset, 1000 kHz i `-v` po zapisie.
+Pozostaja SWD ap=1, Under Reset, Hardware reset, 1000 kHz i `-v` po kazdym zapisie. Kod i zasoby sa wydzielane z ELF przez objcopy, po czym kazdy obszar jest programowany i weryfikowany w osobnym uruchomieniu CLI. BSS loadera jest zawarte w obrazie do zaladowania, aby programator nie nadpisywal jego zmiennych roboczych.
 Po podlaczeniu zasilania oraz ST-Linka trzeba sprawdzic odczyt Flash, zapis i weryfikacje HEX,
 a potem start GUI, dotyk oraz zmierzyc prad pojedynczego stringu LED.
 
