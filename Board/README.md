@@ -11,15 +11,20 @@ Projekt wykonawczy Designer: `Appli/TouchGFX/GUI_Lab_PD_PSU.touchgfx`.
 - Istniejace testy protokolu, aplikacji, startupu, automatyzacji i wskaznikow: PASS.
 - Test preflight: PASS; poprawne/niepoprawne MCU, brak sondy, blad zapisu i bledny odczyt opcji.
 - Test LP8556: PASS; wszystkie awarie transakcji I2C i bledne odczyty kontrolne koncza sie wylaczeniem BL_EN.
-- Odczyt/programowanie nowej PCB i pomiar pradu LED: NIE WYKONANO. STM32CubeProgrammer nie wykrywa ST-Linka.
-- Sekwencja Run Target zatrzymuje sie przy braku sondy; udana kompilacja nie oznacza udanego wgrania.
+- Proba na PCB 2026-10-12: ST-Link wykryl STM32H7RS (Device ID 0x485, Rev B, 3.21 V).
+- Preflight ustawil i odczytal kontrolnie wymagane option bytes.
+- Boot w wewnetrznej Flash zapisany i zweryfikowany przez STM32CubeProgrammer.
+- Appli w zewnetrznej Flash: BLAD przy kasowaniu sektorow [0 123]. Wgranie calego projektu NIE jest zakonczone.
+- Dalsza diagnostyka loadera: ST-Link pozostaje widoczny, lecz MCU przestalo odpowiadac (Access Port Number 0). Potrzebne przywrocenie zasilania/polaczenia.
+- Start GUI, test PSRAM na sprzecie i pomiar pradu LED: NIE POTWIERDZONO.
+- Log rzeczywistej proby: `Board/hardware_flash.log` (lokalny, ignorowany przez Git).
 
-## Wymagana weryfikacja PCB przed wgraniem
+## Polaczenie zegara Flash
 
-PDF uzytkownika, arkusz 4: `OCTOSPI_CLK` jest na PN7 (J13), a PN6 (J14) ma znacznik NC.
-Wedlug tabeli pinow ST PN7 to `XSPIM_P2_NCLK`, a PN6 to `XSPIM_P2_CLK`.
-Ten firmware i loader wymagaja sygnalu zegara Flash na PN6/CLK.
-Trzeba potwierdzic trase na PCB albo poprawic polaczenie; konfiguracja standardowego CLK nie moze przeniesc go na PN7.
+Zrzut schematu przeslany przez uzytkownika 2026-10-12 potwierdza:
+`OCTOSPI_CLK` jest na PN6 (J14), a PN7 (J13) jest niepodlaczony.
+PN6 to `XSPIM_P2_CLK`; polaczenie odpowiada konfiguracji firmware i loadera.
+Wczesniejsze wskazanie PN7 jako zegara bylo bledne. Poprawka PCB z tego powodu nie jest wymagana.
 
 Na symbolu Flash w PDF jest opis IS25LX064; zgodnie z poleceniem uzytkownika przyjeto IS25LX256-JHLA3.
 Loader sprawdza producenta ISSI i pojemnosc 32 MiB. Uklad o innej pojemnosci nie przejdzie inicjalizacji.
@@ -32,7 +37,7 @@ Loader sprawdza producenta ISSI i pojemnosc 32 MiB. Uklad o innej pojemnosci nie
 | HSE | modul oscylatora 24 MHz, BYPASS, PH0 |
 | CPU / HCLK / PCLK | 600 / 300 / 150 MHz |
 | Flash | IS25LX256, XSPI2 / XSPIM P2, 8 linii, 32 MiB, 3.3 V |
-| Flash CLK | PN6 (wymagane poprawne polaczenie PCB) |
+| Flash CLK | PN6 / J14; potwierdzone zrzutem schematu uzytkownika |
 | PSRAM | APS256XXN-OB9, XSPI1 / XSPIM P1, 16 linii, 32 MiB, 1.8 V |
 | Zegary pamieci | 100 MHz na start, PLL2S=200 MHz i dzielnik 2 |
 | PSRAM latencja | odczyt/rejestry 5, zapis 5; domyslne MR0/MR4 ukladu APS256 |
@@ -77,6 +82,7 @@ a potem start GUI, dotyk oraz zmierzyc prad pojedynczego stringu LED.
 
 ## Zrodla
 
+- Potwierdzenie zegara Flash: `C:/Users/kacpe/OneDrive/Desktop/Screenshot 2026-10-12 at 21.33.13.png`.
 - Schemat uzytkownika: `C:/Users/kacpe/OneDrive/Desktop/Untitled.pdf`, arkusze 3, 4, 7, 8.
 - ISSI: https://www.issi.com/WW/pdf/25LX-WX256-128.pdf
 - AP Memory, rev. 1.2: https://www.apmemory.com/tw/downloadFiles/0325021716tb786912
