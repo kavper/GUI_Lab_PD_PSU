@@ -18,12 +18,12 @@ Projekt wykonawczy Designer: `Appli/TouchGFX/GUI_Lab_PD_PSU.touchgfx`.
 - Run Target / make flash: PASS na PCB. Boot, kod i grafika zapisane i automatycznie zweryfikowane przez -v. Kod i zasoby sa programowane w oddzielnych sesjach, aby ominac blad drugiego segmentu HEX w CubeProgrammer 2.23.
 - PSRAM: po poprawce liczby dummy clocks (LC-1) oraz kontrolnym odczycie MR8, test adresow 32 MiB, linii danych, granicy 2 KiB i ostatniej linii przeszedl na PCB. Boot uruchomil Appli.
 - BOOT0: uzytkownik usunal R23 do 3.3 V, pozostawil R38=10 kOhm do GND. Po tej poprawce zwykly reset uruchamia program; wczesniej oba rezystory powodowaly start ROM bootloadera.
-- LP8556 i GT911 (0x2C, 0x5D, 0x14): NACK. Uzytkownik zmierzyl VDD LP=4.7 V, EN=3.3 V i VLDO=3 V. Test niezaleznego sciagania SDA/SCL nie wykryl zwarcia miedzy liniami. Uzytkownik znalazl blednie zamontowane pull-upy 100 Ohm do 3.3 V zamiast R600/R601=4.7 kOhm; wymagaja wymiany i ponownego testu.
-- Dodano `BoardBacklightDiagnostics` i `BoardBacklightReady`; przy bledzie BL_EN pozostaje niskie, a GUI/UART dalej dzialaja. Na prosbe uzytkownika podswietlenie pozostawiono wylaczone podczas dalszych prob LCD.
-- LCD bez podswietlenia: PASS renderowania. LTDC jest aktywny, pozycja skanowania zmienia sie, bufor 0x90000000 zawiera poprawny ekran startowy 800x480 odczytany przez SWD. Tick HAL i RTOS rosna, brak faultow CPU. Obrazu na fizycznym panelu i dotyku jeszcze nie potwierdzono.
-- Poprawiono linker loadera: segment kodu/danych miesci sie w DTCM, StorageInfo jest w osobnym segmencie; usunieto nakladanie segmentow i sztuczny zakres 64 MiB. Weryfikacja programowania nowym loaderem czeka na probe.
-- ST-Link zniknal z USB podczas diagnostyki LP8556. Ostatnie zmiany aplikacji/loadera nie zostaly jeszcze zweryfikowane na PCB.
-- Widoczny start GUI, dotyk i pomiar pradu LED: NIE POTWIERDZONO.
+- Przed wymiana pull-upow LP8556 i GT911 (0x2C, 0x5D, 0x14): NACK. Uzytkownik zmierzyl VDD LP=4.7 V, EN=3.3 V i VLDO=3 V. Test niezaleznego sciagania SDA/SCL nie wykryl zwarcia miedzy liniami. Uzytkownik znalazl blednie zamontowane pull-upy 100 Ohm do 3.3 V zamiast R600/R601=4.7 kOhm; Uzytkownik wymienil pull-upy; LP8556 odpowiada i konfiguracja zostala odczytana kontrolnie.
+- Dodano `BoardBacklightDiagnostics` i `BoardBacklightReady`; przy bledzie BL_EN pozostaje niskie, a GUI/UART dalej dzialaja. Po podlaczeniu poprawnego podswietlenia konfiguracja startowa zostala dopasowana do panelu.
+- LCD bez podswietlenia: PASS renderowania. LTDC jest aktywny, pozycja skanowania zmienia sie, bufor 0x90000000 zawiera poprawny ekran startowy 800x480 odczytany przez SWD. Tick HAL i RTOS rosna, brak faultow CPU. Po ulotnym ustawieniu boost start=20.2 V, max=25 V oraz jednolitej fazy obu sinkow uzytkownik potwierdzil widoczny obraz na panelu.
+- Poprawiono linker loadera: segment kodu/danych miesci sie w DTCM, StorageInfo jest w osobnym segmencie; usunieto nakladanie segmentow i sztuczny zakres 64 MiB. Zapis i automatyczna weryfikacja obu obszarow przeszly na PCB.
+- Panel: trzy rownolegle galezie po szesc LED (18 sztuk), wspolne A/K. Uzytkownik potwierdzil polaryzacje i poprosil o 60 mA lacznie. Ulotna konfiguracja 60 mA odczytana kontrolnie, status LP8556=0x30; brak bledow. Prad rzeczywisty wymaga pomiaru miernikiem.
+- Widoczny start GUI: POTWIERDZONY przez uzytkownika. Dotyk: NIE POTWIERDZONY; reset obu adresow GT911 bez ACK, skan I2C pokazal 0x2C oraz 0x50. Uzytkownik podlacza dotyk na sztywno. Trwala poprawka 60 mA skompilowana, Generate/Compile Target PASS; wgranie czeka na zakonczenie podlaczania.
 - Logi rzeczywistych prob: `Board/hardware_flash_retry.log`, `Board/graphics_readback.log`, `Board/code_readback.log` (lokalne, ignorowane przez Git).
 
 ## Polaczenie zegara Flash
@@ -55,13 +55,13 @@ Loader sprawdza producenta ISSI i pojemnosc 32 MiB. Uklad o innej pojemnosci nie
 | LCD | dotychczasowe timingi, 800x480 RGB888, framebuffer RGB565 |
 | Dotyk | GT911, I2C1 PB6/PB9, 0x5D; reset PE0, INT PE3; polling z limitami czasu |
 | Podswietlenie | LP8556 0x2C, I2C1; EN PG15; PWM PE5 utrzymywany w stanie niskim |
-| Prad LED | LED1 i LED2 polaczone rownolegle: 20 mA kazdy, 40 mA LACZNIE, pelna jasnosc |
+| Prad LED | LED1 i LED2 polaczone rownolegle: 30 mA kazdy, 60 mA LACZNIE, pelna jasnosc |
 | Przycisk OUTPUT | PE6, aktywny stan niski |
 | LED OUTPUT R/G | PF1/PF2 |
 | UART do plyty glownej | UART7 PE7/PE8, dotychczasowy protokol 460800 baud |
 
-LP8556: LED_EN=0x03, CURRENT=0xFFF, CURRENT_MAX=20 mA, ISET_EN=0,
-BRT_MODE=I2C, PWM_DIRECT=0, FAST=1. Ustawienia sa ulotne; EPROM nie jest wypalany.
+LP8556: LED_EN=0x03, CURRENT=0xFFF, CURRENT_MAX=30 mA, ISET_EN=0,
+BRT_MODE=I2C, PWM_DIRECT=0, PS_MODE=111 (wspolna faza), FAST=1. Boost: range=16 V, start=20.2 V, adaptacyjny, limit nominalny=25 V. FSET wylaczony, boost 1.25 MHz. Ustawienia sa ulotne; EPROM nie jest wypalany.
 Prog UVLO jest ustawiony na 2.5 V dla zasilania 5 V. Kazdy zapis jest odczytywany kontrolnie. BL_EN jest wylaczany po bledzie; GUI moze dalej wystartowac, a stan sterownika jest dostepny przez SWD.
 
 IS25LX256 nie udostepnia w SFDP mapy SCCR wymaganej przez ogolny parser ST.

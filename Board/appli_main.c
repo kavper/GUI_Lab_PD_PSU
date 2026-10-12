@@ -215,7 +215,7 @@ int main(void)
   MX_I2C1_Init();
   /* A missing/faulty LED driver leaves BL_EN low; retain the diagnostic
    * registers and allow the GUI, touch and UART to start. */
-  (void)BoardBacklight_Init40mA(&hi2c1);
+  (void)BoardBacklight_Init60mA(&hi2c1);
   MX_GPU2D_Init();
   MX_ICACHE_GPU2D_Init();
   MX_UART7_Init();

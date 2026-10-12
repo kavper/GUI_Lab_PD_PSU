@@ -1,4 +1,5 @@
-/* LP8556: LED1 + LED2 in parallel, 20 mA per sink = 40 mA total.
+/* LP8556: LED1 + LED2 in parallel, 30 mA per sink = 60 mA total.
+ * Panel backlight: three parallel branches of six series LEDs (common A/K).
  * Volatile configuration only: never burn EPROM. PWM is ignored in I2C mode.
  */
 #include "board_backlight.h"
@@ -19,7 +20,7 @@ static int write_verify(I2C_HandleTypeDef *h, uint8_t reg, uint8_t val)
     BoardBacklightDiagnostics[3] = status;
     return status == HAL_OK && readback == val;
 }
-int BoardBacklight_Init40mA(I2C_HandleTypeDef *h)
+int BoardBacklight_Init60mA(I2C_HandleTypeDef *h)
 {
     BoardBacklightReady = 0;
     /* EN powers the control logic. Brightness=0 and BL_CTL=0 prevent LED current
@@ -28,12 +29,20 @@ int BoardBacklight_Init40mA(I2C_HandleTypeDef *h)
     HAL_Delay(10);
     if (!write_verify(h, 0x00, 0x00) || !write_verify(h, 0x01, 0x84) ||
         !write_verify(h, 0x16, 0x03) || !write_verify(h, 0xA0, 0xFF) ||
-        !write_verify(h, 0xA1, 0x3F)) goto fail;
-    uint8_t cfg2, cfg5;
+        !write_verify(h, 0xA1, 0x6F)) goto fail;
+    uint8_t cfg2, cfg5, range, adaptive;
     if (HAL_I2C_Mem_Read(h, LP8556_ADDR, 0xA2, 1, &cfg2, 1, 50) != HAL_OK ||
-        HAL_I2C_Mem_Read(h, LP8556_ADDR, 0xA5, 1, &cfg5, 1, 50) != HAL_OK) goto fail;
-    /* 5V supply: clear 5.2V UVLO threshold, external ISET and PWM-only BL_ON; clear PWM_DIRECT. */
-    if (!write_verify(h, 0xA2, cfg2 & ~0x1C) || !write_verify(h, 0xA5, cfg5 & ~0x80) ||
+        HAL_I2C_Mem_Read(h, LP8556_ADDR, 0xA5, 1, &cfg5, 1, 50) != HAL_OK ||
+        HAL_I2C_Mem_Read(h, LP8556_ADDR, 0x9E, 1, &range, 1, 50) != HAL_OK ||
+        HAL_I2C_Mem_Read(h, LP8556_ADDR, 0xAA, 1, &adaptive, 1, 50) != HAL_OK) goto fail;
+    /* 5V supply: 2.5V UVLO, internal current/frequency settings, I2C brightness.
+     * Same phase for the parallel sinks. Range 16V, start 16+10*0.42=20.2V,
+     * adaptive boost capped at nominal 25V; confirmed with the physical panel. */
+    if (!write_verify(h, 0xA2, cfg2 & ~0x1F) ||
+        !write_verify(h, 0xA5, (cfg5 & 0x0F) | 0x70) ||
+        !write_verify(h, 0x9E, range | 0x20) ||
+        !write_verify(h, 0xA6, 0x8A) || !write_verify(h, 0xA9, 0x60) ||
+        !write_verify(h, 0xAA, adaptive | 0x08) ||
         !write_verify(h, 0x00, 0xFF) || !write_verify(h, 0x01, 0x85)) goto fail;
     BoardBacklightReady = 1;
     return 1;
