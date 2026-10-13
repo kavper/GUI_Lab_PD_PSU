@@ -23,8 +23,9 @@ Projekt wykonawczy Designer: `Appli/TouchGFX/GUI_Lab_PD_PSU.touchgfx`.
 - LCD bez podswietlenia: PASS renderowania. LTDC jest aktywny, pozycja skanowania zmienia sie, bufor 0x90000000 zawiera poprawny ekran startowy 800x480 odczytany przez SWD. Tick HAL i RTOS rosna, brak faultow CPU. Po ulotnym ustawieniu boost start=20.2 V, max=25 V oraz jednolitej fazy obu sinkow uzytkownik potwierdzil widoczny obraz na panelu.
 - Poprawiono linker loadera: segment kodu/danych miesci sie w DTCM, StorageInfo jest w osobnym segmencie; usunieto nakladanie segmentow i sztuczny zakres 64 MiB. Zapis i automatyczna weryfikacja obu obszarow przeszly na PCB.
 - Panel: trzy rownolegle galezie po szesc LED (18 sztuk), wspolne A/K. Uzytkownik potwierdzil polaryzacje i poprosil o 60 mA lacznie. Ulotna konfiguracja 60 mA odczytana kontrolnie, status LP8556=0x30; brak bledow. Prad rzeczywisty wymaga pomiaru miernikiem.
-- Widoczny start GUI: POTWIERDZONY przez uzytkownika. Dotyk: NIE POTWIERDZONY; reset obu adresow GT911 bez ACK, skan I2C pokazal 0x2C oraz 0x50. Uzytkownik podlacza dotyk na sztywno. Trwala poprawka 60 mA skompilowana, Generate/Compile Target PASS; wgranie czeka na zakonczenie podlaczania.
-- Logi rzeczywistych prob: `Board/hardware_flash_retry.log`, `Board/graphics_readback.log`, `Board/code_readback.log` (lokalne, ignorowane przez Git).
+- Widoczny start GUI: POTWIERDZONY przez uzytkownika. Dotyk: NIE POTWIERDZONY; reset obu adresow GT911 bez ACK, skan I2C pokazal 0x2C oraz 0x50. Po podlaczeniu nadal brak ACK GT911. Uzytkownik zglosil urwany przewod i wycofal naprawe dotyku z biezacego zakresu. Trwala poprawka 60 mA: Generate/Compile Target PASS, wgrana i zweryfikowana przez -v.
+- Kontrola 2026-10-13 po resecie: LP8556 CURRENT=0xFFF, CURRENT_MAX=30 mA, LED_EN=0x03, jasnosc=0xFF, status=0x30, BoardBacklightReady=1. Nominalnie 60 mA lacznie; rzeczywisty prad nie byl mierzony. LTDC skanuje PSRAM, tick HAL/RTOS rosna, brak faultow CPU. Kod zapisany i zweryfikowany; 3130236 bajtow zasobow HEX nie zmienilo sie. Uzytkownik potwierdzil obraz na panelu.
+- Logi rzeczywistych prob: `Board/backlight60_flash.log`, `Board/hardware_flash_split.log`, `Board/hardware_flash_retry.log`, `Board/graphics_readback.log`, `Board/code_readback.log` (lokalne, ignorowane przez Git).
 
 ## Polaczenie zegara Flash
 
