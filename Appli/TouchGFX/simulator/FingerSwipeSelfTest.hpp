@@ -66,6 +66,7 @@ public:
             if(stage==5)
             {
                 MainSwipeEditorState restored;static_cast<Screen1View*>(app->getCurrentScreen())->saveSwipeEditor(restored);
+                fprintf(log,"Editor before/after: target %u/%u length %u/%u replace %u/%u text %s/%s tailEqual %d\n", editor.target, restored.target, editor.length, restored.length, editor.replace, restored.replace, editor.text, restored.text, !memcmp(restored.text,editor.text,sizeof(editor.text)));fflush(log);
                 check(restored.target==editor.target && restored.length==editor.length && restored.replace==editor.replace && !memcmp(restored.text,editor.text,sizeof(editor.text)),"cancelled drag preserves unfinished editor input");
             }
             fprintf(log,"PASS stage %d\n",stage);fflush(log);

@@ -3,6 +3,7 @@
 
 #include <gui_generated/common/FrontendHeapBase.hpp>
 #include <gui/common/FingerSlideTransition.hpp>
+#include <gui/common/CachedWipeTransition.hpp>
 
 class FrontendHeap : public FrontendHeapBase
 {
@@ -19,7 +20,8 @@ public:
 
     /* List any user-defined transition types here*/
     typedef touchgfx::meta::TypeList< FingerSlideTransition,
-                            touchgfx::meta::Nil
+                            touchgfx::meta::TypeList<CachedWipeTransition<touchgfx::EAST>,
+                            touchgfx::meta::TypeList<CachedWipeTransition<touchgfx::WEST>, touchgfx::meta::Nil> >
                             > UserDefinedTransitionTypes;
 
 

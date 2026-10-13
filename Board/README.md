@@ -47,10 +47,10 @@ Loader sprawdza producenta ISSI i pojemnosc 32 MiB. Uklad o innej pojemnosci nie
 | Flash | IS25LX256, XSPI2 / XSPIM P2, 8 linii, 32 MiB, 3.3 V |
 | Flash CLK | PN6 / J14; potwierdzone zrzutem schematu uzytkownika |
 | PSRAM | APS256XXN-OB9, XSPI1 / XSPIM P1, 16 linii, 32 MiB, 1.8 V |
-| Zegary pamieci | 100 MHz na start, PLL2S=200 MHz i dzielnik 2 |
-| PSRAM latencja | MR0/MR4 LC=5; XSPI dummy clocks 4 (LC-1); zapis MR: 0 dodatkowych dummy clocks |
+| Zegary pamieci | NOR 100 MHz; PSRAM inicjalizacja 100 MHz, praca 200 MHz; PLL2S=200 MHz |
+| PSRAM latencja | MR0 read LC=7 (variable), MR4 write WLC=7; XSPI dummy clocks 6 (LC-1); zapis MR: 0 dodatkowych dummy clocks |
 | PSRAM MR8 | 0x44 z maska 0x47: X16, hybrid wrap 16 slow = 32 bajty |
-| PSRAM granica / refresh | 2 KiB / 300 cykli = 3 us przy 100 MHz; ponizej tCEM=4 us |
+| PSRAM granica / refresh | 2 KiB / 600 cykli = 3 us przy 200 MHz; ponizej tCEM=4 us |
 | Mapa Flash | 0x70000000: 2 MiB kodu; 0x70200000: 30 MiB zasobow |
 | Mapa PSRAM | 0x90000000: 32 MiB |
 | LCD | dotychczasowe timingi, 800x480 RGB888, framebuffer RGB565 |
@@ -116,6 +116,64 @@ the application starts with fresh runtime state after the external loader.
 Rotation approach: ST employee example at
 https://community.st.com/stm32-mcus-touchgfx-and-gui-33/ltdc-rotation-180-degres-156813/index1.html
 
+## Performance (2026-10-13)
+
+The initial 100 MHz memory configuration was a bring-up baseline, not evidence
+of failed operation at a higher clock. CPU remains 600 MHz and GPU2D/NeoChrom
+plus its cache are enabled. NOR remains 100 MHz (the 3.3 V IS25LX part is rated
+to 133 MHz); PSRAM now runs at 200 MHz after checked MR0/MR4 latency writes at
+100 MHz. Boot retains the full-capacity alias/data-line tests and additionally
+checks sequential and reverse pseudo-random data across 64 KiB of physical rows.
+
+Rotation copies the current/previous dirty area union rather than a complete
+frame for every small update, retaining separate double-buffered scanout.
+Finger transitions draw the destination once into a dynamic RGB565 bitmap.
+All Designer wipe routes, including Splash -> Main, use a cached destination
+while preserving their direction and easing. The generated files are unchanged;
+FrontendApplication supplies the same entry-point names with handwritten logic.
+Rounded corner textures use the same masks/colors, generated once and copied
+by the GPU instead of issuing many tiny fill commands every frame. Texture
+storage is stable while GPU commands execute; cache exhaustion falls back to
+the original renderer. Bitmap storage is 2 MiB with 516 metadata slots.
+
+Hardware full-redraw benchmark improved from about 94 ms to 26 ms in the
+tested main view. This is a render-time measurement, not a claim of 60 FPS on
+every screen. The user confirmed both finger settling and the initial post-splash
+wipe are now smooth. CPU fault registers remained zero. SWD profiling/benchmark
+requests default to zero and do not change output or setpoints.
+
+Transitions now pre-rotate outgoing/destination snapshots once, then compose
+their visible regions directly into scanout with GPU blits. Wipes copy the
+complementary old/new regions, avoiding overdraw. Logical buffer cloning is
+skipped only during this direct composition; both logical framebuffers are
+explicitly redrawn afterward, including the zero-delta final easing tick.
+This fixes the observed flashing after release. User confirmed the stable
+idle image. Ten static sample pixels matched both logical buffers and rotated
+scanout after the fix, with zero CFSR/HFSR. During measured motion, fast frame
+render times were ~10.7 ms at ~16.7 ms intervals (60 FPS); preparation and final
+live-view reconstruction still have slower frames. This is not an unconditional
+60 FPS full-redraw guarantee.
+
+Animation/scanout/transition storage has capacity for 1024x600 and uses active
+Designer width/height for pitch, clipping, rotation and touch coordinates.
+Current total EXTRAM use is about 9.7 MiB of 32 MiB. A future 1024x600 panel
+still requires its specified pixel clock/porches/sync and GUI layout; 60 FPS on
+that physical panel remains to be measured. Current 25 MHz / (821*507) scanout
+is ~60.1 Hz. The AliExpress listing did not provide an accessible panel timing
+datasheet, so the vendor's nominal refresh was not independently confirmed.
+Unchanged ASCII status/measurement text and color no longer invalidate their
+widgets at every model tick; changed and UTF-8 text retains the existing update
+path. This avoids unnecessary redraws across the GUI.
+
+CubeProgrammer 2.23 rejected incremental download for this device/loader and
+fell back to legacy programming. Fast verification also provided no speedup in
+the tested external-NOR path. Neither unvalidated mode is retained. At the
+required 1000 kHz SWD, the tested ~500 KiB code download took ~23 s and byte
+verification ~11 s; full Run Target additionally writes/verifies ~3 MiB assets.
+The performance changes themselves kept graphics unchanged. The subsequent UI
+refresh changes texts/fonts and is programmed with both code and graphics verification.
+Boot at PSRAM 200 MHz passed the enlarged memory test and verified programming.
+
 ## Generate / Run Simulator / Run Target
 
 Zachowano polecenia projektu `.touchgfx`; makefile wykonawczy wybiera adaptery z `Board/`.
@@ -144,3 +202,50 @@ a potem start GUI, dotyk oraz zmierzyc prad pojedynczego stringu LED.
 - LP8556, rev. M: https://www.ti.com/lit/ds/symlink/lp8556.pdf
 - STM32H7S7, rev. 7: https://www.st.com/resource/en/datasheet/stm32h7s7i8.pdf
 - Middleware loadera ST: STM32Cube_FW_H7RS_V1.3.0 / STM32_ExtMem_Loader, zachowana licencja ST.
+
+## Blue theme, grouped menu and sound controls (2026-10-13)
+
+Boot theme is Dark / Blue. Menu columns group Control & automation, Power & USB-C,
+and Device & service. USB-C retains independent negotiated limits and actual ADC
+readings, adds input-contract utilization, and input session energy/duration/peak.
+Session integration uses distinct valid TC input ADC samples, trapezoidal integration,
+and skips stale/invalid gaps; fresh detach/reconnect starts a new session. SOURCE
+current remains unavailable because BQ input ADC does not measure outgoing current.
+The session continues when the USB page is not visible.
+
+Presenter activation can write legacy light-theme colors after setupScreen. Both
+cached transitions now synchronize theme colors before capturing the destination,
+so main measurements and the OUTPUT action label are visible during the reveal.
+Cached wipe duration is 30 ticks (~0.5 s at 60 Hz); finger settling is 20 ticks
+(~0.33 s). Finger tracking remains one pixel per pixel.
+
+Appearance has Sound on/mute, volume 0..100, tone 4/2/1 kHz, feedback selection
+(touch + controls, touch only, controls only), and a 350 ms test. Default volume
+16 maps to the original 8% duty at 4 kHz; maximum volume is 50% duty. Volume is a
+relative PWM control, not calibrated acoustic dB. Target requests are
+queued through a bounded IRQ critical section (no LDREX in shareable AXI SRAM) to the 1 ms panel task; no GUI delay. Test is bounded to 500 ms by firmware,
+and mute stops an active tone. Rotation feedback cannot truncate the longer test.
+Sound settings survive page navigation in this boot, but are not saved to NOR;
+startup always returns to the blue theme and quiet sound defaults. The simulator
+exercises the same GUI settings/callbacks without an electrical piezo output.
+
+Linker allocation after UI refresh: AXI main 242176/442368 B (54.75%), GPU command
+pool 24360/24576 B (99.12%, fixed reservation), RTOS DTCM 50000/53248 B (93.90%),
+DTCM heap/stack reservation 8192/12288 B (66.67%), PSRAM 9928 KiB/32 MiB (30.30%).
+NOR application 518340 B and graphics/text/fonts 3130528 B: total 3.48 MiB/32 MiB
+(10.87%). These are linker allocations, not measured runtime CPU/heap utilization.
+Host tests cover USB energy sample identity/gaps/reconnect/timer wrap; simulator
+covers 32 theme/navigation/sound stages, finger routes/cancellation/editor, USB ADC
+validity/SOURCE behavior, battery gauge sign/range and charger session STOP.
+
+Final target validation: Generate and target/simulator builds succeeded, all host
+and simulator cases passed. Run Target verified Boot, code and graphics separately.
+The new buzzer mailbox initially faulted on LDREX in shareable AXI SRAM; this was
+replaced by the bounded IRQ critical section and the corrected code was reprogrammed
+with verification. All asset bytes compare identical to the fully programmed image.
+AP0 read-only diagnostics and the bounded firmware tone request confirm PA5 AF1,
+TIM2 CH1 enabled, PSC=299, ARR=249, requested duty=20, automatic return to zero,
+and CFSR/HFSR=0. After restart 10 static points agree in both logical buffers and
+rotated scanout. AP1 Under Reset / Hardware reset / 1000 kHz is retained for all
+programming; AP0 is only used for runtime diagnostic access. Audible confirmation
+requires the user's observation, not a register read.

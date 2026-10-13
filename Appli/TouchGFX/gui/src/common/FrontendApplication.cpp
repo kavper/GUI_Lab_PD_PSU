@@ -1,4 +1,5 @@
 #include <gui/common/UiTheme.hpp>
+#include <gui/common/UiSound.hpp>
 #include <gui/common/FrontendApplication.hpp>
 #include <gui/common/FrontendHeap.hpp>
 #include <gui/common/FingerSlideTransition.hpp>
@@ -13,12 +14,20 @@
 #include <stdlib.h>
 #ifndef SIMULATOR
 #include "board_panel.h"
+#include <gui/common/DisplayComposition.hpp>
+extern "C" volatile uint32_t BoardGraphicsBenchmark;
+extern "C" volatile uint32_t BoardGraphicsSwipeBenchmark;
+extern "C" volatile uint32_t BoardGraphicsMotion;
 #endif
 
 FrontendApplication::FrontendApplication(Model& m, FrontendHeap& heap)
     : FrontendApplicationBase(m,heap), page(OTHER),origin(OTHER),destination(OTHER),
       startX(0),startY(0),armed(false),rollbackQueued(false),usbNoticeTicks(0)
 {
+#ifdef SIMULATOR
+    static uint32_t bitmapCache[2 * 1024 * 1024 / 4];
+    touchgfx::Bitmap::setCache(reinterpret_cast<uint16_t*>(bitmapCache), sizeof(bitmapCache), 516);
+#endif
     usbNotice[0]=0;
     touchgfx::HAL::getInstance()->setFrameRateCompensation(true);
 }
@@ -28,6 +37,19 @@ void FrontendApplication::handleTickEvent()
     swipe.tick();
     FrontendApplicationBase::handleTickEvent();
 #ifndef SIMULATOR
+    BoardGraphicsMotion = isScreenTransitionActive() ? 1 : 0;
+    // Opt-in SWD benchmark; default zero, never changes output/setpoints.
+    if (BoardGraphicsSwipeBenchmark && !boardDisplayComposition.resumeFrames && !isScreenTransitionActive() && !pendingScreenTransitionCallback &&
+        (page == MAIN || page == SETTINGS)) {
+        --BoardGraphicsSwipeBenchmark;
+        origin = page; destination = page == MAIN ? SETTINGS : MAIN;
+        saveOriginState(); rollbackQueued = false;
+        swipe.begin(page == MAIN ? 1 : -1, page == MAIN ? touchgfx::HAL::DISPLAY_WIDTH*2/5 : -touchgfx::HAL::DISPLAY_WIDTH*2/5, touchgfx::HAL::DISPLAY_WIDTH);
+        swipe.release();
+        fingerTransitionCallback = touchgfx::Callback<FrontendApplication>(this, &FrontendApplication::beginFingerTransition);
+        pendingScreenTransitionCallback = &fingerTransitionCallback;
+    }
+    if (BoardGraphicsBenchmark || boardDisplayComposition.resumeFrames) invalidateArea(touchgfx::Rect(0, 0, touchgfx::HAL::DISPLAY_WIDTH, touchgfx::HAL::DISPLAY_HEIGHT));
     BoardPanelEvent panel;
     while (BoardPanel_Take(&panel)) {
         if (page != MAIN || isScreenTransitionActive() || pendingScreenTransitionCallback) continue;
@@ -70,8 +92,10 @@ void FrontendApplication::handleClickEvent(const touchgfx::ClickEvent& event)
     }
     if(event.getType()==touchgfx::ClickEvent::PRESSED)
     {
+        if (!isScreenTransitionActive() && !pendingScreenTransitionCallback) ui::Sound::touch();
         armed=page!=OTHER && !isScreenTransitionActive() && !pendingScreenTransitionCallback;
         startX=event.getX(); startY=event.getY();
+        if (armed && page == MAIN) static_cast<Screen1View*>(currentScreen)->saveSwipeEditor(editorState);
     }
     FrontendApplicationBase::handleClickEvent(event);
     if(event.getType()!=touchgfx::ClickEvent::PRESSED) armed=false;
@@ -88,7 +112,7 @@ void FrontendApplication::handleDragEvent(const touchgfx::DragEvent& event)
         FrontendApplicationBase::handleClickEvent(touchgfx::ClickEvent(touchgfx::ClickEvent::CANCEL,startX,startY));
         origin=page;
         destination=page==MAIN ? (direction>0?SETTINGS:USB_PD) : MAIN;
-        saveOriginState();
+        if (origin != MAIN) saveOriginState();
         rollbackQueued=false;
         swipe.begin(direction,dx,touchgfx::HAL::DISPLAY_WIDTH);
         fingerTransitionCallback=touchgfx::Callback<FrontendApplication>(this,&FrontendApplication::beginFingerTransition);

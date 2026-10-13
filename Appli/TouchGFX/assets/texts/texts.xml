@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.26.1">
   <Languages>
     <Language Id="GB" />
@@ -1263,7 +1263,7 @@
         <Translation Language="GB">Rail regulation</Translation>
       </Text>
       <Text Id="TXT_ACTION_refreshTelemetry" Alignment="Center" TypographyId="Button">
-        <Translation Language="GB">REFRESH</Translation>
+        <Translation Language="GB">Refresh</Translation>
       </Text>
       <Text Id="TXT_NEW_ScreenBattery" Alignment="Left" TypographyId="Title">
         <Translation Language="GB">Battery pack</Translation>
@@ -1560,13 +1560,15 @@
         <Translation Language="GB">CH 5</Translation>
       </Text>
       <Text Id="TXT_BATTERY_FUTURE" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">SOC --    Remaining capacity --    Temperature --&#10;Balancing -- / awaiting BMS telemetry support</Translation>
+        <Translation Language="GB">SOC --    Remaining capacity --    Temperature --
+Balancing -- / awaiting BMS telemetry support</Translation>
       </Text>
       <Text Id="TXT_PD_CAPABILITY" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">PDO list / selected index / PPS range: not reported by G4&#10;Role buttons request a change; the contract above is confirmed telemetry.</Translation>
+        <Translation Language="GB">PDO list / selected index / PPS range: not reported by G4
+Role buttons request a change; the contract above is confirmed telemetry.</Translation>
       </Text>
       <Text Id="TXT_PRESET_BLANK" Alignment="Center" TypographyId="Button">
-        <Translation Language="GB"></Translation>
+        <Translation Language="GB" />
       </Text>
       <Text Id="TXT_QUICK_PRESET" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">&lt;value&gt;</Translation>
@@ -1725,19 +1727,20 @@
         <Translation Language="GB">Appearance</Translation>
       </Text>
       <Text Id="TXT_APPEARANCE_DESC" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">Theme and accent colors</Translation>
+        <Translation Language="GB">Theme, volume and feedback</Translation>
       </Text>
       <Text Id="TXT_APPEARANCE_NOTE" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">Applies to all screens. Restart restores Dark / Amber.</Translation>
+        <Translation Language="GB">Dark / Blue at startup. Sound settings apply immediately.</Translation>
       </Text>
       <Text Id="TXT_APPEARANCE_MODE_DETAIL" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">Choose a light or dark&#10;interface.</Translation>
+        <Translation Language="GB">Choose a light or dark
+interface.</Translation>
       </Text>
       <Text Id="TXT_USB_CONTRACT" Alignment="Left" TypographyId="UiEyebrow">
-        <Translation Language="GB">ACTIVE CONTRACT</Translation>
+        <Translation Language="GB">NEGOTIATED LIMITS</Translation>
       </Text>
       <Text Id="TXT_USB_MEASURED" Alignment="Left" TypographyId="UiEyebrow">
-        <Translation Language="GB">USB-C / MEASURED</Translation>
+        <Translation Language="GB">LIVE USB-C MEASUREMENT</Translation>
       </Text>
       <Text Id="TXT_USB_VOLTAGE" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">Voltage</Translation>
@@ -1749,7 +1752,7 @@
         <Translation Language="GB">Power</Translation>
       </Text>
       <Text Id="TXT_USB_BATTERY" Alignment="Left" TypographyId="UiEyebrow">
-        <Translation Language="GB">BATTERY / BMS POWER</Translation>
+        <Translation Language="GB">BATTERY POWER FLOW</Translation>
       </Text>
       <Text Id="TXT_USB_READING" Alignment="Right" TypographyId="UsbReading">
         <Translation Language="GB">&lt;value&gt;</Translation>
@@ -1805,6 +1808,45 @@
       <Text Id="TXT_SESSION_LIVE" Alignment="Left" TypographyId="TelemetryMetric">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
+      <Text Id="TXT_SOUND_HEADING" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">SOUND &amp; FEEDBACK</Translation>
+      </Text>
+      <Text Id="TXT_SOUND_STATUS" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_SOUNDMUTEBUTTON" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">Sound</Translation>
+      </Text>
+      <Text Id="TXT_SOUNDDOWNBUTTON" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">-</Translation>
+      </Text>
+      <Text Id="TXT_SOUNDUPBUTTON" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">+</Translation>
+      </Text>
+      <Text Id="TXT_SOUNDTESTBUTTON" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">Test</Translation>
+      </Text>
+      <Text Id="TXT_SOUNDTONEBUTTON" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">Tone</Translation>
+      </Text>
+      <Text Id="TXT_SOUNDFEEDBACKBUTTON" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">Feedback</Translation>
+      </Text>
+      <Text Id="TXT_CONTROLGROUP" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CONTROL &amp; AUTOMATION</Translation>
+      </Text>
+      <Text Id="TXT_POWERGROUP" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">POWER &amp; USB-C</Translation>
+      </Text>
+      <Text Id="TXT_DEVICEGROUP" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">DEVICE &amp; SERVICE</Translation>
+      </Text>
+      <Text Id="TXT_USB_LOAD_DETAIL" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_USB_SESSION_SUMMARY" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
     </TextGroup>
     <TextGroup Id="MainRemoteSense">
       <Text Id="TXT_SENSE_PRESET" Alignment="Center" TypographyId="Small">
@@ -1843,13 +1885,13 @@
   <Typographies>
     <Typography Id="Title" Font="IBMPlexSans-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="Label" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Small" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="Small" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
     <Typography Id="Value" Font="IBMPlexMono-Medium.ttf" Size="60" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ-|" WildcardCharacterRanges="0-9" />
     <Typography Id="SetValue" Font="IBMPlexMono-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" WildcardCharacterRanges="0-9" />
     <Typography Id="LimitHint" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="HeaderLabel" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="HeaderValue" Font="IBMPlexMono-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()%_&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
-    <Typography Id="Button" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="HeaderValue" Font="IBMPlexMono-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()%_&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="Button" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
     <Typography Id="Output" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZ .-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
     <Typography Id="Input" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=".ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" WildcardCharacterRanges="0-9" />
     <Typography Id="Key" Font="IBMPlexSans-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
@@ -1860,20 +1902,20 @@
     <Typography Id="MenuHint" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="SplashMeta" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
     <Typography Id="SplashStatus" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Dynamic" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
-    <Typography Id="LabHero" Font="IBMPlexMono-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="Dynamic" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="LabHero" Font="IBMPlexMono-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
     <Typography Id="Readout" Font="IBMPlexMono-Regular.ttf" Size="48" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". -VAWC|" WildcardCharacterRanges="0-9" />
     <Typography Id="LabRead" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". -VAWC|" WildcardCharacterRanges="0-9" />
     <Typography Id="LabBig" Font="IBMPlexMono-Regular.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. VAmWCRANGEs/-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
-    <Typography Id="LabState" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
-    <Typography Id="LabMid" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="LabState" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="LabMid" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
     <Typography Id="LabTile" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="UiCaption" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
-    <Typography Id="UiEyebrow" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
-    <Typography Id="UiDiagnostic" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
-    <Typography Id="UiState" Font="IBMPlexSans-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
-    <Typography Id="TelemetryMetric" Font="IBMPlexMono-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
-    <Typography Id="TelemetryDetails" Font="IBMPlexMono-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
+    <Typography Id="UiCaption" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#10;|" />
+    <Typography Id="UiEyebrow" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#10;|" />
+    <Typography Id="UiDiagnostic" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#10;|" />
+    <Typography Id="UiState" Font="IBMPlexSans-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#10;|" />
+    <Typography Id="TelemetryMetric" Font="IBMPlexMono-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#10;|" />
+    <Typography Id="TelemetryDetails" Font="IBMPlexMono-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#10;|" />
     <Typography Id="UsbReading" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. -VAW+" />
     <Typography Id="UsbPower" Font="IBMPlexMono-Regular.ttf" Size="40" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. -W+" />
   </Typographies>

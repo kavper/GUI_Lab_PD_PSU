@@ -1762,7 +1762,7 @@
             "Type": "Button",
             "Name": "PresetManagerButton",
             "X": 16,
-            "Y": 80,
+            "Y": 106,
             "Width": 248,
             "Height": 112,
             "Pressed": "ux_tile_sel_248x112.png",
@@ -1772,7 +1772,7 @@
             "Type": "Image",
             "Name": "Icon0",
             "X": 32,
-            "Y": 94,
+            "Y": 120,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_presets_40.png"
@@ -1781,7 +1781,7 @@
             "Type": "TextArea",
             "Name": "Title0",
             "X": 84,
-            "Y": 98,
+            "Y": 124,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV0",
@@ -1796,7 +1796,7 @@
             "Type": "TextArea",
             "Name": "Desc0",
             "X": 32,
-            "Y": 150,
+            "Y": 176,
             "Width": 220,
             "Height": 30,
             "TextId": "TXT_UX_DESC0",
@@ -1810,8 +1810,8 @@
           {
             "Type": "Button",
             "Name": "SequencerButton",
-            "X": 276,
-            "Y": 80,
+            "X": 16,
+            "Y": 230,
             "Width": 248,
             "Height": 112,
             "Pressed": "ux_tile_sel_248x112.png",
@@ -1820,8 +1820,8 @@
           {
             "Type": "Image",
             "Name": "Icon1",
-            "X": 292,
-            "Y": 94,
+            "X": 32,
+            "Y": 244,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_seq_40.png"
@@ -1829,8 +1829,8 @@
           {
             "Type": "TextArea",
             "Name": "Title1",
-            "X": 344,
-            "Y": 98,
+            "X": 84,
+            "Y": 248,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV1",
@@ -1844,8 +1844,8 @@
           {
             "Type": "TextArea",
             "Name": "Desc1",
-            "X": 292,
-            "Y": 150,
+            "X": 32,
+            "Y": 300,
             "Width": 220,
             "Height": 30,
             "TextId": "TXT_UX_DESC1",
@@ -1859,8 +1859,8 @@
           {
             "Type": "Button",
             "Name": "ChargerButton",
-            "X": 536,
-            "Y": 80,
+            "X": 276,
+            "Y": 354,
             "Width": 248,
             "Height": 112,
             "Pressed": "ux_tile_sel_248x112.png",
@@ -1869,8 +1869,8 @@
           {
             "Type": "Image",
             "Name": "Icon2",
-            "X": 552,
-            "Y": 94,
+            "X": 292,
+            "Y": 368,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_chg_40.png"
@@ -1878,8 +1878,8 @@
           {
             "Type": "TextArea",
             "Name": "Title2",
-            "X": 604,
-            "Y": 98,
+            "X": 344,
+            "Y": 372,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV2",
@@ -1893,8 +1893,8 @@
           {
             "Type": "TextArea",
             "Name": "Desc2",
-            "X": 552,
-            "Y": 150,
+            "X": 292,
+            "Y": 424,
             "Width": 220,
             "Height": 30,
             "TextId": "TXT_UX_DESC2",
@@ -1908,8 +1908,8 @@
           {
             "Type": "Button",
             "Name": "PackButton",
-            "X": 16,
-            "Y": 212,
+            "X": 276,
+            "Y": 230,
             "Width": 248,
             "Height": 112,
             "Pressed": "ux_tile_sel_248x112.png",
@@ -1918,8 +1918,8 @@
           {
             "Type": "Image",
             "Name": "Icon3",
-            "X": 32,
-            "Y": 226,
+            "X": 292,
+            "Y": 244,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_pack_40.png"
@@ -1927,8 +1927,8 @@
           {
             "Type": "TextArea",
             "Name": "Title3",
-            "X": 84,
-            "Y": 230,
+            "X": 344,
+            "Y": 248,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV3",
@@ -1942,8 +1942,8 @@
           {
             "Type": "TextArea",
             "Name": "Desc3",
-            "X": 32,
-            "Y": 282,
+            "X": 292,
+            "Y": 300,
             "Width": 220,
             "Height": 30,
             "TextId": "TXT_UX_DESC3",
@@ -1958,7 +1958,7 @@
             "Type": "Button",
             "Name": "UsbButton",
             "X": 276,
-            "Y": 212,
+            "Y": 106,
             "Width": 248,
             "Height": 112,
             "Pressed": "ux_tile_sel_248x112.png",
@@ -1968,7 +1968,7 @@
             "Type": "Image",
             "Name": "Icon4",
             "X": 292,
-            "Y": 226,
+            "Y": 120,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_usb_40.png"
@@ -1977,7 +1977,7 @@
             "Type": "TextArea",
             "Name": "Title4",
             "X": 344,
-            "Y": 230,
+            "Y": 124,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV4",
@@ -1992,7 +1992,7 @@
             "Type": "TextArea",
             "Name": "Desc4",
             "X": 292,
-            "Y": 282,
+            "Y": 176,
             "Width": 220,
             "Height": 30,
             "TextId": "TXT_UX_DESC4",
@@ -2007,7 +2007,7 @@
             "Type": "Button",
             "Name": "DiagnosticsButton",
             "X": 536,
-            "Y": 212,
+            "Y": 354,
             "Width": 248,
             "Height": 112,
             "Pressed": "ux_tile_sel_248x112.png",
@@ -2017,7 +2017,7 @@
             "Type": "Image",
             "Name": "Icon5",
             "X": 552,
-            "Y": 226,
+            "Y": 368,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_diag_40.png"
@@ -2026,7 +2026,7 @@
             "Type": "TextArea",
             "Name": "Title5",
             "X": 604,
-            "Y": 230,
+            "Y": 372,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV5",
@@ -2041,7 +2041,7 @@
             "Type": "TextArea",
             "Name": "Desc5",
             "X": 552,
-            "Y": 282,
+            "Y": 424,
             "Width": 220,
             "Height": 30,
             "TextId": "TXT_UX_DESC5",
@@ -2055,8 +2055,8 @@
           {
             "Type": "Button",
             "Name": "SystemButton",
-            "X": 16,
-            "Y": 344,
+            "X": 536,
+            "Y": 106,
             "Width": 248,
             "Height": 112,
             "Pressed": "ux_tile_sel_248x112.png",
@@ -2065,8 +2065,8 @@
           {
             "Type": "Image",
             "Name": "Icon6",
-            "X": 32,
-            "Y": 358,
+            "X": 552,
+            "Y": 120,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_net_40.png"
@@ -2074,8 +2074,8 @@
           {
             "Type": "TextArea",
             "Name": "Title6",
-            "X": 84,
-            "Y": 362,
+            "X": 604,
+            "Y": 124,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV6",
@@ -2089,8 +2089,8 @@
           {
             "Type": "TextArea",
             "Name": "Desc6",
-            "X": 32,
-            "Y": 414,
+            "X": 552,
+            "Y": 176,
             "Width": 220,
             "Height": 30,
             "TextId": "TXT_UX_DESC6",
@@ -2104,8 +2104,8 @@
           {
             "Type": "Button",
             "Name": "AppearanceButton",
-            "X": 276,
-            "Y": 344,
+            "X": 536,
+            "Y": 230,
             "Width": 248,
             "Height": 112,
             "Pressed": "ux_tile_sel_248x112.png",
@@ -2114,8 +2114,8 @@
           {
             "Type": "Image",
             "Name": "AppearanceIcon",
-            "X": 292,
-            "Y": 358,
+            "X": 552,
+            "Y": 244,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_appearance_40.png"
@@ -2123,8 +2123,8 @@
           {
             "Type": "TextArea",
             "Name": "AppearanceTitle",
-            "X": 344,
-            "Y": 362,
+            "X": 604,
+            "Y": 248,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_APPEARANCE_TITLE",
@@ -2138,8 +2138,8 @@
           {
             "Type": "TextArea",
             "Name": "AppearanceDesc",
-            "X": 292,
-            "Y": 414,
+            "X": 552,
+            "Y": 300,
             "Width": 220,
             "Height": 30,
             "TextId": "TXT_APPEARANCE_DESC",
@@ -2148,6 +2148,51 @@
               "Red": 167,
               "Green": 182,
               "Blue": 203
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ControlGroup",
+            "X": 24,
+            "Y": 76,
+            "Width": 240,
+            "Height": 24,
+            "TextId": "TXT_CONTROLGROUP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PowerGroup",
+            "X": 284,
+            "Y": 76,
+            "Width": 240,
+            "Height": 24,
+            "TextId": "TXT_POWERGROUP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "DeviceGroup",
+            "X": 544,
+            "Y": 76,
+            "Width": 240,
+            "Height": 24,
+            "TextId": "TXT_DEVICEGROUP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           }
         ],
@@ -8498,7 +8543,7 @@
             "X": 16,
             "Y": 80,
             "Width": 376,
-            "Height": 160,
+            "Height": 192,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -8511,7 +8556,7 @@
             "X": 408,
             "Y": 80,
             "Width": 376,
-            "Height": 160,
+            "Height": 192,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -8522,9 +8567,9 @@
             "Type": "Box",
             "Name": "BatteryCard",
             "X": 16,
-            "Y": 252,
+            "Y": 284,
             "Width": 768,
-            "Height": 152,
+            "Height": 120,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -8795,7 +8840,7 @@
             "Type": "TextArea",
             "Name": "BatteryHeading",
             "X": 32,
-            "Y": 264,
+            "Y": 292,
             "Width": 230,
             "Height": 24,
             "TextId": "TXT_USB_BATTERY",
@@ -8809,10 +8854,10 @@
           {
             "Type": "TextArea",
             "Name": "BatteryDetail",
-            "X": 440,
-            "Y": 267,
-            "Width": 328,
-            "Height": 22,
+            "X": 300,
+            "Y": 289,
+            "Width": 468,
+            "Height": 20,
             "TextId": "TXT_USB_DETAIL",
             "TextRotation": "0",
             "Color": {
@@ -8830,9 +8875,9 @@
             "Type": "TextArea",
             "Name": "BatteryPower",
             "X": 272,
-            "Y": 288,
+            "Y": 308,
             "Width": 256,
-            "Height": 52,
+            "Height": 44,
             "TextId": "TXT_USB_POWER_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -8850,7 +8895,7 @@
             "Type": "Box",
             "Name": "GaugeDischarge",
             "X": 56,
-            "Y": 340,
+            "Y": 354,
             "Width": 344,
             "Height": 8,
             "Color": {
@@ -8864,7 +8909,7 @@
             "Type": "Box",
             "Name": "GaugeCharge",
             "X": 400,
-            "Y": 340,
+            "Y": 354,
             "Width": 344,
             "Height": 8,
             "Color": {
@@ -8878,7 +8923,7 @@
             "Type": "Box",
             "Name": "GaugeZero",
             "X": 399,
-            "Y": 334,
+            "Y": 348,
             "Width": 2,
             "Height": 20,
             "Color": {
@@ -8891,7 +8936,7 @@
             "Type": "Box",
             "Name": "GaugeFill",
             "X": 400,
-            "Y": 337,
+            "Y": 351,
             "Width": 1,
             "Height": 14,
             "Color": {
@@ -8904,7 +8949,7 @@
             "Type": "Box",
             "Name": "GaugeNeedle",
             "X": 398,
-            "Y": 330,
+            "Y": 344,
             "Width": 4,
             "Height": 28,
             "Color": {
@@ -8917,7 +8962,7 @@
             "Type": "TextArea",
             "Name": "DischargeLabel",
             "X": 56,
-            "Y": 362,
+            "Y": 378,
             "Width": 230,
             "Height": 22,
             "TextId": "TXT_USB_DISCHARGE",
@@ -8937,7 +8982,7 @@
             "Type": "TextArea",
             "Name": "ZeroLabel",
             "X": 380,
-            "Y": 362,
+            "Y": 378,
             "Width": 40,
             "Height": 22,
             "TextId": "TXT_USB_ZERO",
@@ -8952,7 +8997,7 @@
             "Type": "TextArea",
             "Name": "ChargeLabel",
             "X": 530,
-            "Y": 362,
+            "Y": 378,
             "Width": 214,
             "Height": 22,
             "TextId": "TXT_USB_CHARGE",
@@ -8972,7 +9017,7 @@
             "Type": "TextArea",
             "Name": "GaugeRangeLabel",
             "X": 568,
-            "Y": 301,
+            "Y": 322,
             "Width": 176,
             "Height": 22,
             "TextId": "TXT_USB_DETAIL",
@@ -8992,7 +9037,7 @@
             "Type": "Box",
             "Name": "GaugeNegTick",
             "X": 227,
-            "Y": 354,
+            "Y": 368,
             "Width": 2,
             "Height": 4,
             "Color": {
@@ -9005,7 +9050,7 @@
             "Type": "Box",
             "Name": "GaugePosTick",
             "X": 571,
-            "Y": 354,
+            "Y": 368,
             "Width": 2,
             "Height": 4,
             "Color": {
@@ -9101,6 +9146,72 @@
               "Blue": 55
             },
             "TextRotation": "0"
+          },
+          {
+            "Type": "Box",
+            "Name": "ContractLoadTrack",
+            "X": 32,
+            "Y": 254,
+            "Width": 344,
+            "Height": 4,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ContractLoadFill",
+            "X": 32,
+            "Y": 254,
+            "Width": 1,
+            "Height": 4,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ContractDetail",
+            "X": 32,
+            "Y": 235,
+            "Width": 344,
+            "Height": 20,
+            "TextId": "TXT_USB_LOAD_DETAIL",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "SessionSummary",
+            "X": 424,
+            "Y": 237,
+            "Width": 344,
+            "Height": 30,
+            "TextId": "TXT_USB_SESSION_SUMMARY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
           }
         ],
         "Interactions": [
@@ -12240,9 +12351,9 @@
             "Type": "Box",
             "Name": "ThemePanel",
             "X": 16,
-            "Y": 92,
+            "Y": 80,
             "Width": 768,
-            "Height": 126,
+            "Height": 104,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -12253,9 +12364,9 @@
             "Type": "Box",
             "Name": "AccentPanel",
             "X": 16,
-            "Y": 248,
+            "Y": 196,
             "Width": 768,
-            "Height": 126,
+            "Height": 104,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -12266,7 +12377,7 @@
             "Type": "TextArea",
             "Name": "ThemeHeading",
             "X": 32,
-            "Y": 110,
+            "Y": 92,
             "Width": 240,
             "Height": 28,
             "TextId": "TXT_THEME_HEADING",
@@ -12281,7 +12392,7 @@
             "Type": "TextArea",
             "Name": "AccentHeading",
             "X": 32,
-            "Y": 266,
+            "Y": 212,
             "Width": 240,
             "Height": 24,
             "TextId": "TXT_ACCENT_HEADING",
@@ -12296,7 +12407,7 @@
             "Type": "ButtonWithLabel",
             "Name": "LightThemeButton",
             "X": 300,
-            "Y": 122,
+            "Y": 108,
             "Width": 88,
             "Height": 48,
             "Pressed": "ux_action_sel_88x48.png",
@@ -12318,7 +12429,7 @@
             "Type": "ButtonWithLabel",
             "Name": "DarkThemeButton",
             "X": 396,
-            "Y": 122,
+            "Y": 108,
             "Width": 88,
             "Height": 48,
             "Pressed": "ux_action_sel_88x48.png",
@@ -12340,7 +12451,7 @@
             "Type": "ButtonWithLabel",
             "Name": "AccentBlueButton",
             "X": 300,
-            "Y": 294,
+            "Y": 224,
             "Width": 88,
             "Height": 48,
             "Pressed": "ux_action_sel_88x48.png",
@@ -12362,7 +12473,7 @@
             "Type": "ButtonWithLabel",
             "Name": "AccentTealButton",
             "X": 396,
-            "Y": 294,
+            "Y": 224,
             "Width": 88,
             "Height": 48,
             "Pressed": "ux_action_sel_88x48.png",
@@ -12384,7 +12495,7 @@
             "Type": "ButtonWithLabel",
             "Name": "AccentVioletButton",
             "X": 492,
-            "Y": 294,
+            "Y": 224,
             "Width": 88,
             "Height": 48,
             "Pressed": "ux_action_sel_88x48.png",
@@ -12406,7 +12517,7 @@
             "Type": "ButtonWithLabel",
             "Name": "AccentAmberButton",
             "X": 588,
-            "Y": 294,
+            "Y": 224,
             "Width": 88,
             "Height": 48,
             "Pressed": "ux_action_sel_88x48.png",
@@ -12428,9 +12539,9 @@
             "Type": "TextArea",
             "Name": "ThemeHint",
             "X": 32,
-            "Y": 390,
+            "Y": 448,
             "Width": 728,
-            "Height": 28,
+            "Height": 22,
             "TextId": "TXT_APPEARANCE_NOTE",
             "TextRotation": "0",
             "Color": {
@@ -12443,7 +12554,7 @@
             "Type": "TextArea",
             "Name": "ThemeDetail",
             "X": 32,
-            "Y": 158,
+            "Y": 126,
             "Width": 240,
             "Height": 44,
             "TextId": "TXT_APPEARANCE_MODE_DETAIL",
@@ -12453,6 +12564,186 @@
               "Green": 182,
               "Blue": 203
             }
+          },
+          {
+            "Type": "Box",
+            "Name": "SoundPanel",
+            "X": 16,
+            "Y": 312,
+            "Width": 768,
+            "Height": 124,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "SoundHeading",
+            "X": 32,
+            "Y": 324,
+            "Width": 244,
+            "Height": 24,
+            "TextId": "TXT_SOUND_HEADING",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "SoundStatus",
+            "X": 32,
+            "Y": 356,
+            "Width": 252,
+            "Height": 58,
+            "TextId": "TXT_SOUND_STATUS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SoundMuteButton",
+            "X": 300,
+            "Y": 336,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_SOUNDMUTEBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SoundDownButton",
+            "X": 396,
+            "Y": 336,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_SOUNDDOWNBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SoundUpButton",
+            "X": 492,
+            "Y": 336,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_SOUNDUPBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SoundTestButton",
+            "X": 588,
+            "Y": 336,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_SOUNDTESTBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SoundToneButton",
+            "X": 300,
+            "Y": 392,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_SOUNDTONEBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "SoundFeedbackButton",
+            "X": 396,
+            "Y": 392,
+            "Width": 88,
+            "Height": 48,
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
+            "TextId": "TXT_SOUNDFEEDBACKBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -12544,6 +12835,72 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "toggleSound",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SoundMuteButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "toggleSound"
+            }
+          },
+          {
+            "InteractionName": "soundDown",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SoundDownButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "soundDown"
+            }
+          },
+          {
+            "InteractionName": "soundUp",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SoundUpButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "soundUp"
+            }
+          },
+          {
+            "InteractionName": "testSound",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SoundTestButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "testSound"
+            }
+          },
+          {
+            "InteractionName": "cycleTone",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SoundToneButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "cycleTone"
+            }
+          },
+          {
+            "InteractionName": "cycleFeedback",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "SoundFeedbackButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "cycleFeedback"
             }
           }
         ]

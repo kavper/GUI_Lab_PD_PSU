@@ -13,6 +13,12 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void allOff();
+    virtual void toggleSound();
+    virtual void soundDown();
+    virtual void soundUp();
+    virtual void testSound();
+    virtual void cycleTone();
+    virtual void cycleFeedback();
     virtual void setLightTheme();
     virtual void setDarkTheme();
     virtual void setBlueAccent();

@@ -3,6 +3,7 @@
 #include <gui/common/LabText.hpp>
 #include <gui/common/FrontendApplication.hpp>
 #include <gui/common/TelemetryData.hpp>
+#include <gui/common/UsbSession.hpp>
 ScreenUsbPdView::ScreenUsbPdView() : gaugePosition(0), gaugeTarget(0), gaugeValid(false), divider(0), noticeTicks(0) {notice[0]=0;}
 void ScreenUsbPdView::setupScreen() {ScreenUsbPdViewBase::setupScreen(); static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->setSwipePage(FrontendApplication::USB_PD); refresh();
     setupTheme();
@@ -22,6 +23,7 @@ void ScreenUsbPdView::refresh() {
     // Contract limits and ADC measurements are separate physical quantities.
     int64_t role=0, voltage=0, current=0;
     const bool attached=usb.is("plug",1) && usb.get("pd_role",role) && (role==1||role==2);
+    lab_show(Metric3,Metric3Buffer,METRIC3_SIZE,!usb.fresh?"OFFLINE":!attached?"DETACHED":role==1?"SINK":"SOURCE",attached?ui::Theme::color(ui::ACCENT):lab_muted());
     if(!attached) {
         lab_show(Metric0,Metric0Buffer,METRIC0_SIZE,"--",lab_muted());
         lab_show(Metric1,Metric1Buffer,METRIC1_SIZE,"--",lab_muted());
@@ -41,6 +43,22 @@ void ScreenUsbPdView::refresh() {
     lab_show(Measured0,Measured0Buffer,MEASURED0_SIZE,measuredVoltage,lab_text());
     lab_show(Measured1,Measured1Buffer,MEASURED1_SIZE,measuredCurrent,inputValid?lab_text():lab_muted());
     lab_show(Measured2,Measured2Buffer,MEASURED2_SIZE,measuredPower,inputValid?lab_text():lab_muted());
+    char load[100];int64_t limitMv=0,limitMa=0;unsigned percent=0;
+    const bool loadValid=inputValid&&usb.get("bq_vbus_mv",voltage)&&voltage>=0&&voltage<=100000&&
+        usb.get("pd_mv",limitMv)&&usb.get("pd_ma",limitMa)&&limitMv>0&&limitMa>0&&limitMv<=100000&&limitMa<=10000;
+    if(loadValid){percent=(unsigned)((voltage*current)*100/(limitMv*limitMa));snprintf(load,sizeof(load),"Contract utilization: %u%%",percent);}
+    else snprintf(load,sizeof(load),"%s",!attached?"Connect a USB-C device":role==2?"Outgoing current: sensor unavailable":"Waiting for valid input ADC");
+    lab_show(ContractDetail,ContractDetailBuffer,CONTRACTDETAIL_SIZE,load,lab_muted());
+    const int fill=loadValid?(percent>100?344:percent*344/100):0;
+    if(ContractLoadFill.getWidth()!=fill||ContractLoadFill.isVisible()!=loadValid){ContractLoadFill.invalidate();ContractLoadFill.setWidth(fill);ContractLoadFill.setVisible(loadValid);ContractLoadFill.invalidate();}
+    const auto loadColor=ui::Theme::color(percent>100?ui::CAUTION:ui::ACCENT);
+    if(ContractLoadFill.getColor()!=loadColor){ContractLoadFill.setColor(loadColor);ContractLoadFill.invalidate();}
+    const UsbSession& session=usbSession();
+    if(session.hasSamples()){
+        const uint64_t cwh=session.energyMwMs/36000000ULL;
+        snprintf(load,sizeof(load),"%lu.%02lu Wh / %lu:%02lu / Peak %lu.%02lu W",(unsigned long)(cwh/100),(unsigned long)(cwh%100),(unsigned long)(session.elapsedMs/60000),(unsigned long)(session.elapsedMs/1000%60),(unsigned long)(session.peakMw/1000),(unsigned long)(session.peakMw%1000/10));
+    }else snprintf(load,sizeof(load),"Energy / duration / peak: waiting for input");
+    lab_show(SessionSummary,SessionSummaryBuffer,SESSIONSUMMARY_SIZE,load,lab_muted());
     battery.fresh=battery.fresh && battery.is("sample",1) && battery.is("bms",1);
     const bool wasValid=gaugeValid;
     gaugeValid=battery.get("pack_mv",voltage) && battery.get("i_pack_ma",current)
@@ -104,6 +122,9 @@ void ScreenUsbPdView::setupTheme()
     theme.panel(ContractCard);
     theme.panel(MeasuredCard);
     theme.panel(BatteryCard);
+    theme.text(ContractDetail,ui::MUTED);
+    theme.text(SessionSummary,ui::MUTED);
+    theme.box(ContractLoadTrack,ui::BORDER);
     theme.text(ContractHeading,ui::ACCENT);
     theme.text(MeasuredHeading,ui::ACCENT);
     theme.text(BatteryHeading,ui::ACCENT);

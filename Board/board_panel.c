@@ -9,6 +9,19 @@ static PanelInput input;
 static osMessageQueueId_t events;
 static uint32_t tone_end, last_tone;
 static uint8_t tone_active;
+static volatile uint8_t sound_volume = 16, sound_tone = 0, sound_feedback = 3;
+static volatile uint32_t sound_request;
+/* PWM frequency, duty ticks, tone starts. Idle CCR1=0 is expected. */
+volatile uint32_t BoardBuzzerDiagnostics[3];
+void BoardBuzzer_Configure(uint8_t volume, uint8_t tone, uint8_t feedback)
+{
+    sound_volume = volume > 100 ? 100 : volume;
+    sound_tone = tone % 3; sound_feedback = feedback & 3;
+}
+void BoardBuzzer_Request(uint32_t duration_ms)
+{
+    sound_request = duration_ms > 500 ? 500 : duration_ms;
+}
 static TIM_HandleTypeDef voltage_timer, current_timer;
 /* V turns, I turns, V step clicks, I step clicks, short OUTPUT, hold OUTPUT, queue drops. */
 volatile uint32_t BoardPanelDiagnostics[7];
@@ -32,11 +45,23 @@ static void encoder_init(TIM_HandleTypeDef *h, TIM_TypeDef *timer)
     if (HAL_TIM_Encoder_Init(h, &config) != HAL_OK ||
         HAL_TIM_Encoder_Start(h, TIM_CHANNEL_ALL) != HAL_OK) Error_Handler();
 }
+static void start_tone(uint32_t now, uint32_t duration)
+{
+    if (!sound_volume || !duration) return;
+    const uint32_t frequencies[] = {4000, 2000, 1000};
+    const uint32_t hz = frequencies[sound_tone];
+    const uint32_t period = 1000000U / hz;
+    const uint32_t duty = period * sound_volume / 200U;
+    TIM2->ARR = period - 1; TIM2->CCR1 = duty;
+    TIM2->EGR = TIM_EGR_UG;
+    last_tone = now; tone_end = now + duration; tone_active = 1;
+    BoardBuzzerDiagnostics[0] = hz; BoardBuzzerDiagnostics[1] = duty;
+    ++BoardBuzzerDiagnostics[2];
+}
 static void quiet_tone(uint32_t now, uint32_t duration)
 {
-    if ((uint32_t)(now-last_tone) < 50) return;
-    last_tone = now; tone_end = now + duration; tone_active = 1;
-    TIM2->CCR1 = 20; /* 4kHz, 8% duty; brief, quiet feedback. */
+    if (!(sound_feedback & 2) || tone_active || (uint32_t)(now-last_tone) < 50) return;
+    start_tone(now, duration);
 }
 static void enqueue(uint8_t kind, int8_t delta)
 {
@@ -77,7 +102,14 @@ void BoardPanel_Init(void)
 }
 void BoardPanel_Poll(uint32_t now)
 {
-    if (tone_active && (int32_t)(now-tone_end) >= 0) { TIM2->CCR1 = 0; tone_active = 0; }
+    if (tone_active && (!sound_volume || (int32_t)(now-tone_end) >= 0)) { TIM2->CCR1 = 0; tone_active = 0; }
+    /* H7RS shareable AXI SRAM does not accept the exclusive LDREX exchange.
+     * A bounded interrupt critical section also protects against task switches. */
+    const uint32_t interrupt_mask = __get_PRIMASK();
+    __disable_irq();
+    uint32_t request = sound_request; sound_request = 0;
+    __set_PRIMASK(interrupt_mask);
+    if (request && (request > 30 || (sound_feedback & 1))) start_tone(now, request);
     PanelActions a = panel_input_update(&input, TIM3->CNT, TIM4->CNT, keys(), now);
     if (a.voltage) { BoardPanelDiagnostics[0] += a.voltage < 0 ? -a.voltage : a.voltage; enqueue(BOARD_VOLTAGE, a.voltage); }
     if (a.current) { BoardPanelDiagnostics[1] += a.current < 0 ? -a.current : a.current; enqueue(BOARD_CURRENT, a.current); }

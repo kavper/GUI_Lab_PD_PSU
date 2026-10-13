@@ -119,6 +119,15 @@ int main(void)
     for (unsigned i = 0; i < 32; ++i)
         if (ram[496 + i] != (0x5A000000U | i) ||
             ram[0x7FFFE0 + i] != (0xC3000000U | i)) Error_Handler();
+    /* Sequential and reverse pseudo-random accesses over 64 KiB exercise
+     * consecutive 2 KiB rows with the faster read/write latency settings. */
+    for (unsigned pass = 0; pass < 2; ++pass) {
+        for (unsigned i = 0; i < 16384; ++i)
+            ram[i] = (i * 0x9E3779B9U) ^ (0xA55A1234U + pass);
+        __DSB();
+        for (unsigned i = 16384; i-- > 0; )
+            if (ram[i] != ((i * 0x9E3779B9U) ^ (0xA55A1234U + pass))) Error_Handler();
+    }
     const volatile uint32_t *vectors = (const volatile uint32_t *)0x70000000;
     if (vectors[0] < 0x20000000 || vectors[0] > 0x20010000 || (vectors[0] & 7) ||
         vectors[1] < 0x70000001 || vectors[1] >= 0x70200000 || !(vectors[1] & 1)) Error_Handler();

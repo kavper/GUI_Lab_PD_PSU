@@ -4,10 +4,13 @@
 #include <touchgfx/Font.hpp>
 #include <images/BitmapDatabase.hpp>
 #include <assert.h>
+#ifndef SIMULATOR
+#include "main.h"
+#endif
 namespace ui {
 namespace {
 bool darkMode=true;
-unsigned accent=3;
+unsigned accent=0;
 const uint32_t lightAccents[]={0x2457E6,0x007F73,0x743FD3,0xAB5D07};
 const uint32_t darkAccents[]={0x5793FF,0x2DD4BF,0xA78BFA,0xFBBF24};
 touchgfx::colortype rgb(uint32_t value){return touchgfx::Color::getColorFromRGB(value>>16,(value>>8)&255,value&255);}
@@ -44,6 +47,53 @@ touchgfx::colortype composite(touchgfx::colortype base,touchgfx::colortype borde
         (touchgfx::Color::getGreen(base)*a+touchgfx::Color::getGreen(border)*b+touchgfx::Color::getGreen(surface)*inner+32)/64,
         (touchgfx::Color::getBlue(base)*a+touchgfx::Color::getBlue(border)*b+touchgfx::Color::getBlue(surface)*inner+32)/64);
 }
+struct CornerCacheEntry {
+    touchgfx::colortype base, border, surface;
+    int radius;
+    touchgfx::BitmapId ids[4];
+    alignas(32) uint16_t pixels[4][12*12];
+};
+// Stable storage: never overwrite a texture while queued GPU commands read it.
+CornerCacheEntry cornerCache[128];
+unsigned cornerCacheCount=0;
+bool cachedCorners(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::colortype border,touchgfx::colortype surface,touchgfx::colortype base,int radius){
+    CornerCacheEntry* entry=0;
+    for(unsigned n=0;n<cornerCacheCount;n++) {
+        auto& c=cornerCache[n];
+        if(c.radius==radius && c.base==base && c.border==border && c.surface==surface){entry=&c;break;}
+    }
+    if(!entry){
+        if(cornerCacheCount==128)return false;
+        auto& c=cornerCache[cornerCacheCount];
+        c.radius=radius;c.base=base;c.border=border;c.surface=surface;
+        for(int y=0;y<radius;y++)for(int x=0;x<radius;x++){
+            const auto color=composite(base,border,surface,ui::corners::coverage(radius,x,y),ui::corners::coverage(radius-1,x-1,y-1));
+            const uint16_t rgb565=((touchgfx::Color::getRed(color)&0xF8)<<8)|((touchgfx::Color::getGreen(color)&0xFC)<<3)|(touchgfx::Color::getBlue(color)>>3);
+            c.pixels[0][y*radius+x]=rgb565;
+            c.pixels[1][y*radius+radius-1-x]=rgb565;
+            c.pixels[2][(radius-1-y)*radius+x]=rgb565;
+            c.pixels[3][(radius-1-y)*radius+radius-1-x]=rgb565;
+        }
+#ifndef SIMULATOR
+        SCB_CleanDCache_by_Addr(reinterpret_cast<uint32_t*>(c.pixels),sizeof(c.pixels));
+#endif
+        unsigned created=0;
+        for(;created<4;created++){
+            c.ids[created]=touchgfx::Bitmap::dynamicBitmapCreateExternal(radius,radius,c.pixels[created],touchgfx::Bitmap::RGB565);
+            if(c.ids[created]==touchgfx::BITMAP_INVALID)break;
+        }
+        if(created!=4){while(created)touchgfx::Bitmap::dynamicBitmapDelete(c.ids[--created]);return false;}
+        ++cornerCacheCount;entry=&c;
+    }
+    for(unsigned q=0;q<4;q++){
+        const int x=q&1?rect.right()-radius:rect.x;
+        const int y=q&2?rect.bottom()-radius:rect.y;
+        touchgfx::Rect area=touchgfx::Rect(x,y,radius,radius)&clip;
+        area.x-=x;area.y-=y;
+        if(!area.isEmpty())touchgfx::HAL::lcd().drawPartialBitmap(touchgfx::Bitmap(entry->ids[q]),x,y,area);
+    }
+    return true;
+}
 // Identical quarter-circle masks are mirrored across both axes. Each corner
 // pixel is composited once over its actual backdrop, avoiding dark fringes.
 void rounded(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::colortype border,touchgfx::colortype surface,touchgfx::colortype base,int radius){
@@ -52,6 +102,7 @@ void rounded(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::col
     fill(touchgfx::Rect(rect.x+radius,rect.y,rect.width-2*radius,rect.height),clip,border);
     fill(touchgfx::Rect(rect.x+1,rect.y+radius,rect.width-2,rect.height-2*radius),clip,surface);
     fill(touchgfx::Rect(rect.x+radius,rect.y+1,rect.width-2*radius,rect.height-2),clip,surface);
+    if(cachedCorners(rect,clip,border,surface,base,radius))return;
     for(int y=0;y<radius;y++)for(int x=0;x<radius;){
         const auto color=composite(base,border,surface,ui::corners::coverage(radius,x,y),ui::corners::coverage(radius-1,x-1,y-1));
         int end=x+1;

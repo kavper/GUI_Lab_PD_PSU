@@ -22,6 +22,22 @@ public:
     void setSwipePage(SwipePage value) { page=value; }
     SwipePage swipePage() const { return page; }
     FingerSwipeState& fingerSwipe() { return swipe; }
+    // Hide the generated entry points with cached transitions; Designer calls
+    // still use the same names and generated sources remain unchanged.
+#define CACHED_ROUTE(name) void name(); void name##CachedImpl();
+    CACHED_ROUTE(gotoScreen1ScreenWipeTransitionEast)
+    CACHED_ROUTE(gotoScreenSettingsScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenSettingsScreenWipeTransitionEast)
+    CACHED_ROUTE(gotoScreenDiagnosticsScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenPresetsScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenSequencerScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenBatteryScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenPowerPathScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenUsbPdScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenExtChargerScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenNetworkScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenAppearanceScreenWipeTransitionWest)
+#undef CACHED_ROUTE
 private:
     SwipePage page,origin,destination;
     FingerSwipeState swipe;
@@ -31,6 +47,7 @@ private:
     char usbNotice[100];
     uint16_t usbNoticeTicks;
     touchgfx::Callback<FrontendApplication> fingerTransitionCallback;
+    touchgfx::Callback<FrontendApplication> cachedTransitionCallback;
     void beginFingerTransition();
     void rollbackFingerTransition();
     void saveOriginState();

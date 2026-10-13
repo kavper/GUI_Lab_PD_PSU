@@ -1,5 +1,6 @@
 /* IS25LX256 (32 MiB, 3.3 V), APS256XXN-OB9 (32 MiB, 1.8 V).
- * Both links start at 100 MHz from PLL2S=200 MHz. Flash clock MUST be PN6/CLK.
+ * Flash remains at 100 MHz; PSRAM configures at 100 MHz then runs at 200 MHz.
+ * Flash clock MUST be PN6/CLK.
  * APS256 LC=5 includes the final address clock: XSPI dummy count is LC-1.
  */
 #include "board_memory.h"
@@ -8,6 +9,56 @@
 
 extern XSPI_HandleTypeDef hxspi1, hxspi2;
 volatile uint32_t BoardRamDiagnostics[4];
+
+static int psram_register(uint32_t address, uint8_t *value, int write, uint32_t dummy)
+{
+    XSPI_RegularCmdTypeDef cmd = {0};
+    uint8_t data[2] = {*value, *value};
+    cmd.OperationType = HAL_XSPI_OPTYPE_COMMON_CFG;
+    cmd.IOSelect = HAL_XSPI_SELECT_IO_7_0;
+    cmd.Instruction = write ? 0xC0 : 0x40;
+    cmd.InstructionMode = HAL_XSPI_INSTRUCTION_8_LINES;
+    cmd.InstructionWidth = HAL_XSPI_INSTRUCTION_8_BITS;
+    cmd.Address = address;
+    cmd.AddressMode = HAL_XSPI_ADDRESS_8_LINES;
+    cmd.AddressWidth = HAL_XSPI_ADDRESS_32_BITS;
+    cmd.AddressDTRMode = HAL_XSPI_ADDRESS_DTR_ENABLE;
+    cmd.DataMode = HAL_XSPI_DATA_8_LINES;
+    cmd.DataDTRMode = HAL_XSPI_DATA_DTR_ENABLE;
+    cmd.DataLength = 2;
+    cmd.DummyCycles = write ? 0 : dummy;
+    cmd.DQSMode = write ? HAL_XSPI_DQS_DISABLE : HAL_XSPI_DQS_ENABLE;
+    if (HAL_XSPI_Command(&hxspi1, &cmd, 100) != HAL_OK) return 0;
+    if (write) return HAL_XSPI_Transmit(&hxspi1, data, 100) == HAL_OK;
+    if (HAL_XSPI_Receive(&hxspi1, data, 100) != HAL_OK) return 0;
+    *value = data[0];
+    return 1;
+}
+
+static int psram_fast_config(EXTMEM_DRIVER_PSRAM_ObjectTypeDef *p)
+{
+    uint8_t mr0 = 0, mr4 = 0, verify = 0;
+    if (!psram_register(0, &mr0, 0, 4) || !psram_register(4, &mr4, 0, 4)) return 0;
+    // AP Memory rev 1.2: variable read LC=7, write WLC=7 up to 200 MHz.
+    mr4 = (mr4 & 0x1F) | 0x20;
+    if (!psram_register(4, &mr4, 1, 0)) return 0;
+    mr0 = (mr0 & 0x03) | 0x10;
+    if (!psram_register(0, &mr0, 1, 0)) return 0;
+    if (!psram_register(0, &verify, 0, 6) || verify != mr0) return 0;
+    BoardRamDiagnostics[1] = verify;
+    if (!psram_register(4, &verify, 0, 6) || verify != mr4) return 0;
+    BoardRamDiagnostics[2] = verify;
+    p->psram_public.REG_DummyCycle = 6;
+    p->psram_public.Read_DummyCycle = 6;
+    p->psram_public.Write_DummyCycle = 6;
+    p->psram_public.FreqMax = 200000000;
+    hxspi1.Init.Refresh = 600; // 3 us at 200 MHz, below tCEM=4 us.
+    hxspi1.Instance->DCR4 = 600;
+    if (HAL_XSPI_SetClockPrescaler(&hxspi1, 0) != HAL_OK) return 0;
+    if (!psram_register(0, &verify, 0, 6) || verify != mr0) return 0;
+    BoardRamDiagnostics[3] = 200000000;
+    return 1;
+}
 
 static int psram_x16_config(void)
 {
@@ -48,7 +99,8 @@ static int link_init(XSPI_HandleTypeDef *h, XSPI_TypeDef *instance, uint32_t typ
     h->Init.MemoryMode = HAL_XSPI_SINGLE_MEM;
     h->Init.MemoryType = type;
     h->Init.MemorySize = HAL_XSPI_SIZE_256MB; /* HAL enum is in Mbits */
-    h->Init.ChipSelectHighTimeCycle = 3;
+    // tCPH at 200 MHz is 24 ns: 5 cycles provide 25 ns.
+    h->Init.ChipSelectHighTimeCycle = instance == XSPI1 ? 5 : 3;
     h->Init.ClockMode = HAL_XSPI_CLOCK_MODE_0;
     h->Init.ClockPrescaler = 1;
     h->Init.DelayHoldQuarterCycle = HAL_XSPI_DHQC_ENABLE;
@@ -111,7 +163,7 @@ int BoardMemory_Init(int with_psram)
     p->psram_public.WrapRead_command = 0x00;
     p->psram_public.Read_DummyCycle = 4;
     return EXTMEM_Init(EXTMEMORY_2, HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_XSPI1)) == EXTMEM_OK &&
-           psram_x16_config();
+           psram_x16_config() && psram_fast_config(p);
 }
 
 void BoardQuietDisplay(void)

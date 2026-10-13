@@ -37,6 +37,9 @@ void ScreenSettingsView::setupTheme()
     theme.box(LabHeader,ui::SURFACE);
     theme.box(ThemeHeaderDivider,ui::BORDER);
     theme.text(PageTitle);
+    theme.text(ControlGroup,ui::ACCENT);
+    theme.text(PowerGroup,ui::ACCENT);
+    theme.text(DeviceGroup,ui::ACCENT);
     theme.text(PageFeedback);
     theme.button(AllOffButton,ui::DANGER);
     theme.button(BackButton,ui::NORMAL);

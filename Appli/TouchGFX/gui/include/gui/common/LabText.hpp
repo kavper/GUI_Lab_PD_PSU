@@ -43,6 +43,17 @@ template <typename Widget>
 inline void lab_show(Widget& widget, touchgfx::Unicode::UnicodeChar* buf, uint16_t n,
                      const char* ascii, touchgfx::colortype color)
 {
+    // Most live status/measurement strings are ASCII. Unchanged values should
+    // not invalidate their rectangles at every model tick. Non-ASCII text keeps
+    // the original UTF-8 conversion path, including truncation semantics.
+    if (widget.getColor() == color) {
+        const char* text = ascii ? ascii : "";
+        for (uint16_t i = 0; i < n; ++i) {
+            const uint8_t c = static_cast<uint8_t>(text[i]);
+            if (c >= 0x80 || buf[i] != c) break;
+            if (!c) return;
+        }
+    }
     widget.invalidate(); // Erase the previous text bounds before changing its width.
     lab_put(buf, n, ascii);
     widget.setColor(color);

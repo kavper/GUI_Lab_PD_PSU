@@ -9,7 +9,7 @@ class FingerSwipeState
 public:
     enum Phase { IDLE, DRAGGING, SETTLING, FINISHED };
     FingerSwipeState() { reset(); }
-    void reset() { phase=IDLE; direction=0; position=0; width=800; velocity=0; step=0; steps=14; from=to=0; forcedCancel=false; }
+    void reset() { phase=IDLE; direction=0; position=0; width=800; velocity=0; step=0; steps=20; from=to=0; forcedCancel=false; }
     bool active() const { return phase != IDLE; }
     void begin(int sign, int pixels, int screenWidth)
     {
