@@ -9,6 +9,7 @@
 #undef StartDefaultTask
 #undef PSU_SetOutputLed
 #include "board_backlight.h"
+#include "board_panel.h"
 
 static void BoardGPIO_Init(void)
 {
@@ -61,7 +62,7 @@ void StartDefaultTask(void *argument)
     for (;;) {
         uint32_t now = HAL_GetTick();
         G4_UartProcess(now);
-        psu_app_user_button(HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_6) == GPIO_PIN_RESET, now);
+        BoardPanel_Poll(now);
         psu_app_tick(now);
         osDelay(1);
     }
@@ -233,6 +234,7 @@ int main(void)
 
   /* Init scheduler */
   osKernelInitialize();
+  BoardPanel_Init();
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */

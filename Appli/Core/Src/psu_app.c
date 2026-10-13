@@ -1088,11 +1088,12 @@ int psu_app_start_charging(void) {
   sense.start_allowed=1;sense.permit=g4.telemetry.permit;
   return psu_chg_start(&charger,&charger.profile,&sense,app_now);
 }
-int psu_app_power_shutdown(void){
+int psu_app_power_shutdown_from(uint8_t source){
   uint16_t id;
   psu_app_shutdown();
-  id=push_cmd("POWER OFF",PSU_SRC_LCD,0,0,0);
+  id=push_cmd("POWER OFF",source,0,0,0);
   if(!g4_power_shutdown(&g4,id)){mark_cmd(id,PSU_CMD_REJECTED,app_now);return 0;}
   snap.power_shutdown_requested=1;
   return 1;
 }
+int psu_app_power_shutdown(void){return psu_app_power_shutdown_from(PSU_SRC_LCD);}

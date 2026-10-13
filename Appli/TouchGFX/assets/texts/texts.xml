@@ -1815,20 +1815,28 @@
       </Text>
     </TextGroup>
     <TextGroup Id="MainVoltageStep">
-      <Text Id="TXT_TASK_VoltMinus_79" Alignment="Center" TypographyId="Button">
-        <Translation Language="GB">-</Translation>
+      <Text Id="TXT_TASK_VoltMinus_79" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">−</Translation>
       </Text>
-      <Text Id="TXT_TASK_VoltPlus_81" Alignment="Center" TypographyId="Button">
+      <Text Id="TXT_TASK_VoltPlus_81" Alignment="Center" TypographyId="LabBig">
         <Translation Language="GB">+</Translation>
       </Text>
-      <Text Id="TXT_TASK_STEP_0" Alignment="Center" TypographyId="Small">
+      <Text Id="TXT_TASK_STEP_0" Alignment="Center" TypographyId="LabMid">
         <Translation Language="GB">0.01</Translation>
       </Text>
-      <Text Id="TXT_TASK_STEP_1" Alignment="Center" TypographyId="Small">
+      <Text Id="TXT_TASK_STEP_1" Alignment="Center" TypographyId="LabMid">
         <Translation Language="GB">0.1</Translation>
       </Text>
-      <Text Id="TXT_TASK_STEP_2" Alignment="Center" TypographyId="Small">
+      <Text Id="TXT_TASK_STEP_2" Alignment="Center" TypographyId="LabMid">
         <Translation Language="GB">1</Translation>
+      </Text>
+    </TextGroup>
+    <TextGroup Id="MainCurrentStep">
+      <Text Id="TXT_TASK_AmpMinus_82" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">−</Translation>
+      </Text>
+      <Text Id="TXT_TASK_AmpPlus_84" Alignment="Center" TypographyId="LabBig">
+        <Translation Language="GB">+</Translation>
       </Text>
     </TextGroup>
   </Texts>

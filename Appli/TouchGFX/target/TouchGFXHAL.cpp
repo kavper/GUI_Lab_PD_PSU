@@ -24,6 +24,9 @@
 
 /* USER CODE BEGIN TouchGFXHAL.cpp */
 #include "FreeRTOS.h"
+#include <nema_graphics.h>
+#include <nema_blender.h>
+#include <cstring>
 
 using namespace touchgfx;
 
@@ -31,6 +34,15 @@ namespace
 {
 LOCATION_PRAGMA_NOLOAD("TouchGFX_Framebuffer")
 uint32_t animationBuffer[(800 * 480 * 2 + 3) / 4] LOCATION_ATTRIBUTE_NOLOAD("TouchGFX_Framebuffer");
+// Separate scanout buffers preserve TouchGFX's unrotated double buffering,
+// including partial redraws, animation storage and framebuffer copies.
+LOCATION_PRAGMA_NOLOAD("TouchGFX_Framebuffer")
+uint32_t rotatedBuffers[2][800 * 480 / 2] LOCATION_ATTRIBUTE_NOLOAD("TouchGFX_Framebuffer");
+uint16_t* volatile displayedLogicalBuffer = nullptr;
+}
+
+extern "C" {
+volatile uint32_t BoardDisplayRotationFrames = 0;
 }
 
 void TouchGFXHAL::initialize()
@@ -42,6 +54,10 @@ void TouchGFXHAL::initialize()
     // Please note, HAL::initialize() must be called to initialize the framework.
 
     TouchGFXGeneratedHAL::initialize();
+    displayedLogicalBuffer = frameBuffer0;
+    std::memset(rotatedBuffers, 0, sizeof(rotatedBuffers));
+    FlushCache();
+    TouchGFXGeneratedHAL::setTFTFrameBuffer(reinterpret_cast<uint16_t*>(rotatedBuffers[0]));
     setAnimationStorage((void*)animationBuffer);  //enable the animation storage to allow slide animations
     instrumentation.init();
     setMCUInstrumentation(&instrumentation);
@@ -60,7 +76,7 @@ uint16_t* TouchGFXHAL::getTFTFrameBuffer() const
     // To overwrite the generated implementation, omit call to parent function
     // and implemented needed functionality here.
 
-    return TouchGFXGeneratedHAL::getTFTFrameBuffer();
+    return displayedLogicalBuffer;
 }
 
 /**
@@ -75,7 +91,11 @@ void TouchGFXHAL::setTFTFrameBuffer(uint16_t* address)
     // To overwrite the generated implementation, omit call to parent function
     // and implemented needed functionality here.
 
-    TouchGFXGeneratedHAL::setTFTFrameBuffer(address);
+    // Called at VSYNC: only change the scanout address here. GPU work is
+    // completed in the GUI task before the framework requests a swap.
+    displayedLogicalBuffer = address;
+    const unsigned index = address == frameBuffer0 ? 0 : 1;
+    TouchGFXGeneratedHAL::setTFTFrameBuffer(reinterpret_cast<uint16_t*>(rotatedBuffers[index]));
 }
 
 /**
@@ -166,6 +186,21 @@ bool TouchGFXHAL::beginFrame()
 
 void TouchGFXHAL::endFrame()
 {
+    if (frameBufferUpdatedThisFrame)
+    {
+        uint16_t* source = getClientFrameBuffer();
+        const unsigned index = source == frameBuffer0 ? 0 : 1;
+        InvalidateTextureCache();
+        // Append rotation after drawing commands in the same GPU list. The
+        // parent endFrame waits for completion before allowing a VSYNC swap.
+        nema_bind_dst_tex(reinterpret_cast<uintptr_t>(rotatedBuffers[index]), 800, 480, NEMA_RGB565, 1600);
+        nema_bind_src_tex(reinterpret_cast<uintptr_t>(source), 800, 480, NEMA_RGB565, 1600, NEMA_FILTER_PS);
+        nema_set_clip(0, 0, 800, 480);
+        nema_set_blend_blit(NEMA_BL_SRC);
+        nema_blit_rotate(0, 0, NEMA_ROT_180_CW);
+        submitExecBuffer();
+        ++BoardDisplayRotationFrames;
+    }
     TouchGFXGeneratedHAL::endFrame();
 }
 

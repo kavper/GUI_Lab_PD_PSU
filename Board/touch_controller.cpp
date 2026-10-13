@@ -22,7 +22,8 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
         if (HAL_I2C_Mem_Write(&hi2c1, 0xBA, 0x814E, I2C_MEMADD_SIZE_16BIT, &zero, 1, 10) != HAL_OK)
             down = false;
     }
-    x = lastX;
-    y = lastY;
+    // Physical panel is mounted upside down; GUI coordinates stay 800x480.
+    x = 799 - lastX;
+    y = 479 - lastY;
     return down;
 }

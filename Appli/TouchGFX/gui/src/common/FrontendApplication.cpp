@@ -11,6 +11,9 @@
 #include <touchgfx/transitions/NoTransition.hpp>
 #include <touchgfx/hal/HAL.hpp>
 #include <stdlib.h>
+#ifndef SIMULATOR
+#include "board_panel.h"
+#endif
 
 FrontendApplication::FrontendApplication(Model& m, FrontendHeap& heap)
     : FrontendApplicationBase(m,heap), page(OTHER),origin(OTHER),destination(OTHER),
@@ -24,6 +27,23 @@ void FrontendApplication::handleTickEvent()
     model.tick();
     swipe.tick();
     FrontendApplicationBase::handleTickEvent();
+#ifndef SIMULATOR
+    BoardPanelEvent panel;
+    while (BoardPanel_Take(&panel)) {
+        if (page != MAIN || isScreenTransitionActive() || pendingScreenTransitionCallback) continue;
+        Screen1View *view = static_cast<Screen1View*>(currentScreen);
+        if (panel.kind == BOARD_VOLTAGE) {
+            for (int n=0; n<abs(panel.delta); ++n) {
+                if (panel.delta > 0) view->nudgeVoltUp(); else view->nudgeVoltDown();
+            }
+        } else if (panel.kind == BOARD_CURRENT) {
+            for (int n=0; n<abs(panel.delta); ++n) {
+                if (panel.delta > 0) view->nudgeAmpUp(); else view->nudgeAmpDown();
+            }
+        } else if (panel.kind == BOARD_VOLTAGE_STEP) { view->selectVoltage(); view->stepVolt(); }
+        else if (panel.kind == BOARD_CURRENT_STEP) { view->selectCurrent(); view->stepAmp(); }
+    }
+#endif
     ui::ThemeScreen::get().sync();
     if(swipe.phase==FingerSwipeState::FINISHED && !rollbackQueued)
     {

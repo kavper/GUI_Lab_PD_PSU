@@ -21,6 +21,9 @@ public:
     virtual void nudgeVoltUp();
     virtual void nudgeVoltDown();
     virtual void stepVolt();
+    virtual void nudgeAmpUp();
+    virtual void nudgeAmpDown();
+    virtual void stepAmp();
     virtual void tearDownScreen();
     virtual void handleTickEvent();
     virtual void handleGestureEvent(const touchgfx::GestureEvent& event);
@@ -68,7 +71,9 @@ protected:
     uint8_t selectedPreset;
     uint16_t editorNoticeTicks;
     uint8_t voltageStep;
+    uint8_t currentStep;
     void nudgeVoltage(bool up);
+    void nudgeCurrent(bool up);
 
     void appendKey(char key);
     void loadEditorFromSetpoint();

@@ -175,6 +175,7 @@ int psu_app_set_output(int enabled, uint8_t source);
 int psu_app_start_charging(void);
 int psu_app_shutdown(void);
 int psu_app_power_shutdown(void);
+int psu_app_power_shutdown_from(uint8_t source);
 int psu_app_usb_role(const char *role, uint8_t source);
 int psu_app_service(int enabled);
 int psu_app_service_cmd(const char *line);

@@ -1001,14 +1001,14 @@
             "Y": 177,
             "Width": 144,
             "Height": 22,
+            "Visible": false,
             "TextId": "TXT_VOLTAGE_MAX",
             "TextRotation": "0",
             "Color": {
               "Red": 167,
               "Green": 182,
               "Blue": 203
-            },
-            "Visible": false
+            }
           },
           {
             "Type": "TextArea",
@@ -1017,6 +1017,7 @@
             "Y": 337,
             "Width": 144,
             "Height": 22,
+            "Visible": false,
             "TextId": "TXT_CURRENT_MAX",
             "TextRotation": "0",
             "Color": {
@@ -1260,6 +1261,72 @@
             "Pressed": "task_sel_42x40.png",
             "Released": "task_rel_42x40.png",
             "TextId": "TXT_TASK_VoltPlus_81",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AmpMinus",
+            "X": 328,
+            "Y": 341,
+            "Width": 42,
+            "Height": 40,
+            "Pressed": "task_sel_42x40.png",
+            "Released": "task_rel_42x40.png",
+            "TextId": "TXT_TASK_AmpMinus_82",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AmpStep",
+            "X": 374,
+            "Y": 341,
+            "Width": 52,
+            "Height": 40,
+            "Pressed": "task_sel_52x40.png",
+            "Released": "task_rel_52x40.png",
+            "TextId": "TXT_TASK_STEP_1",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "AmpPlus",
+            "X": 430,
+            "Y": 341,
+            "Width": 42,
+            "Height": 40,
+            "Pressed": "task_sel_42x40.png",
+            "Released": "task_rel_42x40.png",
+            "TextId": "TXT_TASK_AmpPlus_84",
             "ReleasedColor": {
               "Red": 23,
               "Green": 35,
@@ -1538,6 +1605,39 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "nudgeVoltUp"
+            }
+          },
+          {
+            "InteractionName": "TaskAmpMinus",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AmpMinus"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "nudgeAmpDown"
+            }
+          },
+          {
+            "InteractionName": "TaskAmpStep",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AmpStep"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "stepAmp"
+            }
+          },
+          {
+            "InteractionName": "TaskAmpPlus",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AmpPlus"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "nudgeAmpUp"
             }
           }
         ]

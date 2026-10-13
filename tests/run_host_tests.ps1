@@ -17,6 +17,12 @@ foreach ($testName in @('test_binary','test_binary_app','test_startup','test_aut
   if ($LASTEXITCODE -ne 0) { throw "Test failed: $testName" }
 }
 $displayCompiler = Join-Path (Split-Path $Compiler -Parent) 'g++.exe'
+$panelTest = Join-Path $testOutput 'test_panel_input.exe'
+& $Compiler -std=c11 -Wall -Wextra -Werror -I (Join-Path $testRepo 'Appli/Core/Inc') `
+  (Join-Path $PSScriptRoot 'test_panel_input.c') (Join-Path $testRepo 'Appli/Core/Src/panel_input.c') -o $panelTest
+if ($LASTEXITCODE -ne 0) { throw 'Compilation failed: panel input' }
+& $panelTest
+if ($LASTEXITCODE -ne 0) { throw 'Test failed: panel input' }
 $displayRuntimePath = $env:PATH
 try {
   $env:PATH = (Split-Path $displayCompiler -Parent) + ';' + $env:PATH

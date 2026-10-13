@@ -31,7 +31,8 @@ Screen1View::Screen1View()
       replaceOnNextKey(false),
       selectedPreset(0),
       editorNoticeTicks(0),
-      voltageStep(1)
+      voltageStep(1),
+      currentStep(1)
 {
     editAscii[0] = '\0';
 }
@@ -644,7 +645,8 @@ void Screen1View::setupTheme()
     theme.button(Preset3Button,ui::NORMAL);
     theme.button(RemoteSenseButton,ui::NORMAL);
     theme.text(RemoteSenseText);
-    theme.button(VoltMinus);theme.button(VoltStep);theme.button(VoltPlus);
+    theme.button(VoltMinus);theme.button(VoltStep,ui::PRIMARY);theme.button(VoltPlus);
+    theme.button(AmpMinus);theme.button(AmpStep,ui::PRIMARY);theme.button(AmpPlus);
     theme.button(SettingsButton,ui::NORMAL);
     theme.button(AllOffButton,ui::DANGER);
     theme.text(BatteryLabel);
@@ -715,4 +717,22 @@ void Screen1View::stepVolt(){
     VoltStep.setLabelText(touchgfx::TypedText(labels[voltageStep]));VoltStep.invalidate();
     const char* messages[]={"Voltage step: 10 mV","Voltage step: 100 mV","Voltage step: 1 V"};
     showEditorStatus(messages[voltageStep]);
+}
+
+void Screen1View::nudgeCurrent(bool up) {
+    const uint32_t steps[]={10,100,1000};
+    const uint32_t step=steps[currentStep];
+    selectCurrent();
+    currentLimitMa=up?(currentLimitMa<=5000U-step?currentLimitMa+step:5000U):(currentLimitMa>=step?currentLimitMa-step:0U);
+    updatePresetHighlight(0);
+    submitSetpoints();
+}
+void Screen1View::nudgeAmpUp(){nudgeCurrent(true);}
+void Screen1View::nudgeAmpDown(){nudgeCurrent(false);}
+void Screen1View::stepAmp(){
+    currentStep=(currentStep+1)%3;
+    const touchgfx::TypedTextId labels[]={T_TXT_TASK_STEP_0,T_TXT_TASK_STEP_1,T_TXT_TASK_STEP_2};
+    AmpStep.setLabelText(touchgfx::TypedText(labels[currentStep]));AmpStep.invalidate();
+    const char* messages[]={"Current step: 10 mA","Current step: 100 mA","Current step: 1 A"};
+    showEditorStatus(messages[currentStep]);
 }

@@ -81,6 +81,41 @@ Ekran powitalny przechodzi automatycznie do glownego widoku po okolo 3 sekundach
 
 Kontrola 2026-10-13: Generate, Compile Target i Compile Simulator PASS; istniejacy test GUI 14 etapow PASS. Nowy kod zapisany i zweryfikowany przez -v, zasoby Flash bez zmian. Na PCB odczytano z aktywnego bufora LCD poprawny ekran glowny bez telemetrii. Logi lokalne: Board/startup_generate.log, startup_target.log, startup_simulator.log, startup_simulator_selftest.log, startup_flash.log.
 
+## Panel controls and mounting (2026-10-13)
+
+Voltage encoder: PC6/PC7 AF2, TIM3 hardware quadrature x4; push PE2.
+Current encoder: PD12/PD13 AF2, TIM4 hardware quadrature x4; push PD14.
+Each detent changes its setpoint; pressing selects independent 0.01 / 0.1 / 1 steps.
+Hardware input filters and a 30 ms button debounce reject contact bounce.
+Events cross an RTOS queue to the main GUI; no GUI methods run in the input task.
+User confirmed both encoders work on the PCB. PA5/TIM2_CH1 gives short 4 kHz,
+8% duty piezo feedback; user confirmed the volume is appropriate.
+
+OUTPUT uses PE6, active low. Short release toggles the requested output; a
+2-second hold requests output OFF and G4/BMS shutdown once, without a second
+short-click event on release. With no G4/BMS this cannot cut external 5 V.
+SWD diagnostics confirmed both short clicks and the long hold.
+
+The physical display is rotated 180 degrees with a GPU2D RGB565 copy into
+two separate scanout buffers; TouchGFX retains its original double buffers and
+animation storage. Rotation runs in the GUI task before VSYNC swapping, not
+inside the LCD interrupt. GT911 coordinates are transformed to (799-x, 479-y).
+The simulator keeps the logical GUI orientation. No generated source is edited.
+
+Generate, Target, Simulator and host tests passed. Code programming passed
+CubeProgrammer verification. SWD showed active rotated scanout, increasing
+rotation/tick counters and zero CFSR/HFSR faults; framebuffer inspection confirmed
+180-degree rotation. Both original framebuffers previously showed no AGH logo
+and LTDC layer 2 was disabled; this excludes a stale logo in those buffers, but
+does not establish the physical panel's condition.
+
+Run Target retains ap=1, Under Reset, hardware reset, 1000 kHz and verification
+for both code and assets. A software reset follows the final hardware reset so
+the application starts with fresh runtime state after the external loader.
+
+Rotation approach: ST employee example at
+https://community.st.com/stm32-mcus-touchgfx-and-gui-33/ltdc-rotation-180-degres-156813/index1.html
+
 ## Generate / Run Simulator / Run Target
 
 Zachowano polecenia projektu `.touchgfx`; makefile wykonawczy wybiera adaptery z `Board/`.
