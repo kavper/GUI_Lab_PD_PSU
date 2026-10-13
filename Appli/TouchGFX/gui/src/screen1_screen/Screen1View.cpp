@@ -606,6 +606,7 @@ void Screen1View::setupTheme()
     theme.begin(*this);
     theme.box(Background,ui::BACKGROUND);
     theme.box(ThemeHeader,ui::SURFACE);
+    theme.box(MainHeaderDivider,ui::BORDER);
     theme.panel(ThemeVoltageCard);
     theme.panel(ThemeCurrentCard);
     theme.panel(ThemeKeypadCard);

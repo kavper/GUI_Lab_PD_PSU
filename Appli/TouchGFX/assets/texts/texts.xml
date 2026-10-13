@@ -1524,7 +1524,7 @@
         <Translation Language="GB">Engineering thesis / HMI control system</Translation>
       </Text>
       <Text Id="TXT_UX_ScreenBattery" Alignment="Left" TypographyId="Title">
-        <Translation Language="GB">Battery / BMS</Translation>
+        <Translation Language="GB">Internal battery / BMS</Translation>
       </Text>
       <Text Id="TXT_BATT_MET0" Alignment="Left" TypographyId="UiEyebrow">
         <Translation Language="GB">PACK VOLTAGE</Translation>
@@ -1852,6 +1852,102 @@ interface.</Translation>
       </Text>
       <Text Id="TXT_MENU_OUTPUT_DESC" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">Rail voltage, currents and stage</Translation>
+      </Text>
+      <Text Id="TXT_BATTERYTAB" TypographyId="Button" Alignment="Center">
+        <Translation Language="GB">BATTERY</Translation>
+      </Text>
+      <Text Id="TXT_DETAILSTAB" TypographyId="Button" Alignment="Center">
+        <Translation Language="GB">BMS DETAILS</Translation>
+      </Text>
+      <Text Id="TXT_CHARGERTAB" TypographyId="Button" Alignment="Center">
+        <Translation Language="GB">CHARGER</Translation>
+      </Text>
+      <Text Id="TXT_ENERGYTAB" TypographyId="Button" Alignment="Center">
+        <Translation Language="GB">ENERGY / TREND</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_FLOW" TypographyId="UiState" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_POWER" TypographyId="UsbPower" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_V" TypographyId="TelemetryMetric" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_I" TypographyId="TelemetryMetric" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_SOC" TypographyId="TelemetryMetric" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_PHYSICAL" TypographyId="Small" Alignment="Left">
+        <Translation Language="GB">CELL VOLTAGES / PHYSICAL CHANNELS</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_CHANNEL0" TypographyId="Label" Alignment="Left">
+        <Translation Language="GB">CELL / CH 1</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_CELL0" TypographyId="TelemetryMetric" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_STATUS0" TypographyId="UiCaption" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_CHANNEL1" TypographyId="Label" Alignment="Left">
+        <Translation Language="GB">CELL / CH 2</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_CELL1" TypographyId="TelemetryMetric" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_STATUS1" TypographyId="UiCaption" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_CHANNEL2" TypographyId="Label" Alignment="Left">
+        <Translation Language="GB">CELL / CH 3</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_CELL2" TypographyId="TelemetryMetric" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_STATUS2" TypographyId="UiCaption" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_CHANNEL3" TypographyId="Label" Alignment="Left">
+        <Translation Language="GB">CELL / CH 4</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_CELL3" TypographyId="TelemetryMetric" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_STATUS3" TypographyId="UiCaption" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_CHANNEL4" TypographyId="Label" Alignment="Left">
+        <Translation Language="GB">CELL / CH 5</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_CELL4" TypographyId="TelemetryMetric" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_STATUS4" TypographyId="UiCaption" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_SPREAD" TypographyId="Small" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_HINT" TypographyId="UiCaption" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_CHARGER_DATA" TypographyId="UiDiagnostic" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_CHARGER_STATUS" TypographyId="UiDiagnostic" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_ENERGY_VALUE" TypographyId="TelemetryMetric" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_BATTERY_ENERGY_HINT" TypographyId="UiCaption" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_USBBUTTON" TypographyId="Button" Alignment="Center">
+        <Translation Language="GB">USB-C &gt;</Translation>
       </Text>
     </TextGroup>
     <TextGroup Id="MainRemoteSense">

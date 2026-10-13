@@ -32,6 +32,7 @@ public:
     CACHED_ROUTE(gotoScreenDiagnosticsScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenPresetsScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenSequencerScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenBmsScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenBatteryScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenPowerPathScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenUsbPdScreenWipeTransitionWest)

@@ -262,3 +262,39 @@ USB-C screen configuration and handwritten USB view were left unchanged at the
 user's explicit request. Generate, simulator and target builds passed; the
 35-stage simulator test covers all card routes, new Output monitor and return,
 HOME, theme and existing sound controls. Programming requires live SWD access.
+
+## Battery reference layout and main screen polish (2026-10-13)
+
+Battery overview follows the supplied battery.png layout in the blue palette:
+measured charge/discharge/idle and pack power magnitude, independent pack V/I/SOC,
+and five physical cell channels CH1..CH5. CH4 UNUSED is retained rather than
+compressing CH5 into the fourth slot. Physical balance-mask bits map directly to
+those channels; low/high/spread and active count derive only from valid positive
+cell readings. Missing/stale/invalid samples stay unavailable, not plausible zeros.
+BMS DETAILS opens existing BMS diagnostics with a cached transition. CHARGER shows
+onboard BQ telemetry in the battery page. ENERGY / TREND shows existing signed
+battery energy since H7 startup and a 128-sample signed power history, sampled no
+more frequently than every 500 ms and maintained outside this page. USB-C quick
+link opens the unchanged USB page. Tab clicks invalidate the full region so old
+cell content cannot persist underneath other panels.
+
+Main screen adds the common 1-pixel header divider at y=63. Selected voltage/current
+cards now use a two-pixel antialiased border with the same 12-pixel radius as the
+panel. The 10-pixel inner corner mask has its own correctly indexed coverage table,
+with tests for symmetry, coverage bounds and inner/outer subset (no unsigned border
+weight underflow). Corner textures remain cached and GPU blitted.
+
+Generate / simulator / target builds passed. Simulator battery tests cover five
+physical channels, CH4 unused/CH5 measured, balancing, low/high, equal cells,
+invalid/stale data, all own-page tabs, BMS navigation and USB-C link. Theme/navigation
+and finger transition tests also pass. Host tests cover history cadence/ring/wrap
+and corner coverage. Program/graphics are verified separately in Run Target.
+Allocation: AXI main 242720 B (54.87%), PSRAM 9928 KiB (30.30%), NOR code 533976 B
+and graphics/text/fonts 3374016 B (3.73 MiB combined, 11.65% of 32 MiB).
+
+Final battery/main version was programmed through Run Target: Boot, application and
+graphics each report Download verified successfully. Runtime static check matches
+10 pixels between both logical buffers and rotated scanout; CFSR/HFSR are zero.
+AP1 Under Reset / Hardware reset / 1000 kHz and verification are unchanged.
+A read-only Normal-mode connection recovered access when prior debug attempts
+failed; it does not alter the programming configuration.

@@ -14,6 +14,8 @@
 #include <gui/screensequencer_screen/ScreenSequencerView.hpp>
 #include <gui/screensequencer_screen/ScreenSequencerPresenter.hpp>
 #include <gui/screenbattery_screen/ScreenBatteryView.hpp>
+#include <gui/screenbms_screen/ScreenBmsView.hpp>
+#include <gui/screenbms_screen/ScreenBmsPresenter.hpp>
 #include <gui/screenbattery_screen/ScreenBatteryPresenter.hpp>
 #include <gui/screenpowerpath_screen/ScreenPowerPathView.hpp>
 #include <gui/screenpowerpath_screen/ScreenPowerPathPresenter.hpp>
@@ -42,6 +44,7 @@ CACHED_ROUTE(ScreenMeasurements, WEST, gotoScreenMeasurementsScreenWipeTransitio
 CACHED_ROUTE(ScreenDiagnostics, WEST, gotoScreenDiagnosticsScreenWipeTransitionWest)
 CACHED_ROUTE(ScreenPresets, WEST, gotoScreenPresetsScreenWipeTransitionWest)
 CACHED_ROUTE(ScreenSequencer, WEST, gotoScreenSequencerScreenWipeTransitionWest)
+CACHED_ROUTE(ScreenBms, WEST, gotoScreenBmsScreenWipeTransitionWest)
 CACHED_ROUTE(ScreenBattery, WEST, gotoScreenBatteryScreenWipeTransitionWest)
 CACHED_ROUTE(ScreenPowerPath, WEST, gotoScreenPowerPathScreenWipeTransitionWest)
 CACHED_ROUTE(ScreenUsbPd, WEST, gotoScreenUsbPdScreenWipeTransitionWest)

@@ -169,6 +169,18 @@
           },
           {
             "Type": "Box",
+            "Name": "MainHeaderDivider",
+            "Y": 63,
+            "Width": 800,
+            "Height": 1,
+            "Color": {
+              "Red": 49,
+              "Green": 65,
+              "Blue": 88
+            }
+          },
+          {
+            "Type": "Box",
             "Name": "ThemeVoltageCard",
             "X": 16,
             "Y": 80,
@@ -6723,7 +6735,7 @@
             "Name": "PageTitle",
             "X": 24,
             "Y": 8,
-            "Width": 380,
+            "Width": 510,
             "Height": 28,
             "TextId": "TXT_UX_ScreenBattery",
             "TextRotation": "0",
@@ -6738,7 +6750,7 @@
             "Name": "PageFeedback",
             "X": 24,
             "Y": 40,
-            "Width": 380,
+            "Width": 510,
             "Height": 22,
             "TextId": "TXT_UX_FEEDBACK",
             "TextRotation": "0",
@@ -6798,156 +6810,100 @@
             "TextRotation": "0"
           },
           {
-            "Type": "Box",
-            "Name": "MetricCard0",
+            "Type": "ButtonWithLabel",
+            "Name": "BatteryTab",
             "X": 16,
-            "Y": 80,
+            "Y": 76,
             "Width": 180,
-            "Height": 84,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "MetricLabel0",
-            "X": 28,
-            "Y": 88,
-            "Width": 160,
-            "Height": 22,
-            "TextId": "TXT_BATT_MET0",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "Metric0",
-            "X": 28,
-            "Y": 116,
-            "Width": 164,
-            "Height": 40,
-            "TextId": "TXT_TELEM_METRIC",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 232,
-              "Green": 238,
-              "Blue": 248
+            "Height": 42,
+            "Pressed": "battery_tab_sel_180x42.png",
+            "Released": "battery_tab_rel_180x42.png",
+            "TextId": "TXT_BATTERYTAB",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
             },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 32
-            }
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
           },
           {
-            "Type": "Box",
-            "Name": "MetricCard1",
+            "Type": "ButtonWithLabel",
+            "Name": "DetailsTab",
             "X": 212,
-            "Y": 80,
+            "Y": 76,
             "Width": 180,
-            "Height": 84,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "MetricLabel1",
-            "X": 224,
-            "Y": 88,
-            "Width": 160,
-            "Height": 22,
-            "TextId": "TXT_BATT_MET1",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "Metric1",
-            "X": 224,
-            "Y": 116,
-            "Width": 164,
-            "Height": 40,
-            "TextId": "TXT_TELEM_METRIC",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 232,
-              "Green": 238,
-              "Blue": 248
+            "Height": 42,
+            "Pressed": "battery_tab_sel_180x42.png",
+            "Released": "battery_tab_rel_180x42.png",
+            "TextId": "TXT_DETAILSTAB",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
             },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 32
-            }
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
           },
           {
-            "Type": "Box",
-            "Name": "MetricCard2",
+            "Type": "ButtonWithLabel",
+            "Name": "ChargerTab",
             "X": 408,
-            "Y": 80,
+            "Y": 76,
             "Width": 180,
-            "Height": 84,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "MetricLabel2",
-            "X": 420,
-            "Y": 88,
-            "Width": 160,
-            "Height": 22,
-            "TextId": "TXT_BATT_MET2",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "Metric2",
-            "X": 420,
-            "Y": 116,
-            "Width": 164,
-            "Height": 40,
-            "TextId": "TXT_TELEM_METRIC",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 232,
-              "Green": 238,
-              "Blue": 248
+            "Height": 42,
+            "Pressed": "battery_tab_sel_180x42.png",
+            "Released": "battery_tab_rel_180x42.png",
+            "TextId": "TXT_CHARGERTAB",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
             },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 32
-            }
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "EnergyTab",
+            "X": 604,
+            "Y": 76,
+            "Width": 180,
+            "Height": 42,
+            "Pressed": "battery_tab_sel_180x42.png",
+            "Released": "battery_tab_rel_180x42.png",
+            "TextId": "TXT_ENERGYTAB",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
           },
           {
             "Type": "Box",
-            "Name": "MetricCard3",
-            "X": 604,
-            "Y": 80,
-            "Width": 180,
-            "Height": 84,
+            "Name": "SummaryCard",
+            "X": 16,
+            "Y": 128,
+            "Width": 768,
+            "Height": 104,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -6956,27 +6912,12 @@
           },
           {
             "Type": "TextArea",
-            "Name": "MetricLabel3",
-            "X": 616,
-            "Y": 88,
-            "Width": 160,
-            "Height": 22,
-            "TextId": "TXT_BATT_MET3",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "Metric3",
-            "X": 616,
-            "Y": 116,
-            "Width": 164,
-            "Height": 40,
-            "TextId": "TXT_TELEM_METRIC",
+            "Name": "FlowState",
+            "X": 32,
+            "Y": 136,
+            "Width": 318,
+            "Height": 36,
+            "TextId": "TXT_BATTERY_FLOW",
             "TextRotation": "0",
             "Color": {
               "Red": 232,
@@ -6986,45 +6927,111 @@
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
               "UseBuffer": true,
-              "BufferSize": 32
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PackPower",
+            "X": 32,
+            "Y": 175,
+            "Width": 320,
+            "Height": 50,
+            "TextId": "TXT_BATTERY_POWER",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PackVoltage",
+            "X": 370,
+            "Y": 139,
+            "Width": 176,
+            "Height": 32,
+            "TextId": "TXT_BATTERY_V",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PackCurrent",
+            "X": 558,
+            "Y": 139,
+            "Width": 210,
+            "Height": 32,
+            "TextId": "TXT_BATTERY_I",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PackSoc",
+            "X": 370,
+            "Y": 172,
+            "Width": 360,
+            "Height": 32,
+            "TextId": "TXT_BATTERY_SOC",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
             }
           },
           {
             "Type": "TextArea",
             "Name": "CellsHeading",
             "X": 24,
-            "Y": 176,
-            "Width": 600,
+            "Y": 246,
+            "Width": 736,
             "Height": 24,
-            "TextId": "TXT_BATT_CELLS",
+            "TextId": "TXT_BATTERY_PHYSICAL",
             "TextRotation": "0",
             "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
             "Type": "Box",
             "Name": "CellCard0",
             "X": 16,
-            "Y": 208,
-            "Width": 180,
-            "Height": 100,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "CellTerminal0",
-            "X": 66,
-            "Y": 201,
-            "Width": 44,
-            "Height": 7,
-            "Visible": false,
+            "Y": 276,
+            "Width": 144,
+            "Height": 104,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -7034,72 +7041,65 @@
           {
             "Type": "TextArea",
             "Name": "CellLabel0",
-            "X": 28,
-            "Y": 216,
-            "Width": 156,
-            "Height": 20,
-            "TextId": "TXT_BATT_CH0",
+            "X": 26,
+            "Y": 283,
+            "Width": 124,
+            "Height": 24,
+            "TextId": "TXT_BATTERY_CHANNEL0",
             "TextRotation": "0",
             "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
             "Type": "TextArea",
             "Name": "CellValue0",
-            "X": 28,
-            "Y": 246,
-            "Width": 156,
-            "Height": 32,
-            "TextId": "TXT_CELL_DYNAMIC",
+            "X": 26,
+            "Y": 310,
+            "Width": 124,
+            "Height": 34,
+            "TextId": "TXT_BATTERY_CELL0",
             "TextRotation": "0",
             "Color": {
-              "Red": 251,
-              "Green": 191,
-              "Blue": 36
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
               "UseBuffer": true,
-              "BufferSize": 32
+              "BufferSize": 100
             }
           },
           {
-            "Type": "Box",
-            "Name": "CellBar0",
-            "X": 28,
-            "Y": 292,
-            "Width": 120,
-            "Height": 4,
+            "Type": "TextArea",
+            "Name": "CellStatus0",
+            "X": 26,
+            "Y": 351,
+            "Width": 124,
+            "Height": 22,
+            "TextId": "TXT_BATTERY_STATUS0",
+            "TextRotation": "0",
             "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
             }
           },
           {
             "Type": "Box",
             "Name": "CellCard1",
-            "X": 212,
-            "Y": 208,
-            "Width": 180,
-            "Height": 100,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "CellTerminal1",
-            "X": 222,
-            "Y": 201,
-            "Width": 44,
-            "Height": 7,
-            "Visible": false,
+            "X": 172,
+            "Y": 276,
+            "Width": 144,
+            "Height": 104,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -7109,72 +7109,65 @@
           {
             "Type": "TextArea",
             "Name": "CellLabel1",
-            "X": 224,
-            "Y": 216,
-            "Width": 156,
-            "Height": 20,
-            "TextId": "TXT_BATT_CH1",
+            "X": 182,
+            "Y": 283,
+            "Width": 124,
+            "Height": 24,
+            "TextId": "TXT_BATTERY_CHANNEL1",
             "TextRotation": "0",
             "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
             "Type": "TextArea",
             "Name": "CellValue1",
-            "X": 224,
-            "Y": 246,
-            "Width": 156,
-            "Height": 32,
-            "TextId": "TXT_CELL_DYNAMIC",
+            "X": 182,
+            "Y": 310,
+            "Width": 124,
+            "Height": 34,
+            "TextId": "TXT_BATTERY_CELL1",
             "TextRotation": "0",
             "Color": {
-              "Red": 251,
-              "Green": 191,
-              "Blue": 36
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
               "UseBuffer": true,
-              "BufferSize": 32
+              "BufferSize": 100
             }
           },
           {
-            "Type": "Box",
-            "Name": "CellBar1",
-            "X": 224,
-            "Y": 292,
-            "Width": 120,
-            "Height": 4,
+            "Type": "TextArea",
+            "Name": "CellStatus1",
+            "X": 182,
+            "Y": 351,
+            "Width": 124,
+            "Height": 22,
+            "TextId": "TXT_BATTERY_STATUS1",
+            "TextRotation": "0",
             "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
             }
           },
           {
             "Type": "Box",
             "Name": "CellCard2",
-            "X": 408,
-            "Y": 208,
-            "Width": 180,
-            "Height": 100,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "CellTerminal2",
-            "X": 378,
-            "Y": 201,
-            "Width": 44,
-            "Height": 7,
-            "Visible": false,
+            "X": 328,
+            "Y": 276,
+            "Width": 144,
+            "Height": 104,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -7184,72 +7177,65 @@
           {
             "Type": "TextArea",
             "Name": "CellLabel2",
-            "X": 420,
-            "Y": 216,
-            "Width": 156,
-            "Height": 20,
-            "TextId": "TXT_BATT_CH2",
+            "X": 338,
+            "Y": 283,
+            "Width": 124,
+            "Height": 24,
+            "TextId": "TXT_BATTERY_CHANNEL2",
             "TextRotation": "0",
             "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
             "Type": "TextArea",
             "Name": "CellValue2",
-            "X": 420,
-            "Y": 246,
-            "Width": 156,
-            "Height": 32,
-            "TextId": "TXT_CELL_DYNAMIC",
+            "X": 338,
+            "Y": 310,
+            "Width": 124,
+            "Height": 34,
+            "TextId": "TXT_BATTERY_CELL2",
             "TextRotation": "0",
             "Color": {
-              "Red": 251,
-              "Green": 191,
-              "Blue": 36
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
               "UseBuffer": true,
-              "BufferSize": 32
+              "BufferSize": 100
             }
           },
           {
-            "Type": "Box",
-            "Name": "CellBar2",
-            "X": 420,
-            "Y": 292,
-            "Width": 120,
-            "Height": 4,
+            "Type": "TextArea",
+            "Name": "CellStatus2",
+            "X": 338,
+            "Y": 351,
+            "Width": 124,
+            "Height": 22,
+            "TextId": "TXT_BATTERY_STATUS2",
+            "TextRotation": "0",
             "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
             }
           },
           {
             "Type": "Box",
             "Name": "CellCard3",
-            "X": 604,
-            "Y": 208,
-            "Width": 180,
-            "Height": 100,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "CellTerminal3",
-            "X": 534,
-            "Y": 201,
-            "Width": 44,
-            "Height": 7,
-            "Visible": false,
+            "X": 484,
+            "Y": 276,
+            "Width": 144,
+            "Height": 104,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -7259,73 +7245,26 @@
           {
             "Type": "TextArea",
             "Name": "CellLabel3",
-            "X": 616,
-            "Y": 216,
-            "Width": 156,
-            "Height": 20,
-            "TextId": "TXT_BATT_CH4",
+            "X": 494,
+            "Y": 283,
+            "Width": 124,
+            "Height": 24,
+            "TextId": "TXT_BATTERY_CHANNEL3",
             "TextRotation": "0",
             "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             }
           },
           {
             "Type": "TextArea",
             "Name": "CellValue3",
-            "X": 616,
-            "Y": 246,
-            "Width": 156,
-            "Height": 32,
-            "TextId": "TXT_CELL_DYNAMIC",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 251,
-              "Green": 191,
-              "Blue": 36
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 32
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "CellBar3",
-            "X": 616,
-            "Y": 292,
-            "Width": 120,
-            "Height": 4,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "CellTerminal4",
-            "X": 690,
-            "Y": 201,
-            "Width": 44,
-            "Height": 7,
-            "Visible": false,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "LeftDetails",
-            "X": 24,
-            "Y": 324,
-            "Width": 380,
-            "Height": 68,
-            "TextId": "TXT_TELEM_DETAILS",
+            "X": 494,
+            "Y": 310,
+            "Width": 124,
+            "Height": 34,
+            "TextId": "TXT_BATTERY_CELL3",
             "TextRotation": "0",
             "Color": {
               "Red": 232,
@@ -7335,17 +7274,17 @@
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
               "UseBuffer": true,
-              "BufferSize": 512
+              "BufferSize": 100
             }
           },
           {
             "Type": "TextArea",
-            "Name": "RightDetails",
-            "X": 408,
-            "Y": 324,
-            "Width": 368,
-            "Height": 68,
-            "TextId": "TXT_TELEM_DETAILS",
+            "Name": "CellStatus3",
+            "X": 494,
+            "Y": 351,
+            "Width": 124,
+            "Height": 22,
+            "TextId": "TXT_BATTERY_STATUS3",
             "TextRotation": "0",
             "Color": {
               "Red": 232,
@@ -7355,28 +7294,244 @@
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
               "UseBuffer": true,
-              "BufferSize": 512
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "CellCard4",
+            "X": 640,
+            "Y": 276,
+            "Width": 144,
+            "Height": 104,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
             "Type": "TextArea",
-            "Name": "Future",
+            "Name": "CellLabel4",
+            "X": 650,
+            "Y": 283,
+            "Width": 124,
+            "Height": 24,
+            "TextId": "TXT_BATTERY_CHANNEL4",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "CellValue4",
+            "X": 650,
+            "Y": 310,
+            "Width": 124,
+            "Height": 34,
+            "TextId": "TXT_BATTERY_CELL4",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "CellStatus4",
+            "X": 650,
+            "Y": 351,
+            "Width": 124,
+            "Height": 22,
+            "TextId": "TXT_BATTERY_STATUS4",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "CellSpread",
             "X": 24,
-            "Y": 403,
+            "Y": 394,
             "Width": 750,
-            "Height": 56,
-            "TextId": "TXT_TELEM_DETAILS",
+            "Height": 28,
+            "TextId": "TXT_BATTERY_SPREAD",
             "TextRotation": "0",
             "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "StatusHint",
+            "X": 24,
+            "Y": 432,
+            "Width": 560,
+            "Height": 26,
+            "TextId": "TXT_BATTERY_HINT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ChargerPanel",
+            "X": 16,
+            "Y": 248,
+            "Width": 768,
+            "Height": 164,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ChargerData",
+            "X": 32,
+            "Y": 260,
+            "Width": 358,
+            "Height": 146,
+            "TextId": "TXT_BATTERY_CHARGER_DATA",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
             },
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
               "UseBuffer": true,
               "BufferSize": 512
             }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ChargerStatus",
+            "X": 424,
+            "Y": 260,
+            "Width": 344,
+            "Height": 146,
+            "TextId": "TXT_BATTERY_CHARGER_STATUS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 512
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "EnergyPanel",
+            "X": 16,
+            "Y": 248,
+            "Width": 768,
+            "Height": 164,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "EnergyValue",
+            "X": 32,
+            "Y": 260,
+            "Width": 350,
+            "Height": 32,
+            "TextId": "TXT_BATTERY_ENERGY_VALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "EnergyHint",
+            "X": 400,
+            "Y": 264,
+            "Width": 366,
+            "Height": 24,
+            "TextId": "TXT_BATTERY_ENERGY_HINT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "UsbButton",
+            "X": 604,
+            "Y": 428,
+            "Width": 180,
+            "Height": 42,
+            "Pressed": "battery_tab_sel_180x42.png",
+            "Released": "battery_tab_rel_180x42.png",
+            "TextId": "TXT_USBBUTTON",
+            "ReleasedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "PressedColor": {
+              "Red": 23,
+              "Green": 35,
+              "Blue": 55
+            },
+            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -7402,6 +7557,61 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "ScreenSettings"
+            }
+          },
+          {
+            "InteractionName": "showBattery",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BatteryTab"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "showBattery"
+            }
+          },
+          {
+            "InteractionName": "openBms",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "DetailsTab"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "openBms"
+            }
+          },
+          {
+            "InteractionName": "showCharger",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ChargerTab"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "showCharger"
+            }
+          },
+          {
+            "InteractionName": "showEnergy",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "EnergyTab"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "showEnergy"
+            }
+          },
+          {
+            "InteractionName": "openUsb",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "UsbButton"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "openUsb"
             }
           }
         ]

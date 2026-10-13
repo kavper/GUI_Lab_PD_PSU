@@ -34,7 +34,7 @@ bool selectedBitmap(touchgfx::BitmapId id){
     // Kept as bitmap IDs so existing tab/chemistry/selection logic still works.
     case BITMAP_UX_TAB_SEL_160X58_ID: case BITMAP_UX_TAB_SEL_160X38_ID:
     case BITMAP_UX_ACTION_SEL_88X48_ID: case BITMAP_UX_ROW_SEL_432X36_ID:
-    case BITMAP_MENU_TILE_SEL_248X92_ID: case BITMAP_UX_TILE_SEL_248X112_ID: case BITMAP_MAIN_PRESET_SEL_154X60_ID:
+    case BITMAP_BATTERY_TAB_SEL_180X42_ID: case BITMAP_MENU_TILE_SEL_248X92_ID: case BITMAP_UX_TILE_SEL_248X112_ID: case BITMAP_MAIN_PRESET_SEL_154X60_ID:
     case BITMAP_MAIN_PRESET_SEL_100X60_ID:case BITMAP_MAIN_SENSE_SEL_148X60_ID:return true;
     default:return false;
     }
@@ -49,25 +49,25 @@ touchgfx::colortype composite(touchgfx::colortype base,touchgfx::colortype borde
 }
 struct CornerCacheEntry {
     touchgfx::colortype base, border, surface;
-    int radius;
+    int radius, thickness;
     touchgfx::BitmapId ids[4];
     alignas(32) uint16_t pixels[4][12*12];
 };
 // Stable storage: never overwrite a texture while queued GPU commands read it.
 CornerCacheEntry cornerCache[128];
 unsigned cornerCacheCount=0;
-bool cachedCorners(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::colortype border,touchgfx::colortype surface,touchgfx::colortype base,int radius){
+bool cachedCorners(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::colortype border,touchgfx::colortype surface,touchgfx::colortype base,int radius,int thickness=1){
     CornerCacheEntry* entry=0;
     for(unsigned n=0;n<cornerCacheCount;n++) {
         auto& c=cornerCache[n];
-        if(c.radius==radius && c.base==base && c.border==border && c.surface==surface){entry=&c;break;}
+        if(c.radius==radius && c.thickness==thickness && c.base==base && c.border==border && c.surface==surface){entry=&c;break;}
     }
     if(!entry){
         if(cornerCacheCount==128)return false;
         auto& c=cornerCache[cornerCacheCount];
-        c.radius=radius;c.base=base;c.border=border;c.surface=surface;
+        c.radius=radius;c.thickness=thickness;c.base=base;c.border=border;c.surface=surface;
         for(int y=0;y<radius;y++)for(int x=0;x<radius;x++){
-            const auto color=composite(base,border,surface,ui::corners::coverage(radius,x,y),ui::corners::coverage(radius-1,x-1,y-1));
+            const auto color=composite(base,border,surface,ui::corners::coverage(radius,x,y),ui::corners::coverage(radius-thickness,x-thickness,y-thickness));
             const uint16_t rgb565=((touchgfx::Color::getRed(color)&0xF8)<<8)|((touchgfx::Color::getGreen(color)&0xFC)<<3)|(touchgfx::Color::getBlue(color)>>3);
             c.pixels[0][y*radius+x]=rgb565;
             c.pixels[1][y*radius+radius-1-x]=rgb565;
@@ -157,20 +157,21 @@ void ThemedSurface::draw(const touchgfx::Rect& area) const {
     touchgfx::Rect rect=getAbsoluteRect(),clip=area;clip.x+=rect.x;clip.y+=rect.y;
     if(style==SELECTION){
         const touchgfx::colortype accent=Theme::color(ACCENT);
-        // Thin, strictly symmetric two-pixel outline. Every corner is the
-        // exact horizontal/vertical mirror of the other three corners.
-        fill(touchgfx::Rect(rect.x+6,rect.y,rect.width-12,2),clip,accent);
-        fill(touchgfx::Rect(rect.x+3,rect.y+2,3,2),clip,accent);
-        fill(touchgfx::Rect(rect.x+1,rect.y+4,3,2),clip,accent);
-        fill(touchgfx::Rect(rect.x,rect.y+6,2,rect.height-12),clip,accent);
-        fill(touchgfx::Rect(rect.right()-6,rect.y+2,3,2),clip,accent);
-        fill(touchgfx::Rect(rect.right()-4,rect.y+4,3,2),clip,accent);
-        fill(touchgfx::Rect(rect.right()-2,rect.y+6,2,rect.height-12),clip,accent);
-        fill(touchgfx::Rect(rect.x+1,rect.bottom()-6,3,2),clip,accent);
-        fill(touchgfx::Rect(rect.x+3,rect.bottom()-4,3,2),clip,accent);
-        fill(touchgfx::Rect(rect.x+6,rect.bottom()-2,rect.width-12,2),clip,accent);
-        fill(touchgfx::Rect(rect.right()-4,rect.bottom()-6,3,2),clip,accent);
-        fill(touchgfx::Rect(rect.right()-6,rect.bottom()-4,3,2),clip,accent);
+        const int radius=12;
+        fill(touchgfx::Rect(rect.x+radius,rect.y,rect.width-2*radius,2),clip,accent);
+        fill(touchgfx::Rect(rect.x+radius,rect.bottom()-2,rect.width-2*radius,2),clip,accent);
+        fill(touchgfx::Rect(rect.x,rect.y+radius,2,rect.height-2*radius),clip,accent);
+        fill(touchgfx::Rect(rect.right()-2,rect.y+radius,2,rect.height-2*radius),clip,accent);
+        const auto surface=Theme::color(SURFACE),base=Theme::color(BACKGROUND);
+        if(!cachedCorners(rect,clip,accent,surface,base,radius,2)) {
+            for(int y=0;y<radius;y++)for(int x=0;x<radius;x++) {
+                const auto color=composite(base,accent,surface,ui::corners::coverage(radius,x,y),ui::corners::coverage(radius-2,x-2,y-2));
+                fill(touchgfx::Rect(rect.x+x,rect.y+y,1,1),clip,color);
+                fill(touchgfx::Rect(rect.right()-1-x,rect.y+y,1,1),clip,color);
+                fill(touchgfx::Rect(rect.x+x,rect.bottom()-1-y,1,1),clip,color);
+                fill(touchgfx::Rect(rect.right()-1-x,rect.bottom()-1-y,1,1),clip,color);
+            }
+        }
         // Preserve the useful divider between the measurement and setpoint.
         fill(touchgfx::Rect(rect.x+306,rect.y+12,2,rect.height-24),clip,accent);
         return;

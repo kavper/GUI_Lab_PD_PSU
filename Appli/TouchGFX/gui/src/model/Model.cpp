@@ -1,5 +1,6 @@
 #include <gui/model/Model.hpp>
 #include <gui/common/UsbSession.hpp>
+#include <gui/common/BatteryTrend.hpp>
 #include <gui/model/ModelListener.hpp>
 #include <gui/common/FrontendApplication.hpp>
 extern "C" {
@@ -35,6 +36,7 @@ void Model::tick()
     psu_app_tick(sim_ms);
 #endif
     updateUsbSession();
+    updateBatteryTrend();
     // Keep receiving and processing data, but freeze widget invalidations until
     // the wipe has finished. The next tick publishes the latest snapshot.
     const FrontendApplication* app = static_cast<const FrontendApplication*>(touchgfx::Application::getInstance());
