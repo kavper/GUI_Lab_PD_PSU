@@ -249,3 +249,16 @@ and CFSR/HFSR=0. After restart 10 static points agree in both logical buffers an
 rotated scanout. AP1 Under Reset / Hardware reset / 1000 kHz is retained for all
 programming; AP0 is only used for runtime diagnostic access. Audible confirmation
 requires the user's observation, not a register read.
+
+## Reference menu layout (2026-10-13)
+
+Menu uses three horizontal sections, each with three 248x92 cards:
+MONITOR: Battery, USB-C, Output monitor;
+TOOLS: Presets, Sequencer, External charger;
+SYSTEM: Diagnostics, Network, Appearance.
+Blue theme remains the boot default. Output monitor opens existing live rail
+measurements, not an unimplemented history. Its route uses the same cached wipe.
+USB-C screen configuration and handwritten USB view were left unchanged at the
+user's explicit request. Generate, simulator and target builds passed; the
+35-stage simulator test covers all card routes, new Output monitor and return,
+HOME, theme and existing sound controls. Programming requires live SWD access.

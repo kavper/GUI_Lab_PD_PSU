@@ -1470,7 +1470,7 @@
         <Translation Language="GB">DN</Translation>
       </Text>
       <Text Id="TXT_UX_ScreenSettings" Alignment="Left" TypographyId="Title">
-        <Translation Language="GB">Settings &amp; tools</Translation>
+        <Translation Language="GB">Control centre</Translation>
       </Text>
       <Text Id="TXT_UX_HOME" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">HOME</Translation>
@@ -1479,7 +1479,7 @@
         <Translation Language="GB">Presets</Translation>
       </Text>
       <Text Id="TXT_UX_DESC0" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">Three saved V / I settings</Translation>
+        <Translation Language="GB">Saved output settings</Translation>
       </Text>
       <Text Id="TXT_UX_NAV1" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">Sequencer</Translation>
@@ -1488,10 +1488,10 @@
         <Translation Language="GB">Timed output programs</Translation>
       </Text>
       <Text Id="TXT_UX_NAV2" Alignment="Left" TypographyId="Small">
-        <Translation Language="GB">Charger</Translation>
+        <Translation Language="GB">External charger</Translation>
       </Text>
       <Text Id="TXT_UX_DESC2" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">Setup and charge session</Translation>
+        <Translation Language="GB">Battery on output terminals</Translation>
       </Text>
       <Text Id="TXT_UX_NAV3" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">Battery</Translation>
@@ -1503,19 +1503,19 @@
         <Translation Language="GB">USB-C</Translation>
       </Text>
       <Text Id="TXT_UX_DESC4" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">Power delivery and routing</Translation>
+        <Translation Language="GB">Port, contract and flow</Translation>
       </Text>
       <Text Id="TXT_UX_NAV5" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">Diagnostics</Translation>
       </Text>
       <Text Id="TXT_UX_DESC5" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">Telemetry and fault details</Translation>
+        <Translation Language="GB">Telemetry and events</Translation>
       </Text>
       <Text Id="TXT_UX_NAV6" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">Network</Translation>
       </Text>
       <Text Id="TXT_UX_DESC6" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">Remote access and interfaces</Translation>
+        <Translation Language="GB">Remote access</Translation>
       </Text>
       <Text Id="TXT_THESIS" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">AGH / Laboratory power supply</Translation>
@@ -1832,20 +1832,26 @@ interface.</Translation>
       <Text Id="TXT_SOUNDFEEDBACKBUTTON" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">Feedback</Translation>
       </Text>
-      <Text Id="TXT_CONTROLGROUP" Alignment="Left" TypographyId="UiEyebrow">
-        <Translation Language="GB">CONTROL &amp; AUTOMATION</Translation>
+      <Text Id="TXT_CONTROLGROUP" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">MONITOR</Translation>
       </Text>
-      <Text Id="TXT_POWERGROUP" Alignment="Left" TypographyId="UiEyebrow">
-        <Translation Language="GB">POWER &amp; USB-C</Translation>
+      <Text Id="TXT_POWERGROUP" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">TOOLS</Translation>
       </Text>
-      <Text Id="TXT_DEVICEGROUP" Alignment="Left" TypographyId="UiEyebrow">
-        <Translation Language="GB">DEVICE &amp; SERVICE</Translation>
+      <Text Id="TXT_DEVICEGROUP" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">SYSTEM</Translation>
       </Text>
       <Text Id="TXT_USB_LOAD_DETAIL" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
       <Text Id="TXT_USB_SESSION_SUMMARY" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_MENU_OUTPUT_TITLE" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Output monitor</Translation>
+      </Text>
+      <Text Id="TXT_MENU_OUTPUT_DESC" Alignment="Left" TypographyId="UiCaption">
+        <Translation Language="GB">Rail voltage, currents and stage</Translation>
       </Text>
     </TextGroup>
     <TextGroup Id="MainRemoteSense">

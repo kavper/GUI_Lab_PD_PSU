@@ -13,7 +13,7 @@ void ScreenSettingsView::setupScreen()
 {
     ScreenSettingsViewBase::setupScreen();
     static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->setSwipePage(FrontendApplication::SETTINGS);
-    lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,"Configure, monitor and automate",lab_muted());
+    lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,"Monitor / tools / system",lab_muted());
 
     setupTheme();
 }
@@ -37,9 +37,9 @@ void ScreenSettingsView::setupTheme()
     theme.box(LabHeader,ui::SURFACE);
     theme.box(ThemeHeaderDivider,ui::BORDER);
     theme.text(PageTitle);
-    theme.text(ControlGroup,ui::ACCENT);
-    theme.text(PowerGroup,ui::ACCENT);
-    theme.text(DeviceGroup,ui::ACCENT);
+    theme.text(ControlGroup);
+    theme.text(PowerGroup);
+    theme.text(DeviceGroup);
     theme.text(PageFeedback);
     theme.button(AllOffButton,ui::DANGER);
     theme.button(BackButton,ui::NORMAL);
@@ -75,5 +75,9 @@ void ScreenSettingsView::setupTheme()
     theme.image(AppearanceIcon,ui::ICON,&AppearanceButton);
     theme.text(AppearanceTitle);
     theme.text(AppearanceDesc);
+    theme.button(OutputMonitorButton,ui::NORMAL);
+    theme.image(OutputMonitorIcon,ui::ICON,&OutputMonitorButton);
+    theme.text(OutputMonitorTitle);
+    theme.text(OutputMonitorDesc);
     theme.apply();
 }

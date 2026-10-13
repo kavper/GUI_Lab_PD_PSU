@@ -6,6 +6,8 @@
 #include <gui/screensettings_screen/ScreenSettingsView.hpp>
 #include <gui/screensettings_screen/ScreenSettingsPresenter.hpp>
 #include <gui/screendiagnostics_screen/ScreenDiagnosticsView.hpp>
+#include <gui/screenmeasurements_screen/ScreenMeasurementsView.hpp>
+#include <gui/screenmeasurements_screen/ScreenMeasurementsPresenter.hpp>
 #include <gui/screendiagnostics_screen/ScreenDiagnosticsPresenter.hpp>
 #include <gui/screenpresets_screen/ScreenPresetsView.hpp>
 #include <gui/screenpresets_screen/ScreenPresetsPresenter.hpp>
@@ -36,6 +38,7 @@ void FrontendApplication::name##CachedImpl() { \
 CACHED_ROUTE(Screen1, EAST, gotoScreen1ScreenWipeTransitionEast)
 CACHED_ROUTE(ScreenSettings, WEST, gotoScreenSettingsScreenWipeTransitionWest)
 CACHED_ROUTE(ScreenSettings, EAST, gotoScreenSettingsScreenWipeTransitionEast)
+CACHED_ROUTE(ScreenMeasurements, WEST, gotoScreenMeasurementsScreenWipeTransitionWest)
 CACHED_ROUTE(ScreenDiagnostics, WEST, gotoScreenDiagnosticsScreenWipeTransitionWest)
 CACHED_ROUTE(ScreenPresets, WEST, gotoScreenPresetsScreenWipeTransitionWest)
 CACHED_ROUTE(ScreenSequencer, WEST, gotoScreenSequencerScreenWipeTransitionWest)

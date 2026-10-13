@@ -1762,17 +1762,17 @@
             "Type": "Button",
             "Name": "PresetManagerButton",
             "X": 16,
-            "Y": 106,
+            "Y": 228,
             "Width": 248,
-            "Height": 112,
-            "Pressed": "ux_tile_sel_248x112.png",
-            "Released": "ux_tile_rel_248x112.png"
+            "Height": 92,
+            "Pressed": "menu_tile_sel_248x92.png",
+            "Released": "menu_tile_rel_248x92.png"
           },
           {
             "Type": "Image",
             "Name": "Icon0",
             "X": 32,
-            "Y": 120,
+            "Y": 240,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_presets_40.png"
@@ -1781,7 +1781,7 @@
             "Type": "TextArea",
             "Name": "Title0",
             "X": 84,
-            "Y": 124,
+            "Y": 240,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV0",
@@ -1796,9 +1796,9 @@
             "Type": "TextArea",
             "Name": "Desc0",
             "X": 32,
-            "Y": 176,
+            "Y": 286,
             "Width": 220,
-            "Height": 30,
+            "Height": 24,
             "TextId": "TXT_UX_DESC0",
             "TextRotation": "0",
             "Color": {
@@ -1810,18 +1810,18 @@
           {
             "Type": "Button",
             "Name": "SequencerButton",
-            "X": 16,
-            "Y": 230,
+            "X": 276,
+            "Y": 228,
             "Width": 248,
-            "Height": 112,
-            "Pressed": "ux_tile_sel_248x112.png",
-            "Released": "ux_tile_rel_248x112.png"
+            "Height": 92,
+            "Pressed": "menu_tile_sel_248x92.png",
+            "Released": "menu_tile_rel_248x92.png"
           },
           {
             "Type": "Image",
             "Name": "Icon1",
-            "X": 32,
-            "Y": 244,
+            "X": 292,
+            "Y": 240,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_seq_40.png"
@@ -1829,8 +1829,8 @@
           {
             "Type": "TextArea",
             "Name": "Title1",
-            "X": 84,
-            "Y": 248,
+            "X": 344,
+            "Y": 240,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV1",
@@ -1844,10 +1844,10 @@
           {
             "Type": "TextArea",
             "Name": "Desc1",
-            "X": 32,
-            "Y": 300,
+            "X": 292,
+            "Y": 286,
             "Width": 220,
-            "Height": 30,
+            "Height": 24,
             "TextId": "TXT_UX_DESC1",
             "TextRotation": "0",
             "Color": {
@@ -1859,18 +1859,18 @@
           {
             "Type": "Button",
             "Name": "ChargerButton",
-            "X": 276,
-            "Y": 354,
+            "X": 536,
+            "Y": 228,
             "Width": 248,
-            "Height": 112,
-            "Pressed": "ux_tile_sel_248x112.png",
-            "Released": "ux_tile_rel_248x112.png"
+            "Height": 92,
+            "Pressed": "menu_tile_sel_248x92.png",
+            "Released": "menu_tile_rel_248x92.png"
           },
           {
             "Type": "Image",
             "Name": "Icon2",
-            "X": 292,
-            "Y": 368,
+            "X": 552,
+            "Y": 240,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_chg_40.png"
@@ -1878,8 +1878,8 @@
           {
             "Type": "TextArea",
             "Name": "Title2",
-            "X": 344,
-            "Y": 372,
+            "X": 604,
+            "Y": 240,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV2",
@@ -1893,10 +1893,10 @@
           {
             "Type": "TextArea",
             "Name": "Desc2",
-            "X": 292,
-            "Y": 424,
+            "X": 552,
+            "Y": 286,
             "Width": 220,
-            "Height": 30,
+            "Height": 24,
             "TextId": "TXT_UX_DESC2",
             "TextRotation": "0",
             "Color": {
@@ -1908,18 +1908,18 @@
           {
             "Type": "Button",
             "Name": "PackButton",
-            "X": 276,
-            "Y": 230,
+            "X": 16,
+            "Y": 100,
             "Width": 248,
-            "Height": 112,
-            "Pressed": "ux_tile_sel_248x112.png",
-            "Released": "ux_tile_rel_248x112.png"
+            "Height": 92,
+            "Pressed": "menu_tile_sel_248x92.png",
+            "Released": "menu_tile_rel_248x92.png"
           },
           {
             "Type": "Image",
             "Name": "Icon3",
-            "X": 292,
-            "Y": 244,
+            "X": 32,
+            "Y": 112,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_pack_40.png"
@@ -1927,8 +1927,8 @@
           {
             "Type": "TextArea",
             "Name": "Title3",
-            "X": 344,
-            "Y": 248,
+            "X": 84,
+            "Y": 112,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV3",
@@ -1942,10 +1942,10 @@
           {
             "Type": "TextArea",
             "Name": "Desc3",
-            "X": 292,
-            "Y": 300,
+            "X": 32,
+            "Y": 158,
             "Width": 220,
-            "Height": 30,
+            "Height": 24,
             "TextId": "TXT_UX_DESC3",
             "TextRotation": "0",
             "Color": {
@@ -1958,17 +1958,17 @@
             "Type": "Button",
             "Name": "UsbButton",
             "X": 276,
-            "Y": 106,
+            "Y": 100,
             "Width": 248,
-            "Height": 112,
-            "Pressed": "ux_tile_sel_248x112.png",
-            "Released": "ux_tile_rel_248x112.png"
+            "Height": 92,
+            "Pressed": "menu_tile_sel_248x92.png",
+            "Released": "menu_tile_rel_248x92.png"
           },
           {
             "Type": "Image",
             "Name": "Icon4",
             "X": 292,
-            "Y": 120,
+            "Y": 112,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_usb_40.png"
@@ -1977,7 +1977,7 @@
             "Type": "TextArea",
             "Name": "Title4",
             "X": 344,
-            "Y": 124,
+            "Y": 112,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV4",
@@ -1992,9 +1992,9 @@
             "Type": "TextArea",
             "Name": "Desc4",
             "X": 292,
-            "Y": 176,
+            "Y": 158,
             "Width": 220,
-            "Height": 30,
+            "Height": 24,
             "TextId": "TXT_UX_DESC4",
             "TextRotation": "0",
             "Color": {
@@ -2006,17 +2006,17 @@
           {
             "Type": "Button",
             "Name": "DiagnosticsButton",
-            "X": 536,
-            "Y": 354,
+            "X": 16,
+            "Y": 356,
             "Width": 248,
-            "Height": 112,
-            "Pressed": "ux_tile_sel_248x112.png",
-            "Released": "ux_tile_rel_248x112.png"
+            "Height": 92,
+            "Pressed": "menu_tile_sel_248x92.png",
+            "Released": "menu_tile_rel_248x92.png"
           },
           {
             "Type": "Image",
             "Name": "Icon5",
-            "X": 552,
+            "X": 32,
             "Y": 368,
             "Width": 40,
             "Height": 40,
@@ -2025,8 +2025,8 @@
           {
             "Type": "TextArea",
             "Name": "Title5",
-            "X": 604,
-            "Y": 372,
+            "X": 84,
+            "Y": 368,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV5",
@@ -2040,10 +2040,10 @@
           {
             "Type": "TextArea",
             "Name": "Desc5",
-            "X": 552,
-            "Y": 424,
+            "X": 32,
+            "Y": 414,
             "Width": 220,
-            "Height": 30,
+            "Height": 24,
             "TextId": "TXT_UX_DESC5",
             "TextRotation": "0",
             "Color": {
@@ -2055,18 +2055,18 @@
           {
             "Type": "Button",
             "Name": "SystemButton",
-            "X": 536,
-            "Y": 106,
+            "X": 276,
+            "Y": 356,
             "Width": 248,
-            "Height": 112,
-            "Pressed": "ux_tile_sel_248x112.png",
-            "Released": "ux_tile_rel_248x112.png"
+            "Height": 92,
+            "Pressed": "menu_tile_sel_248x92.png",
+            "Released": "menu_tile_rel_248x92.png"
           },
           {
             "Type": "Image",
             "Name": "Icon6",
-            "X": 552,
-            "Y": 120,
+            "X": 292,
+            "Y": 368,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_net_40.png"
@@ -2074,8 +2074,8 @@
           {
             "Type": "TextArea",
             "Name": "Title6",
-            "X": 604,
-            "Y": 124,
+            "X": 344,
+            "Y": 368,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_UX_NAV6",
@@ -2089,10 +2089,10 @@
           {
             "Type": "TextArea",
             "Name": "Desc6",
-            "X": 552,
-            "Y": 176,
+            "X": 292,
+            "Y": 414,
             "Width": 220,
-            "Height": 30,
+            "Height": 24,
             "TextId": "TXT_UX_DESC6",
             "TextRotation": "0",
             "Color": {
@@ -2105,17 +2105,17 @@
             "Type": "Button",
             "Name": "AppearanceButton",
             "X": 536,
-            "Y": 230,
+            "Y": 356,
             "Width": 248,
-            "Height": 112,
-            "Pressed": "ux_tile_sel_248x112.png",
-            "Released": "ux_tile_rel_248x112.png"
+            "Height": 92,
+            "Pressed": "menu_tile_sel_248x92.png",
+            "Released": "menu_tile_rel_248x92.png"
           },
           {
             "Type": "Image",
             "Name": "AppearanceIcon",
             "X": 552,
-            "Y": 244,
+            "Y": 368,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "icon_appearance_40.png"
@@ -2124,7 +2124,7 @@
             "Type": "TextArea",
             "Name": "AppearanceTitle",
             "X": 604,
-            "Y": 248,
+            "Y": 368,
             "Width": 176,
             "Height": 28,
             "TextId": "TXT_APPEARANCE_TITLE",
@@ -2139,9 +2139,9 @@
             "Type": "TextArea",
             "Name": "AppearanceDesc",
             "X": 552,
-            "Y": 300,
+            "Y": 414,
             "Width": 220,
-            "Height": 30,
+            "Height": 24,
             "TextId": "TXT_APPEARANCE_DESC",
             "TextRotation": "0",
             "Color": {
@@ -2155,7 +2155,7 @@
             "Name": "ControlGroup",
             "X": 24,
             "Y": 76,
-            "Width": 240,
+            "Width": 740,
             "Height": 24,
             "TextId": "TXT_CONTROLGROUP",
             "TextRotation": "0",
@@ -2168,9 +2168,9 @@
           {
             "Type": "TextArea",
             "Name": "PowerGroup",
-            "X": 284,
-            "Y": 76,
-            "Width": 240,
+            "X": 24,
+            "Y": 204,
+            "Width": 740,
             "Height": 24,
             "TextId": "TXT_POWERGROUP",
             "TextRotation": "0",
@@ -2183,9 +2183,9 @@
           {
             "Type": "TextArea",
             "Name": "DeviceGroup",
-            "X": 544,
-            "Y": 76,
-            "Width": 240,
+            "X": 24,
+            "Y": 332,
+            "Width": 740,
             "Height": 24,
             "TextId": "TXT_DEVICEGROUP",
             "TextRotation": "0",
@@ -2193,6 +2193,55 @@
               "Red": 232,
               "Green": 238,
               "Blue": 248
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "OutputMonitorButton",
+            "X": 536,
+            "Y": 100,
+            "Width": 248,
+            "Height": 92,
+            "Pressed": "menu_tile_sel_248x92.png",
+            "Released": "menu_tile_rel_248x92.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "OutputMonitorIcon",
+            "X": 552,
+            "Y": 112,
+            "Width": 40,
+            "Height": 40,
+            "RelativeFilename": "icon_diag_40.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "OutputMonitorTitle",
+            "X": 604,
+            "Y": 112,
+            "Width": 176,
+            "Height": 28,
+            "TextId": "TXT_MENU_OUTPUT_TITLE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "OutputMonitorDesc",
+            "X": 552,
+            "Y": 158,
+            "Width": 220,
+            "Height": 24,
+            "TextId": "TXT_MENU_OUTPUT_DESC",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 167,
+              "Green": 182,
+              "Blue": 203
             }
           }
         ],
@@ -2323,6 +2372,19 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "West",
               "ActionComponent": "ScreenNetwork"
+            }
+          },
+          {
+            "InteractionName": "OpenOutputMonitor",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "OutputMonitorButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenMeasurements"
             }
           }
         ]

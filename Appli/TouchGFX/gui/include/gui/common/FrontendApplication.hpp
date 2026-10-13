@@ -28,6 +28,7 @@ public:
     CACHED_ROUTE(gotoScreen1ScreenWipeTransitionEast)
     CACHED_ROUTE(gotoScreenSettingsScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenSettingsScreenWipeTransitionEast)
+    CACHED_ROUTE(gotoScreenMeasurementsScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenDiagnosticsScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenPresetsScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenSequencerScreenWipeTransitionWest)
