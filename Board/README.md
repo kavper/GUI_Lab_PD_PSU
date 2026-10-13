@@ -75,6 +75,12 @@ Boot resetuje PSRAM poleceniem Global Reset FF i sprawdza adresy w calych 32 MiB
 linie danych, przejscie przez granice 2 KiB oraz ostatnia linie pamieci przed uruchomieniem GUI.
 Niepowodzenie zatrzymuje start; test uruchomi sie dopiero na rzeczywistej plytce.
 
+## Start GUI bez telemetrii
+
+Ekran powitalny przechodzi automatycznie do glownego widoku po okolo 3 sekundach, niezaleznie od swiezosci telemetrii. CONTINUE pozwala przejsc wczesniej. Przejscie jest zglaszane tylko raz, a licznik resetowany przy wejsciu na splash. Brak telemetrii jest nadal pokazywany jako G4 OFFLINE / NO LINK i brak pomiarow.
+
+Kontrola 2026-10-13: Generate, Compile Target i Compile Simulator PASS; istniejacy test GUI 14 etapow PASS. Nowy kod zapisany i zweryfikowany przez -v, zasoby Flash bez zmian. Na PCB odczytano z aktywnego bufora LCD poprawny ekran glowny bez telemetrii. Logi lokalne: Board/startup_generate.log, startup_target.log, startup_simulator.log, startup_simulator_selftest.log, startup_flash.log.
+
 ## Generate / Run Simulator / Run Target
 
 Zachowano polecenia projektu `.touchgfx`; makefile wykonawczy wybiera adaptery z `Board/`.

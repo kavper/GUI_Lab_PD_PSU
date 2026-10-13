@@ -3,9 +3,9 @@
 #include <gui/screensplash_screen/ScreenSplashPresenter.hpp>
 class ScreenSplashView:public ScreenSplashViewBase{
 public:
- ScreenSplashView():ticks(0){}
+ ScreenSplashView():ticks(0),leaving(false){}
  virtual void setupScreen();virtual void handleTickEvent();
  virtual void tearDownScreen(){ScreenSplashViewBase::tearDownScreen();}
  virtual void continueStartup();
-private:unsigned ticks;
+private:unsigned ticks;bool leaving;
 };
