@@ -1,4 +1,5 @@
 #include <gui/common/UiTheme.hpp>
+#include <gui/common/SettingsPersistence.hpp>
 #include <images/BitmapDatabase.hpp>
 #include <touchgfx/Bitmap.hpp>
 #include <gui/screenpresets_screen/ScreenPresetsView.hpp>
@@ -28,10 +29,14 @@ void ScreenPresetsView::key(char c){psu_editor_key(&editor,c);refresh();}
 void ScreenPresetsView::allOff(){psu_app_power_shutdown();}
 void ScreenPresetsView::editVoltage(){field=0;select(selected);}
 void ScreenPresetsView::editCurrent(){field=1;select(selected);}
-void ScreenPresetsView::loadPreset(){lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,psu_preset_apply(selected)?"Preset requested; output state unchanged":"Preset request blocked",lab_cyan());}
+void ScreenPresetsView::loadPreset(){storageWatch=false;lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,psu_preset_apply(selected)?"Preset requested; output state unchanged":"Preset request blocked",lab_cyan());}
 void ScreenPresetsView::presetKeyClr(){psu_editor_clear(&editor);refresh();}
 void ScreenPresetsView::presetKeyDel(){psu_editor_backspace(&editor);refresh();}
-void ScreenPresetsView::presetKeyApply(){uint32_t v;if(!psu_editor_parse_milli(&editor,&v)){psu_editor_clear(&editor);refresh();return;}uint32_t max=field?5000:27000;bool clamped=v>max;if(clamped)v=max;const PsuPreset* p=psu_preset_get(selected);psu_preset_set(selected,field?p->voltage_mv:v,field?v:p->current_ma);select(selected);lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,clamped?"Saved at the maximum allowed value":"Preset saved",lab_cyan());}
+void ScreenPresetsView::presetKeyApply(){uint32_t v;if(!psu_editor_parse_milli(&editor,&v)){psu_editor_clear(&editor);refresh();return;}uint32_t max=field?5000:27000;bool clamped=v>max;if(clamped)v=max;const PsuPreset* p=psu_preset_get(selected);psu_preset_set(selected,field?p->voltage_mv:v,field?v:p->current_ma);select(selected);storageWatch=true;lastStorageStatus=0;lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,clamped?"Preset limited; saving automatically":"Preset updated; saving automatically",lab_cyan());}
+void ScreenPresetsView::handleTickEvent(){
+ ScreenPresetsViewBase::handleTickEvent();
+ if(storageWatch){const char *status=ui::settingsPersistenceStatus();if(status!=lastStorageStatus){lastStorageStatus=status;lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,status,lab_cyan());}}
+}
 void ScreenPresetsView::selectPreset1(){select(0);}
 void ScreenPresetsView::selectPreset2(){select(1);}
 void ScreenPresetsView::selectPreset3(){select(2);}

@@ -3,10 +3,10 @@ $ErrorActionPreference = 'Stop'
 $testRepo = Split-Path $PSScriptRoot -Parent
 $testOutput = Join-Path ([System.IO.Path]::GetTempPath()) 'GUI_Lab_PD_PSU_host_tests'
 New-Item -ItemType Directory -Path $testOutput -Force | Out-Null
-$testSources = @('g4_ascii','psu_app','psu_sim','psu_limits','psu_store',
+$testSources = @('g4_ascii','psu_app','psu_sim','psu_limits','psu_store','psu_nvstore',
                  'psu_seq','psu_charger','psu_format','psu_edit') |
   ForEach-Object { Join-Path $testRepo "Appli/Core/Src/$_.c" }
-foreach ($testName in @('test_binary','test_binary_app','test_startup','test_automation')) {
+foreach ($testName in @('test_binary','test_binary_app','test_startup','test_automation','test_nvstore')) {
   $testInput = Join-Path $PSScriptRoot "$testName.c"
   $testExe = Join-Path $testOutput "$testName.exe"
   $testUnits = @(if ($testName -eq 'test_binary') { $testSources[0] } else { $testSources })

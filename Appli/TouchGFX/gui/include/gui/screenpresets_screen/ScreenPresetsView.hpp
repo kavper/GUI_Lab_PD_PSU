@@ -9,6 +9,7 @@ public:
     void setupTheme();
  ScreenPresetsView();
  virtual void setupScreen();
+ virtual void handleTickEvent();
  virtual void tearDownScreen() {ScreenPresetsViewBase::tearDownScreen();}
  virtual void allOff();
  virtual void loadPreset();
@@ -33,6 +34,8 @@ public:
  virtual void presetKeyApply();
 
 private:
+ bool storageWatch = false;
+ const char *lastStorageStatus = 0;
  unsigned selected, field;
  PsuEditor editor;
  void select(unsigned index);

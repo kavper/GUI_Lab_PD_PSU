@@ -1,5 +1,6 @@
 #include <gui/common/UiTheme.hpp>
 #include <gui/common/UiSound.hpp>
+#include <gui/common/SettingsPersistence.hpp>
 #include <images/BitmapDatabase.hpp>
 #include <gui/screenappearance_screen/ScreenAppearanceView.hpp>
 #include <gui/common/LabText.hpp>
@@ -77,9 +78,14 @@ void ScreenAppearanceView::refreshThemeControls()
     const char* response=ui::Sound::feedback()==3?"Touch + controls":ui::Sound::feedback()==1?"Touch only":"Controls only";
     snprintf(sound,sizeof(sound),"%s / Volume %u%% / %u kHz\n%s",ui::Sound::enabled()?"ON":"MUTED",ui::Sound::volume(),hz[ui::Sound::tone()]/1000,response);
     lab_show(SoundStatus,SoundStatusBuffer,SOUNDSTATUS_SIZE,sound,lab_muted());
-    char feedback[100];snprintf(feedback,sizeof(feedback),"%s theme / %s accent",ui::Theme::dark()?"Dark":"Light",ui::Theme::accentName());
+    char feedback[100];snprintf(feedback,sizeof(feedback),"%s / %s / %s",ui::Theme::dark()?"Dark":"Light",ui::Theme::accentName(),ui::settingsPersistenceStatus());
     lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,feedback,lab_muted());
     ui::ThemeScreen::get().apply();
+}
+void ScreenAppearanceView::handleTickEvent(){
+    ScreenAppearanceViewBase::handleTickEvent();
+    const char *status=ui::settingsPersistenceStatus();
+    if(status!=lastStorageStatus){lastStorageStatus=status;refreshThemeControls();}
 }
 void ScreenAppearanceView::setLightTheme(){ui::Theme::setDark(false);refreshThemeControls();}
 void ScreenAppearanceView::setDarkTheme(){ui::Theme::setDark(true);refreshThemeControls();}

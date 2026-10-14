@@ -10,6 +10,7 @@
 #undef PSU_SetOutputLed
 #include "board_backlight.h"
 #include "board_panel.h"
+#include "board_settings.h"
 
 static void BoardGPIO_Init(void)
 {
@@ -225,6 +226,7 @@ int main(void)
   MX_TouchGFX_PreOSInit();
   /* USER CODE BEGIN 2 */
   psu_app_init();
+  BoardSettings_Init(&hi2c1);
   if (huart7.gState == HAL_UART_STATE_READY) {
     psu_app_set_g4_uart(1);
     G4_UartInit(&huart7, psu_g4());

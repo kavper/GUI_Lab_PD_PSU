@@ -12,6 +12,7 @@ public:
     virtual ~ScreenAppearanceView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void handleTickEvent();
     virtual void allOff();
     virtual void toggleSound();
     virtual void soundDown();
@@ -26,6 +27,7 @@ public:
     virtual void setVioletAccent();
     virtual void setAmberAccent();
 protected:
+    const char *lastStorageStatus = 0;
     void refreshThemeControls();
 };
 

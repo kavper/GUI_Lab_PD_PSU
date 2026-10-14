@@ -205,6 +205,14 @@ void psu_net_set_mac(const uint8_t mac[6]);
 int psu_config_save(void);
 int psu_config_load(void);
 void psu_config_bind_ram(uint8_t *slot_a, uint8_t *slot_b, size_t bytes);
+typedef struct {
+  uint8_t dark, accent, sound_volume, sound_enabled, sound_tone, sound_feedback;
+} PsuAppearance;
+void psu_appearance_get(PsuAppearance *out);
+void psu_appearance_set(const PsuAppearance *value);
+/* Stable little-endian configuration, independent of compiler structure padding. */
+int psu_config_encode(uint8_t *dst, size_t bytes);
+int psu_config_decode(const uint8_t *src, size_t bytes);
 
 int psu_web_write_state(char *dst, size_t n);
 int psu_web_request(const char *method, const char *path, const char *body,

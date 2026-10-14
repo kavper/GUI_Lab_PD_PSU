@@ -62,6 +62,9 @@ static uint16_t seq_limits_id, chg_limits_id;
 static uint32_t energy_ms;
 static uint8_t energy_seen;
 static char web_page_storage[4096];
+static PsuAppearance appearance = {1,0,16,1,0,3};
+static uint32_t manual_mv=12000, manual_ma=2000;
+static uint8_t restore_manual_pending;
 
 static void touch(void)
 {
@@ -245,6 +248,9 @@ static void refresh_snap_from_g0(void)
 
 void psu_app_init(void)
 {
+  const PsuAppearance defaults={1,0,16,1,0,3};
+  appearance=defaults;manual_mv=12000;manual_ma=2000;
+  restore_manual_pending=0;
   memset(&snap, 0, sizeof(snap));
   memset(&g0, 0, sizeof(g0));
   memset(&hooks, 0, sizeof(hooks));
@@ -375,6 +381,9 @@ int psu_app_set_limits(uint32_t voltage_mv, uint32_t current_ma, uint8_t source)
   snap.requested_ma = current_ma;
   id = push_cmd("LIMITS", source, voltage_mv, current_ma, 1);
   if(!g4_set_limits(&g4, voltage_mv, current_ma, id)){mark_cmd(id,PSU_CMD_REJECTED,app_now);return 0;}
+  if(source==PSU_SRC_LCD || source==PSU_SRC_WEB || source==PSU_SRC_BUTTON) {
+    manual_mv=voltage_mv;manual_ma=current_ma;
+  }
   if (hooks.ldo_limits)
     hooks.ldo_limits(voltage_mv, current_ma);
   touch();
@@ -582,13 +591,16 @@ void psu_app_tick(uint32_t now_ms)
         }
       }
       /* Preserve a user's pending SET until its reply/readback, then follow G4. */
-      if (!g4.has_set && !g4.inflight_len[0]) {
+      if (!g4.has_set && !g4.inflight_len[0] && !restore_manual_pending) {
         snap.requested_mv = t->set_mv; snap.requested_ma = t->ilim_ma;
       }
       {uint8_t k,pending_output=0;
        for(k=0;k<cmd_count;k++)if((!strcmp(cmds[k].name,"ON")||!strcmp(cmds[k].name,"OFF"))&&cmds[k].state<=PSU_CMD_SENT)pending_output=1;
        if(!pending_output && !t->want)snap.output_requested=0;}
       if (snap.cold_output_off) { snap.cold_output_off = 0; psu_app_set_output(0, PSU_SRC_BOOT); }
+      /* Restore limits only after the supervisor responds. OFF remains priority. */
+      if(restore_manual_pending && age<=G4_METER_FRESH_MS &&
+         psu_app_set_limits(manual_mv,manual_ma,PSU_SRC_BOOT))restore_manual_pending=0;
     }
     if (g4.event_fault) {
       char why[40];snprintf(why,sizeof(why),"G4 FAULT 0x%lX",(unsigned long)g4.event_fault);latch_fault(why);
@@ -927,6 +939,93 @@ int psu_config_load(void)
   touch();
   publish_end();
   return 1;
+}
+
+
+void psu_appearance_get(PsuAppearance *out)
+{
+  psu_app_ensure();if(out)*out=appearance;
+}
+void psu_appearance_set(const PsuAppearance *value)
+{
+  if(value && value->dark<=1 && value->accent<4 && value->sound_volume<=100 &&
+     value->sound_enabled<=1 && value->sound_tone<3 && value->sound_feedback<=3)
+    appearance=*value;
+}
+static void config_put(uint8_t **p,uint32_t value,unsigned n)
+{
+  for(unsigned i=0;i<n;++i)*(*p)++=(uint8_t)(value>>(8*i));
+}
+static uint32_t config_get(const uint8_t **p,unsigned n)
+{
+  uint32_t value=0;for(unsigned i=0;i<n;++i)value|=(uint32_t)*(*p)++<<(8*i);return value;
+}
+int psu_config_encode(uint8_t *dst,size_t bytes)
+{
+  if(!dst || bytes!=512)return 0;
+  uint8_t *p=dst;memset(dst,0,bytes);
+  config_put(&p,2,4);config_put(&p,manual_mv,4);config_put(&p,manual_ma,4);
+  *p++=appearance.dark;*p++=appearance.accent;*p++=appearance.sound_volume;
+  *p++=appearance.sound_enabled;*p++=appearance.sound_tone;*p++=appearance.sound_feedback;
+  *p++=sequencer.count;*p++=sequencer.mode;*p++=sequencer.stop_action;
+  config_put(&p,sequencer.loops_requested,2);
+  config_put(&p,blob.ovp_mv,4);config_put(&p,blob.ocp_ma,4);
+  for(unsigned i=0;i<PSU_PRESET_COUNT;++i) {
+    memcpy(p,blob.presets[i].name,16);p+=16;
+    config_put(&p,blob.presets[i].voltage_mv,4);config_put(&p,blob.presets[i].current_ma,4);
+    config_put(&p,blob.presets[i].slew_mv_per_s,4);
+  }
+  for(unsigned i=0;i<PSU_SEQ_MAX_STEPS;++i) {
+    const PsuSeqStep *v=&sequencer.steps[i];
+    config_put(&p,v->voltage_mv,4);config_put(&p,v->current_ma,4);
+    config_put(&p,v->time_ms,4);config_put(&p,v->slew_mv_per_s,4);
+    *p++=v->enabled;*p++=v->output_action;
+  }
+  return 1;
+}
+int psu_config_decode(const uint8_t *src,size_t bytes)
+{
+  if(!src || bytes!=512)return 0;
+  const uint8_t *p=src;
+  if(config_get(&p,4)!=2)return 0;
+  uint32_t mv=config_get(&p,4),ma=config_get(&p,4);
+  PsuAppearance a; a.dark=*p++;a.accent=*p++;a.sound_volume=*p++;
+  a.sound_enabled=*p++;a.sound_tone=*p++;a.sound_feedback=*p++;
+  uint8_t count=*p++,mode=*p++,stop=*p++;
+  uint16_t loops=(uint16_t)config_get(&p,2);
+  uint32_t ovp=config_get(&p,4),ocp=config_get(&p,4);
+  PsuPreset presets[PSU_PRESET_COUNT];PsuSeqStep steps[PSU_SEQ_MAX_STEPS];
+  memset(presets,0,sizeof(presets));memset(steps,0,sizeof(steps));
+  if(mv>PSU_VOLTAGE_MAX_MV || ma>PSU_CURRENT_MAX_MA ||
+     a.dark>1 || a.accent>=4 || a.sound_volume>100 || a.sound_enabled>1 ||
+     a.sound_tone>=3 || a.sound_feedback>3 || !count || count>PSU_SEQ_MAX_STEPS ||
+     mode>PSU_SEQ_INFINITE || stop>PSU_STOP_START || !loops ||
+     ovp>PSU_VOLTAGE_MAX_MV || ocp>PSU_CURRENT_MAX_MA)return 0;
+  for(unsigned i=0;i<PSU_PRESET_COUNT;++i) {
+    memcpy(presets[i].name,p,16);p+=16;presets[i].name[15]=0;
+    presets[i].voltage_mv=config_get(&p,4);presets[i].current_ma=config_get(&p,4);
+    presets[i].slew_mv_per_s=config_get(&p,4);
+    if(presets[i].voltage_mv>PSU_VOLTAGE_MAX_MV || presets[i].current_ma>PSU_CURRENT_MAX_MA ||
+       presets[i].slew_mv_per_s>100000u)return 0;
+  }
+  for(unsigned i=0;i<PSU_SEQ_MAX_STEPS;++i) {
+    PsuSeqStep *v=&steps[i];v->voltage_mv=config_get(&p,4);v->current_ma=config_get(&p,4);
+    v->time_ms=config_get(&p,4);v->slew_mv_per_s=config_get(&p,4);
+    v->enabled=*p++;v->output_action=*p++;
+    if(v->voltage_mv>PSU_VOLTAGE_MAX_MV || v->current_ma>PSU_CURRENT_MAX_MA ||
+       v->slew_mv_per_s>100000u || v->enabled>1 || v->output_action>PSU_STEP_OFF ||
+       (i<count && (v->time_ms<100u || v->time_ms>3600000u)))return 0;
+  }
+  /* Reject invalid records as a whole; never partly apply corrupted settings. */
+  appearance=a;manual_mv=mv;manual_ma=ma;
+  snap.requested_mv=psu_clamp_voltage_to_hw(mv,ovp?ovp:PSU_VOLTAGE_MAX_MV);
+  snap.requested_ma=psu_clamp_current_to_hw(ma,ocp?ocp:PSU_CURRENT_MAX_MA);
+  blob.ovp_mv=ovp;blob.ocp_ma=ocp;blob.preset_count=PSU_PRESET_COUNT;
+  memcpy(blob.presets,presets,sizeof(presets));memcpy(sequencer.steps,steps,sizeof(steps));
+  sequencer.count=count;sequencer.mode=mode;sequencer.stop_action=stop;sequencer.loops_requested=loops;
+  snap.output_requested=snap.output_confirmed=0;blob.output_on=0;
+  restore_manual_pending=1;
+  touch();publish_end();return 1;
 }
 
 static int lease_ok(const char *client, uint32_t now_hint)

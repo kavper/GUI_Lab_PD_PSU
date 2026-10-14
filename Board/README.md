@@ -298,3 +298,40 @@ graphics each report Download verified successfully. Runtime static check matche
 AP1 Under Reset / Hardware reset / 1000 kHz and verification are unchanged.
 A read-only Normal-mode connection recovered access when prior debug attempts
 failed; it does not alter the programming configuration.
+
+## Persistent settings — 24AA64 EEPROM (2026-10-14)
+
+U11 is an 8 KiB 24AA64 on I2C1, 7-bit address 0x50, A0/A1/A2 and WP tied to
+ground. Presets, appearance/accent, sound controls, last manual voltage/current,
+protection ceilings and sequencer configuration now survive resets. Output ON and
+running automation are never restored. Saved manual limits are sent only after
+the G4 supervisor responds, after the priority cold-start OFF request.
+
+Configuration uses a versioned 512-byte little-endian encoding, with validation
+of every range and enum before applying any setting. Two records at 0x0000 and
+0x1000 each contain magic, length, generation, CRC32 over metadata and payload,
+and a commit marker. Write only the inactive record: invalidate marker, write
+32-byte pages, read and compare everything, write marker last, verify again.
+The last valid committed record remains readable during an interrupted write.
+Newer generations are selected with wraparound-aware comparison.
+
+Autosave waits 1.5 seconds after the last change (10 seconds maximum during
+continuous changes) and spaces commits at least 5 seconds apart. Identical
+configurations cause no writes. Each GUI tick performs at most one I2C page
+operation, with 6 ms between writes; EEPROM polling pauses during screen
+transitions. GT911 and EEPROM transfers belong to the same GUI task, preventing
+concurrent HAL access to I2C1. Appearance and preset pages display the real
+Saving / Saved / write failure status; wait for Saved before removing power.
+
+Run Simulator uses the same journal in settings.eeprom (override using
+PSU_SETTINGS_FILE). PSU_SETTINGS_SELFTEST=save/load checks persistence across two
+separate simulator processes. Other GUI regression selftests skip file writes.
+Generate, Run Simulator and Run Target retain the board build integration.
+Host tests inject power loss after every programmed byte, corrupt metadata,
+simulate busy/failing I/O, verify no writes for unchanged settings, and check
+configuration restoration and OFF priority with the simulated supervisor.
+
+Hardware test: EEPROM detected, first commit verified with zero errors; after
+hardware reset the record was loaded, generation stayed 1, and CFSR/HFSR were 0.
+Ethernet bring-up is paused at the user's request; REF_CLK toggles at PD7, but
+LAN8742A SMI identification and RMII packet traffic have not been confirmed.

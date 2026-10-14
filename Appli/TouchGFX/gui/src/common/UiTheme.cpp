@@ -4,6 +4,9 @@
 #include <touchgfx/Font.hpp>
 #include <images/BitmapDatabase.hpp>
 #include <assert.h>
+extern "C" {
+#include "psu_app.h"
+}
 #ifndef SIMULATOR
 #include "main.h"
 #endif
@@ -11,6 +14,8 @@ namespace ui {
 namespace {
 bool darkMode=true;
 unsigned accent=0;
+void restoreTheme(){PsuAppearance a;psu_appearance_get(&a);darkMode=a.dark!=0;accent=a.accent;}
+void saveTheme(){PsuAppearance a;psu_appearance_get(&a);a.dark=darkMode;a.accent=(uint8_t)accent;psu_appearance_set(&a);}
 const uint32_t lightAccents[]={0x2457E6,0x007F73,0x743FD3,0xAB5D07};
 const uint32_t darkAccents[]={0x5793FF,0x2DD4BF,0xA78BFA,0xFBBF24};
 touchgfx::colortype rgb(uint32_t value){return touchgfx::Color::getColorFromRGB(value>>16,(value>>8)&255,value&255);}
@@ -116,14 +121,15 @@ void rounded(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::col
     }
 }
 }
-bool Theme::dark(){return darkMode;}
-unsigned Theme::accentIndex(){return accent;}
-void Theme::setDark(bool value){darkMode=value;ThemeScreen::get().apply();}
-void Theme::setAccent(unsigned value){if(value<4){accent=value;ThemeScreen::get().apply();}}
-touchgfx::colortype Theme::color(Role role){return rgb(raw(role,darkMode,accent));}
-touchgfx::colortype Theme::accentColor(unsigned index){return rgb((darkMode?darkAccents:lightAccents)[index<4?index:0]);}
-const char* Theme::accentName(){const char* names[]={"Blue","Teal","Violet","Amber"};return names[accent];}
+bool Theme::dark(){restoreTheme();return darkMode;}
+unsigned Theme::accentIndex(){restoreTheme();return accent;}
+void Theme::setDark(bool value){restoreTheme();darkMode=value;saveTheme();ThemeScreen::get().apply();}
+void Theme::setAccent(unsigned value){if(value<4){restoreTheme();accent=value;saveTheme();ThemeScreen::get().apply();}}
+touchgfx::colortype Theme::color(Role role){restoreTheme();return rgb(raw(role,darkMode,accent));}
+touchgfx::colortype Theme::accentColor(unsigned index){restoreTheme();return rgb((darkMode?darkAccents:lightAccents)[index<4?index:0]);}
+const char* Theme::accentName(){restoreTheme();const char* names[]={"Blue","Teal","Violet","Amber"};return names[accent];}
 touchgfx::colortype Theme::translate(touchgfx::colortype value){
+    restoreTheme();
     for(int role=TEXT;role<=NEGATIVE;role++) {
         if(role==ACCENT_SOFT)continue;
         for(unsigned index=0;index<4;index++)for(int mode=0;mode<2;mode++)

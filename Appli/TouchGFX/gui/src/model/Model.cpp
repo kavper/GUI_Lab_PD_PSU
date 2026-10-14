@@ -3,6 +3,7 @@
 #include <gui/common/BatteryTrend.hpp>
 #include <gui/model/ModelListener.hpp>
 #include <gui/common/FrontendApplication.hpp>
+#include <gui/common/SettingsPersistence.hpp>
 extern "C" {
 #include "psu_app.h"
 }
@@ -40,6 +41,8 @@ void Model::tick()
     // Keep receiving and processing data, but freeze widget invalidations until
     // the wipe has finished. The next tick publishes the latest snapshot.
     const FrontendApplication* app = static_cast<const FrontendApplication*>(touchgfx::Application::getInstance());
-    if (!app || !app->isScreenTransitionActive())
+    if (!app || !app->isScreenTransitionActive()) {
+        ui::pollSettingsPersistence();
         publish(modelListener);
+    }
 }

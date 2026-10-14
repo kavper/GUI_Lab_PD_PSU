@@ -61,3 +61,5 @@ Board/*.log
 Board/*.bin
 Board/*.hex
 Board/loader/*.log
+Board/*.eeprom
+Appli/TouchGFX/settings.eeprom
