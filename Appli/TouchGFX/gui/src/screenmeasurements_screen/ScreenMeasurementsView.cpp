@@ -54,3 +54,19 @@ void ScreenMeasurementsView::refresh()
         mode_color = lab_cyan();
     lab_show(MeasMode, MeasModeBuffer, MEASMODE_SIZE, snap.mode_cc ? "CC" : "CV", mode_color);
 }
+
+void ScreenMeasurementsView::handleClickEvent(const touchgfx::ClickEvent& event)
+{
+    swipe.onClick(event, false);
+    ScreenMeasurementsViewBase::handleClickEvent(event);
+}
+
+void ScreenMeasurementsView::handleGestureEvent(const touchgfx::GestureEvent& event)
+{
+    if (swipe.onGesture(event))
+    {
+        application().gotoScreenSettingsScreenWipeTransitionEast();
+        return;
+    }
+    ScreenMeasurementsViewBase::handleGestureEvent(event);
+}

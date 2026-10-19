@@ -683,6 +683,7 @@ void StartDefaultTask(void *argument)
   static LDO_Diagnostics diag;
   static PsuG0Sample sample;
   (void)argument;
+  psu_app_set_output_led(PSU_SetOutputLed);
   /* Infinite loop */
   for(;;)
   {

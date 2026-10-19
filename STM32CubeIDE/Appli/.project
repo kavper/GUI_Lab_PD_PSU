@@ -291,6 +291,26 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Appli/Core/Src/psu_render.c</locationURI>
 		</link>
 		<link>
+			<name>Application/User/Core/psu_energy.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Appli/Core/Src/psu_energy.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/psu_pd.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Appli/Core/Src/psu_pd.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/psu_bms.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Appli/Core/Src/psu_bms.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/psu_swipe.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Appli/Core/Src/psu_swipe.c</locationURI>
+		</link>
+		<link>
 			<name>Application/User/Core/psu_seq.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Appli/Core/Src/psu_seq.c</locationURI>

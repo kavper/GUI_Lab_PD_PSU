@@ -3,6 +3,7 @@
 
 #include <gui_generated/screensequencer_screen/ScreenSequencerViewBase.hpp>
 #include <gui/screensequencer_screen/ScreenSequencerPresenter.hpp>
+#include <gui/common/LabSwipe.hpp>
 #include <stdint.h>
 extern "C" {
 #include "psu_seq.h"
@@ -15,6 +16,8 @@ public:
     virtual ~ScreenSequencerView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void handleClickEvent(const touchgfx::ClickEvent& event);
+    virtual void handleGestureEvent(const touchgfx::GestureEvent& event);
     virtual void handleTickEvent();
     virtual void seqRun();
     virtual void seqPause();
@@ -49,6 +52,7 @@ public:
     virtual void seqKeyApply();
     virtual void seqSyncKeypad();
 protected:
+    LabSwipe swipe;
     static const int16_t KEYPAD_X = 416;
     static const int16_t KEYPAD_SHOWN_Y = 240;
     static const int16_t KEYPAD_HIDDEN_Y = 272;

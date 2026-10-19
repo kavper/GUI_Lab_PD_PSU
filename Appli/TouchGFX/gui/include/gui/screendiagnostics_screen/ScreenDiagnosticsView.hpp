@@ -3,6 +3,7 @@
 
 #include <gui_generated/screendiagnostics_screen/ScreenDiagnosticsViewBase.hpp>
 #include <gui/screendiagnostics_screen/ScreenDiagnosticsPresenter.hpp>
+#include <gui/common/LabSwipe.hpp>
 
 class ScreenDiagnosticsView : public ScreenDiagnosticsViewBase
 {
@@ -11,8 +12,11 @@ public:
     virtual ~ScreenDiagnosticsView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void handleClickEvent(const touchgfx::ClickEvent& event);
+    virtual void handleGestureEvent(const touchgfx::GestureEvent& event);
     virtual void handleTickEvent();
 protected:
+    LabSwipe swipe;
     uint8_t refreshDivider;
 };
 

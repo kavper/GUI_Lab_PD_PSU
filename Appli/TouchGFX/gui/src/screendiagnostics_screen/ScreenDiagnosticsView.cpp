@@ -115,3 +115,19 @@ void ScreenDiagnosticsView::tearDownScreen()
 {
     ScreenDiagnosticsViewBase::tearDownScreen();
 }
+
+void ScreenDiagnosticsView::handleClickEvent(const touchgfx::ClickEvent& event)
+{
+    swipe.onClick(event, false);
+    ScreenDiagnosticsViewBase::handleClickEvent(event);
+}
+
+void ScreenDiagnosticsView::handleGestureEvent(const touchgfx::GestureEvent& event)
+{
+    if (swipe.onGesture(event))
+    {
+        application().gotoScreenSettingsScreenWipeTransitionEast();
+        return;
+    }
+    ScreenDiagnosticsViewBase::handleGestureEvent(event);
+}

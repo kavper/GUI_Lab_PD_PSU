@@ -2,7 +2,9 @@
 #define PSU_APP_H
 
 #include "g4_ascii.h"
+#include "psu_bms.h"
 #include "psu_charger.h"
+#include "psu_energy.h"
 #include "psu_seq.h"
 #include <stddef.h>
 #include <stdint.h>
@@ -153,6 +155,32 @@ void psu_app_tick(uint32_t now_ms);
 uint32_t psu_app_now(void);
 void psu_app_observe_g0(const PsuG0Sample *sample, uint32_t now_ms);
 void psu_app_user_button(int level_high, uint32_t now_ms);
+void psu_app_shutdown(uint32_t now_ms);
+uint32_t psu_app_shutdown_count(void);
+void psu_app_set_output_led(void (*fn)(uint8_t confirmed_on));
+void psu_app_bms_frame(const PsuBmsFrame *frame);
+void psu_bms_read(PsuBmsFrame *out);
+/* Port sample. Positive power leaves the instrument. Not called until G4
+   actually reports port voltage and current. */
+void psu_app_usb_sample(uint32_t now_ms, int connected, int sample_valid,
+                        int32_t power_mw);
+void psu_app_pd_words(const uint32_t *words, uint8_t count, int have_rdo, uint32_t rdo);
+
+typedef struct
+{
+  char requested[16];
+  char confirmed[24];
+  char link[16];
+  char pps[16];
+  char flow[24];
+  char pdo[320];
+  char contract[200];
+  int8_t selected_row;
+  int16_t fill_x;
+  int16_t fill_w;
+} PsuUsbFace;
+
+void psu_usb_face(PsuUsbFace *out);
 int psu_app_set_limits(uint32_t voltage_mv, uint32_t current_ma, uint8_t source);
 int psu_app_set_output(int enabled, uint8_t source);
 int psu_app_usb_role(const char *role, uint8_t source);

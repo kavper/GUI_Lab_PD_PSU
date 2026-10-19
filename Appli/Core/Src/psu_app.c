@@ -1,5 +1,7 @@
 #include "psu_app.h"
+#include "psu_format.h"
 #include "psu_limits.h"
+#include "psu_pd.h"
 #include "psu_store.h"
 #include <stdio.h>
 #include <string.h>
@@ -47,6 +49,19 @@ static volatile uint32_t generation;
 static int button_level;
 static uint32_t button_change_ms;
 static int button_stable;
+static uint32_t button_press_ms;
+static uint8_t button_hold_fired;
+static void (*output_led)(uint8_t on);
+static uint8_t led_shadow;
+static uint32_t shutdown_count;
+static PsuEnergySession usb_energy;
+static PsuBmsFrame bms_frame;
+static uint32_t pd_words[PSU_PD_MAX];
+static uint8_t pd_count;
+static uint32_t pd_rdo;
+static uint8_t pd_have_rdo;
+static uint8_t usb_meas_valid;
+static int32_t usb_meas_mw;
 static PsuBlob blob;
 static PsuStore store;
 static uint8_t *store_a;
@@ -55,6 +70,8 @@ static size_t store_n;
 static char lease_client[24];
 static uint8_t g0_seen;
 static char web_page_storage[4096];
+
+static void drive_led(void);
 
 static void touch(void)
 {
@@ -228,6 +245,7 @@ void psu_app_init(void)
 {
   memset(&snap, 0, sizeof(snap));
   memset(&g0, 0, sizeof(g0));
+  g0_seen = 0U;
   memset(&hooks, 0, sizeof(hooks));
   memset(cmds, 0, sizeof(cmds));
   cmd_count = 0U;
@@ -253,6 +271,21 @@ void psu_app_init(void)
   snap.bms_valid = 0U;
   snprintf(snap.bms_fault, sizeof(snap.bms_fault), "OFFLINE");
   snprintf(snap.fault, sizeof(snap.fault), "NONE");
+  button_level = 0;
+  button_stable = 0;
+  button_change_ms = 0U;
+  button_press_ms = 0U;
+  button_hold_fired = 0U;
+  led_shadow = 0xFFU;
+  shutdown_count = 0U;
+  psu_energy_reset(&usb_energy);
+  memset(&bms_frame, 0, sizeof(bms_frame));
+  memset(pd_words, 0, sizeof(pd_words));
+  pd_count = 0U;
+  pd_rdo = 0U;
+  pd_have_rdo = 0U;
+  usb_meas_valid = 0U;
+  usb_meas_mw = 0;
   generation = 0U;
   app_ready = 1U;
   touch();
@@ -396,8 +429,10 @@ int psu_app_bms_cmd(const char *cmd)
     return 0;
   if (strcmp(cmd, "BMS OFF") == 0)
   {
+    memset(&bms_frame, 0, sizeof(bms_frame));
     snap.bms_valid = 0U;
     snprintf(snap.bms_fault, sizeof(snap.bms_fault), "BMS OFF");
+    snprintf(bms_frame.fault, sizeof(bms_frame.fault), "BMS OFF");
   }
   touch();
   publish_end();
@@ -419,25 +454,211 @@ void psu_app_observe_g0(const PsuG0Sample *sample, uint32_t now_ms)
     (void)g4_off(&g4, push_cmd("OFF", PSU_SRC_BOOT, 0, 0, 0));
   }
   refresh_snap_from_g0();
+  drive_led();
   touch();
   publish_end();
 }
 
+static void drive_led(void)
+{
+  uint8_t on = snap.output_confirmed ? 1U : 0U;
+  if (output_led == 0 || on == led_shadow)
+    return;
+  led_shadow = on;
+  output_led(on);
+}
+
+void psu_app_set_output_led(void (*fn)(uint8_t confirmed_on))
+{
+  output_led = fn;
+  led_shadow = 0xFFU;
+  drive_led();
+}
+
+void psu_app_shutdown(uint32_t now_ms)
+{
+  PsuSequencer *seq = psu_sequencer();
+  PsuCharger *chg = psu_charger();
+  shutdown_count++;
+  if (seq->run == PSU_SEQ_RUN || seq->run == PSU_SEQ_PAUSE)
+    psu_seq_stop(seq, now_ms, 0);
+  if (chg->running)
+    psu_chg_abort(chg, "SHUTDOWN", now_ms);
+  (void)psu_app_set_output(0, PSU_SRC_BUTTON);
+}
+
+uint32_t psu_app_shutdown_count(void)
+{
+  return shutdown_count;
+}
+
+/* Short click toggles the output request on release.
+   A hold of about 2 s runs shutdown once and does not also click. */
 void psu_app_user_button(int level_high, uint32_t now_ms)
 {
+  level_high = level_high ? 1 : 0;
   if (level_high != button_level)
   {
     button_level = level_high;
     button_change_ms = now_ms;
+  }
+  if ((now_ms - button_change_ms) >= 30U && button_stable != button_level)
+  {
+    button_stable = button_level;
+    if (button_stable)
+    {
+      button_press_ms = button_change_ms;
+      button_hold_fired = 0U;
+    }
+    else if (!button_hold_fired)
+    {
+      (void)psu_app_set_output(!snap.output_requested, PSU_SRC_BUTTON);
+    }
+  }
+  if (button_stable && !button_hold_fired && (now_ms - button_press_ms) >= 2000U)
+  {
+    button_hold_fired = 1U;
+    psu_app_shutdown(now_ms);
+  }
+}
+
+void psu_app_bms_frame(const PsuBmsFrame *frame)
+{
+  uint8_t i;
+  if (frame == 0)
+    return;
+  bms_frame = *frame;
+  snap.bms_valid = frame->valid;
+  for (i = 0; i < 4U; ++i)
+    snap.cell_mv[i] = (frame->valid && frame->present[i] && !frame->stale[i]) ? frame->cell_mv[i] : 0U;
+  snap.bms_temp_centi[0] = frame->temp_centi[0];
+  snap.bms_temp_centi[1] = frame->temp_centi[1];
+  snap.bms_temp_centi[2] = frame->temp_centi[2];
+  snap.bms_fet_chg = frame->valid ? frame->fet_chg : 0U;
+  snap.bms_fet_dsg = frame->valid ? frame->fet_dsg : 0U;
+  snap.bms_balancing = frame->valid ? frame->balance_mask : 0U;
+  snprintf(snap.bms_fault, sizeof(snap.bms_fault), "%s", frame->fault);
+  touch();
+  publish_end();
+}
+
+void psu_bms_read(PsuBmsFrame *out)
+{
+  psu_app_ensure();
+  if (out)
+    *out = bms_frame;
+}
+
+void psu_app_usb_sample(uint32_t now_ms, int connected, int sample_valid, int32_t power_mw)
+{
+  if (!connected || !sample_valid)
+  {
+    usb_meas_valid = 0U;
+    usb_meas_mw = 0;
+  }
+  else
+  {
+    usb_meas_valid = 1U;
+    usb_meas_mw = power_mw;
+  }
+  psu_energy_observe(&usb_energy, now_ms, connected, sample_valid, power_mw);
+}
+
+void psu_app_pd_words(const uint32_t *words, uint8_t count, int have_rdo, uint32_t rdo)
+{
+  memset(pd_words, 0, sizeof(pd_words));
+  if (count > PSU_PD_MAX)
+    count = PSU_PD_MAX;
+  pd_count = (words && count) ? count : 0U;
+  if (pd_count)
+    memcpy(pd_words, words, sizeof(pd_words[0]) * pd_count);
+  pd_have_rdo = have_rdo ? 1U : 0U;
+  pd_rdo = rdo;
+}
+
+static void flow_bar(PsuUsbFace *out)
+{
+  int32_t mw = usb_meas_mw;
+  int32_t mag;
+  int width;
+  out->fill_x = 400;
+  out->fill_w = 0;
+  if (!usb_energy.connected || !usb_meas_valid || usb_energy.in_gap || mw == 0)
+  {
+    if (usb_energy.in_gap)
+      snprintf(out->flow, sizeof(out->flow), "GAP");
+    else if (usb_energy.has_closed && !usb_energy.active)
+      snprintf(out->flow, sizeof(out->flow), "NO FLOW");
+    else
+      snprintf(out->flow, sizeof(out->flow), "NO FLOW");
     return;
   }
-  if ((now_ms - button_change_ms) < 30U)
+  mag = mw < 0 ? -mw : mw;
+  if (mag > 100000)
+    mag = 100000;
+  width = (int)((mag * 360) / 100000);
+  if (width < 8)
+    width = 8;
+  if (mw > 0)
+  {
+    out->fill_x = 400;
+    out->fill_w = (int16_t)width;
+    snprintf(out->flow, sizeof(out->flow), "FLOW OUT");
+  }
+  else
+  {
+    out->fill_x = (int16_t)(400 - width);
+    out->fill_w = (int16_t)width;
+    snprintf(out->flow, sizeof(out->flow), "FLOW IN");
+  }
+}
+
+void psu_usb_face(PsuUsbFace *out)
+{
+  PsuPdText pd;
+  PsuSnapshot snap_now;
+  char session[80];
+  char measured[32];
+  const char *role = "AUTO";
+  if (out == 0)
     return;
-  if (button_stable == level_high)
-    return;
-  button_stable = level_high;
-  if (level_high)
-    (void)psu_app_set_output(!snap.output_requested, PSU_SRC_BUTTON);
+  memset(out, 0, sizeof(*out));
+  psu_app_ensure();
+  psu_snapshot(&snap_now);
+  if (snap_now.usb_role == 1U)
+    role = "SINK";
+  else if (snap_now.usb_role == 2U)
+    role = "SOURCE";
+  snprintf(out->requested, sizeof(out->requested), "%s", role);
+  snprintf(out->confirmed, sizeof(out->confirmed), "UNAVAILABLE");
+  if (snap_now.g4_link == G4_LINK_ONLINE)
+    snprintf(out->link, sizeof(out->link), "ONLINE");
+  else if (snap_now.g4_link == G4_LINK_STALE)
+    snprintf(out->link, sizeof(out->link), "STALE");
+  else
+    snprintf(out->link, sizeof(out->link), "OFFLINE");
+  snprintf(out->pps, sizeof(out->pps), "%s", snap_now.pps_allowed ? "OPEN" : "LOCKED");
+  psu_pd_describe(pd_words, pd_count, pd_have_rdo, pd_rdo, &pd);
+  snprintf(out->pdo, sizeof(out->pdo), "%s", pd.block);
+  out->selected_row = pd.list_valid ? pd.selected : -1;
+  psu_energy_format(&usb_energy, session, sizeof(session));
+  if (usb_meas_valid)
+  {
+    char watts[16];
+    int32_t mag = usb_meas_mw < 0 ? -usb_meas_mw : usb_meas_mw;
+    psu_format_power_mw(watts, sizeof(watts), (uint32_t)mag);
+    snprintf(measured, sizeof(measured), "%s%s", usb_meas_mw < 0 ? "-" : "", watts);
+  }
+  else
+  {
+    snprintf(measured, sizeof(measured), "UNAVAILABLE");
+  }
+  snprintf(out->contract, sizeof(out->contract),
+           "RDO: %s\nREQUESTED CONTRACT: %s\nCONFIRMED CONTRACT: UNAVAILABLE\nV/I/P %s   SESSION: %s",
+           pd.rdo[0] ? pd.rdo : "UNAVAILABLE",
+           pd.rdo_valid ? pd.rdo : "UNAVAILABLE",
+           measured, session);
+  flow_bar(out);
 }
 
 uint32_t psu_app_now(void)
@@ -530,6 +751,7 @@ void psu_app_tick(uint32_t now_ms)
     snprintf(snap.fault, sizeof(snap.fault), "OVP");
     (void)psu_app_set_output(0, PSU_SRC_BOOT);
   }
+  drive_led();
 }
 
 void psu_snapshot(PsuSnapshot *out)

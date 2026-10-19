@@ -15,6 +15,10 @@ core_c_files := \
 	Appli/Core/Src/psu_charger.c \
 	Appli/Core/Src/psu_app.c \
 	Appli/Core/Src/psu_render.c \
+	Appli/Core/Src/psu_energy.c \
+	Appli/Core/Src/psu_pd.c \
+	Appli/Core/Src/psu_bms.c \
+	Appli/Core/Src/psu_swipe.c \
 	Appli/Core/Src/ethernetif.c \
 	Appli/Core/Src/freertos.c \
 	Appli/Core/Src/stm32h7rsxx_it.c \

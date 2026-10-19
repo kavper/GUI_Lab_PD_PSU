@@ -9,9 +9,6 @@
 
 extern "C" {
 #include "psu_app.h"
-#ifndef SIMULATOR
-void PSU_SetOutputLed(uint8_t enabled);
-#endif
 }
 
 Screen1View::Screen1View()
@@ -20,6 +17,7 @@ Screen1View::Screen1View()
       currentLimitMa(2000),
       measuredCurrentMa(0),
       outputEnabled(false),
+      requestShadow(false),
       constantCurrentMode(false),
       editLength(0),
       replaceOnNextKey(false),
@@ -161,22 +159,31 @@ void Screen1View::setCurrentMeasurementCalibrated(bool calibrated)
     ActualCurrentLabel.invalidate();
 }
 
-void Screen1View::setControllerOutputState(bool enabled)
+void Screen1View::setControllerOutputState(bool confirmed)
 {
-    if (outputEnabled == enabled)
+    PsuSnapshot snap;
+    bool requested;
+    const char *label;
+    psu_app_ensure();
+    psu_snapshot(&snap);
+    requested = snap.output_requested != 0U;
+    if (outputEnabled == confirmed && requestShadow == requested)
         return;
-    outputEnabled = enabled;
-    OutputEnable.forceState(enabled);
-    touchgfx::Unicode::snprintf(OutputLabelBuffer, OUTPUTLABEL_SIZE,
-                               enabled ? "OUTPUT ON" : "OUTPUT OFF");
-    OutputLabel.setColor(enabled
+    outputEnabled = confirmed;
+    requestShadow = requested;
+    OutputEnable.forceState(confirmed);
+    if (confirmed)
+        label = "OUTPUT ON";
+    else if (requested)
+        label = "REQUESTED";
+    else
+        label = "OUTPUT OFF";
+    touchgfx::Unicode::snprintf(OutputLabelBuffer, OUTPUTLABEL_SIZE, "%s", label);
+    OutputLabel.setColor(confirmed
         ? touchgfx::Color::getColorFromRGB(255, 255, 255)
         : touchgfx::Color::getColorFromRGB(5, 19, 26));
     OutputEnable.invalidate();
     OutputLabel.invalidate();
-#ifndef SIMULATOR
-    PSU_SetOutputLed(enabled ? 1U : 0U);
-#endif
 }
 
 void Screen1View::setPcbTemperature(int16_t temperatureDeciC)
@@ -304,15 +311,11 @@ void Screen1View::selectCurrent()
 
 void Screen1View::outputToggled()
 {
-    outputEnabled = OutputEnable.getState();
-    touchgfx::Unicode::snprintf(OutputLabelBuffer, OUTPUTLABEL_SIZE,
-                               outputEnabled ? "OUTPUT ON" : "OUTPUT OFF");
-    OutputLabel.setColor(outputEnabled
-        ? touchgfx::Color::getColorFromRGB(255, 255, 255)
-        : touchgfx::Color::getColorFromRGB(5, 19, 26));
-    OutputLabel.invalidate();
+    const bool want = OutputEnable.getState();
+    if (!psu_app_set_output(want ? 1 : 0, PSU_SRC_LCD))
+        OutputEnable.forceState(outputEnabled);
+    setControllerOutputState(outputEnabled);
     setRegulationMode(outputEnabled && measuredCurrentMa >= (int32_t)currentLimitMa);
-    psu_app_set_output(outputEnabled ? 1 : 0, PSU_SRC_LCD);
 }
 
 void Screen1View::setRegulationMode(bool constantCurrent)

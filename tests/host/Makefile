@@ -13,6 +13,10 @@ SRC := \
   ../../Appli/Core/Src/psu_charger.c \
   ../../Appli/Core/Src/psu_app.c \
   ../../Appli/Core/Src/psu_render.c \
+  ../../Appli/Core/Src/psu_energy.c \
+  ../../Appli/Core/Src/psu_pd.c \
+  ../../Appli/Core/Src/psu_bms.c \
+  ../../Appli/Core/Src/psu_swipe.c \
   ../../Appli/Core/Src/psu_sim.c \
   test_psu.c
 

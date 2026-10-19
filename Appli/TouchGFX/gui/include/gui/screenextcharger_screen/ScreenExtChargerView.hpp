@@ -4,6 +4,7 @@
 #include <gui_generated/screenextcharger_screen/ScreenExtChargerViewBase.hpp>
 #include <gui/screenextcharger_screen/ScreenExtChargerPresenter.hpp>
 #include <stdint.h>
+#include <gui/common/LabSwipe.hpp>
 
 class ScreenExtChargerView : public ScreenExtChargerViewBase
 {
@@ -12,6 +13,8 @@ public:
     virtual ~ScreenExtChargerView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void handleClickEvent(const touchgfx::ClickEvent& event);
+    virtual void handleGestureEvent(const touchgfx::GestureEvent& event);
     virtual void handleTickEvent();
     virtual void chgProfile();
     virtual void chgCells();
@@ -19,6 +22,7 @@ public:
     virtual void chgAbort();
 
 protected:
+    LabSwipe swipe;
     uint8_t divider;
     uint8_t chemistry;
     uint8_t chem_set;

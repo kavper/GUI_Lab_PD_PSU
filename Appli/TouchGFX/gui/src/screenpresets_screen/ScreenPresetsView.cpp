@@ -111,3 +111,19 @@ void ScreenPresetsView::resetPresets()
     psu_preset_reset_defaults();
     refresh();
 }
+
+void ScreenPresetsView::handleClickEvent(const touchgfx::ClickEvent& event)
+{
+    swipe.onClick(event, false);
+    ScreenPresetsViewBase::handleClickEvent(event);
+}
+
+void ScreenPresetsView::handleGestureEvent(const touchgfx::GestureEvent& event)
+{
+    if (swipe.onGesture(event))
+    {
+        application().gotoScreenSettingsScreenWipeTransitionEast();
+        return;
+    }
+    ScreenPresetsViewBase::handleGestureEvent(event);
+}

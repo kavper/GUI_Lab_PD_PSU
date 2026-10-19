@@ -19,7 +19,7 @@ Kacper must pull this branch and run **Generate Code** in TouchGFX Designer 4.26
 ## Acceptance checklist
 
 - [x] Cold boot starts with output OFF. `psu_app_init` clears the request, and the host test checks the snapshot. Hardware confirmation still required.
-- [ ] USER BUTTON 1 toggles output and LD1 shows the confirmed state. Code polls PC13 (UM3289, pressed = high) and drives LD1 only from `setControllerOutputState`. **IMPLEMENTED, HARDWARE VERIFICATION REQUIRED.** Zephyr maps the same button as active-low.
+- [ ] USER BUTTON 1 toggles the output request and LD1 shows the confirmed state. The default task polls PC13 on every screen (UM3289, pressed = high). A short release toggles the request. A hold of about 2 s runs shutdown and does not also toggle. LD1 is driven by `psu_app_set_output_led` from the confirmed G0 bit, not from the screen. **IMPLEMENTED, HARDWARE VERIFICATION REQUIRED.** Zephyr maps the same button as active-low.
 - [ ] SET/ILIM from the LCD reaches G4 and the readback returns to the LCD. The ASCII command is built and queued. USART1 is not in `STM32H7S78-DK.ioc`, so the bytes are not put on a pin. **IMPLEMENTED, HARDWARE VERIFICATION REQUIRED.**
 - [ ] SET/ILIM from the web page reaches G4 and the LCD. The JSON command updates the same model (`tests/host`). There is no Ethernet server task. **BLOCKED: Ethernet is not enabled in the Appli CubeMX configuration.**
 - [x] An LCD limit change is visible in the web JSON. Host test posts and reads `requested_mv`.

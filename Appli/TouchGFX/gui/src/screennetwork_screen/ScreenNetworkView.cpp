@@ -71,3 +71,19 @@ void ScreenNetworkView::refresh()
     lab_mac(buf, sizeof(buf), snap.mac);
     lab_show(NetMac, NetMacBuffer, NETMAC_SIZE, buf, lab_text());
 }
+
+void ScreenNetworkView::handleClickEvent(const touchgfx::ClickEvent& event)
+{
+    swipe.onClick(event, false);
+    ScreenNetworkViewBase::handleClickEvent(event);
+}
+
+void ScreenNetworkView::handleGestureEvent(const touchgfx::GestureEvent& event)
+{
+    if (swipe.onGesture(event))
+    {
+        application().gotoScreenSettingsScreenWipeTransitionEast();
+        return;
+    }
+    ScreenNetworkViewBase::handleGestureEvent(event);
+}

@@ -363,7 +363,7 @@
         <Translation Language="GB">MEASUREMENTS</Translation>
       </Text>
       <Text Id="TXT_TITLE_BMS" Alignment="Center" TypographyId="SettingsTitle">
-        <Translation Language="GB">BMS / CELLS</Translation>
+        <Translation Language="GB">BATTERY / BMS</Translation>
       </Text>
       <Text Id="TXT_TITLE_PACK" Alignment="Center" TypographyId="SettingsTitle">
         <Translation Language="GB">BATTERY PACK</Translation>
@@ -810,11 +810,11 @@
       <Text Id="TXT_LBL_CELLS" Alignment="Center" TypographyId="LabTile">
         <Translation Language="GB">CELLS</Translation>
       </Text>
-      <Text Id="TXT_BATCELLS" Alignment="Center" TypographyId="LabState">
+      <Text Id="TXT_BATCELLS" Alignment="Left" TypographyId="LabMid">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATCELLS_I" Alignment="Center" TypographyId="LabState">
-        <Translation Language="GB">0</Translation>
+      <Text Id="TXT_BATCELLS_I" Alignment="Left" TypographyId="LabMid">
+        <Translation Language="GB">MISSING</Translation>
       </Text>
       <Text Id="TXT_BATTEMP" Alignment="Center" TypographyId="Readout">
         <Translation Language="GB">&lt;value&gt;</Translation>
@@ -829,40 +829,40 @@
         <Translation Language="GB">NO PACK DATA</Translation>
       </Text>
       <Text Id="TXT_LBL_CELL1" Alignment="Center" TypographyId="LabTile">
-        <Translation Language="GB">CELL 1</Translation>
+        <Translation Language="GB">CH 1</Translation>
       </Text>
       <Text Id="TXT_CELL1VALUE" Alignment="Center" TypographyId="LabHero">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="TXT_CELL1VALUE_I" Alignment="Center" TypographyId="LabHero">
-        <Translation Language="GB">3.700 V</Translation>
+        <Translation Language="GB">MISSING</Translation>
       </Text>
       <Text Id="TXT_LBL_CELL2" Alignment="Center" TypographyId="LabTile">
-        <Translation Language="GB">CELL 2</Translation>
+        <Translation Language="GB">CH 2</Translation>
       </Text>
       <Text Id="TXT_CELL2VALUE" Alignment="Center" TypographyId="LabHero">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="TXT_CELL2VALUE_I" Alignment="Center" TypographyId="LabHero">
-        <Translation Language="GB">3.700 V</Translation>
+        <Translation Language="GB">MISSING</Translation>
       </Text>
       <Text Id="TXT_LBL_CELL3" Alignment="Center" TypographyId="LabTile">
-        <Translation Language="GB">CELL 3</Translation>
+        <Translation Language="GB">CH 3</Translation>
       </Text>
       <Text Id="TXT_CELL3VALUE" Alignment="Center" TypographyId="LabHero">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="TXT_CELL3VALUE_I" Alignment="Center" TypographyId="LabHero">
-        <Translation Language="GB">3.700 V</Translation>
+        <Translation Language="GB">MISSING</Translation>
       </Text>
       <Text Id="TXT_LBL_CELL4" Alignment="Center" TypographyId="LabTile">
-        <Translation Language="GB">CELL 4</Translation>
+        <Translation Language="GB">CH 4</Translation>
       </Text>
       <Text Id="TXT_CELL4VALUE" Alignment="Center" TypographyId="LabHero">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="TXT_CELL4VALUE_I" Alignment="Center" TypographyId="LabHero">
-        <Translation Language="GB">3.700 V</Translation>
+        <Translation Language="GB">MISSING</Translation>
       </Text>
       <Text Id="TXT_BMSLINK" Alignment="Center" TypographyId="LabState">
         <Translation Language="GB">&lt;value&gt;</Translation>
@@ -897,7 +897,7 @@
       <Text Id="TXT_FETBAL_I" Alignment="Center" TypographyId="LabState">
         <Translation Language="GB">OFF</Translation>
       </Text>
-      <Text Id="TXT_BMSFAULT" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_BMSFAULT" Alignment="Left" TypographyId="LabMid">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="TXT_BMSFAULT_I" Alignment="Center" TypographyId="LabMid">
@@ -930,16 +930,16 @@
       <Text Id="TXT_LBL_ROLE" Alignment="Center" TypographyId="LabTile">
         <Translation Language="GB">ROLE</Translation>
       </Text>
-      <Text Id="TXT_ROLEVALUE" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_ROLEVALUE" Alignment="Center" TypographyId="LabState">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_ROLEVALUE_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_ROLEVALUE_I" Alignment="Center" TypographyId="LabState">
         <Translation Language="GB">SINK</Translation>
       </Text>
-      <Text Id="TXT_PPSVALUE" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_PPSVALUE" Alignment="Center" TypographyId="LabState">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="TXT_PPSVALUE_I" Alignment="Center" TypographyId="LabHero">
+      <Text Id="TXT_PPSVALUE_I" Alignment="Center" TypographyId="LabState">
         <Translation Language="GB">LOCKED</Translation>
       </Text>
       <Text Id="TXT_USBLINK" Alignment="Center" TypographyId="LabState">
@@ -948,7 +948,7 @@
       <Text Id="TXT_USBLINK_I" Alignment="Center" TypographyId="LabState">
         <Translation Language="GB">OFFLINE</Translation>
       </Text>
-      <Text Id="TXT_USBLAST" Alignment="Center" TypographyId="LabMid">
+      <Text Id="TXT_USBLAST" Alignment="Left" TypographyId="LabMid">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="TXT_USBLAST_I" Alignment="Center" TypographyId="LabMid">
@@ -1086,6 +1086,33 @@
       <Text Id="TXT_SVCRX_I" Alignment="Center" TypographyId="LabMid">
         <Translation Language="GB">--</Translation>
       </Text>
+      <Text Id="TXT_LBL_REQUESTED" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">REQUESTED</Translation>
+      </Text>
+      <Text Id="TXT_LBL_CONFIRMED" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">CONFIRMED</Translation>
+      </Text>
+      <Text Id="TXT_CONFVALUE" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CONFVALUE_I" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">UNAVAILABLE</Translation>
+      </Text>
+      <Text Id="TXT_FLOW" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_FLOW_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">NO FLOW</Translation>
+      </Text>
+      <Text Id="TXT_LBL_PDO" Alignment="Left" TypographyId="LabTile">
+        <Translation Language="GB">PARTNER PDO</Translation>
+      </Text>
+      <Text Id="TXT_CONTRACT" Alignment="Left" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_CONTRACT_I" Alignment="Left" TypographyId="LabMid">
+        <Translation Language="GB">RDO: UNAVAILABLE</Translation>
+      </Text>
       <!-- lab-graphical-end -->
     </TextGroup>
   </Texts>
@@ -1099,7 +1126,7 @@
     <Typography Id="HeaderLabel" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
     <Typography Id="HeaderValue" Font="IBMPlexMono-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()%_&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
     <Typography Id="Button" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
-    <Typography Id="Output" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=" OUTPUTNFąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
+    <Typography Id="Output" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
     <Typography Id="Input" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=".ąćęłńóśźżĄĆĘŁŃÓŚŹŻ" WildcardCharacterRanges="0-9"/>
     <Typography Id="Key" Font="IBMPlexSans-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
     <Typography Id="KeySmall" Font="IBMPlexSans-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
@@ -1115,7 +1142,7 @@
     <Typography Id="LabRead" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". -VAWC" WildcardCharacterRanges="0-9"/>
     <Typography Id="LabBig" Font="IBMPlexMono-Regular.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. VAmWCRANGEs/-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
     <Typography Id="LabState" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
-    <Typography Id="LabMid" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
+    <Typography Id="LabMid" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&gt;&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"/>
     <Typography Id="LabTile" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?"/>
   </Typographies>
 </TextDatabase>

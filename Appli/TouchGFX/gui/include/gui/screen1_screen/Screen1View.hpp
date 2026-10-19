@@ -43,6 +43,7 @@ protected:
     uint32_t currentLimitMa;
     int32_t measuredCurrentMa;
     bool outputEnabled;
+    bool requestShadow;
     bool constantCurrentMode;
     char editAscii[12];
     uint8_t editLength;

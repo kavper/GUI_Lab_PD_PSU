@@ -53,6 +53,8 @@ Specified transport: USART1, 115200 8N1, no flow control, one command per line e
 
 This repository does not contain the G4 firmware or a return-line grammar. `g4_ascii.c` implements the command side and keeps every received line as raw text. It does not decode `TC`, PDO, BMS, or charger fields. PPS stays locked until something proven sets `pps_ctl`, Sink, and APDO together.
 
+The USB-PD screen therefore shows no PDO rows. The missing fields, recorded in `PSU_PD_UNAVAILABLE`, are: PDO/APDO words, selected object, RDO (index, request, flags), partner role, negotiation state, requested contract, confirmed contract, and port voltage, current, and power. `psu_app_pd_words` and `psu_app_usb_sample` stay unused until a real G4 frame supplies them.
+
 | Action | Line |
 | --- | --- |
 | Output on / off | `ON` / `OFF` |

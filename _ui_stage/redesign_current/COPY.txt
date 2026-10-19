@@ -1,0 +1,58 @@
+Copy these files onto the same relative path under
+C:\TouchGFXProjects\GUI_Lab_PD_PSU\
+Then open GUI_Lab_PD_PSU.touchgfx in TouchGFX Designer 4.26.1 and Generate Code.
+Generate rebuilds Appli/TouchGFX/generated. Do not hand-edit that folder.
+This VM could not run Designer, the simulator, or the STM32 target.
+
+Appli\Core\Inc\psu_app.h  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Inc\psu_app.h
+Appli\Core\Inc\psu_bms.h  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Inc\psu_bms.h
+Appli\Core\Inc\psu_energy.h  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Inc\psu_energy.h
+Appli\Core\Inc\psu_pd.h  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Inc\psu_pd.h
+Appli\Core\Inc\psu_swipe.h  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Inc\psu_swipe.h
+Appli\Core\Src\main.c  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Src\main.c
+Appli\Core\Src\psu_app.c  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Src\psu_app.c
+Appli\Core\Src\psu_bms.c  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Src\psu_bms.c
+Appli\Core\Src\psu_energy.c  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Src\psu_energy.c
+Appli\Core\Src\psu_pd.c  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Src\psu_pd.c
+Appli\Core\Src\psu_render.c  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Src\psu_render.c
+Appli\Core\Src\psu_swipe.c  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Src\psu_swipe.c
+Appli\TouchGFX\GUI_Lab_PD_PSU.touchgfx  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\GUI_Lab_PD_PSU.touchgfx
+Appli\TouchGFX\assets\images\card_368x64.png  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\assets\images\card_368x64.png
+Appli\TouchGFX\assets\images\logo_mark_208x196.png  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\assets\images\logo_mark_208x196.png
+Appli\TouchGFX\assets\texts\texts.xml  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\assets\texts\texts.xml
+Appli\TouchGFX\gui\include\gui\common\LabSwipe.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\common\LabSwipe.hpp
+Appli\TouchGFX\gui\include\gui\screen1_screen\Screen1View.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screen1_screen\Screen1View.hpp
+Appli\TouchGFX\gui\include\gui\screenbattery_screen\ScreenBatteryView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenbattery_screen\ScreenBatteryView.hpp
+Appli\TouchGFX\gui\include\gui\screenbms_screen\ScreenBmsView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenbms_screen\ScreenBmsView.hpp
+Appli\TouchGFX\gui\include\gui\screendiagnostics_screen\ScreenDiagnosticsView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screendiagnostics_screen\ScreenDiagnosticsView.hpp
+Appli\TouchGFX\gui\include\gui\screenextcharger_screen\ScreenExtChargerView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenextcharger_screen\ScreenExtChargerView.hpp
+Appli\TouchGFX\gui\include\gui\screenmeasurements_screen\ScreenMeasurementsView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenmeasurements_screen\ScreenMeasurementsView.hpp
+Appli\TouchGFX\gui\include\gui\screennetwork_screen\ScreenNetworkView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screennetwork_screen\ScreenNetworkView.hpp
+Appli\TouchGFX\gui\include\gui\screenpowerpath_screen\ScreenPowerPathView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenpowerpath_screen\ScreenPowerPathView.hpp
+Appli\TouchGFX\gui\include\gui\screenpresets_screen\ScreenPresetsView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenpresets_screen\ScreenPresetsView.hpp
+Appli\TouchGFX\gui\include\gui\screenprotection_screen\ScreenProtectionView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenprotection_screen\ScreenProtectionView.hpp
+Appli\TouchGFX\gui\include\gui\screensequencer_screen\ScreenSequencerView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screensequencer_screen\ScreenSequencerView.hpp
+Appli\TouchGFX\gui\include\gui\screenservice_screen\ScreenServiceView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenservice_screen\ScreenServiceView.hpp
+Appli\TouchGFX\gui\include\gui\screensettings_screen\ScreenSettingsView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screensettings_screen\ScreenSettingsView.hpp
+Appli\TouchGFX\gui\include\gui\screenusbpd_screen\ScreenUsbPdView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenusbpd_screen\ScreenUsbPdView.hpp
+Appli\TouchGFX\gui\src\screen1_screen\Screen1View.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screen1_screen\Screen1View.cpp
+Appli\TouchGFX\gui\src\screenbattery_screen\ScreenBatteryView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenbattery_screen\ScreenBatteryView.cpp
+Appli\TouchGFX\gui\src\screenbms_screen\ScreenBmsView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenbms_screen\ScreenBmsView.cpp
+Appli\TouchGFX\gui\src\screendiagnostics_screen\ScreenDiagnosticsView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screendiagnostics_screen\ScreenDiagnosticsView.cpp
+Appli\TouchGFX\gui\src\screenextcharger_screen\ScreenExtChargerView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenextcharger_screen\ScreenExtChargerView.cpp
+Appli\TouchGFX\gui\src\screenmeasurements_screen\ScreenMeasurementsView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenmeasurements_screen\ScreenMeasurementsView.cpp
+Appli\TouchGFX\gui\src\screennetwork_screen\ScreenNetworkView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screennetwork_screen\ScreenNetworkView.cpp
+Appli\TouchGFX\gui\src\screenpowerpath_screen\ScreenPowerPathView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenpowerpath_screen\ScreenPowerPathView.cpp
+Appli\TouchGFX\gui\src\screenpresets_screen\ScreenPresetsView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenpresets_screen\ScreenPresetsView.cpp
+Appli\TouchGFX\gui\src\screenprotection_screen\ScreenProtectionView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenprotection_screen\ScreenProtectionView.cpp
+Appli\TouchGFX\gui\src\screensequencer_screen\ScreenSequencerView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screensequencer_screen\ScreenSequencerView.cpp
+Appli\TouchGFX\gui\src\screenservice_screen\ScreenServiceView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenservice_screen\ScreenServiceView.cpp
+Appli\TouchGFX\gui\src\screensettings_screen\ScreenSettingsView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screensettings_screen\ScreenSettingsView.cpp
+Appli\TouchGFX\gui\src\screensplash_screen\ScreenSplashView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screensplash_screen\ScreenSplashView.cpp
+Appli\TouchGFX\gui\src\screenusbpd_screen\ScreenUsbPdView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenusbpd_screen\ScreenUsbPdView.cpp
+STM32CubeIDE\Appli\.project  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\STM32CubeIDE\Appli\.project
+docs\implementation-status.md  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\docs\implementation-status.md
+docs\uart-protocols.md  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\docs\uart-protocols.md
+gcc\core_sources.mk  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\gcc\core_sources.mk
+tests\host\Makefile  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\tests\host\Makefile
+tests\host\test_psu.c  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\tests\host\test_psu.c

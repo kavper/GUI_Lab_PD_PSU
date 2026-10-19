@@ -218,3 +218,19 @@ void ScreenExtChargerView::chgAbort()
     polarity_latched = 0U;
     refresh();
 }
+
+void ScreenExtChargerView::handleClickEvent(const touchgfx::ClickEvent& event)
+{
+    swipe.onClick(event, false);
+    ScreenExtChargerViewBase::handleClickEvent(event);
+}
+
+void ScreenExtChargerView::handleGestureEvent(const touchgfx::GestureEvent& event)
+{
+    if (swipe.onGesture(event))
+    {
+        application().gotoScreenSettingsScreenWipeTransitionEast();
+        return;
+    }
+    ScreenExtChargerViewBase::handleGestureEvent(event);
+}

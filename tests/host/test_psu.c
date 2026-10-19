@@ -1,15 +1,20 @@
 #include "g0_frame.h"
 #include "g4_ascii.h"
 #include "psu_app.h"
+#include "psu_bms.h"
 #include "psu_charger.h"
 #include "psu_edit.h"
+#include "psu_energy.h"
 #include "psu_format.h"
 #include "psu_limits.h"
+#include "psu_pd.h"
 #include "psu_seq.h"
 #include "psu_store.h"
+#include "psu_swipe.h"
 
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 static int failures;
 
@@ -528,6 +533,235 @@ static void test_store_and_app(void)
   expect(strstr(json, "1.50") == 0, "no fake address");
 }
 
+static void click_button(uint32_t t)
+{
+  psu_app_user_button(1, t);
+  psu_app_user_button(1, t + 30U);
+  psu_app_user_button(0, t + 80U);
+  psu_app_user_button(0, t + 120U);
+}
+
+static uint8_t led_seen;
+
+static void test_led(uint8_t on)
+{
+  led_seen = on;
+}
+
+static void test_button_energy_pd_bms(void)
+{
+  PsuSnapshot s;
+  PsuG0Sample g0;
+  PsuEnergySession energy;
+  PsuBmsFrame frame;
+  PsuBmsFace face;
+  PsuUsbFace usb;
+  PsuPdText pd;
+  uint32_t fixed_5v = (100U << 10) | 300U;
+  uint32_t apdo = (3U << 30) | (110U << 17) | (33U << 8) | 60U;
+  uint32_t rdo = (2U << 28) | (1U << 25) | (150U << 10) | 300U;
+  uint32_t words[2];
+  uint32_t pps_rdo;
+  char json[1024];
+  clock_t t0;
+  int i;
+  PsuPdo decoded;
+  PsuRdo decoded_rdo;
+
+  psu_app_init();
+  psu_app_set_output_led(test_led);
+  expect(led_seen == 0, "led off at boot");
+  click_button(1000);
+  psu_snapshot(&s);
+  expect(s.output_requested == 1, "short click requests on");
+  psu_app_tick(1200);
+  expect(led_seen == 0, "led ignores the request");
+  click_button(2000);
+  psu_snapshot(&s);
+  expect(s.output_requested == 0, "second click requests off");
+
+  expect(psu_app_set_output(1, PSU_SRC_LCD) == 1, "output on before hold");
+  expect(psu_seq_start(psu_sequencer(), 3000) == 1, "seq running");
+  psu_app_user_button(1, 4000);
+  psu_app_user_button(1, 4030);
+  psu_app_user_button(1, 6000);
+  psu_app_user_button(1, 6500);
+  expect(psu_app_shutdown_count() == 1U, "hold shutdown once");
+  psu_snapshot(&s);
+  expect(s.output_requested == 0, "shutdown requests off");
+  expect(psu_sequencer()->run == PSU_SEQ_IDLE, "shutdown stops sequencer");
+  expect(psu_charger()->state == CHG_IDLE, "idle charger stays idle");
+  psu_app_user_button(0, 7000);
+  psu_app_user_button(0, 7040);
+  psu_snapshot(&s);
+  expect(s.output_requested == 0, "release after hold does not click");
+  expect(psu_app_shutdown_count() == 1U, "release does not shutdown again");
+
+  psu_app_user_button(1, 8000);
+  psu_app_user_button(0, 8010);
+  psu_app_user_button(0, 8020);
+  psu_snapshot(&s);
+  expect(s.output_requested == 0, "bounce is not a click");
+
+  memset(&g0, 0, sizeof(g0));
+  g0.connected = 1;
+  g0.current_valid = 1;
+  g0.vout_mv = 28000;
+  psu_app_observe_g0(&g0, 9000);
+  psu_app_tick(9000);
+  psu_snapshot(&s);
+  expect(s.fault_latched == 1, "ovp latched");
+  click_button(9100);
+  psu_snapshot(&s);
+  expect(s.output_requested == 0, "fault blocks the button");
+
+  memset(&g0, 0, sizeof(g0));
+  g0.connected = 1;
+  g0.current_valid = 1;
+  g0.status_flags = 0x0011;
+  g0.vout_mv = 5000;
+  psu_app_init();
+  psu_app_set_output_led(test_led);
+  psu_app_observe_g0(&g0, 10000);
+  expect(led_seen == 1, "led follows confirmed on");
+  g0.connected = 0;
+  g0.status_flags = 0;
+  psu_app_observe_g0(&g0, 11000);
+  expect(led_seen == 0, "led follows confirmed off");
+
+  psu_energy_reset(&energy);
+  psu_energy_observe(&energy, 0, 1, 0, 0);
+  psu_energy_observe(&energy, 1000, 1, 1, 24000);
+  psu_energy_observe(&energy, 2500, 1, 1, 24000);
+  expect(energy.out_mwh == 10U && energy.in_mwh == 0U, "10 mWh out");
+  psu_energy_observe(&energy, 3000, 1, 0, 24000);
+  psu_energy_observe(&energy, 4200, 1, 1, 24000);
+  expect(energy.out_mwh == 10U && energy.gap_count == 1U, "gap adds no energy");
+  psu_energy_observe(&energy, 5000, 0, 0, 0);
+  expect(energy.active == 0U && energy.has_closed == 1U, "disconnect closes");
+  expect(energy.closed_out_mwh == 10U, "closed energy kept");
+  psu_energy_observe(&energy, 6000, 1, 1, -24000);
+  psu_energy_observe(&energy, 7500, 1, 1, -24000);
+  expect(energy.in_mwh == 10U && energy.out_mwh == 0U, "new session energy in");
+  expect(energy.closed_out_mwh == 10U, "previous session stays");
+  psu_energy_observe(&energy, 9000, 1, 1, -24000);
+  expect(energy.in_mwh == 20U, "1500 ms still counts");
+  psu_energy_observe(&energy, 9000U + 1501U, 1, 1, -24000);
+  expect(energy.in_mwh == 20U && energy.gap_count == 1U, "1501 ms is a gap");
+
+  psu_app_init();
+  psu_usb_face(&usb);
+  expect(strcmp(usb.pdo, PSU_PD_UNAVAILABLE) == 0, "no invented pdo rows");
+  expect(strstr(usb.pdo, "FIXED") == 0, "empty list has no fixed row");
+  expect(usb.selected_row < 0, "nothing selected");
+  expect(strcmp(usb.confirmed, "UNAVAILABLE") == 0, "no confirmed role");
+  expect(strstr(usb.contract, "NO PORT SAMPLES") != 0, "no fake session");
+  expect(usb.fill_w == 0, "no fake flow");
+  psu_app_usb_sample(0, 1, 1, 20000);
+  psu_app_usb_sample(3600, 1, 1, 20000);
+  psu_usb_face(&usb);
+  expect(strstr(usb.flow, "FLOW OUT") != 0, "flow follows the sample");
+  expect(usb.fill_w > 0 && usb.fill_x == 400, "outward bar");
+  psu_app_usb_sample(4000, 0, 0, 0);
+  psu_usb_face(&usb);
+  expect(strstr(usb.contract, "LAST") != 0, "disconnect keeps the session");
+  expect(usb.fill_w == 0, "disconnect clears the bar");
+
+  expect(psu_pd_decode_pdo(fixed_5v, &decoded) == 1, "decode fixed");
+  expect(decoded.type == 1U && decoded.vmax_mv == 5000U && decoded.imax_ma == 3000U, "5 V 3 A");
+  expect(psu_pd_decode_pdo(apdo, &decoded) == 1, "decode apdo");
+  expect(decoded.type == 4U && decoded.vmin_mv == 3300U && decoded.vmax_mv == 11000U, "pps range");
+  expect(decoded.imax_ma == 3000U, "pps current");
+  words[0] = fixed_5v;
+  words[1] = apdo;
+  psu_pd_describe(words, 2, 1, rdo, &pd);
+  expect(pd.count == 2U && pd.selected == 1, "second object selected");
+  expect(pd.line[1][0] == '>', "arrow on selected row");
+  expect(pd.line[0][0] == ' ', "other row has no arrow");
+  expect(strstr(pd.line[0], "5.000 V") != 0, "fixed voltage");
+  expect(strstr(pd.rdo, "OBJ 2") != 0 && strstr(pd.rdo, "USBCOM") != 0, "rdo flags");
+  pps_rdo = (1U << 28) | (450U << 9) | 40U;
+  psu_pd_describe(&apdo, 1, 1, pps_rdo, &pd);
+  expect(psu_pd_decode_rdo(pps_rdo, 1, &decoded_rdo) == 1, "pps rdo");
+  expect(decoded_rdo.voltage_mv == 9000U && decoded_rdo.operating_ma == 2000U, "9 V 2 A request");
+  expect(strstr(pd.rdo, "9.000 V") != 0, "pps rdo text");
+  psu_pd_describe(0, 0, 1, rdo, &pd);
+  expect(pd.count == 0U && strstr(pd.rdo, "PDO LIST MISSING") != 0, "rdo without pdo");
+  psu_app_pd_words(words, 2, 1, rdo);
+  psu_usb_face(&usb);
+  expect(usb.selected_row == 1, "face keeps the selected row");
+  expect(strstr(usb.contract, "CONFIRMED CONTRACT: UNAVAILABLE") != 0, "contract not confirmed");
+  psu_app_pd_words(0, 0, 0, 0);
+
+  memset(&frame, 0, sizeof(frame));
+  psu_bms_face(&frame, &face);
+  expect(strcmp(face.channel[0], "MISSING") == 0, "ch1 missing");
+  expect(strcmp(face.channel[1], "MISSING") == 0, "ch2 missing");
+  expect(strstr(face.channels_line, "0.000") == 0, "missing is not 0 V");
+  expect(strstr(face.summary, "UNAVAILABLE") != 0, "soc unavailable");
+  frame.valid = 1;
+  frame.present[0] = 1;
+  frame.cell_mv[0] = 0;
+  frame.present[1] = 0;
+  frame.cell_mv[1] = 3700;
+  frame.present[2] = 1;
+  frame.cell_mv[2] = 3650;
+  frame.present[3] = 1;
+  frame.stale[3] = 1;
+  frame.cell_mv[3] = 3600;
+  frame.fet_dsg = 1;
+  frame.soc_valid = 1;
+  frame.soc_pct = 80;
+  frame.current_valid = 1;
+  frame.current_ma = 1000;
+  frame.temp_centi[0] = 250;
+  frame.temp_centi[1] = 260;
+  frame.temp_centi[2] = 240;
+  frame.balance_mask = 0x1;
+  psu_bms_face(&frame, &face);
+  expect(strcmp(face.channel[0], "0.000 V") == 0, "reported zero stays on ch1");
+  expect(strcmp(face.channel[1], "MISSING") == 0, "unused ch2 is missing");
+  expect(strcmp(face.channel[2], "3.650 V") == 0, "ch3 not renumbered");
+  expect(strcmp(face.channel[3], "STALE") == 0, "stale ch4");
+  expect(strcmp(face.pack_v, "3.650 V") == 0, "pack skips missing and stale");
+  expect(strcmp(face.spread, "3650 mV") == 0, "spread uses live cells");
+  expect(strcmp(face.state, "DISCHARGE") == 0, "discharge fet");
+  expect(strcmp(face.balance, "CH1") == 0, "balance channel");
+  expect(strstr(face.channels_line, "CH1") != 0 && strstr(face.channels_line, "CH4") != 0, "channel names stay");
+  psu_app_init();
+  psu_app_bms_frame(&frame);
+  psu_render_bms(json, sizeof(json));
+  expect(strstr(json, "CH2 MISSING") != 0, "render keeps ch2");
+  expect(strstr(json, "0.000") != 0, "render shows a real zero");
+
+  expect(psu_swipe_back(1, 8, 100, 120, 110, 1, 4, 0) == 1, "edge swipe back");
+  expect(psu_swipe_back(0, 8, 100, 120, 110, 1, 4, 0) == 0, "unarmed swipe");
+  expect(psu_swipe_back(1, 8, 200, 120, 210, 1, 4, 1) == 0, "blocked editor");
+  expect(psu_swipe_back(1, 40, 100, 160, 110, 1, 4, 0) == 0, "swipe not from the edge");
+  expect(psu_swipe_back(1, 8, 100, 40, 110, 1, 4, 0) == 0, "short swipe");
+  expect(psu_swipe_back(1, 8, 100, 120, 200, 1, 4, 0) == 0, "vertical drag");
+  expect(psu_swipe_back(1, 8, 100, 120, 110, 0, 4, 0) == 0, "vertical gesture");
+  expect(psu_swipe_back(1, 8, 100, 20, 110, 1, -4, 0) == 0, "leftward swipe");
+
+  words[0] = fixed_5v;
+  words[1] = apdo;
+  t0 = clock();
+  for (i = 0; i < 20000; ++i)
+    psu_pd_describe(words, 2, 1, rdo, &pd);
+  printf("pdo describe %.2f us\n",
+         (double)(clock() - t0) * 1000000.0 / (double)CLOCKS_PER_SEC / 20000.0);
+  t0 = clock();
+  for (i = 0; i < 20000; ++i)
+    psu_bms_face(&frame, &face);
+  printf("bms face %.2f us\n",
+         (double)(clock() - t0) * 1000000.0 / (double)CLOCKS_PER_SEC / 20000.0);
+  t0 = clock();
+  for (i = 0; i < 20000; ++i)
+    psu_energy_observe(&energy, (uint32_t)(20000 + i), 1, 1, 1000);
+  printf("energy observe %.2f us\n",
+         (double)(clock() - t0) * 1000000.0 / (double)CLOCKS_PER_SEC / 20000.0);
+}
+
 int main(void)
 {
   test_g0();
@@ -537,6 +771,7 @@ int main(void)
   test_seq_edit();
   test_charger();
   test_store_and_app();
+  test_button_energy_pd_bms();
   if (failures)
   {
     fprintf(stderr, "%d failure(s)\n", failures);

@@ -45,22 +45,21 @@ void psu_render_diagnostics(char *dst, size_t n)
 
 void psu_render_bms(char *dst, size_t n)
 {
-  PsuSnapshot s;
-  psu_snapshot(&s);
-  if (!s.bms_valid)
+  PsuBmsFrame frame;
+  PsuBmsFace face;
+  psu_bms_read(&frame);
+  psu_bms_face(&frame, &face);
+  if (!frame.valid)
   {
     snprintf(dst, n,
-             "BMS OFFLINE\n"
+             "BMS OFFLINE\n%s\n"
              "No proven BQ76922 frame in this firmware.\n"
              "Commands BMS, BMS OFF and CLR are queued to G4.\n"
-             "Cells are hidden until telemetry is valid.");
+             "Missing channels stay missing. They are not 0 V.",
+             face.channels_line);
     return;
   }
-  snprintf(dst, n,
-           "C1 %u mV  C2 %u mV\nC3 %u mV  C4 %u mV\n"
-           "CHG FET %u  DSG FET %u  BAL 0x%02X\n%s",
-           s.cell_mv[0], s.cell_mv[1], s.cell_mv[2], s.cell_mv[3],
-           s.bms_fet_chg, s.bms_fet_dsg, s.bms_balancing, s.bms_fault);
+  snprintf(dst, n, "%s\n%s\n%s", face.state, face.channels_line, face.summary);
 }
 
 void psu_render_battery(char *dst, size_t n)
@@ -76,19 +75,12 @@ void psu_render_battery(char *dst, size_t n)
 
 void psu_render_usb(char *dst, size_t n)
 {
-  PsuSnapshot s;
-  const char *role = "AUTO";
-  psu_snapshot(&s);
-  if (s.usb_role == 1U) role = "SINK";
-  else if (s.usb_role == 2U) role = "SOURCE";
+  PsuUsbFace face;
+  psu_usb_face(&face);
   snprintf(dst, n,
-           "ROLE REQUEST %s\n"
-           "PDO list: none (no partner frame)\n"
-           "RDO: none\n"
-           "PPS %s\n"
-           "pps_ctl, Sink and APDO are required.\n"
-           "Contract values appear only from telemetry.",
-           role, s.pps_allowed ? "AVAILABLE" : "LOCKED");
+           "REQUESTED %s\nCONFIRMED %s\nLINK %s\nPPS %s\n%s\n%s\n%s",
+           face.requested, face.confirmed, face.link, face.pps,
+           face.flow, face.pdo, face.contract);
 }
 
 void psu_render_measurements(char *dst, size_t n)

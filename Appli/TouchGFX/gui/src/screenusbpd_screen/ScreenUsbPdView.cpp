@@ -1,5 +1,6 @@
 #include <gui/screenusbpd_screen/ScreenUsbPdView.hpp>
 #include <gui/common/LabText.hpp>
+#include <string.h>
 extern "C" {
 #include "psu_app.h"
 }
@@ -20,6 +21,22 @@ void ScreenUsbPdView::tearDownScreen()
     ScreenUsbPdViewBase::tearDownScreen();
 }
 
+void ScreenUsbPdView::handleClickEvent(const touchgfx::ClickEvent& event)
+{
+    swipe.onClick(event, false);
+    ScreenUsbPdViewBase::handleClickEvent(event);
+}
+
+void ScreenUsbPdView::handleGestureEvent(const touchgfx::GestureEvent& event)
+{
+    if (swipe.onGesture(event))
+    {
+        application().gotoScreenSettingsScreenWipeTransitionEast();
+        return;
+    }
+    ScreenUsbPdViewBase::handleGestureEvent(event);
+}
+
 void ScreenUsbPdView::handleTickEvent()
 {
     if (++divider < 8)
@@ -30,16 +47,40 @@ void ScreenUsbPdView::handleTickEvent()
 
 void ScreenUsbPdView::refresh()
 {
-    PsuSnapshot snap;
-    const char* role;
-    psu_app_ensure();
-    psu_snapshot(&snap);
-    role = (snap.usb_role == 1U) ? "SINK" : (snap.usb_role == 2U) ? "SOURCE" : "AUTO";
-    lab_show(RoleValue, RoleValueBuffer, ROLEVALUE_SIZE, role, lab_cyan());
-    lab_show(PpsValue, PpsValueBuffer, PPSVALUE_SIZE, snap.pps_allowed ? "OPEN" : "LOCKED",
-             snap.pps_allowed ? lab_green() : lab_amber());
-    lab_show(UsbLink, UsbLinkBuffer, USBLINK_SIZE, lab_g4_link(snap.g4_link), lab_link_color(snap.g4_link));
-    lab_show(UsbLast, UsbLastBuffer, USBLAST_SIZE, snap.g4_last_tx[0] ? snap.g4_last_tx : "--", lab_text());
+    PsuUsbFace face;
+    touchgfx::colortype linkColor = lab_muted();
+    psu_usb_face(&face);
+    lab_show(RoleValue, RoleValueBuffer, ROLEVALUE_SIZE, face.requested, lab_cyan());
+    lab_show(ConfValue, ConfValueBuffer, CONFVALUE_SIZE, face.confirmed, lab_muted());
+    lab_show(PpsValue, PpsValueBuffer, PPSVALUE_SIZE, face.pps,
+             strcmp(face.pps, "OPEN") == 0 ? lab_green() : lab_amber());
+    if (strcmp(face.link, "ONLINE") == 0)
+        linkColor = lab_green();
+    else if (strcmp(face.link, "STALE") == 0)
+        linkColor = lab_amber();
+    lab_show(UsbLink, UsbLinkBuffer, USBLINK_SIZE, face.link, linkColor);
+    lab_show(FlowText, FlowTextBuffer, FLOWTEXT_SIZE, face.flow,
+             strcmp(face.flow, "GAP") == 0 ? lab_amber() : lab_text());
+    lab_show(UsbLast, UsbLastBuffer, USBLAST_SIZE, face.pdo,
+             face.selected_row >= 0 ? lab_text() : lab_muted());
+    lab_show(ContractText, ContractTextBuffer, CONTRACTTEXT_SIZE, face.contract, lab_text());
+    FlowFill.invalidate();
+    FlowFill.setX(face.fill_x);
+    FlowFill.setWidth(face.fill_w > 0 ? face.fill_w : 0);
+    FlowFill.invalidate();
+    if (face.selected_row >= 0)
+    {
+        PdoMark.setPosition(UsbLast.getX(),
+                            static_cast<int16_t>(UsbLast.getY() + face.selected_row * 16),
+                            UsbLast.getWidth(), 16);
+        PdoMark.setVisible(true);
+    }
+    else
+    {
+        PdoMark.setWidth(0);
+        PdoMark.setVisible(false);
+    }
+    PdoMark.invalidate();
 }
 
 void ScreenUsbPdView::usbAuto()

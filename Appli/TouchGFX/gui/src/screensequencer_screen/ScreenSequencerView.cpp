@@ -412,3 +412,23 @@ void ScreenSequencerView::seqKeyDot() { psu_seq_edit_key(&edit, psu_sequencer(),
 void ScreenSequencerView::seqKeyClr() { psu_seq_edit_clear(&edit, psu_sequencer()); refresh(); }
 void ScreenSequencerView::seqKeyDel() { psu_seq_edit_backspace(&edit, psu_sequencer()); refresh(); }
 void ScreenSequencerView::seqKeyApply() { psu_seq_edit_apply(&edit, psu_sequencer()); refresh(); }
+
+void ScreenSequencerView::handleClickEvent(const touchgfx::ClickEvent& event)
+{
+    const int16_t x = event.getX();
+    const int16_t y = event.getY();
+    const bool steps = y >= 72 && y < 368 && x >= 16 && x < 416;
+    const bool editor = x >= 400 && y >= 72 && y < 448;
+    swipe.onClick(event, steps || editor);
+    ScreenSequencerViewBase::handleClickEvent(event);
+}
+
+void ScreenSequencerView::handleGestureEvent(const touchgfx::GestureEvent& event)
+{
+    if (swipe.onGesture(event))
+    {
+        application().gotoScreenSettingsScreenWipeTransitionEast();
+        return;
+    }
+    ScreenSequencerViewBase::handleGestureEvent(event);
+}

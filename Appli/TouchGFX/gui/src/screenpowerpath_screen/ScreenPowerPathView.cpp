@@ -49,3 +49,19 @@ void ScreenPowerPathView::pathRemote()
     g4_remote(psu_g4(), 1, 0);
     refresh();
 }
+
+void ScreenPowerPathView::handleClickEvent(const touchgfx::ClickEvent& event)
+{
+    swipe.onClick(event, false);
+    ScreenPowerPathViewBase::handleClickEvent(event);
+}
+
+void ScreenPowerPathView::handleGestureEvent(const touchgfx::GestureEvent& event)
+{
+    if (swipe.onGesture(event))
+    {
+        application().gotoScreenSettingsScreenWipeTransitionEast();
+        return;
+    }
+    ScreenPowerPathViewBase::handleGestureEvent(event);
+}

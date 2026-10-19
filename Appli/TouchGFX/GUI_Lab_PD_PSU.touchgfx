@@ -14,17 +14,17 @@
           {
             "Type": "Image",
             "Name": "SplashLogo",
-            "X": 250,
-            "Y": 28,
-            "Width": 300,
-            "Height": 283,
-            "RelativeFilename": "logo_white_300x283.png"
+            "X": 296,
+            "Y": 48,
+            "Width": 208,
+            "Height": 196,
+            "RelativeFilename": "logo_mark_208x196.png"
           },
           {
             "Type": "TextArea",
             "Name": "SplashDesigner",
             "X": 120,
-            "Y": 336,
+            "Y": 288,
             "Width": 560,
             "Height": 24,
             "TextId": "TXT_SPLASH_DESIGNER",
@@ -39,7 +39,7 @@
             "Type": "TextArea",
             "Name": "AghMark",
             "X": 120,
-            "Y": 312,
+            "Y": 256,
             "Width": 560,
             "Height": 24,
             "TextId": "TXT_AGH",
@@ -52,39 +52,9 @@
           },
           {
             "Type": "TextArea",
-            "Name": "SplashFirmware",
-            "X": 160,
-            "Y": 360,
-            "Width": 240,
-            "Height": 24,
-            "TextId": "TXT_SPLASH_FIRMWARE",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 147,
-              "Green": 163,
-              "Blue": 184
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "SplashRelease",
-            "X": 400,
-            "Y": 360,
-            "Width": 240,
-            "Height": 24,
-            "TextId": "TXT_SPLASH_RELEASE",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 147,
-              "Green": 163,
-              "Blue": 184
-            }
-          },
-          {
-            "Type": "TextArea",
             "Name": "SplashStatus",
             "X": 120,
-            "Y": 408,
+            "Y": 360,
             "Width": 560,
             "Height": 24,
             "TextId": "TXT_SPLASH_STATUS",
@@ -98,9 +68,9 @@
           {
             "Type": "Box",
             "Name": "SplashProgressTrack",
-            "X": 140,
-            "Y": 440,
-            "Width": 520,
+            "X": 144,
+            "Y": 416,
+            "Width": 512,
             "Height": 8,
             "Color": {
               "Red": 35,
@@ -111,8 +81,8 @@
           {
             "Type": "Box",
             "Name": "SplashProgressFill",
-            "X": 140,
-            "Y": 440,
+            "X": 144,
+            "Y": 416,
             "Width": 1,
             "Height": 8,
             "Color": {
@@ -125,7 +95,7 @@
             "Type": "TextArea",
             "Name": "SplashBuild",
             "X": 120,
-            "Y": 384,
+            "Y": 320,
             "Width": 560,
             "Height": 24,
             "TextId": "TXT_SPLASH_BUILD",
@@ -5173,9 +5143,9 @@
             "Type": "TextArea",
             "Name": "BatCells",
             "X": 432,
-            "Y": 176,
+            "Y": 136,
             "Width": 336,
-            "Height": 24,
+            "Height": 96,
             "TextId": "TXT_BATCELLS",
             "TextRotation": "0",
             "Color": {
@@ -5186,7 +5156,7 @@
             "Wildcard1": {
               "TextId": "TXT_BATCELLS_I",
               "UseBuffer": true,
-              "BufferSize": 8
+              "BufferSize": 80
             }
           },
           {
@@ -5274,7 +5244,7 @@
             "Wildcard1": {
               "TextId": "TXT_BATFAULT_I",
               "UseBuffer": true,
-              "BufferSize": 48
+              "BufferSize": 80
             }
           }
         ],
@@ -5356,16 +5326,16 @@
             "Type": "Image",
             "Name": "CellCard1",
             "X": 16,
-            "Y": 80,
+            "Y": 72,
             "Width": 168,
-            "Height": 160,
-            "RelativeFilename": "card_168x160.png"
+            "Height": 128,
+            "RelativeFilename": "card_168x128.png"
           },
           {
             "Type": "TextArea",
             "Name": "LblCell1",
             "X": 24,
-            "Y": 96,
+            "Y": 80,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_LBL_CELL1",
@@ -5380,7 +5350,7 @@
             "Type": "TextArea",
             "Name": "Cell1Value",
             "X": 24,
-            "Y": 152,
+            "Y": 112,
             "Width": 152,
             "Height": 48,
             "TextId": "TXT_CELL1VALUE",
@@ -5400,16 +5370,16 @@
             "Type": "Image",
             "Name": "CellCard2",
             "X": 216,
-            "Y": 80,
+            "Y": 72,
             "Width": 168,
-            "Height": 160,
-            "RelativeFilename": "card_168x160.png"
+            "Height": 128,
+            "RelativeFilename": "card_168x128.png"
           },
           {
             "Type": "TextArea",
             "Name": "LblCell2",
             "X": 224,
-            "Y": 96,
+            "Y": 80,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_LBL_CELL2",
@@ -5424,7 +5394,7 @@
             "Type": "TextArea",
             "Name": "Cell2Value",
             "X": 224,
-            "Y": 152,
+            "Y": 112,
             "Width": 152,
             "Height": 48,
             "TextId": "TXT_CELL2VALUE",
@@ -5444,16 +5414,16 @@
             "Type": "Image",
             "Name": "CellCard3",
             "X": 416,
-            "Y": 80,
+            "Y": 72,
             "Width": 168,
-            "Height": 160,
-            "RelativeFilename": "card_168x160.png"
+            "Height": 128,
+            "RelativeFilename": "card_168x128.png"
           },
           {
             "Type": "TextArea",
             "Name": "LblCell3",
             "X": 424,
-            "Y": 96,
+            "Y": 80,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_LBL_CELL3",
@@ -5468,7 +5438,7 @@
             "Type": "TextArea",
             "Name": "Cell3Value",
             "X": 424,
-            "Y": 152,
+            "Y": 112,
             "Width": 152,
             "Height": 48,
             "TextId": "TXT_CELL3VALUE",
@@ -5488,16 +5458,16 @@
             "Type": "Image",
             "Name": "CellCard4",
             "X": 616,
-            "Y": 80,
+            "Y": 72,
             "Width": 168,
-            "Height": 160,
-            "RelativeFilename": "card_168x160.png"
+            "Height": 128,
+            "RelativeFilename": "card_168x128.png"
           },
           {
             "Type": "TextArea",
             "Name": "LblCell4",
             "X": 624,
-            "Y": 96,
+            "Y": 80,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_LBL_CELL4",
@@ -5512,7 +5482,7 @@
             "Type": "TextArea",
             "Name": "Cell4Value",
             "X": 624,
-            "Y": 152,
+            "Y": 112,
             "Width": 152,
             "Height": 48,
             "TextId": "TXT_CELL4VALUE",
@@ -5532,16 +5502,16 @@
             "Type": "Image",
             "Name": "BmsBar",
             "X": 16,
-            "Y": 256,
+            "Y": 208,
             "Width": 768,
-            "Height": 112,
-            "RelativeFilename": "card_768x112.png"
+            "Height": 96,
+            "RelativeFilename": "card_768x96.png"
           },
           {
             "Type": "TextArea",
             "Name": "LblBmsLink",
             "X": 32,
-            "Y": 272,
+            "Y": 216,
             "Width": 144,
             "Height": 24,
             "TextId": "TXT_LBL_LINK",
@@ -5556,7 +5526,7 @@
             "Type": "TextArea",
             "Name": "BmsLink",
             "X": 32,
-            "Y": 304,
+            "Y": 248,
             "Width": 144,
             "Height": 40,
             "TextId": "TXT_BMSLINK",
@@ -5576,7 +5546,7 @@
             "Type": "TextArea",
             "Name": "LblFetC",
             "X": 224,
-            "Y": 272,
+            "Y": 216,
             "Width": 144,
             "Height": 24,
             "TextId": "TXT_LBL_CHG",
@@ -5591,7 +5561,7 @@
             "Type": "TextArea",
             "Name": "FetChg",
             "X": 224,
-            "Y": 304,
+            "Y": 248,
             "Width": 144,
             "Height": 40,
             "TextId": "TXT_FETCHG",
@@ -5604,14 +5574,14 @@
             "Wildcard1": {
               "TextId": "TXT_FETCHG_I",
               "UseBuffer": true,
-              "BufferSize": 8
+              "BufferSize": 16
             }
           },
           {
             "Type": "TextArea",
             "Name": "LblFetD",
             "X": 416,
-            "Y": 272,
+            "Y": 216,
             "Width": 144,
             "Height": 24,
             "TextId": "TXT_LBL_DSG",
@@ -5626,7 +5596,7 @@
             "Type": "TextArea",
             "Name": "FetDsg",
             "X": 416,
-            "Y": 304,
+            "Y": 248,
             "Width": 144,
             "Height": 40,
             "TextId": "TXT_FETDSG",
@@ -5639,14 +5609,14 @@
             "Wildcard1": {
               "TextId": "TXT_FETDSG_I",
               "UseBuffer": true,
-              "BufferSize": 8
+              "BufferSize": 16
             }
           },
           {
             "Type": "TextArea",
             "Name": "LblBal",
             "X": 608,
-            "Y": 272,
+            "Y": 216,
             "Width": 144,
             "Height": 24,
             "TextId": "TXT_LBL_BAL",
@@ -5661,7 +5631,7 @@
             "Type": "TextArea",
             "Name": "FetBal",
             "X": 608,
-            "Y": 304,
+            "Y": 248,
             "Width": 144,
             "Height": 40,
             "TextId": "TXT_FETBAL",
@@ -5674,16 +5644,29 @@
             "Wildcard1": {
               "TextId": "TXT_FETBAL_I",
               "UseBuffer": true,
-              "BufferSize": 8
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "FaultPlate",
+            "X": 16,
+            "Y": 312,
+            "Width": 768,
+            "Height": 96,
+            "Color": {
+              "Red": 16,
+              "Green": 32,
+              "Blue": 48
             }
           },
           {
             "Type": "TextArea",
             "Name": "BmsFault",
             "X": 32,
-            "Y": 376,
+            "Y": 320,
             "Width": 736,
-            "Height": 32,
+            "Height": 80,
             "TextId": "TXT_BMSFAULT",
             "TextRotation": "0",
             "Color": {
@@ -5694,7 +5677,7 @@
             "Wildcard1": {
               "TextId": "TXT_BMSFAULT_I",
               "UseBuffer": true,
-              "BufferSize": 48
+              "BufferSize": 180
             }
           },
           {
@@ -6181,19 +6164,19 @@
             "Type": "Image",
             "Name": "RoleCard",
             "X": 16,
-            "Y": 80,
+            "Y": 112,
             "Width": 368,
-            "Height": 160,
-            "RelativeFilename": "card_368x160.png"
+            "Height": 64,
+            "RelativeFilename": "card_368x64.png"
           },
           {
             "Type": "TextArea",
             "Name": "LblRole",
             "X": 32,
-            "Y": 96,
-            "Width": 336,
-            "Height": 24,
-            "TextId": "TXT_LBL_ROLE",
+            "Y": 116,
+            "Width": 160,
+            "Height": 16,
+            "TextId": "TXT_LBL_REQUESTED",
             "TextRotation": "0",
             "Color": {
               "Red": 147,
@@ -6205,9 +6188,9 @@
             "Type": "TextArea",
             "Name": "RoleValue",
             "X": 32,
-            "Y": 152,
-            "Width": 336,
-            "Height": 48,
+            "Y": 136,
+            "Width": 160,
+            "Height": 32,
             "TextId": "TXT_ROLEVALUE",
             "TextRotation": "0",
             "Color": {
@@ -6225,18 +6208,18 @@
             "Type": "Image",
             "Name": "PpsCard",
             "X": 416,
-            "Y": 80,
+            "Y": 112,
             "Width": 368,
-            "Height": 160,
-            "RelativeFilename": "card_368x160.png"
+            "Height": 64,
+            "RelativeFilename": "card_368x64.png"
           },
           {
             "Type": "TextArea",
             "Name": "LblPps",
             "X": 432,
-            "Y": 96,
-            "Width": 336,
-            "Height": 24,
+            "Y": 116,
+            "Width": 160,
+            "Height": 16,
             "TextId": "TXT_LBL_PPS",
             "TextRotation": "0",
             "Color": {
@@ -6249,9 +6232,9 @@
             "Type": "TextArea",
             "Name": "PpsValue",
             "X": 432,
-            "Y": 152,
-            "Width": 336,
-            "Height": 48,
+            "Y": 136,
+            "Width": 160,
+            "Height": 32,
             "TextId": "TXT_PPSVALUE",
             "TextRotation": "0",
             "Color": {
@@ -6269,18 +6252,18 @@
             "Type": "Image",
             "Name": "UsbBar",
             "X": 16,
-            "Y": 256,
+            "Y": 184,
             "Width": 768,
-            "Height": 144,
-            "RelativeFilename": "card_768x144.png"
+            "Height": 128,
+            "RelativeFilename": "card_768x128.png"
           },
           {
             "Type": "TextArea",
             "Name": "LblUsbLink",
-            "X": 32,
-            "Y": 272,
-            "Width": 336,
-            "Height": 24,
+            "X": 616,
+            "Y": 116,
+            "Width": 150,
+            "Height": 16,
             "TextId": "TXT_LBL_LINK",
             "TextRotation": "0",
             "Color": {
@@ -6292,10 +6275,10 @@
           {
             "Type": "TextArea",
             "Name": "UsbLink",
-            "X": 32,
-            "Y": 304,
-            "Width": 336,
-            "Height": 48,
+            "X": 616,
+            "Y": 136,
+            "Width": 150,
+            "Height": 32,
             "TextId": "TXT_USBLINK",
             "TextRotation": "0",
             "Color": {
@@ -6312,11 +6295,11 @@
           {
             "Type": "TextArea",
             "Name": "LblUsbLast",
-            "X": 432,
-            "Y": 272,
-            "Width": 336,
-            "Height": 24,
-            "TextId": "TXT_LBL_TX",
+            "X": 32,
+            "Y": 192,
+            "Width": 320,
+            "Height": 16,
+            "TextId": "TXT_LBL_PDO",
             "TextRotation": "0",
             "Color": {
               "Red": 147,
@@ -6325,12 +6308,25 @@
             }
           },
           {
+            "Type": "Box",
+            "Name": "PdoMark",
+            "X": 32,
+            "Y": 212,
+            "Width": 0,
+            "Height": 16,
+            "Color": {
+              "Red": 36,
+              "Green": 72,
+              "Blue": 96
+            }
+          },
+          {
             "Type": "TextArea",
             "Name": "UsbLast",
-            "X": 432,
-            "Y": 304,
-            "Width": 336,
-            "Height": 48,
+            "X": 32,
+            "Y": 212,
+            "Width": 736,
+            "Height": 92,
             "TextId": "TXT_USBLAST",
             "TextRotation": "0",
             "Color": {
@@ -6341,7 +6337,7 @@
             "Wildcard1": {
               "TextId": "TXT_USBLAST_I",
               "UseBuffer": true,
-              "BufferSize": 56
+              "BufferSize": 320
             }
           },
           {
@@ -6408,6 +6404,120 @@
               "Red": 8,
               "Green": 18,
               "Blue": 28
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "FlowTrack",
+            "X": 16,
+            "Y": 72,
+            "Width": 768,
+            "Height": 8,
+            "Color": {
+              "Red": 8,
+              "Green": 20,
+              "Blue": 32
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "FlowFill",
+            "X": 400,
+            "Y": 72,
+            "Width": 0,
+            "Height": 8,
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "FlowText",
+            "X": 16,
+            "Y": 80,
+            "Width": 768,
+            "Height": 24,
+            "TextId": "TXT_FLOW",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_FLOW_I",
+              "UseBuffer": true,
+              "BufferSize": 32
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblConf",
+            "X": 200,
+            "Y": 116,
+            "Width": 160,
+            "Height": 16,
+            "TextId": "TXT_LBL_CONFIRMED",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ConfValue",
+            "X": 200,
+            "Y": 136,
+            "Width": 160,
+            "Height": 32,
+            "TextId": "TXT_CONFVALUE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_CONFVALUE_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "ContractPlate",
+            "X": 16,
+            "Y": 320,
+            "Width": 768,
+            "Height": 88,
+            "Color": {
+              "Red": 16,
+              "Green": 32,
+              "Blue": 48
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ContractText",
+            "X": 32,
+            "Y": 324,
+            "Width": 736,
+            "Height": 80,
+            "TextId": "TXT_CONTRACT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_CONTRACT_I",
+              "UseBuffer": true,
+              "BufferSize": 220
             }
           }
         ],

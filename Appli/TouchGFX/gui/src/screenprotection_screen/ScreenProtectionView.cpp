@@ -62,3 +62,19 @@ void ScreenProtectionView::clearFault()
     psu_app_clear_fault();
     refresh();
 }
+
+void ScreenProtectionView::handleClickEvent(const touchgfx::ClickEvent& event)
+{
+    swipe.onClick(event, false);
+    ScreenProtectionViewBase::handleClickEvent(event);
+}
+
+void ScreenProtectionView::handleGestureEvent(const touchgfx::GestureEvent& event)
+{
+    if (swipe.onGesture(event))
+    {
+        application().gotoScreenSettingsScreenWipeTransitionEast();
+        return;
+    }
+    ScreenProtectionViewBase::handleGestureEvent(event);
+}

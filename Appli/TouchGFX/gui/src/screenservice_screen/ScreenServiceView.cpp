@@ -54,3 +54,19 @@ void ScreenServiceView::serviceStatus()
     psu_app_service_cmd("STATUS");
     refresh();
 }
+
+void ScreenServiceView::handleClickEvent(const touchgfx::ClickEvent& event)
+{
+    swipe.onClick(event, false);
+    ScreenServiceViewBase::handleClickEvent(event);
+}
+
+void ScreenServiceView::handleGestureEvent(const touchgfx::GestureEvent& event)
+{
+    if (swipe.onGesture(event))
+    {
+        application().gotoScreenSettingsScreenWipeTransitionEast();
+        return;
+    }
+    ScreenServiceViewBase::handleGestureEvent(event);
+}
