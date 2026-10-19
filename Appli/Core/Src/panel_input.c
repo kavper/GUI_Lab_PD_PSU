@@ -1,4 +1,9 @@
 #include "panel_input.h"
+uint8_t panel_output_leds(int fresh,int output_on,int fault_latched,uint32_t now)
+{
+    if(fault_latched)return (now/250u)%2u?1u:0u;
+    return fresh?(output_on?2u:1u):0u;
+}
 #include <string.h>
 static int8_t encoder_update(PanelEncoder *e, uint16_t count)
 {

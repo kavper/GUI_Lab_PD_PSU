@@ -13,6 +13,7 @@ public:
         if(!started){if(++wait>600)fail("startup timeout");if(app->swipePage()!=FrontendApplication::MAIN||app->isScreenTransitionActive())return false;if(++bootFrames<8)return false;static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("theme-selftest"),const_cast<char*>("boot-dark-blue.bmp"));check(ui::Theme::dark() && ui::Theme::accentIndex()==0,"Dark / Blue boot defaults");psu_snapshot(&initial);app->gotoScreenSettingsScreenWipeTransitionWest();started=true;return false;}
         if(app->isScreenTransitionActive())return false;
         ++frame;
+        if(frame==1){fprintf(log,"ENTER stage %d\n",stage);fflush(log);}
         const int positions[][2]={{660,402},{440,132},{440,248},{536,248},{632,248},{344,248},{344,132},{440,132},{728,32},{140,274},{728,32},{400,274},{728,32},{660,274},{728,32},{140,146},{728,32},{400,146},{728,32},{140,402},{728,32},{400,402},{728,32},{728,32},{688,428},{440,360},{536,360},{344,360},{344,360},{344,416},{440,416},{632,360},{660,146},{728,32},{728,32}};
         x=positions[stage][0];y=positions[stage][1];
         if(frame==32){
@@ -40,7 +41,7 @@ public:
             fprintf(log,"PASS stage %d\n",stage);fflush(log);
             if(stage==24)app->gotoScreenAppearanceScreenWipeTransitionWest();
             if(stage==31)app->gotoScreenSettingsScreenWipeTransitionEast();
-            if(stage==32)check(app->swipePage()==FrontendApplication::OTHER,"output monitor navigation");
+            if(stage==32)check(app->swipePage()==FrontendApplication::DETAIL,"output monitor navigation");
             if(stage==33)check(app->swipePage()==FrontendApplication::SETTINGS,"output monitor return to menu");
             if(stage==34)check(app->swipePage()==FrontendApplication::MAIN,"menu home after output monitor");
             if(++stage==35){fprintf(log,"PASS complete: palettes, seven settings pages and all sound controls and output monitor route\n");fclose(log);exit(0);}frame=0;return false;

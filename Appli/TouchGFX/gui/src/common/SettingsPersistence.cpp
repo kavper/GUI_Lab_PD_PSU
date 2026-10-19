@@ -36,7 +36,7 @@ void pollSettingsPersistence() {
 #ifdef SIMULATOR
     if(!initialized) {
         initialized=true;
-        testing=getenv("PSU_THEME_SELFTEST")||getenv("PSU_FINGER_SELFTEST")||getenv("PSU_USB_SELFTEST")||getenv("PSU_BATTERY_SELFTEST");
+        testing=getenv("PSU_INSTRUMENT_SELFTEST")||getenv("PSU_THEME_SELFTEST")||getenv("PSU_FINGER_SELFTEST")||getenv("PSU_USB_SELFTEST")||getenv("PSU_BATTERY_SELFTEST");
         psu_nv_init(&storage,readBytes,writeBytes,0);
         if(!testing && psu_nv_load(&storage,payload)==1 && !psu_config_decode(payload,sizeof(payload)))storage.loaded=0;
     }

@@ -1356,13 +1356,13 @@
         <Translation Language="GB">Power route / reported states</Translation>
       </Text>
       <Text Id="TXT_ACTION_roleAuto" Alignment="Center" TypographyId="Button">
-        <Translation Language="GB">AUTO ROLE</Translation>
+        <Translation Language="GB">AUTO</Translation>
       </Text>
       <Text Id="TXT_ACTION_roleSink" Alignment="Center" TypographyId="Button">
-        <Translation Language="GB">SINK ROLE</Translation>
+        <Translation Language="GB">SINK</Translation>
       </Text>
       <Text Id="TXT_ACTION_roleSource" Alignment="Center" TypographyId="Button">
-        <Translation Language="GB">SOURCE ROLE</Translation>
+        <Translation Language="GB">SOURCE</Translation>
       </Text>
       <Text Id="TXT_NEW_ScreenPowerPath" Alignment="Left" TypographyId="Title">
         <Translation Language="GB">Remote sense / fan</Translation>
@@ -1619,7 +1619,7 @@ Role buttons request a change; the contract above is confirmed telemetry.</Trans
         <Translation Language="GB">SESSION</Translation>
       </Text>
       <Text Id="TXT_CHG_TAB_Onboard" Alignment="Center" TypographyId="Button">
-        <Translation Language="GB">ONBOARD BQ</Translation>
+        <Translation Language="GB">BATTERY &gt;</Translation>
       </Text>
       <Text Id="TXT_CHG_EDIT" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">&lt;value&gt;</Translation>
@@ -1675,17 +1675,17 @@ Role buttons request a change; the contract above is confirmed telemetry.</Trans
       <Text Id="TXT_WIFI_FUTURE" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">Wi-Fi / module not integrated</Translation>
       </Text>
-      <Text Id="TXT_NEW_SplashTitle" Alignment="Left" TypographyId="Title">
-        <Translation Language="GB">LAB / POWER</Translation>
+      <Text Id="TXT_NEW_SplashTitle" Alignment="Left" TypographyId="UiState">
+        <Translation Language="GB">LAB PD PSU</Translation>
       </Text>
-      <Text Id="TXT_NEW_SplashSubtitle" Alignment="Left" TypographyId="Small">
-        <Translation Language="GB">USB-C PD laboratory power supply</Translation>
+      <Text Id="TXT_NEW_SplashSubtitle" Alignment="Left" TypographyId="Title">
+        <Translation Language="GB">Laboratory power supply</Translation>
       </Text>
-      <Text Id="TXT_NEW_SplashThesis" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">AGH / Engineering thesis</Translation>
+      <Text Id="TXT_NEW_SplashThesis" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Starting interface / output stays OFF</Translation>
       </Text>
-      <Text Id="TXT_START_CHECKS" Alignment="Left" TypographyId="TelemetryDetails">
-        <Translation Language="GB">&lt;value&gt;</Translation>
+      <Text Id="TXT_START_CHECKS" Alignment="Left" TypographyId="UiDiagnostic">
+        <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
       <Text Id="TXT_START_CONTINUE" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">CONTINUE</Translation>
@@ -1730,17 +1730,17 @@ Role buttons request a change; the contract above is confirmed telemetry.</Trans
         <Translation Language="GB">Theme, volume and feedback</Translation>
       </Text>
       <Text Id="TXT_APPEARANCE_NOTE" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">Dark / Blue at startup. Sound settings apply immediately.</Translation>
+        <Translation Language="GB">Theme and sound settings are saved automatically.</Translation>
       </Text>
       <Text Id="TXT_APPEARANCE_MODE_DETAIL" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">Choose a light or dark
 interface.</Translation>
       </Text>
       <Text Id="TXT_USB_CONTRACT" Alignment="Left" TypographyId="UiEyebrow">
-        <Translation Language="GB">NEGOTIATED LIMITS</Translation>
+        <Translation Language="GB">CONTRACT / LIMITS</Translation>
       </Text>
       <Text Id="TXT_USB_MEASURED" Alignment="Left" TypographyId="UiEyebrow">
-        <Translation Language="GB">LIVE USB-C MEASUREMENT</Translation>
+        <Translation Language="GB">USB-C / MEASURED</Translation>
       </Text>
       <Text Id="TXT_USB_VOLTAGE" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">Voltage</Translation>
@@ -1754,8 +1754,8 @@ interface.</Translation>
       <Text Id="TXT_USB_BATTERY" Alignment="Left" TypographyId="UiEyebrow">
         <Translation Language="GB">BATTERY POWER FLOW</Translation>
       </Text>
-      <Text Id="TXT_USB_READING" Alignment="Right" TypographyId="UsbReading">
-        <Translation Language="GB">&lt;value&gt;</Translation>
+      <Text Id="TXT_USB_READING" Alignment="Right" TypographyId="TelemetryMetric">
+        <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
       <Text Id="TXT_USB_ROLE" Alignment="Right" TypographyId="Small">
         <Translation Language="GB">&lt;value&gt;</Translation>
@@ -1772,8 +1772,8 @@ interface.</Translation>
       <Text Id="TXT_USB_ZERO" Alignment="Center" TypographyId="UiCaption">
         <Translation Language="GB">0</Translation>
       </Text>
-      <Text Id="TXT_USB_POWER_VALUE" Alignment="Center" TypographyId="UsbPower">
-        <Translation Language="GB">&lt;value&gt;</Translation>
+      <Text Id="TXT_USB_POWER_VALUE" Alignment="Left" TypographyId="TelemetryMetric">
+        <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
       <Text Id="TXT_FULL_POWER_OFF" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">POWER OFF</Translation>
@@ -1844,7 +1844,7 @@ interface.</Translation>
       <Text Id="TXT_USB_LOAD_DETAIL" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_USB_SESSION_SUMMARY" Alignment="Left" TypographyId="UiCaption">
+      <Text Id="TXT_USB_SESSION_SUMMARY" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
       <Text Id="TXT_MENU_OUTPUT_TITLE" Alignment="Left" TypographyId="Small">
@@ -1853,101 +1853,122 @@ interface.</Translation>
       <Text Id="TXT_MENU_OUTPUT_DESC" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">Rail voltage, currents and stage</Translation>
       </Text>
-      <Text Id="TXT_BATTERYTAB" TypographyId="Button" Alignment="Center">
+      <Text Id="TXT_BATTERYTAB" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">BATTERY</Translation>
       </Text>
-      <Text Id="TXT_DETAILSTAB" TypographyId="Button" Alignment="Center">
+      <Text Id="TXT_DETAILSTAB" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">BMS DETAILS</Translation>
       </Text>
-      <Text Id="TXT_CHARGERTAB" TypographyId="Button" Alignment="Center">
+      <Text Id="TXT_CHARGERTAB" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">CHARGER</Translation>
       </Text>
-      <Text Id="TXT_ENERGYTAB" TypographyId="Button" Alignment="Center">
+      <Text Id="TXT_ENERGYTAB" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">ENERGY / TREND</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_FLOW" TypographyId="UiState" Alignment="Left">
+      <Text Id="TXT_BATTERY_FLOW" Alignment="Left" TypographyId="UiState">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_POWER" TypographyId="UsbPower" Alignment="Left">
+      <Text Id="TXT_BATTERY_POWER" Alignment="Left" TypographyId="UsbPower">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_V" TypographyId="TelemetryMetric" Alignment="Left">
+      <Text Id="TXT_BATTERY_V" Alignment="Left" TypographyId="TelemetryMetric">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_I" TypographyId="TelemetryMetric" Alignment="Left">
+      <Text Id="TXT_BATTERY_I" Alignment="Left" TypographyId="TelemetryMetric">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_SOC" TypographyId="TelemetryMetric" Alignment="Left">
+      <Text Id="TXT_BATTERY_SOC" Alignment="Left" TypographyId="TelemetryMetric">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_PHYSICAL" TypographyId="Small" Alignment="Left">
+      <Text Id="TXT_BATTERY_PHYSICAL" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">CELL VOLTAGES / PHYSICAL CHANNELS</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_CHANNEL0" TypographyId="Label" Alignment="Left">
+      <Text Id="TXT_BATTERY_CHANNEL0" Alignment="Left" TypographyId="Label">
         <Translation Language="GB">CELL / CH 1</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_CELL0" TypographyId="TelemetryMetric" Alignment="Left">
+      <Text Id="TXT_BATTERY_CELL0" Alignment="Left" TypographyId="TelemetryMetric">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_STATUS0" TypographyId="UiCaption" Alignment="Left">
+      <Text Id="TXT_BATTERY_STATUS0" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_CHANNEL1" TypographyId="Label" Alignment="Left">
+      <Text Id="TXT_BATTERY_CHANNEL1" Alignment="Left" TypographyId="Label">
         <Translation Language="GB">CELL / CH 2</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_CELL1" TypographyId="TelemetryMetric" Alignment="Left">
+      <Text Id="TXT_BATTERY_CELL1" Alignment="Left" TypographyId="TelemetryMetric">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_STATUS1" TypographyId="UiCaption" Alignment="Left">
+      <Text Id="TXT_BATTERY_STATUS1" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_CHANNEL2" TypographyId="Label" Alignment="Left">
+      <Text Id="TXT_BATTERY_CHANNEL2" Alignment="Left" TypographyId="Label">
         <Translation Language="GB">CELL / CH 3</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_CELL2" TypographyId="TelemetryMetric" Alignment="Left">
+      <Text Id="TXT_BATTERY_CELL2" Alignment="Left" TypographyId="TelemetryMetric">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_STATUS2" TypographyId="UiCaption" Alignment="Left">
+      <Text Id="TXT_BATTERY_STATUS2" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_CHANNEL3" TypographyId="Label" Alignment="Left">
+      <Text Id="TXT_BATTERY_CHANNEL3" Alignment="Left" TypographyId="Label">
         <Translation Language="GB">CELL / CH 4</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_CELL3" TypographyId="TelemetryMetric" Alignment="Left">
+      <Text Id="TXT_BATTERY_CELL3" Alignment="Left" TypographyId="TelemetryMetric">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_STATUS3" TypographyId="UiCaption" Alignment="Left">
+      <Text Id="TXT_BATTERY_STATUS3" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_CHANNEL4" TypographyId="Label" Alignment="Left">
+      <Text Id="TXT_BATTERY_CHANNEL4" Alignment="Left" TypographyId="Label">
         <Translation Language="GB">CELL / CH 5</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_CELL4" TypographyId="TelemetryMetric" Alignment="Left">
+      <Text Id="TXT_BATTERY_CELL4" Alignment="Left" TypographyId="TelemetryMetric">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_STATUS4" TypographyId="UiCaption" Alignment="Left">
+      <Text Id="TXT_BATTERY_STATUS4" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_SPREAD" TypographyId="Small" Alignment="Left">
+      <Text Id="TXT_BATTERY_SPREAD" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_HINT" TypographyId="UiCaption" Alignment="Left">
+      <Text Id="TXT_BATTERY_HINT" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_CHARGER_DATA" TypographyId="UiDiagnostic" Alignment="Left">
+      <Text Id="TXT_BATTERY_CHARGER_DATA" Alignment="Left" TypographyId="TelemetryDetails">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_CHARGER_STATUS" TypographyId="UiDiagnostic" Alignment="Left">
+      <Text Id="TXT_BATTERY_CHARGER_STATUS" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_ENERGY_VALUE" TypographyId="TelemetryMetric" Alignment="Left">
+      <Text Id="TXT_BATTERY_ENERGY_VALUE" Alignment="Left" TypographyId="TelemetryMetric">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_BATTERY_ENERGY_HINT" TypographyId="UiCaption" Alignment="Left">
+      <Text Id="TXT_BATTERY_ENERGY_HINT" Alignment="Left" TypographyId="UiEyebrow">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_USBBUTTON" TypographyId="Button" Alignment="Center">
+      <Text Id="TXT_USBBUTTON" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">USB-C &gt;</Translation>
+      </Text>
+      <Text Id="TXT_REFINE_SessionHeading" TypographyId="UiEyebrow" Alignment="Left">
+        <Translation Language="GB">SESSION / RECEIVED ENERGY</Translation>
+      </Text>
+      <Text Id="TXT_REFINE_CapabilitiesHeading" TypographyId="UiEyebrow" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_REFINE_PdoRows" TypographyId="TelemetryDetails" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_REFINE_RequestHeading" TypographyId="UiEyebrow" Alignment="Left">
+        <Translation Language="GB">REQUEST / RDO</Translation>
+      </Text>
+      <Text Id="TXT_REFINE_RequestDetails" TypographyId="TelemetryDetails" Alignment="Left">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="TXT_REFINE_StartupHint" TypographyId="UiCaption" Alignment="Left">
+        <Translation Language="GB">Telemetry connects automatically. You can continue offline.</Translation>
+      </Text>
+      <Text Id="TXT_CHG_SESSION_HEADING" Alignment="Left" TypographyId="UiEyebrow">
+        <Translation Language="GB">CHARGING SESSION / OUTPUT</Translation>
       </Text>
     </TextGroup>
     <TextGroup Id="MainRemoteSense">

@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <gui/common/BatteryTrendWidget.hpp>
 class ScreenBatteryView : public ScreenBatteryViewBase {
+    friend class InstrumentUiSelfTest;
 public:
     void setupTheme();
     ScreenBatteryView();

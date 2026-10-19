@@ -6,6 +6,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include "g4_pd_caps.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -120,6 +121,7 @@ typedef struct
   uint8_t need_session_init;
   uint8_t session_ready;
   uint8_t init_phase;
+  G4PdCapabilities pd_caps;
   G4Link link;
   uint32_t last_rx_ms;
   uint32_t tx_count;
@@ -164,6 +166,7 @@ int g4_response(G4Port *port,uint16_t *id,uint8_t *state);
 /* Fault masks remain separate; OFF / early startup exceptions are contextual. */
 uint32_t g4_blocking_g0_faults(const G4Telemetry *t, uint8_t phase);
 int g4_start_wait(const G4Telemetry *t, uint8_t phase);
+void g4_pd_capabilities_snapshot(G4Port *port, G4PdCapabilities *out);
 void g4_init(G4Port *port);
 void g4_link_up(G4Port *port);
 void g4_link_lost(G4Port *port);

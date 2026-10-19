@@ -123,6 +123,13 @@ void BoardPanel_Poll(uint32_t now)
     } else if (a.output == 2) {
         ++BoardPanelDiagnostics[5]; (void)psu_app_power_shutdown_from(PSU_SRC_BUTTON);
     }
+    /* Physical OUTPUT indicators follow supervisor feedback on every GUI page. */
+    const G4Telemetry *confirmed = &psu_g4()->telemetry;
+    const int known = confirmed->valid && now-confirmed->ms <= G4_METER_FRESH_MS;
+    PsuSnapshot status;psu_snapshot(&status);
+    const uint8_t leds=panel_output_leds(known,confirmed->out,status.fault_latched||confirmed->fault_latch,now);
+    HAL_GPIO_WritePin(GPIOF, GPIO_PIN_2, leds&2u ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOF, GPIO_PIN_1, leds&1u ? GPIO_PIN_SET : GPIO_PIN_RESET);
     if (a.output) quiet_tone(now, a.output == 2 ? 40 : 20);
     else if (a.voltage_step || a.current_step) quiet_tone(now, 15);
     else if (a.voltage || a.current) quiet_tone(now, 8);

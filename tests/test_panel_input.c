@@ -52,5 +52,12 @@ int main(void)
     panel_input_init(&input,3,3,0,0); tick(3,3,3,10); tick(3,3,3,40);
     tick(3,3,0,60); a=tick(3,3,0,90);
     assert(a.voltage_step==1 && a.current_step==1 && !a.output);
-    puts("PASS: hardware encoder counters, bounce, counter rollover and delayed bursts, short/2s hold, boot-held key, timer wrap");
+    assert(panel_output_leds(0,0,0,0)==0);
+    assert(panel_output_leds(0,1,0,0)==0);
+    assert(panel_output_leds(1,0,0,0)==1);
+    assert(panel_output_leds(1,1,0,0)==2);
+    assert(panel_output_leds(1,1,1,250)==1);
+    assert(panel_output_leds(1,1,1,500)==0);
+    assert(panel_output_leds(0,1,1,750)==1);
+    puts("PASS: encoders, bounce, counter wrap, short/2s hold, boot-held key, confirmed output LEDs and latched fault");
 }

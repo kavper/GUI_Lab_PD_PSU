@@ -2,12 +2,13 @@
 #define FRONTENDAPPLICATION_HPP
 #include <gui_generated/common/FrontendApplicationBase.hpp>
 #include <gui/common/FingerSwipeState.hpp>
+#include <gui/common/EdgeBackGesture.hpp>
 class FrontendHeap;
 using namespace touchgfx;
 class FrontendApplication : public FrontendApplicationBase
 {
 public:
-    enum SwipePage { OTHER, MAIN, SETTINGS, USB_PD };
+    enum SwipePage { OTHER, MAIN, SETTINGS, USB_PD, DETAIL, BATTERY, BMS };
     FrontendApplication(Model& m, FrontendHeap& heap);
     virtual ~FrontendApplication() { }
     virtual void handleTickEvent();
@@ -15,6 +16,7 @@ public:
     virtual void handleClickEvent(const touchgfx::ClickEvent& event);
     virtual void handleDragEvent(const touchgfx::DragEvent& event);
     virtual void handleGestureEvent(const touchgfx::GestureEvent& event);
+    void navigateBack();
     bool isScreenTransitionActive() const
     {
         return swipe.active() || (currentTransition && !currentTransition->isDone());
@@ -34,13 +36,18 @@ public:
     CACHED_ROUTE(gotoScreenSequencerScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenBmsScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenBatteryScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenBatteryScreenWipeTransitionEast)
     CACHED_ROUTE(gotoScreenPowerPathScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenUsbPdScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenExtChargerScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenNetworkScreenWipeTransitionWest)
     CACHED_ROUTE(gotoScreenAppearanceScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenProtectionScreenWipeTransitionWest)
+    CACHED_ROUTE(gotoScreenServiceScreenWipeTransitionWest)
 #undef CACHED_ROUTE
 private:
+    EdgeBackGesture edgeBack;
+    SwipePage backPage = SETTINGS;
     SwipePage page,origin,destination;
     FingerSwipeState swipe;
     int16_t startX,startY;

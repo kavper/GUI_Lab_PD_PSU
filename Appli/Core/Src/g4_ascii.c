@@ -40,7 +40,7 @@ static const char *const keys_tc[] = {
   "bq_ok","bq_vbat_mv","bq_vsys_mv","bq_ibat_ma","bq_ichg_ma","bq_idchg_ma","bq_vbus_mv","bq_iin_ma",
   "bq_vreg_mv","bq_ichg_set_ma","bq_iin_set_ma","bq_st","bq_fault","bq_in","bq_pre","bq_fast","bq_otg",
   "bq_iindpm","bq_vindpm","tps_vbus_mv","cc1","cc2","role","conn","plug","typec","rst","rst_busy",
-  "pd_role","pd_mv","pd_ma", NULL
+  "pd_role","pd_mv","pd_ma", "attach_gen", NULL
 };
 static const char *const keys_aux[]={"dac_cv_mv","dac_cc_mv","t1","t2","t3","t4","fan","pgood","bleed","valid","local_mv","remote_p_mv","remote_n_mv","sense_code","sense_flags","fan_rpm","stop_reason",NULL};
 static const char *const *record_keys(uint8_t kind) {
@@ -97,8 +97,23 @@ uint32_t g4_blocking_g0_faults(const G4Telemetry *t, uint8_t phase) {
   }
   return mask;
 }
+void g4_pd_capabilities_snapshot(G4Port *p,G4PdCapabilities *out)
+{
+ uint32_t irq;if(!p||!out)return;irq=lock();*out=p->pd_caps;unlock(irq);
+}
 static void decode(G4Port *p,uint8_t type,uint8_t seq,const uint8_t *d,unsigned n,uint32_t now){
  unsigned i,k;G4Record r;uint32_t irq;
+ if(type==0x14){
+  if(n!=44u||d[0]!=1u||d[1]>15u||d[2]>2u||d[3]>7u||(!(d[1]&2u)&&d[3])||
+     ((d[1]&2u)&&!d[3])||((d[1]&14u)&&!(d[1]&1u))||((d[1]&14u)&&!d[2])||
+     ((d[1]&8u)&&d[2]!=2u)||((d[1]&4u)&&(((u32(d+8)>>28)&15u)<1u||((u32(d+8)>>28)&15u)>7u))){p->parse_error_count++;return;}
+  if(p->pd_caps.seen&&p->pd_caps.sequence==seq)return;
+  G4PdCapabilities c;memset(&c,0,sizeof(c));c.valid=c.seen=1;c.sequence=seq;c.ms=now;
+  c.flags=d[1];c.role=d[2];c.count=d[3];c.attach_generation=u32(d+4);c.rdo=u32(d+8);c.active_pdo=u32(d+12);
+  for(i=0;i<7u;++i)c.pdo[i]=u32(d+16+i*4u);
+  irq=lock();p->pd_caps=c;unlock(irq);p->last_rx_ms=now;p->rx_lines++;return;
+ }
+
  if(type==0x81||type==0x82){if(n!=(type==0x81?1u:2u)){p->parse_error_count++;return;}if(type==0x82){p->nack_valid=1;p->nack_type=d[0];p->nack_seq=seq;p->nack_reason=d[1];p->nack_ms=now;p->nack_matched=p->transaction_active[seq]==1&&p->transaction_type[seq]==d[0];snprintf(p->last_rx,sizeof(p->last_rx),"NACK TYPE=%02X SEQ=%u reason=%u %s",d[0],seq,d[1],p->nack_matched?"matched":"unmatched");log_line(p,0,p->last_rx,now);}if(p->transaction_active[seq]!=1||p->transaction_type[seq]!=d[0])return;irq=lock();reply(p,p->transaction_id[seq],type==0x81?2:3);p->transaction_active[seq]=0;for(i=0;i<2;i++)if(p->inflight_len[i]&&p->inflight_seq[i]==seq)p->inflight_len[i]=0;if(type==0x81)p->ack_count++;else p->err_count++;unlock(irq);return;}
  if(type==0x20){if(n<1||n>96)return;memcpy(p->last_rx,d,n<sizeof(p->last_rx)?n:sizeof(p->last_rx)-1);p->last_rx[n<sizeof(p->last_rx)?n:sizeof(p->last_rx)-1]=0;log_line(p,0,p->last_rx,now);return;}
  k=type-0x10;if(k>3||n!=(k==2?64u:k==3?32u:72u)){p->parse_error_count++;return;}
@@ -130,7 +145,7 @@ static void decode(G4Port *p,uint8_t type,uint8_t seq,const uint8_t *d,unsigned 
  }else if(k==1){G4Battery b;memset(&b,0,sizeof(b));b.valid=1;b.ms=now;b.present=d[0];b.configured=d[1];b.fault=u32(d+4);b.chg=d[22];b.dsg=d[23];b.series=d[25];b.pack_mv=u16(d+44);b.stack_mv=u16(d+46);b.current_ma=(int32_t)u32(d+48);b.sample=d[52];for(i=0;i<5;i++){char key[10];b.cell_mv[i]=(int16_t)u16(d+26+2*i);snprintf(key,sizeof(key),"c%u_mv",i+1);F(key,b.cell_mv[i]);}
  F("bms",d[0]);F("cfg",d[1]);F("st",d[2]);F("alert",d[3]);U("fault",4);W("alarm",8);F("sa",d[10]);F("sb",d[11]);F("sc",d[12]);F("fet",d[13]);W("manuf",14);F("init_step",d[16]);F("cfg_fail",d[17]);W("vcell_rb",18);W("batt",20);F("chg",d[22]);F("dsg",d[23]);F("fets",d[24]);F("series",d[25]);I("min_mv",36);I("max_mv",38);I("dV_mv",40);W("sum_mv",42);W("pack_mv",44);W("stack_mv",46);S("i_pack_ma",48);F("sample",d[52]);if(d[71]&8)S("passq_mah",56);if((d[71]&1)&&u16(d+64)!=0xffff)W("soc_permille",64);I("cc1_ma",66);if(u16(d+68))I("int_temp_dK",68);F("balance_mask",d[70]);F("soc_flags",d[71]);irq=lock();p->battery=b;p->records[k]=r;unlock(irq);
  }else if(k==2){G4Charger c;memset(&c,0,sizeof(c));c.valid=1;c.ms=now;c.online=d[0];c.vbat_mv=u32(d+12);c.vsys_mv=u32(d+16);c.ibat_ma=(int32_t)u32(d+20);c.vbus_mv=u32(d+32);c.fault=d[4];c.otg=(d[1]>>3)&1;c.plug=(d[1]>>7)&1;c.pd_role=d[10];c.pd_mv=u32(d+56);c.pd_ma=u32(d+60);
- F("bq_ok",d[0]);B("bq_in",1,0);B("bq_pre",1,1);B("bq_fast",1,2);B("bq_otg",1,3);B("bq_iindpm",1,4);B("bq_vindpm",1,5);B("rst_busy",1,6);B("plug",1,7);W("bq_st",2);F("bq_fault",d[4]);F("cc1",d[5]);F("cc2",d[6]);F("role",d[7]);F("conn",d[8]);F("typec",d[9]);F("pd_role",d[10]);U("bq_vbat_mv",12);U("bq_vsys_mv",16);S("bq_ibat_ma",20);U("bq_ichg_ma",24);U("bq_idchg_ma",28);U("bq_vbus_mv",32);U("bq_iin_ma",36);U("bq_vreg_mv",40);U("bq_ichg_set_ma",44);U("bq_iin_set_ma",48);U("tps_vbus_mv",52);U("pd_mv",56);U("pd_ma",60);irq=lock();p->charger=c;p->records[k]=r;unlock(irq);
+ F("bq_ok",d[0]);B("bq_in",1,0);B("bq_pre",1,1);B("bq_fast",1,2);B("bq_otg",1,3);B("bq_iindpm",1,4);B("bq_vindpm",1,5);B("rst_busy",1,6);B("plug",1,7);W("bq_st",2);F("bq_fault",d[4]);F("cc1",d[5]);F("cc2",d[6]);F("role",d[7]);F("conn",d[8]);F("typec",d[9]);F("pd_role",d[10]);F("attach_gen",d[11]);U("bq_vbat_mv",12);U("bq_vsys_mv",16);S("bq_ibat_ma",20);U("bq_ichg_ma",24);U("bq_idchg_ma",28);U("bq_vbus_mv",32);U("bq_iin_ma",36);U("bq_vreg_mv",40);U("bq_ichg_set_ma",44);U("bq_iin_set_ma",48);U("tps_vbus_mv",52);U("pd_mv",56);U("pd_ma",60);irq=lock();p->charger=c;p->records[k]=r;unlock(irq);
  }else{U("dac_cv_mv",0);U("dac_cc_mv",4);for(i=0;i<4;i++)if((int16_t)u16(d+8+i*2)!=INT16_MIN){char key[4];snprintf(key,sizeof(key),"t%u",i+1);I(key,8+i*2);}F("fan",d[16]);F("pgood",d[17]);F("bleed",d[18]);F("valid",d[19]);if(d[19]){if(u16(d+20)!=0xffff)W("local_mv",20);if(u16(d+22)!=0xffff)W("remote_p_mv",22);if(u16(d+24)!=0xffff)W("remote_n_mv",24);F("sense_code",d[26]);F("sense_flags",d[27]);}if(u16(d+28)!=0xffff)W("fan_rpm",28);F("stop_reason",d[30]);irq=lock();p->records[k]=r;unlock(irq);}
  memcpy(p->raw_payload[k],d,n);p->raw_len[k]=(uint8_t)n;
  p->rx_seq[k]=seq;p->rx_seen[k]=1;p->seen_rx=1;p->last_rx_ms=now;p->rx_lines++;

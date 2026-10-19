@@ -4,6 +4,7 @@
 #include <gui/common/FrontendApplication.hpp>
 #include <gui/common/TelemetryData.hpp>
 #include <gui/common/UsbSession.hpp>
+#include <gui/common/UsbPdObjects.hpp>
 ScreenUsbPdView::ScreenUsbPdView() : gaugePosition(0), gaugeTarget(0), gaugeValid(false), divider(0), noticeTicks(0) {notice[0]=0;}
 void ScreenUsbPdView::setupScreen() {ScreenUsbPdViewBase::setupScreen(); static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->setSwipePage(FrontendApplication::USB_PD); refresh();
     setupTheme();
@@ -20,11 +21,16 @@ void ScreenUsbPdView::refresh() {
     lab_show(Metric2,Metric2Buffer,METRIC2_SIZE,data.metric[2],data.fresh?lab_text():lab_muted());
     lab_show(Metric3,Metric3Buffer,METRIC3_SIZE,data.metric[3],data.fresh?lab_text():lab_muted());
     TelemetryRecord usb(G4_RECORD_TC), battery(G4_RECORD_TB);
+    const TelemetryRecord pd=usb;
     // Contract limits and ADC measurements are separate physical quantities.
     int64_t role=0, voltage=0, current=0;
-    const bool attached=usb.is("plug",1) && usb.get("pd_role",role) && (role==1||role==2);
-    lab_show(Metric3,Metric3Buffer,METRIC3_SIZE,!usb.fresh?"OFFLINE":!attached?"DETACHED":role==1?"SINK":"SOURCE",attached?ui::Theme::color(ui::ACCENT):lab_muted());
-    if(!attached) {
+    int64_t contractRole=0,pdMv=0,pdMa=0;
+    const bool attached=usb.is("plug",1);
+    usb.get("pd_role",contractRole);role=contractRole;
+    if(role!=1&&role!=2)usb.get("role",role);
+    const bool contractValid=attached&&(contractRole==1||contractRole==2)&&usb.get("pd_mv",pdMv)&&usb.get("pd_ma",pdMa)&&pdMv>0&&pdMa>0;
+    lab_show(Metric3,Metric3Buffer,METRIC3_SIZE,!usb.fresh?"OFFLINE":!attached?"DETACHED":role==1?"SINK":role==2?"SOURCE":"WAIT",attached?ui::Theme::color(ui::ACCENT):lab_muted());
+    if(!contractValid) {
         lab_show(Metric0,Metric0Buffer,METRIC0_SIZE,"--",lab_muted());
         lab_show(Metric1,Metric1Buffer,METRIC1_SIZE,"--",lab_muted());
         lab_show(Metric2,Metric2Buffer,METRIC2_SIZE,"--",lab_muted());
@@ -46,19 +52,35 @@ void ScreenUsbPdView::refresh() {
     char load[100];int64_t limitMv=0,limitMa=0;unsigned percent=0;
     const bool loadValid=inputValid&&usb.get("bq_vbus_mv",voltage)&&voltage>=0&&voltage<=100000&&
         usb.get("pd_mv",limitMv)&&usb.get("pd_ma",limitMa)&&limitMv>0&&limitMa>0&&limitMv<=100000&&limitMa<=10000;
-    if(loadValid){percent=(unsigned)((voltage*current)*100/(limitMv*limitMa));snprintf(load,sizeof(load),"Contract utilization: %u%%",percent);}
-    else snprintf(load,sizeof(load),"%s",!attached?"Connect a USB-C device":role==2?"Outgoing current: sensor unavailable":"Waiting for valid input ADC");
+    if(loadValid){percent=(unsigned)(((voltage*current)*100+limitMv*limitMa/2)/(limitMv*limitMa));snprintf(load,sizeof(load),"Contract utilization: %u%%",percent);}
+    else snprintf(load,sizeof(load),"%s",!attached?"Connect a USB-C device":role==2?"Outgoing current: sensor unavailable":!contractValid?"No negotiated PD power limit":"Waiting for valid input ADC");
     lab_show(ContractDetail,ContractDetailBuffer,CONTRACTDETAIL_SIZE,load,lab_muted());
-    const int fill=loadValid?(percent>100?344:percent*344/100):0;
+    const int fill=loadValid?(percent>100?276:percent*276/100):0;
     if(ContractLoadFill.getWidth()!=fill||ContractLoadFill.isVisible()!=loadValid){ContractLoadFill.invalidate();ContractLoadFill.setWidth(fill);ContractLoadFill.setVisible(loadValid);ContractLoadFill.invalidate();}
     const auto loadColor=ui::Theme::color(percent>100?ui::CAUTION:ui::ACCENT);
     if(ContractLoadFill.getColor()!=loadColor){ContractLoadFill.setColor(loadColor);ContractLoadFill.invalidate();}
     const UsbSession& session=usbSession();
     if(session.hasSamples()){
         const uint64_t cwh=session.energyMwMs/36000000ULL;
-        snprintf(load,sizeof(load),"%lu.%02lu Wh / %lu:%02lu / Peak %lu.%02lu W",(unsigned long)(cwh/100),(unsigned long)(cwh%100),(unsigned long)(session.elapsedMs/60000),(unsigned long)(session.elapsedMs/1000%60),(unsigned long)(session.peakMw/1000),(unsigned long)(session.peakMw%1000/10));
-    }else snprintf(load,sizeof(load),"Energy / duration / peak: waiting for input");
+        snprintf(load,sizeof(load),"Received %lu.%02lu Wh\nValid time %lu:%02lu\nPeak input %lu.%02lu W",(unsigned long)(cwh/100),(unsigned long)(cwh%100),(unsigned long)(session.elapsedMs/60000),(unsigned long)(session.elapsedMs/1000%60),(unsigned long)(session.peakMw/1000),(unsigned long)(session.peakMw%1000/10));
+    }else snprintf(load,sizeof(load),"Received -- Wh\nValid time --\n%s",attached&&role==2?"TX energy: no sensor":"Waiting for input samples");
     lab_show(SessionSummary,SessionSummaryBuffer,SESSIONSUMMARY_SIZE,load,lab_muted());
+    G4PdCapabilities caps;g4_pd_capabilities_snapshot(psu_g4(),&caps);
+    int64_t generation=0;pd.get("attach_gen",generation);
+    const bool currentCaps=ui::pdCapabilitiesCurrent(caps,psu_app_now(),attached,(unsigned)role,(unsigned)generation);
+    lab_show(CapabilitiesHeading,CapabilitiesHeadingBuffer,CAPABILITIESHEADING_SIZE,currentCaps&&(caps.flags&8u)?"DEVICE / ADVERTISED SOURCE PDO":"PARTNER / SOURCE CAPABILITIES",ui::Theme::color(ui::ACCENT));
+    char rows[640]="",request[200];unsigned selected=0;
+    if(currentCaps&&(caps.flags&2u)&&caps.count){
+        selected=ui::selectedPdObject(caps);
+        for(unsigned i=0;i<caps.count;++i){char row[80];ui::formatPdRow(row,sizeof(row),caps.pdo[i],i+1,selected==i+1);size_t used=strlen(rows);snprintf(rows+used,sizeof(rows)-used,"%s%s",i?"\n":"",row);}
+    }else snprintf(rows,sizeof(rows),"%s",!attached?"Connect a USB-C partner\nPDOs belong to the current cable session":!caps.valid?"PDO list not reported by G4\nRequires extended PD telemetry":!currentCaps?"Waiting for current-session PDOs":"Waiting for source capabilities");
+    lab_show(PdoRows,PdoRowsBuffer,PDOROWS_SIZE,rows,lab_text());
+    const int rowY=selected?250+(selected-1)*18:250;
+    const auto rowColor=ui::Theme::color(ui::ACCENT_SOFT);
+    if(PdoSelected.isVisible()!=(selected!=0)||PdoSelected.getY()!=rowY||PdoSelected.getColor()!=rowColor){PdoSelected.invalidate();PdoSelected.setVisible(selected!=0);PdoSelected.setY(rowY);PdoSelected.setColor(rowColor);PdoSelected.invalidate();}
+    if(currentCaps)ui::formatPdRequest(request,sizeof(request),caps);
+    else snprintf(request,sizeof(request),"RDO unavailable\n%s",attached?"Waiting for current session":"No PD contract");
+    lab_show(RequestDetails,RequestDetailsBuffer,REQUESTDETAILS_SIZE,request,lab_text());
     battery.fresh=battery.fresh && battery.is("sample",1) && battery.is("bms",1);
     const bool wasValid=gaugeValid;
     gaugeValid=battery.get("pack_mv",voltage) && battery.get("i_pack_ma",current)
@@ -99,7 +121,6 @@ void ScreenUsbPdView::refresh() {
     lab_enable(AutoButton,data.fresh);
     lab_enable(SinkButton,data.fresh);
     lab_enable(SourceButton,data.fresh);
-    lab_enable(RefreshButton,true);
 }
 void ScreenUsbPdView::roleAuto() {notify(psu_app_usb_role("AUTO",PSU_SRC_LCD)?"AUTO requested; role below is the actual PD contract":"Role request blocked");}
 void ScreenUsbPdView::roleSink() {notify(psu_app_usb_role("SINK",PSU_SRC_LCD)?"SINK requested; waiting for the reported role":"Role request blocked");}
@@ -119,6 +140,10 @@ void ScreenUsbPdView::setupTheme()
     theme.text(PageTitle);
     theme.text(PageFeedback);
     theme.button(BackButton,ui::NORMAL);
+    theme.panel(SessionCard);theme.text(SessionHeading,ui::ACCENT);
+    theme.panel(CapabilitiesCard);theme.text(CapabilitiesHeading,ui::ACCENT);
+    theme.panel(RequestCard);theme.text(RequestHeading,ui::ACCENT);
+    theme.text(PdoRows);theme.text(RequestDetails);
     theme.panel(ContractCard);
     theme.panel(MeasuredCard);
     theme.panel(BatteryCard);
@@ -141,7 +166,6 @@ void ScreenUsbPdView::setupTheme()
     theme.button(AutoButton,ui::NORMAL);
     theme.button(SinkButton,ui::NORMAL);
     theme.button(SourceButton,ui::NORMAL);
-    theme.button(RefreshButton,ui::NORMAL);
     theme.button(AllOffButton,ui::DANGER);
     theme.apply();
     refresh();
@@ -159,3 +183,5 @@ void ScreenUsbPdView::animateGauge()
     GaugeFill.setWidth(gaugePosition<0?-gaugePosition:gaugePosition?gaugePosition:1);
     GaugeNeedle.invalidate();GaugeFill.invalidate();
 }
+
+void ScreenUsbPdView::navigateBack(){static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->navigateBack();}

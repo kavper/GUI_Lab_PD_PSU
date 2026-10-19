@@ -11,8 +11,8 @@ public:
   if(!started){if(++wait>600)fail("startup timeout");if(app->swipePage()!=FrontendApplication::MAIN||app->isScreenTransitionActive())return false;app->gotoScreenBatteryScreenWipeTransitionWest();started=true;return false;}
   if(app->isScreenTransitionActive())return false;
   ++frame;
-  x=stage==5?496:stage==6?694:stage==7?104:stage==8?296:stage==9?728:694;
-  y=stage==9?32:stage==10?449:97;
+  x=stage==5?496:stage==6?694:stage==7?104:stage==8?496:stage==9?728:694;
+  y=stage==9?32:stage>=8?449:97;
   if(stage<8){
    auto* v=static_cast<ScreenBatteryView*>(app->getCurrentScreen());
    uint8_t p[72]={0};p[0]=p[1]=1;p[52]=stage==2?0:1;
@@ -26,19 +26,19 @@ public:
     if(stage==1)check(v->FlowStateBuffer[0]=='C',"charging state");
     if(stage==2||stage==3)check(v->PackPowerBuffer[0]=='-'&&v->CellValue0Buffer[0]=='-',"invalid/stale never shown as valid measurement");
     if(stage==4)check(v->CellStatus0Buffer[0]=='M',"equal cells min/max");
-    if(stage==5)check(v->page==1&&v->ChargerPanel.isVisible()&&!v->CellCard0.isVisible(),"charger tab actual touch");
-    if(stage==6)check(v->page==2&&v->trend.isVisible()&&!v->ChargerPanel.isVisible(),"energy tab actual touch");
-    if(stage==7)check(v->page==0&&v->CellCard4.isVisible()&&!v->trend.isVisible(),"battery tab restores all five channels");
+    if(stage==5)check(v->page==0&&v->ChargerPanel.isVisible()&&v->CellCard0.isVisible(),"charger and all cells visible together");
+    if(stage==6)check(v->page==0&&v->trend.isVisible()&&v->ChargerPanel.isVisible(),"energy and charger visible together");
+    if(stage==7)check(v->page==0&&v->CellCard4.isVisible()&&v->trend.isVisible(),"overview retains all five physical channels");
    }
   }
   if(frame==32){
    char name[40];snprintf(name,sizeof(name),"battery-%d.bmp",stage);static_cast<touchgfx::HALSDL2*>(touchgfx::HAL::getInstance())->saveScreenshot(const_cast<char*>("battery-selftest"),name);
-   if(stage==9){check(app->swipePage()==FrontendApplication::SETTINGS,"BMS back to menu");app->gotoScreenBatteryScreenWipeTransitionWest();}
+   if(stage==9){check(app->swipePage()==FrontendApplication::BATTERY,"BMS back to battery");app->gotoScreenBatteryScreenWipeTransitionWest();}
    if(stage==10)check(app->swipePage()==FrontendApplication::USB_PD,"USB-C quick link");
    fprintf(log,"PASS stage %u\n",stage);fflush(log);
-   if(++stage==11){fprintf(log,"PASS physical five channels, balance, unused, min/max, invalid/stale, battery/charger/energy tabs and BMS/USB navigation\n");fclose(log);exit(0);}frame=0;return false;
+   if(++stage==11){fprintf(log,"PASS physical five channels, balance, unused, min/max, invalid/stale, battery/charger/energy overview and BMS/USB navigation\n");fclose(log);exit(0);}frame=0;return false;
   }
-  return stage>=5&&frame<=8;
+  return stage>=8&&frame<=8;
  }
 private:
  static void w16(uint8_t* p,uint16_t v){p[0]=v;p[1]=v>>8;}

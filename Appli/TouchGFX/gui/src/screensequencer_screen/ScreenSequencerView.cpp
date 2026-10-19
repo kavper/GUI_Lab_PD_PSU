@@ -32,7 +32,7 @@ void ScreenSequencerView::setupScreen()
     keypadFromA = keypadToA = 0;
     SeqKeypad.setVisible(false);
     poseKeypad(KEYPAD_HIDDEN_Y, 0);
-    psu_seq_edit_select(&edit,psu_sequencer(),PSU_SEQ_FIELD_V);
+    // Open the overview first; numeric editing starts only after choosing a field.
     refresh();seqSyncKeypad();
 
     setupTheme();

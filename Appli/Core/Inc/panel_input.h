@@ -19,6 +19,8 @@ void panel_input_init(PanelInput *p, uint16_t voltage_count, uint16_t current_co
                       uint8_t pressed_mask, uint32_t now);
 PanelActions panel_input_update(PanelInput *p, uint16_t voltage_count, uint16_t current_count,
                                uint8_t pressed_mask, uint32_t now);
+/* Active-high OUTPUT LED mask: bit0 red, bit1 green. Unknown feedback is dark. */
+uint8_t panel_output_leds(int fresh, int output_on, int fault_latched, uint32_t now);
 #ifdef __cplusplus
 }
 #endif

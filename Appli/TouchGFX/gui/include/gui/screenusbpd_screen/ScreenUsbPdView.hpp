@@ -6,7 +6,9 @@
 #include <gui/common/PowerGaugeScale.hpp>
 class ScreenUsbPdView : public ScreenUsbPdViewBase {
     friend class UsbSelfTest;
+    friend class InstrumentUiSelfTest;
 public:
+    virtual void navigateBack();
     void setupTheme();
     ScreenUsbPdView();
     virtual ~ScreenUsbPdView() {}

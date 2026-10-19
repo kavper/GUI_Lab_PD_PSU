@@ -7,12 +7,13 @@ extern "C" {
 }
 class ScreenExtChargerView: public ScreenExtChargerViewBase {
  friend class UsbSelfTest;
+ friend class InstrumentUiSelfTest;
 public:
     void setupTheme();
- ScreenExtChargerView():page(0),field(1),divider(0),polarity(false){psu_editor_clear(&editor);}
+ ScreenExtChargerView():page(0),field(1),divider(0),polarity(false),editing(false){psu_editor_clear(&editor);}
  virtual void setupScreen();
  virtual void tearDownScreen(){ScreenExtChargerViewBase::tearDownScreen();}
- virtual void handleTickEvent(){if(++divider>=(page==1?2:15)){divider=0;refresh();}}
+ virtual void handleTickEvent();
  virtual void allOff();
  virtual void showSetup();
  virtual void showSession();
@@ -46,6 +47,6 @@ public:
  virtual void chargeKeyApply();
 
 private:
- unsigned page,field,divider;bool polarity;PsuEditor editor;SessionChart chart;
+ unsigned page,field,divider;bool polarity,editing;PsuEditor editor;SessionChart chart;
  void refresh();void selectField(unsigned i);void chooseChem(unsigned i);void key(char k);
 };

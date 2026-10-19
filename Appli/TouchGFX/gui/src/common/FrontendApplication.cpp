@@ -80,6 +80,16 @@ void FrontendApplication::handleTickEvent()
 }
 void FrontendApplication::handleClickEvent(const touchgfx::ClickEvent& event)
 {
+    if(event.getType()==touchgfx::ClickEvent::PRESSED)
+        edgeBack.begin(event.getX(),event.getY(),!isScreenTransitionActive()&&!pendingScreenTransitionCallback&&(page==DETAIL||page==BATTERY||page==BMS||(page==USB_PD&&backPage!=MAIN)));
+    else if(event.getType()==touchgfx::ClickEvent::RELEASED && edgeBack.active) {
+        edgeBack.move(event.getX(),event.getY());
+        if(edgeBack.finish()) {
+            FrontendApplicationBase::handleClickEvent(touchgfx::ClickEvent(touchgfx::ClickEvent::CANCEL,event.getX(),event.getY()));
+            navigateBack();
+            armed=false;return;
+        }
+    } else if(event.getType()==touchgfx::ClickEvent::CANCEL)edgeBack.active=false;
     if(swipe.active())
     {
         if(event.getType()==touchgfx::ClickEvent::RELEASED)
@@ -102,10 +112,15 @@ void FrontendApplication::handleClickEvent(const touchgfx::ClickEvent& event)
 }
 void FrontendApplication::handleDragEvent(const touchgfx::DragEvent& event)
 {
+    const bool wasCancelled=edgeBack.cancelled;
+    if(edgeBack.move(event.getNewX(),event.getNewY())) {
+        if(!wasCancelled)FrontendApplicationBase::handleClickEvent(touchgfx::ClickEvent(touchgfx::ClickEvent::CANCEL,startX,startY));
+        return;
+    }
     if(swipe.active()) { swipe.move(event.getNewX()-startX); return; }
     const int dx=event.getNewX()-startX,dy=event.getNewY()-startY;
     const int direction=dx>0?1:-1;
-    const bool route=page==MAIN || (page==SETTINGS && direction<0) || (page==USB_PD && direction>0);
+    const bool route=page==MAIN || (page==SETTINGS && direction<0) || (page==USB_PD && backPage==MAIN && direction>0);
     if(armed && route && abs(dx)>=12 && abs(dx)>2*abs(dy) && touchgfx::HAL::USE_ANIMATION_STORAGE)
     {
         // Cancel the pressed button before the view is destroyed.
@@ -137,12 +152,19 @@ void FrontendApplication::saveOriginState()
 }
 void FrontendApplication::beginFingerTransition()
 {
+    backPage=MAIN;
     if(destination==SETTINGS)
         touchgfx::makeTransition<ScreenSettingsView,ScreenSettingsPresenter,FingerSlideTransition,Model>(&currentScreen,&currentPresenter,frontendHeap,&currentTransition,&model);
     else if(destination==USB_PD)
         touchgfx::makeTransition<ScreenUsbPdView,ScreenUsbPdPresenter,FingerSlideTransition,Model>(&currentScreen,&currentPresenter,frontendHeap,&currentTransition,&model);
     else
         touchgfx::makeTransition<Screen1View,Screen1Presenter,FingerSlideTransition,Model>(&currentScreen,&currentPresenter,frontendHeap,&currentTransition,&model);
+}
+void FrontendApplication::navigateBack()
+{
+    if(backPage==MAIN)gotoScreen1ScreenWipeTransitionEast();
+    else if(backPage==BATTERY)gotoScreenBatteryScreenWipeTransitionEast();
+    else gotoScreenSettingsScreenWipeTransitionEast();
 }
 void FrontendApplication::rollbackFingerTransition()
 {

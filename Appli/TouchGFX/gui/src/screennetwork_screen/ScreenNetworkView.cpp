@@ -41,7 +41,7 @@ void ScreenNetworkView::refresh()
     psu_app_ensure();
     psu_snapshot(&snap);
     RemoteButton.setLabelText(touchgfx::TypedText(psu_remote_enabled()?T_TXT_REMOTE_DISABLE:T_TXT_REMOTE_ENABLE));RemoteButton.invalidate();
-    lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,psu_remote_enabled()?"Remote access enabled / Ethernet and future Wi-Fi":"Remote access disabled / local HMI only",lab_cyan());
+    lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,!snap.ethernet_configured?"Ethernet bring-up pending / local controls available":psu_remote_enabled()?"Remote control enabled / Ethernet":"Remote control disabled / local HMI only",lab_cyan());
     lab_ip(buf, sizeof(buf), snap.ip);
     lab_show(NetIp, NetIpBuffer, NETIP_SIZE, buf, lab_cyan());
     lab_ip(buf, sizeof(buf), snap.mask);
@@ -50,7 +50,7 @@ void ScreenNetworkView::refresh()
     lab_show(NetGw, NetGwBuffer, NETGW_SIZE, buf, lab_text());
     if (!snap.ethernet_configured)
     {
-        link = "NO ETHERNET";
+        link = "NOT READY";
         link_color = lab_muted();
     }
     else if (snap.net_state == PSU_NET_BOUND)

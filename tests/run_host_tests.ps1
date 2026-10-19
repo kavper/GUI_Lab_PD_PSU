@@ -6,7 +6,7 @@ New-Item -ItemType Directory -Path $testOutput -Force | Out-Null
 $testSources = @('g4_ascii','psu_app','psu_sim','psu_limits','psu_store','psu_nvstore',
                  'psu_seq','psu_charger','psu_format','psu_edit') |
   ForEach-Object { Join-Path $testRepo "Appli/Core/Src/$_.c" }
-foreach ($testName in @('test_binary','test_binary_app','test_startup','test_automation','test_nvstore')) {
+foreach ($testName in @('test_binary','test_binary_app','test_startup','test_automation','test_nvstore','test_pd_caps')) {
   $testInput = Join-Path $PSScriptRoot "$testName.c"
   $testExe = Join-Path $testOutput "$testName.exe"
   $testUnits = @(if ($testName -eq 'test_binary') { $testSources[0] } else { $testSources })
@@ -26,10 +26,10 @@ if ($LASTEXITCODE -ne 0) { throw 'Test failed: panel input' }
 $displayRuntimePath = $env:PATH
 try {
   $env:PATH = (Split-Path $displayCompiler -Parent) + ';' + $env:PATH
-  foreach ($displayName in @('test_display_voltage','test_power_gauge','test_chart_axis','test_usb_session','test_battery_trend','test_rounded_corners')) {
+  foreach ($displayName in @('test_display_voltage','test_power_gauge','test_chart_axis','test_usb_session','test_battery_trend','test_rounded_corners','test_pd_objects','test_edge_back')) {
     $displayTest = Join-Path $testOutput "$displayName.exe"
     & $displayCompiler -std=c++11 -Wall -Wextra -Werror `
-      -I (Join-Path $testRepo 'Appli/TouchGFX/gui/include') `
+      -I (Join-Path $testRepo 'Appli/TouchGFX/gui/include') -I (Join-Path $testRepo 'Appli/Core/Inc') `
       (Join-Path $PSScriptRoot "$displayName.cpp") -o $displayTest
     if ($LASTEXITCODE -ne 0) { throw "Compilation failed: $displayName" }
     & $displayTest

@@ -1,3 +1,4 @@
+#include <gui/common/FrontendApplication.hpp>
 #include <gui/common/UiTheme.hpp>
 #include <gui/screenbms_screen/ScreenBmsView.hpp>
 #include <gui/common/LabText.hpp>
@@ -63,3 +64,5 @@ void ScreenBmsView::setupTheme()
     theme.button(AllOffButton,ui::DANGER);
     theme.apply();
 }
+
+void ScreenBmsView::navigateBack(){static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->navigateBack();}

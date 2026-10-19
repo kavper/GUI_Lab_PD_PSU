@@ -5,17 +5,21 @@
         "Name": "ScreenSplash",
         "Components": [
           {
-            "Type": "Image",
+            "Type": "Box",
             "Name": "SplashBackground",
             "Width": 800,
             "Height": 480,
-            "RelativeFilename": "splash_background_800x480.png"
+            "Color": {
+              "Red": 15,
+              "Green": 23,
+              "Blue": 42
+            }
           },
           {
             "Type": "Image",
             "Name": "AghLogo",
-            "X": 58,
-            "Y": 58,
+            "X": 48,
+            "Y": 108,
             "Width": 86,
             "Height": 159,
             "RelativeFilename": "agh_logo_negative_86x159.png"
@@ -23,9 +27,9 @@
           {
             "Type": "TextArea",
             "Name": "SplashTitle",
-            "X": 204,
-            "Y": 68,
-            "Width": 540,
+            "X": 176,
+            "Y": 104,
+            "Width": 560,
             "Height": 50,
             "TextId": "TXT_NEW_SplashTitle",
             "TextRotation": "0",
@@ -38,10 +42,10 @@
           {
             "Type": "TextArea",
             "Name": "SplashSubtitle",
-            "X": 204,
-            "Y": 122,
-            "Width": 540,
-            "Height": 28,
+            "X": 176,
+            "Y": 160,
+            "Width": 560,
+            "Height": 30,
             "TextId": "TXT_NEW_SplashSubtitle",
             "TextRotation": "0",
             "Color": {
@@ -53,10 +57,10 @@
           {
             "Type": "TextArea",
             "Name": "SplashThesis",
-            "X": 204,
-            "Y": 166,
-            "Width": 540,
-            "Height": 28,
+            "X": 176,
+            "Y": 202,
+            "Width": 560,
+            "Height": 26,
             "TextId": "TXT_NEW_SplashThesis",
             "TextRotation": "0",
             "Color": {
@@ -68,10 +72,10 @@
           {
             "Type": "TextArea",
             "Name": "Checks",
-            "X": 204,
-            "Y": 232,
-            "Width": 540,
-            "Height": 136,
+            "X": 176,
+            "Y": 252,
+            "Width": 560,
+            "Height": 98,
             "TextId": "TXT_START_CHECKS",
             "TextRotation": "0",
             "Color": {
@@ -88,10 +92,10 @@
           {
             "Type": "TextArea",
             "Name": "SplashBuild",
-            "X": 56,
-            "Y": 418,
-            "Width": 470,
-            "Height": 28,
+            "X": 32,
+            "Y": 430,
+            "Width": 510,
+            "Height": 24,
             "TextId": "TXT_SPLASH_BUILD",
             "TextRotation": "0",
             "Color": {
@@ -109,7 +113,7 @@
             "Type": "ButtonWithLabel",
             "Name": "ContinueButton",
             "X": 604,
-            "Y": 412,
+            "Y": 416,
             "Width": 180,
             "Height": 48,
             "Pressed": "btn_act_prs_180x48.png",
@@ -126,6 +130,47 @@
               "Blue": 55
             },
             "TextRotation": "0"
+          },
+          {
+            "Type": "Box",
+            "Name": "StartupTrack",
+            "X": 176,
+            "Y": 370,
+            "Width": 560,
+            "Height": 4,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "StartupProgress",
+            "X": 176,
+            "Y": 370,
+            "Width": 1,
+            "Height": 4,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "StartupHint",
+            "X": 176,
+            "Y": 386,
+            "Width": 560,
+            "Height": 22,
+            "TextId": "TXT_REFINE_StartupHint",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
           }
         ],
         "Interactions": [
@@ -6731,6 +6776,32 @@
             }
           },
           {
+            "Type": "Box",
+            "Name": "ChargerPanel",
+            "X": 16,
+            "Y": 346,
+            "Width": 376,
+            "Height": 80,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "EnergyPanel",
+            "X": 408,
+            "Y": 346,
+            "Width": 376,
+            "Height": 80,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
             "Type": "TextArea",
             "Name": "PageTitle",
             "X": 24,
@@ -6811,31 +6882,9 @@
           },
           {
             "Type": "ButtonWithLabel",
-            "Name": "BatteryTab",
-            "X": 16,
-            "Y": 76,
-            "Width": 180,
-            "Height": 42,
-            "Pressed": "battery_tab_sel_180x42.png",
-            "Released": "battery_tab_rel_180x42.png",
-            "TextId": "TXT_BATTERYTAB",
-            "ReleasedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "PressedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "TextRotation": "0"
-          },
-          {
-            "Type": "ButtonWithLabel",
             "Name": "DetailsTab",
-            "X": 212,
-            "Y": 76,
+            "X": 408,
+            "Y": 436,
             "Width": 180,
             "Height": 42,
             "Pressed": "battery_tab_sel_180x42.png",
@@ -6854,56 +6903,12 @@
             "TextRotation": "0"
           },
           {
-            "Type": "ButtonWithLabel",
-            "Name": "ChargerTab",
-            "X": 408,
-            "Y": 76,
-            "Width": 180,
-            "Height": 42,
-            "Pressed": "battery_tab_sel_180x42.png",
-            "Released": "battery_tab_rel_180x42.png",
-            "TextId": "TXT_CHARGERTAB",
-            "ReleasedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "PressedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "TextRotation": "0"
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "EnergyTab",
-            "X": 604,
-            "Y": 76,
-            "Width": 180,
-            "Height": 42,
-            "Pressed": "battery_tab_sel_180x42.png",
-            "Released": "battery_tab_rel_180x42.png",
-            "TextId": "TXT_ENERGYTAB",
-            "ReleasedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "PressedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "TextRotation": "0"
-          },
-          {
             "Type": "Box",
             "Name": "SummaryCard",
             "X": 16,
-            "Y": 128,
+            "Y": 76,
             "Width": 768,
-            "Height": 104,
+            "Height": 102,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -6914,8 +6919,8 @@
             "Type": "TextArea",
             "Name": "FlowState",
             "X": 32,
-            "Y": 136,
-            "Width": 318,
+            "Y": 83,
+            "Width": 220,
             "Height": 36,
             "TextId": "TXT_BATTERY_FLOW",
             "TextRotation": "0",
@@ -6934,9 +6939,9 @@
             "Type": "TextArea",
             "Name": "PackPower",
             "X": 32,
-            "Y": 175,
-            "Width": 320,
-            "Height": 50,
+            "Y": 121,
+            "Width": 236,
+            "Height": 48,
             "TextId": "TXT_BATTERY_POWER",
             "TextRotation": "0",
             "Color": {
@@ -6953,9 +6958,9 @@
           {
             "Type": "TextArea",
             "Name": "PackVoltage",
-            "X": 370,
-            "Y": 139,
-            "Width": 176,
+            "X": 286,
+            "Y": 87,
+            "Width": 186,
             "Height": 32,
             "TextId": "TXT_BATTERY_V",
             "TextRotation": "0",
@@ -6973,9 +6978,9 @@
           {
             "Type": "TextArea",
             "Name": "PackCurrent",
-            "X": 558,
-            "Y": 139,
-            "Width": 210,
+            "X": 506,
+            "Y": 87,
+            "Width": 262,
             "Height": 32,
             "TextId": "TXT_BATTERY_I",
             "TextRotation": "0",
@@ -6993,9 +6998,9 @@
           {
             "Type": "TextArea",
             "Name": "PackSoc",
-            "X": 370,
-            "Y": 172,
-            "Width": 360,
+            "X": 286,
+            "Y": 126,
+            "Width": 440,
             "Height": 32,
             "TextId": "TXT_BATTERY_SOC",
             "TextRotation": "0",
@@ -7014,9 +7019,9 @@
             "Type": "TextArea",
             "Name": "CellsHeading",
             "X": 24,
-            "Y": 246,
-            "Width": 736,
-            "Height": 24,
+            "Y": 188,
+            "Width": 750,
+            "Height": 22,
             "TextId": "TXT_BATTERY_PHYSICAL",
             "TextRotation": "0",
             "Color": {
@@ -7029,9 +7034,9 @@
             "Type": "Box",
             "Name": "CellCard0",
             "X": 16,
-            "Y": 276,
+            "Y": 214,
             "Width": 144,
-            "Height": 104,
+            "Height": 92,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -7042,9 +7047,9 @@
             "Type": "TextArea",
             "Name": "CellLabel0",
             "X": 26,
-            "Y": 283,
+            "Y": 218,
             "Width": 124,
-            "Height": 24,
+            "Height": 22,
             "TextId": "TXT_BATTERY_CHANNEL0",
             "TextRotation": "0",
             "Color": {
@@ -7057,9 +7062,9 @@
             "Type": "TextArea",
             "Name": "CellValue0",
             "X": 26,
-            "Y": 310,
+            "Y": 243,
             "Width": 124,
-            "Height": 34,
+            "Height": 32,
             "TextId": "TXT_BATTERY_CELL0",
             "TextRotation": "0",
             "Color": {
@@ -7077,7 +7082,7 @@
             "Type": "TextArea",
             "Name": "CellStatus0",
             "X": 26,
-            "Y": 351,
+            "Y": 279,
             "Width": 124,
             "Height": 22,
             "TextId": "TXT_BATTERY_STATUS0",
@@ -7097,9 +7102,9 @@
             "Type": "Box",
             "Name": "CellCard1",
             "X": 172,
-            "Y": 276,
+            "Y": 214,
             "Width": 144,
-            "Height": 104,
+            "Height": 92,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -7110,9 +7115,9 @@
             "Type": "TextArea",
             "Name": "CellLabel1",
             "X": 182,
-            "Y": 283,
+            "Y": 218,
             "Width": 124,
-            "Height": 24,
+            "Height": 22,
             "TextId": "TXT_BATTERY_CHANNEL1",
             "TextRotation": "0",
             "Color": {
@@ -7125,9 +7130,9 @@
             "Type": "TextArea",
             "Name": "CellValue1",
             "X": 182,
-            "Y": 310,
+            "Y": 243,
             "Width": 124,
-            "Height": 34,
+            "Height": 32,
             "TextId": "TXT_BATTERY_CELL1",
             "TextRotation": "0",
             "Color": {
@@ -7145,7 +7150,7 @@
             "Type": "TextArea",
             "Name": "CellStatus1",
             "X": 182,
-            "Y": 351,
+            "Y": 279,
             "Width": 124,
             "Height": 22,
             "TextId": "TXT_BATTERY_STATUS1",
@@ -7165,9 +7170,9 @@
             "Type": "Box",
             "Name": "CellCard2",
             "X": 328,
-            "Y": 276,
+            "Y": 214,
             "Width": 144,
-            "Height": 104,
+            "Height": 92,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -7178,9 +7183,9 @@
             "Type": "TextArea",
             "Name": "CellLabel2",
             "X": 338,
-            "Y": 283,
+            "Y": 218,
             "Width": 124,
-            "Height": 24,
+            "Height": 22,
             "TextId": "TXT_BATTERY_CHANNEL2",
             "TextRotation": "0",
             "Color": {
@@ -7193,9 +7198,9 @@
             "Type": "TextArea",
             "Name": "CellValue2",
             "X": 338,
-            "Y": 310,
+            "Y": 243,
             "Width": 124,
-            "Height": 34,
+            "Height": 32,
             "TextId": "TXT_BATTERY_CELL2",
             "TextRotation": "0",
             "Color": {
@@ -7213,7 +7218,7 @@
             "Type": "TextArea",
             "Name": "CellStatus2",
             "X": 338,
-            "Y": 351,
+            "Y": 279,
             "Width": 124,
             "Height": 22,
             "TextId": "TXT_BATTERY_STATUS2",
@@ -7233,9 +7238,9 @@
             "Type": "Box",
             "Name": "CellCard3",
             "X": 484,
-            "Y": 276,
+            "Y": 214,
             "Width": 144,
-            "Height": 104,
+            "Height": 92,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -7246,9 +7251,9 @@
             "Type": "TextArea",
             "Name": "CellLabel3",
             "X": 494,
-            "Y": 283,
+            "Y": 218,
             "Width": 124,
-            "Height": 24,
+            "Height": 22,
             "TextId": "TXT_BATTERY_CHANNEL3",
             "TextRotation": "0",
             "Color": {
@@ -7261,9 +7266,9 @@
             "Type": "TextArea",
             "Name": "CellValue3",
             "X": 494,
-            "Y": 310,
+            "Y": 243,
             "Width": 124,
-            "Height": 34,
+            "Height": 32,
             "TextId": "TXT_BATTERY_CELL3",
             "TextRotation": "0",
             "Color": {
@@ -7281,7 +7286,7 @@
             "Type": "TextArea",
             "Name": "CellStatus3",
             "X": 494,
-            "Y": 351,
+            "Y": 279,
             "Width": 124,
             "Height": 22,
             "TextId": "TXT_BATTERY_STATUS3",
@@ -7301,9 +7306,9 @@
             "Type": "Box",
             "Name": "CellCard4",
             "X": 640,
-            "Y": 276,
+            "Y": 214,
             "Width": 144,
-            "Height": 104,
+            "Height": 92,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -7314,9 +7319,9 @@
             "Type": "TextArea",
             "Name": "CellLabel4",
             "X": 650,
-            "Y": 283,
+            "Y": 218,
             "Width": 124,
-            "Height": 24,
+            "Height": 22,
             "TextId": "TXT_BATTERY_CHANNEL4",
             "TextRotation": "0",
             "Color": {
@@ -7329,9 +7334,9 @@
             "Type": "TextArea",
             "Name": "CellValue4",
             "X": 650,
-            "Y": 310,
+            "Y": 243,
             "Width": 124,
-            "Height": 34,
+            "Height": 32,
             "TextId": "TXT_BATTERY_CELL4",
             "TextRotation": "0",
             "Color": {
@@ -7349,7 +7354,7 @@
             "Type": "TextArea",
             "Name": "CellStatus4",
             "X": 650,
-            "Y": 351,
+            "Y": 279,
             "Width": 124,
             "Height": 22,
             "TextId": "TXT_BATTERY_STATUS4",
@@ -7369,9 +7374,9 @@
             "Type": "TextArea",
             "Name": "CellSpread",
             "X": 24,
-            "Y": 394,
+            "Y": 312,
             "Width": 750,
-            "Height": 28,
+            "Height": 26,
             "TextId": "TXT_BATTERY_SPREAD",
             "TextRotation": "0",
             "Color": {
@@ -7389,9 +7394,9 @@
             "Type": "TextArea",
             "Name": "StatusHint",
             "X": 24,
-            "Y": 432,
-            "Width": 560,
-            "Height": 26,
+            "Y": 441,
+            "Width": 374,
+            "Height": 32,
             "TextId": "TXT_BATTERY_HINT",
             "TextRotation": "0",
             "Color": {
@@ -7406,25 +7411,12 @@
             }
           },
           {
-            "Type": "Box",
-            "Name": "ChargerPanel",
-            "X": 16,
-            "Y": 248,
-            "Width": 768,
-            "Height": 164,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
             "Type": "TextArea",
             "Name": "ChargerData",
-            "X": 32,
-            "Y": 260,
-            "Width": 358,
-            "Height": 146,
+            "X": 28,
+            "Y": 354,
+            "Width": 352,
+            "Height": 64,
             "TextId": "TXT_BATTERY_CHARGER_DATA",
             "TextRotation": "0",
             "Color": {
@@ -7442,9 +7434,9 @@
             "Type": "TextArea",
             "Name": "ChargerStatus",
             "X": 424,
-            "Y": 260,
-            "Width": 344,
-            "Height": 146,
+            "Y": 394,
+            "Width": 348,
+            "Height": 24,
             "TextId": "TXT_BATTERY_CHARGER_STATUS",
             "TextRotation": "0",
             "Color": {
@@ -7459,25 +7451,12 @@
             }
           },
           {
-            "Type": "Box",
-            "Name": "EnergyPanel",
-            "X": 16,
-            "Y": 248,
-            "Width": 768,
-            "Height": 164,
-            "Color": {
-              "Red": 22,
-              "Green": 34,
-              "Blue": 53
-            }
-          },
-          {
             "Type": "TextArea",
             "Name": "EnergyValue",
-            "X": 32,
-            "Y": 260,
-            "Width": 350,
-            "Height": 32,
+            "X": 420,
+            "Y": 369,
+            "Width": 180,
+            "Height": 30,
             "TextId": "TXT_BATTERY_ENERGY_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -7494,10 +7473,10 @@
           {
             "Type": "TextArea",
             "Name": "EnergyHint",
-            "X": 400,
-            "Y": 264,
-            "Width": 366,
-            "Height": 24,
+            "X": 420,
+            "Y": 350,
+            "Width": 352,
+            "Height": 22,
             "TextId": "TXT_BATTERY_ENERGY_HINT",
             "TextRotation": "0",
             "Color": {
@@ -7515,7 +7494,7 @@
             "Type": "ButtonWithLabel",
             "Name": "UsbButton",
             "X": 604,
-            "Y": 428,
+            "Y": 436,
             "Width": 180,
             "Height": 42,
             "Pressed": "battery_tab_sel_180x42.png",
@@ -7560,17 +7539,6 @@
             }
           },
           {
-            "InteractionName": "showBattery",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "BatteryTab"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "showBattery"
-            }
-          },
-          {
             "InteractionName": "openBms",
             "Trigger": {
               "Type": "TriggerClicked",
@@ -7579,28 +7547,6 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "openBms"
-            }
-          },
-          {
-            "InteractionName": "showCharger",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "ChargerTab"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "showCharger"
-            }
-          },
-          {
-            "InteractionName": "showEnergy",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "EnergyTab"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "showEnergy"
             }
           },
           {
@@ -7697,7 +7643,7 @@
             "Height": 48,
             "Pressed": "btn_back_prs_112x48.png",
             "Released": "btn_back_rel_112x48.png",
-            "TextId": "TXT_MENU_RETURN",
+            "TextId": "TXT_SETTINGS_BACK",
             "ReleasedColor": {
               "Red": 23,
               "Green": 35,
@@ -8121,10 +8067,8 @@
               "TriggerComponent": "BackButton"
             },
             "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "ScreenSettings"
+              "Type": "ActionCustom",
+              "FunctionName": "navigateBack"
             }
           },
           {
@@ -8731,6 +8675,45 @@
             }
           },
           {
+            "Type": "Box",
+            "Name": "SessionCard",
+            "X": 504,
+            "Y": 76,
+            "Width": 280,
+            "Height": 134,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "CapabilitiesCard",
+            "X": 16,
+            "Y": 222,
+            "Width": 456,
+            "Height": 156,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "RequestCard",
+            "X": 484,
+            "Y": 222,
+            "Width": 300,
+            "Height": 156,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
             "Type": "TextArea",
             "Name": "PageTitle",
             "X": 24,
@@ -8774,7 +8757,7 @@
             "Height": 48,
             "Pressed": "btn_back_prs_112x48.png",
             "Released": "btn_back_rel_112x48.png",
-            "TextId": "TXT_MENU_RETURN",
+            "TextId": "TXT_SETTINGS_BACK",
             "ReleasedColor": {
               "Red": 23,
               "Green": 35,
@@ -8813,9 +8796,9 @@
             "Type": "Box",
             "Name": "ContractCard",
             "X": 16,
-            "Y": 80,
-            "Width": 376,
-            "Height": 192,
+            "Y": 76,
+            "Width": 232,
+            "Height": 134,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -8825,10 +8808,10 @@
           {
             "Type": "Box",
             "Name": "MeasuredCard",
-            "X": 408,
-            "Y": 80,
-            "Width": 376,
-            "Height": 192,
+            "X": 260,
+            "Y": 76,
+            "Width": 232,
+            "Height": 134,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -8839,9 +8822,9 @@
             "Type": "Box",
             "Name": "BatteryCard",
             "X": 16,
-            "Y": 284,
+            "Y": 390,
             "Width": 768,
-            "Height": 120,
+            "Height": 84,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -8851,10 +8834,10 @@
           {
             "Type": "TextArea",
             "Name": "ContractHeading",
-            "X": 32,
-            "Y": 92,
-            "Width": 230,
-            "Height": 24,
+            "X": 28,
+            "Y": 83,
+            "Width": 150,
+            "Height": 20,
             "TextId": "TXT_USB_CONTRACT",
             "TextRotation": "0",
             "Color": {
@@ -8866,10 +8849,10 @@
           {
             "Type": "TextArea",
             "Name": "Metric3",
-            "X": 270,
-            "Y": 92,
-            "Width": 106,
-            "Height": 24,
+            "X": 186,
+            "Y": 83,
+            "Width": 50,
+            "Height": 20,
             "TextId": "TXT_USB_ROLE",
             "TextRotation": "0",
             "Color": {
@@ -8886,10 +8869,10 @@
           {
             "Type": "TextArea",
             "Name": "MeasuredHeading",
-            "X": 424,
-            "Y": 92,
-            "Width": 344,
-            "Height": 24,
+            "X": 272,
+            "Y": 83,
+            "Width": 208,
+            "Height": 20,
             "TextId": "TXT_USB_MEASURED",
             "TextRotation": "0",
             "Color": {
@@ -8901,10 +8884,10 @@
           {
             "Type": "TextArea",
             "Name": "ContractLabel0",
-            "X": 32,
-            "Y": 129,
-            "Width": 100,
-            "Height": 22,
+            "X": 28,
+            "Y": 110,
+            "Width": 66,
+            "Height": 30,
             "TextId": "TXT_USB_VOLTAGE",
             "TextRotation": "0",
             "Color": {
@@ -8916,10 +8899,10 @@
           {
             "Type": "TextArea",
             "Name": "Metric0",
-            "X": 140,
-            "Y": 122,
-            "Width": 236,
-            "Height": 38,
+            "X": 96,
+            "Y": 110,
+            "Width": 140,
+            "Height": 30,
             "TextId": "TXT_USB_READING",
             "TextRotation": "0",
             "Color": {
@@ -8936,10 +8919,10 @@
           {
             "Type": "TextArea",
             "Name": "MeasuredLabel0",
-            "X": 424,
-            "Y": 129,
-            "Width": 100,
-            "Height": 22,
+            "X": 272,
+            "Y": 110,
+            "Width": 66,
+            "Height": 30,
             "TextId": "TXT_USB_VOLTAGE",
             "TextRotation": "0",
             "Color": {
@@ -8951,10 +8934,10 @@
           {
             "Type": "TextArea",
             "Name": "Measured0",
-            "X": 532,
-            "Y": 122,
-            "Width": 236,
-            "Height": 38,
+            "X": 340,
+            "Y": 110,
+            "Width": 140,
+            "Height": 30,
             "TextId": "TXT_USB_READING",
             "TextRotation": "0",
             "Color": {
@@ -8971,10 +8954,10 @@
           {
             "Type": "TextArea",
             "Name": "ContractLabel1",
-            "X": 32,
-            "Y": 165,
-            "Width": 100,
-            "Height": 22,
+            "X": 28,
+            "Y": 140,
+            "Width": 66,
+            "Height": 30,
             "TextId": "TXT_USB_CURRENT",
             "TextRotation": "0",
             "Color": {
@@ -8986,10 +8969,10 @@
           {
             "Type": "TextArea",
             "Name": "Metric1",
-            "X": 140,
-            "Y": 158,
-            "Width": 236,
-            "Height": 38,
+            "X": 96,
+            "Y": 140,
+            "Width": 140,
+            "Height": 30,
             "TextId": "TXT_USB_READING",
             "TextRotation": "0",
             "Color": {
@@ -9006,10 +8989,10 @@
           {
             "Type": "TextArea",
             "Name": "MeasuredLabel1",
-            "X": 424,
-            "Y": 165,
-            "Width": 100,
-            "Height": 22,
+            "X": 272,
+            "Y": 140,
+            "Width": 66,
+            "Height": 30,
             "TextId": "TXT_USB_CURRENT",
             "TextRotation": "0",
             "Color": {
@@ -9021,10 +9004,10 @@
           {
             "Type": "TextArea",
             "Name": "Measured1",
-            "X": 532,
-            "Y": 158,
-            "Width": 236,
-            "Height": 38,
+            "X": 340,
+            "Y": 140,
+            "Width": 140,
+            "Height": 30,
             "TextId": "TXT_USB_READING",
             "TextRotation": "0",
             "Color": {
@@ -9041,10 +9024,10 @@
           {
             "Type": "TextArea",
             "Name": "ContractLabel2",
-            "X": 32,
-            "Y": 201,
-            "Width": 100,
-            "Height": 22,
+            "X": 28,
+            "Y": 170,
+            "Width": 66,
+            "Height": 30,
             "TextId": "TXT_USB_POWER",
             "TextRotation": "0",
             "Color": {
@@ -9056,10 +9039,10 @@
           {
             "Type": "TextArea",
             "Name": "Metric2",
-            "X": 140,
-            "Y": 194,
-            "Width": 236,
-            "Height": 38,
+            "X": 96,
+            "Y": 170,
+            "Width": 140,
+            "Height": 30,
             "TextId": "TXT_USB_READING",
             "TextRotation": "0",
             "Color": {
@@ -9076,10 +9059,10 @@
           {
             "Type": "TextArea",
             "Name": "MeasuredLabel2",
-            "X": 424,
-            "Y": 201,
-            "Width": 100,
-            "Height": 22,
+            "X": 272,
+            "Y": 170,
+            "Width": 66,
+            "Height": 30,
             "TextId": "TXT_USB_POWER",
             "TextRotation": "0",
             "Color": {
@@ -9091,10 +9074,10 @@
           {
             "Type": "TextArea",
             "Name": "Measured2",
-            "X": 532,
-            "Y": 194,
-            "Width": 236,
-            "Height": 38,
+            "X": 340,
+            "Y": 170,
+            "Width": 140,
+            "Height": 30,
             "TextId": "TXT_USB_READING",
             "TextRotation": "0",
             "Color": {
@@ -9111,10 +9094,10 @@
           {
             "Type": "TextArea",
             "Name": "BatteryHeading",
-            "X": 32,
-            "Y": 292,
-            "Width": 230,
-            "Height": 24,
+            "X": 28,
+            "Y": 394,
+            "Width": 200,
+            "Height": 18,
             "TextId": "TXT_USB_BATTERY",
             "TextRotation": "0",
             "Color": {
@@ -9126,10 +9109,10 @@
           {
             "Type": "TextArea",
             "Name": "BatteryDetail",
-            "X": 300,
-            "Y": 289,
-            "Width": 468,
-            "Height": 20,
+            "X": 236,
+            "Y": 411,
+            "Width": 340,
+            "Height": 24,
             "TextId": "TXT_USB_DETAIL",
             "TextRotation": "0",
             "Color": {
@@ -9146,10 +9129,10 @@
           {
             "Type": "TextArea",
             "Name": "BatteryPower",
-            "X": 272,
-            "Y": 308,
-            "Width": 256,
-            "Height": 44,
+            "X": 28,
+            "Y": 411,
+            "Width": 180,
+            "Height": 30,
             "TextId": "TXT_USB_POWER_VALUE",
             "TextRotation": "0",
             "Color": {
@@ -9167,9 +9150,9 @@
             "Type": "Box",
             "Name": "GaugeDischarge",
             "X": 56,
-            "Y": 354,
+            "Y": 442,
             "Width": 344,
-            "Height": 8,
+            "Height": 6,
             "Color": {
               "Red": 248,
               "Green": 138,
@@ -9181,9 +9164,9 @@
             "Type": "Box",
             "Name": "GaugeCharge",
             "X": 400,
-            "Y": 354,
+            "Y": 442,
             "Width": 344,
-            "Height": 8,
+            "Height": 6,
             "Color": {
               "Red": 74,
               "Green": 222,
@@ -9195,9 +9178,9 @@
             "Type": "Box",
             "Name": "GaugeZero",
             "X": 399,
-            "Y": 348,
+            "Y": 438,
             "Width": 2,
-            "Height": 20,
+            "Height": 14,
             "Color": {
               "Red": 167,
               "Green": 182,
@@ -9208,9 +9191,9 @@
             "Type": "Box",
             "Name": "GaugeFill",
             "X": 400,
-            "Y": 351,
+            "Y": 440,
             "Width": 1,
-            "Height": 14,
+            "Height": 10,
             "Color": {
               "Red": 45,
               "Green": 212,
@@ -9221,9 +9204,9 @@
             "Type": "Box",
             "Name": "GaugeNeedle",
             "X": 398,
-            "Y": 344,
+            "Y": 437,
             "Width": 4,
-            "Height": 28,
+            "Height": 16,
             "Color": {
               "Red": 232,
               "Green": 238,
@@ -9234,9 +9217,9 @@
             "Type": "TextArea",
             "Name": "DischargeLabel",
             "X": 56,
-            "Y": 378,
+            "Y": 453,
             "Width": 230,
-            "Height": 22,
+            "Height": 18,
             "TextId": "TXT_USB_DISCHARGE",
             "TextRotation": "0",
             "Color": {
@@ -9254,9 +9237,9 @@
             "Type": "TextArea",
             "Name": "ZeroLabel",
             "X": 380,
-            "Y": 378,
+            "Y": 453,
             "Width": 40,
-            "Height": 22,
+            "Height": 18,
             "TextId": "TXT_USB_ZERO",
             "TextRotation": "0",
             "Color": {
@@ -9269,9 +9252,9 @@
             "Type": "TextArea",
             "Name": "ChargeLabel",
             "X": 530,
-            "Y": 378,
+            "Y": 453,
             "Width": 214,
-            "Height": 22,
+            "Height": 18,
             "TextId": "TXT_USB_CHARGE",
             "TextRotation": "0",
             "Color": {
@@ -9288,9 +9271,9 @@
           {
             "Type": "TextArea",
             "Name": "GaugeRangeLabel",
-            "X": 568,
-            "Y": 322,
-            "Width": 176,
+            "X": 588,
+            "Y": 411,
+            "Width": 184,
             "Height": 22,
             "TextId": "TXT_USB_DETAIL",
             "TextRotation": "0",
@@ -9309,9 +9292,9 @@
             "Type": "Box",
             "Name": "GaugeNegTick",
             "X": 227,
-            "Y": 368,
+            "Y": 449,
             "Width": 2,
-            "Height": 4,
+            "Height": 3,
             "Color": {
               "Red": 167,
               "Green": 182,
@@ -9322,9 +9305,9 @@
             "Type": "Box",
             "Name": "GaugePosTick",
             "X": 571,
-            "Y": 368,
+            "Y": 449,
             "Width": 2,
-            "Height": 4,
+            "Height": 3,
             "Color": {
               "Red": 167,
               "Green": 182,
@@ -9334,12 +9317,12 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "AutoButton",
-            "X": 16,
-            "Y": 420,
-            "Width": 180,
+            "X": 496,
+            "Y": 326,
+            "Width": 88,
             "Height": 48,
-            "Pressed": "btn_act_prs_180x48.png",
-            "Released": "btn_act_rel_180x48.png",
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
             "TextId": "TXT_ACTION_roleAuto",
             "ReleasedColor": {
               "Red": 23,
@@ -9356,12 +9339,12 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "SinkButton",
-            "X": 212,
-            "Y": 420,
-            "Width": 180,
+            "X": 590,
+            "Y": 326,
+            "Width": 88,
             "Height": 48,
-            "Pressed": "btn_act_prs_180x48.png",
-            "Released": "btn_act_rel_180x48.png",
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
             "TextId": "TXT_ACTION_roleSink",
             "ReleasedColor": {
               "Red": 23,
@@ -9378,35 +9361,13 @@
           {
             "Type": "ButtonWithLabel",
             "Name": "SourceButton",
-            "X": 408,
-            "Y": 420,
-            "Width": 180,
+            "X": 684,
+            "Y": 326,
+            "Width": 88,
             "Height": 48,
-            "Pressed": "btn_act_prs_180x48.png",
-            "Released": "btn_act_rel_180x48.png",
+            "Pressed": "ux_action_sel_88x48.png",
+            "Released": "ux_action_rel_88x48.png",
             "TextId": "TXT_ACTION_roleSource",
-            "ReleasedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "PressedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "TextRotation": "0"
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "RefreshButton",
-            "X": 604,
-            "Y": 420,
-            "Width": 180,
-            "Height": 48,
-            "Pressed": "btn_act_prs_180x48.png",
-            "Released": "btn_act_rel_180x48.png",
-            "TextId": "TXT_ACTION_refreshTelemetry",
             "ReleasedColor": {
               "Red": 23,
               "Green": 35,
@@ -9422,10 +9383,10 @@
           {
             "Type": "Box",
             "Name": "ContractLoadTrack",
-            "X": 32,
-            "Y": 254,
-            "Width": 344,
-            "Height": 4,
+            "X": 496,
+            "Y": 320,
+            "Width": 276,
+            "Height": 3,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -9435,10 +9396,10 @@
           {
             "Type": "Box",
             "Name": "ContractLoadFill",
-            "X": 32,
-            "Y": 254,
+            "X": 496,
+            "Y": 320,
             "Width": 1,
-            "Height": 4,
+            "Height": 3,
             "Color": {
               "Red": 22,
               "Green": 34,
@@ -9448,9 +9409,9 @@
           {
             "Type": "TextArea",
             "Name": "ContractDetail",
-            "X": 32,
-            "Y": 235,
-            "Width": 344,
+            "X": 496,
+            "Y": 299,
+            "Width": 276,
             "Height": 20,
             "TextId": "TXT_USB_LOAD_DETAIL",
             "TextRotation": "0",
@@ -9468,10 +9429,10 @@
           {
             "Type": "TextArea",
             "Name": "SessionSummary",
-            "X": 424,
-            "Y": 237,
-            "Width": 344,
-            "Height": 30,
+            "X": 516,
+            "Y": 110,
+            "Width": 256,
+            "Height": 92,
             "TextId": "TXT_USB_SESSION_SUMMARY",
             "TextRotation": "0",
             "Color": {
@@ -9484,6 +9445,109 @@
               "UseBuffer": true,
               "BufferSize": 100
             }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "SessionHeading",
+            "X": 516,
+            "Y": 83,
+            "Width": 256,
+            "Height": 20,
+            "TextId": "TXT_REFINE_SessionHeading",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "CapabilitiesHeading",
+            "X": 28,
+            "Y": 229,
+            "Width": 432,
+            "Height": 20,
+            "TextId": "TXT_REFINE_CapabilitiesHeading",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 100
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "PdoSelected",
+            "X": 28,
+            "Y": 250,
+            "Width": 432,
+            "Height": 18,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PdoRows",
+            "X": 28,
+            "Y": 250,
+            "Width": 432,
+            "Height": 126,
+            "TextId": "TXT_REFINE_PdoRows",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 640
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "RequestHeading",
+            "X": 496,
+            "Y": 229,
+            "Width": 276,
+            "Height": 20,
+            "TextId": "TXT_REFINE_RequestHeading",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "RequestDetails",
+            "X": 496,
+            "Y": 250,
+            "Width": 276,
+            "Height": 58,
+            "TextId": "TXT_REFINE_RequestDetails",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 232,
+              "Green": 238,
+              "Blue": 248
+            },
+            "Wildcard1": {
+              "TextId": "TXT_TELEMETRY_EMPTY",
+              "UseBuffer": true,
+              "BufferSize": 200
+            }
           }
         ],
         "Interactions": [
@@ -9494,10 +9558,8 @@
               "TriggerComponent": "BackButton"
             },
             "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "ScreenSettings"
+              "Type": "ActionCustom",
+              "FunctionName": "navigateBack"
             }
           },
           {
@@ -9531,17 +9593,6 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "roleSource"
-            }
-          },
-          {
-            "InteractionName": "refreshTelemetry",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "RefreshButton"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "refreshTelemetry"
             }
           },
           {
@@ -9592,6 +9643,19 @@
               "Red": 49,
               "Green": 65,
               "Blue": 88
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "SessionCard",
+            "X": 512,
+            "Y": 76,
+            "Width": 272,
+            "Height": 330,
+            "Color": {
+              "Red": 22,
+              "Green": 34,
+              "Blue": 53
             }
           },
           {
@@ -9983,57 +10047,13 @@
           },
           {
             "Type": "ButtonWithLabel",
-            "Name": "SetupButton",
-            "X": 16,
-            "Y": 76,
-            "Width": 160,
-            "Height": 38,
-            "Pressed": "ux_tab_sel_160x38.png",
-            "Released": "ux_tab_rel_160x38.png",
-            "TextId": "TXT_CHG_TAB_Setup",
-            "ReleasedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "PressedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "TextRotation": "0"
-          },
-          {
-            "Type": "ButtonWithLabel",
-            "Name": "SessionButton",
-            "X": 180,
-            "Y": 76,
-            "Width": 160,
-            "Height": 38,
-            "Pressed": "ux_tab_sel_160x38.png",
-            "Released": "ux_tab_rel_160x38.png",
-            "TextId": "TXT_CHG_TAB_Session",
-            "ReleasedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "PressedColor": {
-              "Red": 23,
-              "Green": 35,
-              "Blue": 55
-            },
-            "TextRotation": "0"
-          },
-          {
-            "Type": "ButtonWithLabel",
             "Name": "OnboardButton",
-            "X": 344,
-            "Y": 76,
-            "Width": 160,
-            "Height": 38,
-            "Pressed": "ux_tab_sel_160x38.png",
-            "Released": "ux_tab_rel_160x38.png",
+            "X": 604,
+            "Y": 420,
+            "Width": 180,
+            "Height": 48,
+            "Pressed": "btn_act_prs_180x48.png",
+            "Released": "btn_act_rel_180x48.png",
             "TextId": "TXT_CHG_TAB_Onboard",
             "ReleasedColor": {
               "Red": 23,
@@ -10071,7 +10091,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Chem0",
             "X": 16,
-            "Y": 124,
+            "Y": 80,
             "Width": 88,
             "Height": 48,
             "Pressed": "ux_action_sel_88x48.png",
@@ -10093,7 +10113,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Chem1",
             "X": 112,
-            "Y": 124,
+            "Y": 80,
             "Width": 88,
             "Height": 48,
             "Pressed": "ux_action_sel_88x48.png",
@@ -10115,7 +10135,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Chem2",
             "X": 208,
-            "Y": 124,
+            "Y": 80,
             "Width": 88,
             "Height": 48,
             "Pressed": "ux_action_sel_88x48.png",
@@ -10137,7 +10157,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Chem3",
             "X": 304,
-            "Y": 124,
+            "Y": 80,
             "Width": 88,
             "Height": 48,
             "Pressed": "ux_action_sel_88x48.png",
@@ -10159,7 +10179,7 @@
             "Type": "ButtonWithLabel",
             "Name": "Chem4",
             "X": 400,
-            "Y": 124,
+            "Y": 80,
             "Width": 88,
             "Height": 48,
             "Pressed": "ux_action_sel_88x48.png",
@@ -10181,7 +10201,7 @@
             "Type": "Button",
             "Name": "EditCard0",
             "X": 16,
-            "Y": 188,
+            "Y": 144,
             "Width": 235,
             "Height": 80,
             "Pressed": "ux_charge_sel_235x80.png",
@@ -10191,7 +10211,7 @@
             "Type": "TextArea",
             "Name": "EditLabel0",
             "X": 28,
-            "Y": 196,
+            "Y": 152,
             "Width": 213,
             "Height": 22,
             "TextId": "TXT_CHG_FIELD0",
@@ -10206,7 +10226,7 @@
             "Type": "TextArea",
             "Name": "EditValue0",
             "X": 28,
-            "Y": 224,
+            "Y": 180,
             "Width": 213,
             "Height": 36,
             "TextId": "TXT_TELEM_METRIC",
@@ -10226,7 +10246,7 @@
             "Type": "Button",
             "Name": "EditCard1",
             "X": 260,
-            "Y": 188,
+            "Y": 144,
             "Width": 235,
             "Height": 80,
             "Pressed": "ux_charge_sel_235x80.png",
@@ -10236,7 +10256,7 @@
             "Type": "TextArea",
             "Name": "EditLabel1",
             "X": 272,
-            "Y": 196,
+            "Y": 152,
             "Width": 213,
             "Height": 22,
             "TextId": "TXT_CHG_FIELD1",
@@ -10251,7 +10271,7 @@
             "Type": "TextArea",
             "Name": "EditValue1",
             "X": 272,
-            "Y": 224,
+            "Y": 180,
             "Width": 213,
             "Height": 36,
             "TextId": "TXT_TELEM_METRIC",
@@ -10271,7 +10291,7 @@
             "Type": "Button",
             "Name": "EditCard2",
             "X": 16,
-            "Y": 278,
+            "Y": 234,
             "Width": 235,
             "Height": 80,
             "Pressed": "ux_charge_sel_235x80.png",
@@ -10281,7 +10301,7 @@
             "Type": "TextArea",
             "Name": "EditLabel2",
             "X": 28,
-            "Y": 286,
+            "Y": 242,
             "Width": 213,
             "Height": 22,
             "TextId": "TXT_CHG_FIELD2",
@@ -10296,7 +10316,7 @@
             "Type": "TextArea",
             "Name": "EditValue2",
             "X": 28,
-            "Y": 314,
+            "Y": 270,
             "Width": 213,
             "Height": 36,
             "TextId": "TXT_TELEM_METRIC",
@@ -10316,7 +10336,7 @@
             "Type": "Button",
             "Name": "EditCard3",
             "X": 260,
-            "Y": 278,
+            "Y": 234,
             "Width": 235,
             "Height": 80,
             "Pressed": "ux_charge_sel_235x80.png",
@@ -10326,7 +10346,7 @@
             "Type": "TextArea",
             "Name": "EditLabel3",
             "X": 272,
-            "Y": 286,
+            "Y": 242,
             "Width": 213,
             "Height": 22,
             "TextId": "TXT_TARGET_PACK_V",
@@ -10341,7 +10361,7 @@
             "Type": "TextArea",
             "Name": "EditValue3",
             "X": 272,
-            "Y": 314,
+            "Y": 270,
             "Width": 213,
             "Height": 36,
             "TextId": "TXT_TELEM_METRIC",
@@ -10361,9 +10381,9 @@
             "Type": "TextArea",
             "Name": "ProfileNote",
             "X": 16,
-            "Y": 366,
+            "Y": 326,
             "Width": 480,
-            "Height": 52,
+            "Height": 80,
             "TextId": "TXT_CHG_PROFILE",
             "TextRotation": "0",
             "Color": {
@@ -10446,10 +10466,10 @@
           {
             "Type": "TextArea",
             "Name": "SessionStats",
-            "X": 24,
-            "Y": 164,
-            "Width": 752,
-            "Height": 56,
+            "X": 524,
+            "Y": 193,
+            "Width": 248,
+            "Height": 80,
             "TextId": "TXT_CHG_STATS",
             "TextRotation": "0",
             "Color": {
@@ -10466,10 +10486,10 @@
           {
             "Type": "TextArea",
             "Name": "SessionAxis",
-            "X": 24,
-            "Y": 390,
-            "Width": 752,
-            "Height": 30,
+            "X": 524,
+            "Y": 362,
+            "Width": 248,
+            "Height": 36,
             "Visible": false,
             "TextId": "TXT_CHG_AXIS",
             "TextRotation": "0",
@@ -10481,56 +10501,16 @@
             "Wildcard1": {
               "TextId": "TXT_TELEMETRY_EMPTY",
               "UseBuffer": true,
-              "BufferSize": 120
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "OnboardData",
-            "X": 24,
-            "Y": 160,
-            "Width": 370,
-            "Height": 280,
-            "TextId": "TXT_TELEM_DETAILS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 232,
-              "Green": 238,
-              "Blue": 248
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 700
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "OnboardRight",
-            "X": 408,
-            "Y": 160,
-            "Width": 370,
-            "Height": 280,
-            "TextId": "TXT_TELEM_DETAILS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 232,
-              "Green": 238,
-              "Blue": 248
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 700
+              "BufferSize": 160
             }
           },
           {
             "Type": "TextArea",
             "Name": "LiveVoltage",
-            "X": 24,
-            "Y": 124,
-            "Width": 360,
-            "Height": 36,
+            "X": 524,
+            "Y": 116,
+            "Width": 248,
+            "Height": 32,
             "Visible": false,
             "TextId": "TXT_SESSION_LIVE",
             "TextRotation": "0",
@@ -10548,10 +10528,10 @@
           {
             "Type": "TextArea",
             "Name": "LiveCurrent",
-            "X": 420,
-            "Y": 124,
-            "Width": 356,
-            "Height": 36,
+            "X": 524,
+            "Y": 154,
+            "Width": 248,
+            "Height": 32,
             "Visible": false,
             "TextId": "TXT_SESSION_LIVE",
             "TextRotation": "0",
@@ -10568,276 +10548,18 @@
           },
           {
             "Type": "TextArea",
-            "Name": "AxisV0",
-            "X": 4,
-            "Y": 238,
-            "Width": 70,
+            "Name": "SessionHeading",
+            "X": 524,
+            "Y": 86,
+            "Width": 248,
             "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
+            "TextId": "TXT_CHG_SESSION_HEADING",
             "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
+              "Red": 87,
+              "Green": 147,
+              "Blue": 255
             },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "AxisV1",
-            "X": 4,
-            "Y": 273,
-            "Width": 70,
-            "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "AxisV2",
-            "X": 4,
-            "Y": 308,
-            "Width": 70,
-            "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "AxisV3",
-            "X": 4,
-            "Y": 343,
-            "Width": 70,
-            "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "AxisV4",
-            "X": 4,
-            "Y": 378,
-            "Width": 70,
-            "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "AxisI0",
-            "X": 726,
-            "Y": 238,
-            "Width": 72,
-            "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "AxisI1",
-            "X": 726,
-            "Y": 273,
-            "Width": 72,
-            "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "AxisI2",
-            "X": 726,
-            "Y": 308,
-            "Width": 72,
-            "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "AxisI3",
-            "X": 726,
-            "Y": 343,
-            "Width": 72,
-            "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "AxisI4",
-            "X": 726,
-            "Y": 378,
-            "Width": 72,
-            "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "AxisT0",
-            "X": 78,
-            "Y": 394,
-            "Width": 78,
-            "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "AxisT1",
-            "X": 364,
-            "Y": 394,
-            "Width": 78,
-            "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "AxisT2",
-            "X": 650,
-            "Y": 394,
-            "Width": 78,
-            "Height": 22,
-            "Visible": false,
-            "TextId": "TXT_CHG_AXIS",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 167,
-              "Green": 182,
-              "Blue": 203
-            },
-            "Wildcard1": {
-              "TextId": "TXT_TELEMETRY_EMPTY",
-              "UseBuffer": true,
-              "BufferSize": 64
-            }
+            "TextRotation": "0"
           }
         ],
         "Interactions": [
@@ -11017,28 +10739,6 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "chargeKeyApply"
-            }
-          },
-          {
-            "InteractionName": "showSetup",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "SetupButton"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "showSetup"
-            }
-          },
-          {
-            "InteractionName": "showSession",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "SessionButton"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "showSession"
             }
           },
           {
@@ -12811,7 +12511,7 @@
             "Type": "TextArea",
             "Name": "ThemeHint",
             "X": 32,
-            "Y": 448,
+            "Y": 456,
             "Width": 728,
             "Height": 22,
             "TextId": "TXT_APPEARANCE_NOTE",
@@ -12843,7 +12543,7 @@
             "X": 16,
             "Y": 312,
             "Width": 768,
-            "Height": 124,
+            "Height": 136,
             "Color": {
               "Red": 22,
               "Green": 34,

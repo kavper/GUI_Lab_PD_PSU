@@ -15,5 +15,10 @@ int main(){
     s.update(true,true,true,8000,10000);assert(s.elapsedMs==0);
     s.update(true,true,true,8500,10000);assert(s.elapsedMs==500);
     UsbSession wrap;wrap.update(true,true,true,0xfffffff0,1000);wrap.update(true,true,true,0x10,1000);assert(wrap.elapsedMs==32);
-    puts("PASS USB session unique samples, trapezoid, stale/invalid gaps, reconnect, wrap");
+    // A detach frame may be lost: an attach epoch still starts a new session.
+    s.update(true,true,true,9000,10000,1);assert(s.elapsedMs==0&&s.energyMwMs==0);
+    s.update(true,true,true,9500,10000,1);assert(s.elapsedMs==500);
+    s.update(false,true,false,10000,0,2);assert(s.elapsedMs==500);
+    s.update(true,true,true,10500,10000,2);assert(s.elapsedMs==0&&s.energyMwMs==0);
+    puts("PASS USB session unique samples, trapezoid, stale/invalid gaps, reconnect, lost detach, attach epoch and wrap");
 }
