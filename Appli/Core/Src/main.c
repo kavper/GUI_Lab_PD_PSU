@@ -663,6 +663,7 @@ static void MX_UART7_Init(void)
 
 void PSU_SetOutputLed(uint8_t enabled)
 {
+  /* PO1, LD1. Board pinout: high is on. enabled is the confirmed output. */
   HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin,
                     enabled ? GPIO_PIN_SET : GPIO_PIN_RESET);
 }

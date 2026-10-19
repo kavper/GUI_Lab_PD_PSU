@@ -44,7 +44,7 @@ void ScreenNetworkView::refresh()
     lab_show(NetGw, NetGwBuffer, NETGW_SIZE, buf, lab_text());
     if (!snap.ethernet_configured)
     {
-        link = "NO ETHERNET";
+        link = "NOT IN BUILD";
         link_color = lab_muted();
     }
     else if (snap.net_state == PSU_NET_BOUND)

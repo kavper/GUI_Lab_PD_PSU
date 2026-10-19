@@ -2,6 +2,7 @@
 #include <gui/common/LabText.hpp>
 #include <images/BitmapDatabase.hpp>
 #include <touchgfx/Bitmap.hpp>
+#include <string.h>
 extern "C" {
 #include "psu_app.h"
 #include "psu_format.h"
@@ -204,18 +205,18 @@ void ScreenSequencerView::refresh()
         lab_show(SeqStatus, SeqStatusBuffer, SEQSTATUS_SIZE, "RANGE", lab_red());
         return;
     }
-    if (seq->status[0] != '\0')
-        (void)snprintf(status, sizeof(status), "%s", seq->status);
-    else if (seq->run == PSU_SEQ_RUN)
-        (void)snprintf(status, sizeof(status), "RUN  %u/%u", (unsigned)(seq->step_index + 1U), (unsigned)count);
+    if (seq->run == PSU_SEQ_RUN)
+        (void)snprintf(status, sizeof(status), "RUN  %u/%u  LIVE", (unsigned)(seq->step_index + 1U), (unsigned)count);
     else if (seq->run == PSU_SEQ_PAUSE)
-        (void)snprintf(status, sizeof(status), "PAUSED");
+        (void)snprintf(status, sizeof(status), "PAUSED  NOT SAVED");
     else if (seq->run == PSU_SEQ_DONE)
-        (void)snprintf(status, sizeof(status), "DONE");
+        (void)snprintf(status, sizeof(status), "DONE  NOT RESTORED");
     else if (seq->run == PSU_SEQ_ABORTED)
         (void)snprintf(status, sizeof(status), "ABORTED");
+    else if (strcmp(seq->status, "STOP") == 0)
+        (void)snprintf(status, sizeof(status), "STOP  NOT RESTORED");
     else
-        (void)snprintf(status, sizeof(status), "IDLE");
+        (void)snprintf(status, sizeof(status), "IDLE  NOT RESTORED");
     lab_show(SeqStatus, SeqStatusBuffer, SEQSTATUS_SIZE, status,
              (seq->run == PSU_SEQ_ABORTED) ? lab_red() : lab_cyan());
 }

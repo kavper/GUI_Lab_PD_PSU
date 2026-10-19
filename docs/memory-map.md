@@ -27,4 +27,4 @@ Record layout, 16-byte header plus payload:
 | 12 | CRC-32 of the payload |
 | 16 | `PsuBlob` |
 
-The loader keeps the valid copy with the higher generation. A bad CRC falls back to the other copy, then to defaults. `output_on` in the blob is cleared on save and on load.
+The loader keeps the valid copy with the higher generation. A bad CRC falls back to the other copy, then to defaults. `output_on` in the blob is cleared on save and on load. Loading also forces the sequencer idle and aborts a running charge. Appearance and sound are not in the blob.

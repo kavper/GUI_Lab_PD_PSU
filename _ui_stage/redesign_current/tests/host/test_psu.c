@@ -531,6 +531,45 @@ static void test_store_and_app(void)
   expect(strstr(json, "LOCKED") != 0, "pps locked text");
   psu_render_network(json, sizeof(json));
   expect(strstr(json, "1.50") == 0, "no fake address");
+  expect(strstr(json, "NOT IN BUILD") != 0, "ethernet stays absent");
+}
+
+static uint8_t led_seen;
+static void test_led(uint8_t on);
+
+static void test_restore_and_faces(void)
+{
+  uint8_t a[8192], b[8192];
+  PsuSnapshot s;
+  PsuAppearanceFace look;
+  char text[400];
+  memset(a, 0, sizeof(a));
+  memset(b, 0, sizeof(b));
+  psu_app_init();
+  psu_app_set_output_led(test_led);
+  psu_config_bind_ram(a, b, sizeof(a));
+  expect(psu_app_set_output(1, PSU_SRC_LCD) == 1, "request before save");
+  expect(psu_seq_start(psu_sequencer(), 1000) == 1, "sequence before save");
+  psu_charger()->running = 1U;
+  psu_charger()->state = CHG_CC;
+  g4_link_up(psu_g4());
+  psu_app_tick(1100);
+  expect(led_seen == 0, "g4 link does not light ld1");
+  expect(psu_config_save() == 1, "save running session");
+  expect(psu_config_load() == 1, "load drops the session");
+  psu_snapshot(&s);
+  expect(s.output_requested == 0 && s.output_confirmed == 0, "load keeps output off");
+  expect(psu_sequencer()->run == PSU_SEQ_IDLE, "load does not resume the sequence");
+  expect(psu_charger()->running == 0U, "load does not resume the charge");
+  psu_render_diagnostics(text, sizeof(text));
+  expect(strstr(text, "REQUEST") != 0 && strstr(text, "APPLIED") != 0, "diag splits request and applied");
+  expect(strstr(text, "LD1 FOLLOWS CONFIRMED OUTPUT") != 0, "diag names the lamp");
+  expect(strstr(text, "G4 CONFIRM") == 0, "diag does not invent a g4 confirm");
+  psu_appearance_face(&look);
+  expect(strcmp(look.display, "800 x 480") == 0, "appearance display");
+  expect(strcmp(look.sound, "NONE") == 0, "no sound device");
+  expect(strcmp(look.stored, "NOT IN EEPROM") == 0, "appearance is not stored");
+  expect(strstr(look.note, "not restored") != 0, "appearance names the restore rule");
 }
 
 static void click_button(uint32_t t)
@@ -540,8 +579,6 @@ static void click_button(uint32_t t)
   psu_app_user_button(0, t + 80U);
   psu_app_user_button(0, t + 120U);
 }
-
-static uint8_t led_seen;
 
 static void test_led(uint8_t on)
 {
@@ -772,6 +809,7 @@ int main(void)
   test_charger();
   test_store_and_app();
   test_button_energy_pd_bms();
+  test_restore_and_faces();
   if (failures)
   {
     fprintf(stderr, "%d failure(s)\n", failures);

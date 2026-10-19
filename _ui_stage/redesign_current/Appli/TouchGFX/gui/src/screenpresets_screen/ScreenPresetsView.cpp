@@ -74,6 +74,15 @@ void ScreenPresetsView::refresh()
     show_preset(5, selected == 5U, P6Name, P6NameBuffer, P6NAME_SIZE, P6Volt, P6VoltBuffer, P6VOLT_SIZE, P6Amp, P6AmpBuffer, P6AMP_SIZE);
     show_preset(6, selected == 6U, P7Name, P7NameBuffer, P7NAME_SIZE, P7Volt, P7VoltBuffer, P7VOLT_SIZE, P7Amp, P7AmpBuffer, P7AMP_SIZE);
     show_preset(7, selected == 7U, P8Name, P8NameBuffer, P8NAME_SIZE, P8Volt, P8VoltBuffer, P8VOLT_SIZE, P8Amp, P8AmpBuffer, P8AMP_SIZE);
+    {
+        const PsuPreset* chosen = psu_preset_get(selected);
+        char line[80];
+        if (chosen == 0 || chosen->name[0] == '\0')
+            (void)snprintf(line, sizeof(line), "SLOT %u  EMPTY  OUTPUT STAYS OFF", (unsigned)(selected + 1U));
+        else
+            (void)snprintf(line, sizeof(line), "SLOT %u  %s  OUTPUT STAYS OFF", (unsigned)(selected + 1U), chosen->name);
+        lab_show(PresetStatus, PresetStatusBuffer, PRESETSTATUS_SIZE, line, lab_text());
+    }
 }
 
 void ScreenPresetsView::selectSlot(uint8_t index)

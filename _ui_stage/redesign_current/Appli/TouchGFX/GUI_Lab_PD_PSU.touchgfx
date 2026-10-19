@@ -1258,7 +1258,7 @@
             "Type": "Button",
             "Name": "PresetManagerButton",
             "X": 16,
-            "Y": 80,
+            "Y": 72,
             "Width": 168,
             "Height": 96,
             "Pressed": "btn_tile_prs_168x96.png",
@@ -1268,7 +1268,7 @@
             "Type": "Button",
             "Name": "SequencerButton",
             "X": 216,
-            "Y": 80,
+            "Y": 72,
             "Width": 168,
             "Height": 96,
             "Pressed": "btn_tile_prs_168x96.png",
@@ -1278,7 +1278,7 @@
             "Type": "Button",
             "Name": "MeasureButton",
             "X": 416,
-            "Y": 80,
+            "Y": 72,
             "Width": 168,
             "Height": 96,
             "Pressed": "btn_tile_prs_168x96.png",
@@ -1288,7 +1288,7 @@
             "Type": "Button",
             "Name": "BmsButton",
             "X": 616,
-            "Y": 80,
+            "Y": 72,
             "Width": 168,
             "Height": 96,
             "Pressed": "btn_tile_prs_168x96.png",
@@ -1298,7 +1298,7 @@
             "Type": "Button",
             "Name": "PackButton",
             "X": 16,
-            "Y": 208,
+            "Y": 176,
             "Width": 168,
             "Height": 96,
             "Pressed": "btn_tile_prs_168x96.png",
@@ -1308,7 +1308,7 @@
             "Type": "Button",
             "Name": "UsbButton",
             "X": 216,
-            "Y": 208,
+            "Y": 176,
             "Width": 168,
             "Height": 96,
             "Pressed": "btn_tile_prs_168x96.png",
@@ -1318,7 +1318,7 @@
             "Type": "Button",
             "Name": "ChargerButton",
             "X": 416,
-            "Y": 208,
+            "Y": 176,
             "Width": 168,
             "Height": 96,
             "Pressed": "btn_tile_prs_168x96.png",
@@ -1328,7 +1328,7 @@
             "Type": "Button",
             "Name": "PathButton",
             "X": 616,
-            "Y": 208,
+            "Y": 176,
             "Width": 168,
             "Height": 96,
             "Pressed": "btn_tile_prs_168x96.png",
@@ -1338,7 +1338,7 @@
             "Type": "Button",
             "Name": "OutputLimitsButton",
             "X": 16,
-            "Y": 336,
+            "Y": 280,
             "Width": 168,
             "Height": 96,
             "Pressed": "btn_tile_prs_168x96.png",
@@ -1348,7 +1348,7 @@
             "Type": "Button",
             "Name": "DiagnosticsButton",
             "X": 216,
-            "Y": 336,
+            "Y": 280,
             "Width": 168,
             "Height": 96,
             "Pressed": "btn_tile_prs_168x96.png",
@@ -1358,7 +1358,7 @@
             "Type": "Button",
             "Name": "SystemButton",
             "X": 416,
-            "Y": 336,
+            "Y": 280,
             "Width": 168,
             "Height": 96,
             "Pressed": "btn_tile_prs_168x96.png",
@@ -1368,7 +1368,7 @@
             "Type": "Button",
             "Name": "ServiceButton",
             "X": 616,
-            "Y": 336,
+            "Y": 280,
             "Width": 168,
             "Height": 96,
             "Pressed": "btn_tile_prs_168x96.png",
@@ -1378,7 +1378,7 @@
             "Type": "Image",
             "Name": "TilePresetsIcon",
             "X": 84,
-            "Y": 96,
+            "Y": 88,
             "Width": 32,
             "Height": 32,
             "RelativeFilename": "icon_presets_32.png"
@@ -1387,7 +1387,7 @@
             "Type": "Image",
             "Name": "TileSeqIcon",
             "X": 284,
-            "Y": 96,
+            "Y": 88,
             "Width": 32,
             "Height": 32,
             "RelativeFilename": "icon_seq_32.png"
@@ -1396,7 +1396,7 @@
             "Type": "Image",
             "Name": "TileMeasIcon",
             "X": 484,
-            "Y": 96,
+            "Y": 88,
             "Width": 32,
             "Height": 32,
             "RelativeFilename": "icon_meas_32.png"
@@ -1405,7 +1405,7 @@
             "Type": "Image",
             "Name": "TileBmsIcon",
             "X": 684,
-            "Y": 96,
+            "Y": 88,
             "Width": 32,
             "Height": 32,
             "RelativeFilename": "icon_bms_32.png"
@@ -1414,7 +1414,7 @@
             "Type": "Image",
             "Name": "TilePackIcon",
             "X": 84,
-            "Y": 224,
+            "Y": 192,
             "Width": 32,
             "Height": 32,
             "RelativeFilename": "icon_pack_32.png"
@@ -1423,7 +1423,7 @@
             "Type": "Image",
             "Name": "TileUsbIcon",
             "X": 284,
-            "Y": 224,
+            "Y": 192,
             "Width": 32,
             "Height": 32,
             "RelativeFilename": "icon_usb_32.png"
@@ -1432,7 +1432,7 @@
             "Type": "Image",
             "Name": "TileChgIcon",
             "X": 484,
-            "Y": 224,
+            "Y": 192,
             "Width": 32,
             "Height": 32,
             "RelativeFilename": "icon_chg_32.png"
@@ -1441,7 +1441,7 @@
             "Type": "Image",
             "Name": "TilePathIcon",
             "X": 684,
-            "Y": 224,
+            "Y": 192,
             "Width": 32,
             "Height": 32,
             "RelativeFilename": "icon_path_32.png"
@@ -1450,7 +1450,7 @@
             "Type": "Image",
             "Name": "TileLimIcon",
             "X": 84,
-            "Y": 352,
+            "Y": 296,
             "Width": 32,
             "Height": 32,
             "RelativeFilename": "icon_prot_32.png"
@@ -1459,7 +1459,7 @@
             "Type": "Image",
             "Name": "TileDiagIcon",
             "X": 284,
-            "Y": 352,
+            "Y": 296,
             "Width": 32,
             "Height": 32,
             "RelativeFilename": "icon_diag_32.png"
@@ -1468,7 +1468,7 @@
             "Type": "Image",
             "Name": "TileNetIcon",
             "X": 484,
-            "Y": 352,
+            "Y": 296,
             "Width": 32,
             "Height": 32,
             "RelativeFilename": "icon_net_32.png"
@@ -1477,7 +1477,7 @@
             "Type": "Image",
             "Name": "TileSvcIcon",
             "X": 684,
-            "Y": 352,
+            "Y": 296,
             "Width": 32,
             "Height": 32,
             "RelativeFilename": "icon_svc_32.png"
@@ -1486,7 +1486,7 @@
             "Type": "TextArea",
             "Name": "TilePresets",
             "X": 24,
-            "Y": 144,
+            "Y": 136,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_NAV_PRESETS",
@@ -1501,7 +1501,7 @@
             "Type": "TextArea",
             "Name": "TileSeq",
             "X": 224,
-            "Y": 144,
+            "Y": 136,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_NAV_SEQ",
@@ -1516,7 +1516,7 @@
             "Type": "TextArea",
             "Name": "TileMeas",
             "X": 424,
-            "Y": 144,
+            "Y": 136,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_NAV_MEAS",
@@ -1531,7 +1531,7 @@
             "Type": "TextArea",
             "Name": "TileBms",
             "X": 624,
-            "Y": 144,
+            "Y": 136,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_NAV_BMS",
@@ -1546,7 +1546,7 @@
             "Type": "TextArea",
             "Name": "TilePack",
             "X": 24,
-            "Y": 272,
+            "Y": 240,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_NAV_PACK",
@@ -1561,7 +1561,7 @@
             "Type": "TextArea",
             "Name": "TileUsb",
             "X": 224,
-            "Y": 272,
+            "Y": 240,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_NAV_USB",
@@ -1576,7 +1576,7 @@
             "Type": "TextArea",
             "Name": "TileChg",
             "X": 424,
-            "Y": 272,
+            "Y": 240,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_NAV_CHG",
@@ -1591,7 +1591,7 @@
             "Type": "TextArea",
             "Name": "TilePath",
             "X": 624,
-            "Y": 272,
+            "Y": 240,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_NAV_PATH",
@@ -1606,7 +1606,7 @@
             "Type": "TextArea",
             "Name": "TileLim",
             "X": 24,
-            "Y": 400,
+            "Y": 344,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_NAV_LIM",
@@ -1621,7 +1621,7 @@
             "Type": "TextArea",
             "Name": "TileDiag",
             "X": 224,
-            "Y": 400,
+            "Y": 344,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_NAV_DIAG",
@@ -1636,7 +1636,7 @@
             "Type": "TextArea",
             "Name": "TileNet",
             "X": 424,
-            "Y": 400,
+            "Y": 344,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_NAV_NET",
@@ -1651,10 +1651,44 @@
             "Type": "TextArea",
             "Name": "TileSvc",
             "X": 624,
-            "Y": 400,
+            "Y": 344,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_NAV_SVC",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "Button",
+            "Name": "AppearanceButton",
+            "X": 16,
+            "Y": 384,
+            "Width": 168,
+            "Height": 96,
+            "Pressed": "btn_tile_prs_168x96.png",
+            "Released": "btn_tile_rel_168x96.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "TileAppIcon",
+            "X": 84,
+            "Y": 400,
+            "Width": 32,
+            "Height": 32,
+            "RelativeFilename": "icon_appearance_32.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TileApp",
+            "X": 24,
+            "Y": 448,
+            "Width": 152,
+            "Height": 24,
+            "TextId": "TXT_NAV_APPEARANCE",
             "TextRotation": "0",
             "Color": {
               "Red": 238,
@@ -1831,6 +1865,19 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "West",
               "ActionComponent": "ScreenService"
+            }
+          },
+          {
+            "InteractionName": "OpenAppearanceButton",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "AppearanceButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "ScreenAppearance"
             }
           }
         ]
@@ -2082,15 +2129,15 @@
             "Type": "TextArea",
             "Name": "DiagnosticsValues",
             "X": 32,
-            "Y": 240,
+            "Y": 236,
             "Width": 736,
-            "Height": 24,
+            "Height": 192,
             "TextId": "TXT_DIAG_VALUES",
             "TextRotation": "0",
             "Color": {
-              "Red": 42,
-              "Green": 199,
-              "Blue": 217
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
             },
             "Wildcard1": {
               "TextId": "TXT_DIAG_INITIAL",
@@ -2457,17 +2504,17 @@
             "Type": "Button",
             "Name": "PresetCard5",
             "X": 16,
-            "Y": 240,
+            "Y": 232,
             "Width": 168,
-            "Height": 144,
-            "Pressed": "card_168x144.png",
-            "Released": "card_168x144.png"
+            "Height": 128,
+            "Pressed": "card_168x128.png",
+            "Released": "card_168x128.png"
           },
           {
             "Type": "TextArea",
             "Name": "P5Name",
             "X": 24,
-            "Y": 248,
+            "Y": 240,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_P5NAME",
@@ -2487,9 +2534,9 @@
             "Type": "TextArea",
             "Name": "P5Volt",
             "X": 24,
-            "Y": 280,
+            "Y": 268,
             "Width": 152,
-            "Height": 48,
+            "Height": 40,
             "TextId": "TXT_P5VOLT",
             "TextRotation": "0",
             "Color": {
@@ -2507,7 +2554,7 @@
             "Type": "TextArea",
             "Name": "P5Amp",
             "X": 24,
-            "Y": 336,
+            "Y": 312,
             "Width": 152,
             "Height": 32,
             "TextId": "TXT_P5AMP",
@@ -2527,17 +2574,17 @@
             "Type": "Button",
             "Name": "PresetCard6",
             "X": 216,
-            "Y": 240,
+            "Y": 232,
             "Width": 168,
-            "Height": 144,
-            "Pressed": "card_168x144.png",
-            "Released": "card_168x144.png"
+            "Height": 128,
+            "Pressed": "card_168x128.png",
+            "Released": "card_168x128.png"
           },
           {
             "Type": "TextArea",
             "Name": "P6Name",
             "X": 224,
-            "Y": 248,
+            "Y": 240,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_P6NAME",
@@ -2557,9 +2604,9 @@
             "Type": "TextArea",
             "Name": "P6Volt",
             "X": 224,
-            "Y": 280,
+            "Y": 268,
             "Width": 152,
-            "Height": 48,
+            "Height": 40,
             "TextId": "TXT_P6VOLT",
             "TextRotation": "0",
             "Color": {
@@ -2577,7 +2624,7 @@
             "Type": "TextArea",
             "Name": "P6Amp",
             "X": 224,
-            "Y": 336,
+            "Y": 312,
             "Width": 152,
             "Height": 32,
             "TextId": "TXT_P6AMP",
@@ -2597,17 +2644,17 @@
             "Type": "Button",
             "Name": "PresetCard7",
             "X": 416,
-            "Y": 240,
+            "Y": 232,
             "Width": 168,
-            "Height": 144,
-            "Pressed": "card_168x144.png",
-            "Released": "card_168x144.png"
+            "Height": 128,
+            "Pressed": "card_168x128.png",
+            "Released": "card_168x128.png"
           },
           {
             "Type": "TextArea",
             "Name": "P7Name",
             "X": 424,
-            "Y": 248,
+            "Y": 240,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_P7NAME",
@@ -2627,9 +2674,9 @@
             "Type": "TextArea",
             "Name": "P7Volt",
             "X": 424,
-            "Y": 280,
+            "Y": 268,
             "Width": 152,
-            "Height": 48,
+            "Height": 40,
             "TextId": "TXT_P7VOLT",
             "TextRotation": "0",
             "Color": {
@@ -2647,7 +2694,7 @@
             "Type": "TextArea",
             "Name": "P7Amp",
             "X": 424,
-            "Y": 336,
+            "Y": 312,
             "Width": 152,
             "Height": 32,
             "TextId": "TXT_P7AMP",
@@ -2667,17 +2714,17 @@
             "Type": "Button",
             "Name": "PresetCard8",
             "X": 616,
-            "Y": 240,
+            "Y": 232,
             "Width": 168,
-            "Height": 144,
-            "Pressed": "card_168x144.png",
-            "Released": "card_168x144.png"
+            "Height": 128,
+            "Pressed": "card_168x128.png",
+            "Released": "card_168x128.png"
           },
           {
             "Type": "TextArea",
             "Name": "P8Name",
             "X": 624,
-            "Y": 248,
+            "Y": 240,
             "Width": 152,
             "Height": 24,
             "TextId": "TXT_P8NAME",
@@ -2697,9 +2744,9 @@
             "Type": "TextArea",
             "Name": "P8Volt",
             "X": 624,
-            "Y": 280,
+            "Y": 268,
             "Width": 152,
-            "Height": 48,
+            "Height": 40,
             "TextId": "TXT_P8VOLT",
             "TextRotation": "0",
             "Color": {
@@ -2717,7 +2764,7 @@
             "Type": "TextArea",
             "Name": "P8Amp",
             "X": 624,
-            "Y": 336,
+            "Y": 312,
             "Width": 152,
             "Height": 32,
             "TextId": "TXT_P8AMP",
@@ -2731,6 +2778,26 @@
               "TextId": "TXT_P8AMP_I",
               "UseBuffer": true,
               "BufferSize": 16
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PresetStatus",
+            "X": 16,
+            "Y": 368,
+            "Width": 768,
+            "Height": 40,
+            "TextId": "TXT_PRESETSTATUS",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_PRESETSTATUS_I",
+              "UseBuffer": true,
+              "BufferSize": 80
             }
           },
           {
@@ -6720,9 +6787,9 @@
             "Type": "TextArea",
             "Name": "ChgChem",
             "X": 432,
-            "Y": 168,
+            "Y": 128,
             "Width": 336,
-            "Height": 24,
+            "Height": 48,
             "TextId": "TXT_CHGCHEM",
             "TextRotation": "0",
             "Color": {
@@ -7830,6 +7897,286 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "serviceStatus"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenAppearance",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "LabBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "lab_bg_800x480.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "LabHeader",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 64,
+            "RelativeFilename": "lab_header_800x64.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ScreenTitle",
+            "X": 112,
+            "Y": 16,
+            "Width": 560,
+            "Height": 32,
+            "TextId": "TXT_TITLE_APPEARANCE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "BackButton",
+            "X": 672,
+            "Y": 8,
+            "Width": 112,
+            "Height": 48,
+            "Pressed": "btn_back_prs_112x48.png",
+            "Released": "btn_back_rel_112x48.png",
+            "TextId": "TXT_SETTINGS_BACK",
+            "TextRotation": "0",
+            "ReleasedColor": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "PressedColor": {
+              "Red": 8,
+              "Green": 18,
+              "Blue": 28
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "DisplayCard",
+            "X": 16,
+            "Y": 80,
+            "Width": 368,
+            "Height": 128,
+            "RelativeFilename": "card_368x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblDisplay",
+            "X": 32,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_DISPLAY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AppDisplay",
+            "X": 32,
+            "Y": 128,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_APP_DISPLAY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 42,
+              "Green": 199,
+              "Blue": 217
+            },
+            "Wildcard1": {
+              "TextId": "TXT_APP_DISPLAY_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "TypeCard",
+            "X": 416,
+            "Y": 80,
+            "Width": 368,
+            "Height": 128,
+            "RelativeFilename": "card_368x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblType",
+            "X": 432,
+            "Y": 96,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_TYPE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AppType",
+            "X": 432,
+            "Y": 128,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_APP_TYPE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_APP_TYPE_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "SoundCard",
+            "X": 16,
+            "Y": 224,
+            "Width": 368,
+            "Height": 128,
+            "RelativeFilename": "card_368x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblSound",
+            "X": 32,
+            "Y": 240,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_SOUND",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AppSound",
+            "X": 32,
+            "Y": 272,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_APP_SOUND",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            },
+            "Wildcard1": {
+              "TextId": "TXT_APP_SOUND_I",
+              "UseBuffer": true,
+              "BufferSize": 16
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "StoredCard",
+            "X": 416,
+            "Y": 224,
+            "Width": 368,
+            "Height": 128,
+            "RelativeFilename": "card_368x128.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "LblStored",
+            "X": 432,
+            "Y": 240,
+            "Width": 336,
+            "Height": 24,
+            "TextId": "TXT_LBL_STORED",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 147,
+              "Green": 163,
+              "Blue": 184
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AppStored",
+            "X": 432,
+            "Y": 272,
+            "Width": 336,
+            "Height": 48,
+            "TextId": "TXT_APP_STORED",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 243,
+              "Green": 156,
+              "Blue": 18
+            },
+            "Wildcard1": {
+              "TextId": "TXT_APP_STORED_I",
+              "UseBuffer": true,
+              "BufferSize": 24
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "NoteCard",
+            "X": 16,
+            "Y": 368,
+            "Width": 768,
+            "Height": 96,
+            "RelativeFilename": "card_768x96.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "AppNote",
+            "X": 32,
+            "Y": 376,
+            "Width": 736,
+            "Height": 80,
+            "TextId": "TXT_APP_NOTE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 238,
+              "Green": 244,
+              "Blue": 251
+            },
+            "Wildcard1": {
+              "TextId": "TXT_APP_NOTE_I",
+              "UseBuffer": true,
+              "BufferSize": 200
+            }
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "CloseScreenAppearance",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "BackButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "ScreenSettings"
             }
           }
         ]

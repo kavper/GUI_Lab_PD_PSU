@@ -275,6 +275,9 @@
       <Text Id="TXT_NAV_SVC" Alignment="Center" TypographyId="LabTile">
         <Translation Language="GB">SERVICE</Translation>
       </Text>
+      <Text Id="TXT_NAV_APPEARANCE" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">APPEARANCE</Translation>
+      </Text>
       <Text Id="TXT_ACT_LOAD" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">LOAD</Translation>
       </Text>
@@ -1112,6 +1115,57 @@
       </Text>
       <Text Id="TXT_CONTRACT_I" Alignment="Left" TypographyId="LabMid">
         <Translation Language="GB">RDO: UNAVAILABLE</Translation>
+      </Text>
+      <Text Id="TXT_PRESETSTATUS" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_PRESETSTATUS_I" Alignment="Center" TypographyId="LabMid">
+        <Translation Language="GB">SLOT 1  OUTPUT STAYS OFF</Translation>
+      </Text>
+      <Text Id="TXT_TITLE_APPEARANCE" Alignment="Center" TypographyId="SettingsTitle">
+        <Translation Language="GB">APPEARANCE</Translation>
+      </Text>
+      <Text Id="TXT_LBL_DISPLAY" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">DISPLAY</Translation>
+      </Text>
+      <Text Id="TXT_APP_DISPLAY" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_APP_DISPLAY_I" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">800 x 480</Translation>
+      </Text>
+      <Text Id="TXT_LBL_TYPE" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">TYPE</Translation>
+      </Text>
+      <Text Id="TXT_APP_TYPE" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_APP_TYPE_I" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">IBM PLEX</Translation>
+      </Text>
+      <Text Id="TXT_LBL_SOUND" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">SOUND</Translation>
+      </Text>
+      <Text Id="TXT_APP_SOUND" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_APP_SOUND_I" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">NONE</Translation>
+      </Text>
+      <Text Id="TXT_LBL_STORED" Alignment="Center" TypographyId="LabTile">
+        <Translation Language="GB">STORED</Translation>
+      </Text>
+      <Text Id="TXT_APP_STORED" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_APP_STORED_I" Alignment="Center" TypographyId="LabState">
+        <Translation Language="GB">NOT IN EEPROM</Translation>
+      </Text>
+      <Text Id="TXT_APP_NOTE" Alignment="Left" TypographyId="LabMid">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="TXT_APP_NOTE_I" Alignment="Left" TypographyId="LabMid">
+        <Translation Language="GB">Presets, steps and limits are stored.</Translation>
       </Text>
       <!-- lab-graphical-end -->
     </TextGroup>

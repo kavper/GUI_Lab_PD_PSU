@@ -230,6 +230,17 @@ void psu_render_presets(char *dst, size_t n);
 void psu_render_service(char *dst, size_t n);
 void psu_render_power_path(char *dst, size_t n);
 
+typedef struct
+{
+  char display[32];
+  char typeface[24];
+  char sound[16];
+  char stored[32];
+  char note[200];
+} PsuAppearanceFace;
+
+void psu_appearance_face(PsuAppearanceFace *out);
+
 #if defined(SIMULATOR) || defined(PSU_SIMULATOR)
 void psu_sim_tick(uint32_t now_ms);
 #endif

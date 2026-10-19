@@ -114,15 +114,30 @@ static void fill_defaults(void)
   blob.seq_loops = 1U;
 }
 
+static void disarm_automation(void)
+{
+  if (sequencer.run == PSU_SEQ_RUN || sequencer.run == PSU_SEQ_PAUSE)
+    psu_seq_stop(&sequencer, app_now, 0);
+  sequencer.run = PSU_SEQ_IDLE;
+  sequencer.config_locked = 0U;
+  sequencer.waiting_readback = 0U;
+  if (charger.running)
+    psu_chg_abort(&charger, "NOT RESTORED", app_now);
+}
+
 static void apply_blob_to_runtime(void)
 {
   uint8_t i;
   blob.output_on = 0U;
+  disarm_automation();
   for (i = 0; i < blob.step_count && i < PSU_SEQ_MAX_STEPS; ++i)
     sequencer.steps[i] = blob.steps[i];
   sequencer.count = blob.step_count ? blob.step_count : 1U;
   sequencer.mode = blob.seq_mode;
   sequencer.loops_requested = blob.seq_loops ? blob.seq_loops : 1U;
+  sequencer.run = PSU_SEQ_IDLE;
+  sequencer.config_locked = 0U;
+  sequencer.waiting_readback = 0U;
 }
 
 static uint16_t push_cmd(const char *name, uint8_t source, uint32_t mv, uint32_t ma, int track)
@@ -459,6 +474,9 @@ void psu_app_observe_g0(const PsuG0Sample *sample, uint32_t now_ms)
   publish_end();
 }
 
+/* LD1 is PO1 and lights when the pin is high. output_confirmed is G0
+   status bit 0 while that link is up. G4 has no confirm field, so a
+   live G4 link alone leaves the lamp off. */
 static void drive_led(void)
 {
   uint8_t on = snap.output_confirmed ? 1U : 0U;
@@ -917,6 +935,7 @@ int psu_config_load(void)
   loaded.output_on = 0U;
   blob = loaded;
   apply_blob_to_runtime();
+  (void)psu_app_set_output(0, PSU_SRC_BOOT);
   snap.output_requested = 0U;
   snap.output_confirmed = 0U;
   touch();

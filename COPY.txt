@@ -2,7 +2,8 @@ Copy these files onto the same relative path under
 C:\TouchGFXProjects\GUI_Lab_PD_PSU\
 Then open GUI_Lab_PD_PSU.touchgfx in TouchGFX Designer 4.26.1 and Generate Code.
 Generate rebuilds Appli/TouchGFX/generated. Do not hand-edit that folder.
-This VM could not run Designer, the simulator, or the STM32 target.
+New screen: ScreenAppearance. Generate creates its base classes.
+This VM did not run Designer, the simulator, or the STM32 target.
 
 Appli\Core\Inc\psu_app.h  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Inc\psu_app.h
 Appli\Core\Inc\psu_bms.h  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Inc\psu_bms.h
@@ -18,10 +19,13 @@ Appli\Core\Src\psu_render.c  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\S
 Appli\Core\Src\psu_swipe.c  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\Core\Src\psu_swipe.c
 Appli\TouchGFX\GUI_Lab_PD_PSU.touchgfx  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\GUI_Lab_PD_PSU.touchgfx
 Appli\TouchGFX\assets\images\card_368x64.png  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\assets\images\card_368x64.png
+Appli\TouchGFX\assets\images\icon_appearance_32.png  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\assets\images\icon_appearance_32.png
 Appli\TouchGFX\assets\images\logo_mark_208x196.png  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\assets\images\logo_mark_208x196.png
 Appli\TouchGFX\assets\texts\texts.xml  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\assets\texts\texts.xml
 Appli\TouchGFX\gui\include\gui\common\LabSwipe.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\common\LabSwipe.hpp
 Appli\TouchGFX\gui\include\gui\screen1_screen\Screen1View.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screen1_screen\Screen1View.hpp
+Appli\TouchGFX\gui\include\gui\screenappearance_screen\ScreenAppearancePresenter.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenappearance_screen\ScreenAppearancePresenter.hpp
+Appli\TouchGFX\gui\include\gui\screenappearance_screen\ScreenAppearanceView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenappearance_screen\ScreenAppearanceView.hpp
 Appli\TouchGFX\gui\include\gui\screenbattery_screen\ScreenBatteryView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenbattery_screen\ScreenBatteryView.hpp
 Appli\TouchGFX\gui\include\gui\screenbms_screen\ScreenBmsView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenbms_screen\ScreenBmsView.hpp
 Appli\TouchGFX\gui\include\gui\screendiagnostics_screen\ScreenDiagnosticsView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screendiagnostics_screen\ScreenDiagnosticsView.hpp
@@ -36,6 +40,8 @@ Appli\TouchGFX\gui\include\gui\screenservice_screen\ScreenServiceView.hpp  ->  C
 Appli\TouchGFX\gui\include\gui\screensettings_screen\ScreenSettingsView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screensettings_screen\ScreenSettingsView.hpp
 Appli\TouchGFX\gui\include\gui\screenusbpd_screen\ScreenUsbPdView.hpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\include\gui\screenusbpd_screen\ScreenUsbPdView.hpp
 Appli\TouchGFX\gui\src\screen1_screen\Screen1View.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screen1_screen\Screen1View.cpp
+Appli\TouchGFX\gui\src\screenappearance_screen\ScreenAppearancePresenter.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenappearance_screen\ScreenAppearancePresenter.cpp
+Appli\TouchGFX\gui\src\screenappearance_screen\ScreenAppearanceView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenappearance_screen\ScreenAppearanceView.cpp
 Appli\TouchGFX\gui\src\screenbattery_screen\ScreenBatteryView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenbattery_screen\ScreenBatteryView.cpp
 Appli\TouchGFX\gui\src\screenbms_screen\ScreenBmsView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenbms_screen\ScreenBmsView.cpp
 Appli\TouchGFX\gui\src\screendiagnostics_screen\ScreenDiagnosticsView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screendiagnostics_screen\ScreenDiagnosticsView.cpp
@@ -52,6 +58,7 @@ Appli\TouchGFX\gui\src\screensplash_screen\ScreenSplashView.cpp  ->  C:\TouchGFX
 Appli\TouchGFX\gui\src\screenusbpd_screen\ScreenUsbPdView.cpp  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\Appli\TouchGFX\gui\src\screenusbpd_screen\ScreenUsbPdView.cpp
 STM32CubeIDE\Appli\.project  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\STM32CubeIDE\Appli\.project
 docs\implementation-status.md  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\docs\implementation-status.md
+docs\memory-map.md  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\docs\memory-map.md
 docs\uart-protocols.md  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\docs\uart-protocols.md
 gcc\core_sources.mk  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\gcc\core_sources.mk
 tests\host\Makefile  ->  C:\TouchGFXProjects\GUI_Lab_PD_PSU\tests\host\Makefile

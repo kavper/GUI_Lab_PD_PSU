@@ -1,7 +1,7 @@
 #include "psu_app.h"
 #include "psu_format.h"
-#include "psu_version.h"
 #include <stdio.h>
+#include <string.h>
 
 static void link_name(char *dst, size_t n, uint8_t link)
 {
@@ -17,30 +17,63 @@ void psu_render_diagnostics(char *dst, size_t n)
 {
   PsuSnapshot s;
   char g4[16];
+  char request_v[16];
+  char request_a[16];
+  char applied[40];
+  const char *output;
   if (dst == 0 || n == 0U)
     return;
   psu_snapshot(&s);
   link_name(g4, sizeof(g4), s.g4_link);
+  psu_format_voltage(request_v, sizeof(request_v), s.requested_mv);
+  psu_format_current_ma(request_a, sizeof(request_a), s.requested_ma);
+  if (s.applied_valid)
+  {
+    char av[16];
+    char aa[16];
+    psu_format_voltage(av, sizeof(av), s.applied_mv);
+    psu_format_current_ma(aa, sizeof(aa), s.applied_ma);
+    snprintf(applied, sizeof(applied), "%s  %s", av, aa);
+  }
+  else
+    snprintf(applied, sizeof(applied), "UNAVAILABLE");
+  if (s.output_confirmed)
+    output = "CONFIRMED";
+  else if (s.output_requested)
+    output = "REQUESTED ONLY";
+  else
+    output = "OFF";
   snprintf(dst, n,
+           "REQUEST %s  %s\n"
+           "APPLIED %s\n"
+           "OUTPUT %s\n"
            "G0 %s  CRC %u\n"
-           "VOUT %u mV  IOUT %d uA  ADC %d\n"
-           "G4 %s UART %s\n"
+           "G4 %s  UART %s\n"
            "TX %s\n"
            "RX %s\n"
-           "PPS %s\n"
-           "BMS %s\n"
-           "CMD %u STATE %u\n"
-           "FW %s %s",
-           s.g0_connected ? "ONLINE" : "OFFLINE",
+           "LD1 FOLLOWS CONFIRMED OUTPUT",
+           request_v, request_a, applied, output,
+           s.g0_connected ? (s.g0_stale ? "STALE" : "ONLINE") : "OFFLINE",
            s.g0_crc_errors,
-           s.vout_mv, (int)s.signed_current_ua, 0,
            g4, s.g4_uart_configured ? "READY" : "NOT CONFIGURED",
            s.g4_last_tx[0] ? s.g4_last_tx : "-",
-           s.g4_last_rx[0] ? s.g4_last_rx : "-",
-           s.pps_allowed ? "OPEN" : "LOCKED",
-           s.bms_valid ? "VALID" : "OFFLINE",
-           s.last_cmd_id, s.last_cmd_state,
-           PSU_FW_VERSION, PSU_FW_DATE);
+           s.g4_last_rx[0] ? s.g4_last_rx : "-");
+}
+
+void psu_appearance_face(PsuAppearanceFace *out)
+{
+  if (out == 0)
+    return;
+  memset(out, 0, sizeof(*out));
+  snprintf(out->display, sizeof(out->display), "800 x 480");
+  snprintf(out->typeface, sizeof(out->typeface), "IBM PLEX");
+  snprintf(out->sound, sizeof(out->sound), "NONE");
+  snprintf(out->stored, sizeof(out->stored), "NOT IN EEPROM");
+  snprintf(out->note, sizeof(out->note),
+           "Presets, steps and limits are stored.\n"
+           "Output is not restored on.\n"
+           "A running sequence or charge is not restored.\n"
+           "Appearance and sound are not stored.");
 }
 
 void psu_render_bms(char *dst, size_t n)
@@ -106,7 +139,7 @@ void psu_render_protection(char *dst, size_t n)
            "LIMITS 0-27.000 V  0-5.000 A\n"
            "FAULT %s\n%s\n"
            "Clear fault sends CLR and stays latched until confirmed.\n"
-           "Output indicator follows the controller, not the request.",
+           "LD1 follows the confirmed output, not the request.",
            s.fault_latched ? "LATCHED" : "CLEAR",
            s.fault);
 }
@@ -116,7 +149,9 @@ void psu_render_network(char *dst, size_t n)
   PsuSnapshot s;
   const char *st = "LINK DOWN";
   psu_snapshot(&s);
-  if (s.net_state == PSU_NET_DHCP) st = "DHCP";
+  if (!s.ethernet_configured)
+    st = "NOT IN BUILD";
+  else if (s.net_state == PSU_NET_DHCP) st = "DHCP";
   else if (s.net_state == PSU_NET_BOUND) st = "BOUND";
   else if (s.net_state == PSU_NET_TIMEOUT) st = "DHCP TIMEOUT";
   snprintf(dst, n,
