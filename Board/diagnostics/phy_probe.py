@@ -3,7 +3,7 @@
 Run only while the board's Ethernet driver is disabled. Temporarily enables
 ETH/GPIO clocks and muxes PA2/PC1 to MDIO/MDC; restores the changed bits.
 No Flash writes, core halt/reset or PSU output/setpoint commands are issued.
---test tdr/restart additionally changes PHY registers, with restoration for TDR.
+--test tdr/restart/modes changes PHY registers; TDR and modes restore settings.
 """
 import argparse
 import ctypes as C
@@ -29,7 +29,7 @@ class Parameters(C.Structure):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--test', choices=['status', 'restart', 'tdr'], default='status')
+    parser.add_argument('--test', choices=['status', 'restart', 'tdr', 'modes'], default='status')
     parser.add_argument('--serial')
     parser.add_argument('--cube', type=Path, default=Path(
         'C:/Program Files/STMicroelectronics/STM32Cube/STM32CubeProgrammer'))
@@ -150,6 +150,28 @@ def main():
                 time.sleep(1)
                 mdio(address, 1)
                 print('AUTONEG', i, hex(mdio(address, 1)), flush=True)
+            return
+        if args.test == 'modes':
+            original = {r: mdio(address, r) for r in (0, 27)}
+            try:
+                for label, control in [('AUTO', 0x1200), ('100FD', 0x2100),
+                                       ('100HD', 0x2000), ('10FD', 0x0100), ('10HD', 0)]:
+                    phy_write(address, 27, 0)
+                    phy_write(address, 0, control)
+                    for i in range(4):
+                        time.sleep(1)
+                        mdio(address, 1)
+                        print(label, i, 'BMSR', hex(mdio(address, 1)),
+                              'mode_status', hex(mdio(address, 17)),
+                              'special', hex(mdio(address, 31)), flush=True)
+                phy_write(address, 0, 0x6100)
+                time.sleep(.1)
+                mdio(address, 1)
+                print('INTERNAL_LOOPBACK_STATUS', hex(mdio(address, 1)), flush=True)
+                # This is a PHY status test, not a MAC/RMII packet loopback test.
+            finally:
+                phy_write(address, 27, original[27])
+                phy_write(address, 0, original[0] | (0x200 if original[0] & 0x1000 else 0))
             return
         phy_saved = {r: mdio(address, r) for r in (0, 24, 25, 27)}
         try:
