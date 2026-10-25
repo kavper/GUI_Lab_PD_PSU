@@ -195,6 +195,7 @@ PsuCharger *psu_charger(void);
 G4Port *psu_g4(void);
 
 void psu_net_down(void);
+void psu_net_configured(int configured);
 int psu_remote_enabled(void);
 void psu_remote_enable(int enabled);
 void psu_net_up(void);
@@ -215,6 +216,7 @@ int psu_config_encode(uint8_t *dst, size_t bytes);
 int psu_config_decode(const uint8_t *src, size_t bytes);
 
 int psu_web_write_state(char *dst, size_t n);
+int psu_web_write_snapshot(const PsuSnapshot *snapshot, char *dst, size_t n);
 int psu_web_request(const char *method, const char *path, const char *body,
                     const char *client, char *dst, size_t n);
 const char *psu_web_page(void);

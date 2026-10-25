@@ -41,7 +41,7 @@ void ScreenNetworkView::refresh()
     psu_app_ensure();
     psu_snapshot(&snap);
     RemoteButton.setLabelText(touchgfx::TypedText(psu_remote_enabled()?T_TXT_REMOTE_DISABLE:T_TXT_REMOTE_ENABLE));RemoteButton.invalidate();
-    lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,!snap.ethernet_configured?"Ethernet bring-up pending / local controls available":psu_remote_enabled()?"Remote control enabled / Ethernet":"Remote control disabled / local HMI only",lab_cyan());
+    lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,!snap.ethernet_configured?"Ethernet bring-up pending / local controls available":psu_remote_enabled()?"LAB-PD-PSU / open http://IP in your browser":"LAB-PD-PSU / remote control disabled",lab_cyan());
     lab_ip(buf, sizeof(buf), snap.ip);
     lab_show(NetIp, NetIpBuffer, NETIP_SIZE, buf, lab_cyan());
     lab_ip(buf, sizeof(buf), snap.mask);

@@ -15,6 +15,7 @@ core_c_files := \
 	Appli/Core/Src/psu_seq.c \
 	Appli/Core/Src/psu_charger.c \
 	Appli/Core/Src/psu_app.c \
+	Appli/Core/Src/psu_web_features.c \
 	Appli/Core/Src/psu_render.c \
 	Appli/Core/Src/ethernetif.c \
 	Appli/Core/Src/freertos.c \

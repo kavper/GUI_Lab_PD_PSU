@@ -63,3 +63,8 @@ Board/*.hex
 Board/loader/*.log
 Board/*.eeprom
 Appli/TouchGFX/settings.eeprom
+
+# Native console development artifacts
+Board/remote_preview.html
+Board/web-suite-fixture.json
+Board/diagnostics/__pycache__/

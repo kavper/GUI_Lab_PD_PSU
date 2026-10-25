@@ -4,8 +4,11 @@
 #include <gui/model/ModelListener.hpp>
 #include <gui/common/FrontendApplication.hpp>
 #include <gui/common/SettingsPersistence.hpp>
+#include <gui/common/UiTheme.hpp>
+#include <gui/common/UiSound.hpp>
 extern "C" {
 #include "psu_app.h"
+#include "psu_web_features.h"
 }
 
 static void publish(ModelListener *listener)
@@ -42,6 +45,10 @@ void Model::tick()
     // the wipe has finished. The next tick publishes the latest snapshot.
     const FrontendApplication* app = static_cast<const FrontendApplication*>(touchgfx::Application::getInstance());
     if (!app || !app->isScreenTransitionActive()) {
+        psu_web_features_poll();
+        unsigned remoteEvents=psu_web_features_gui_events();
+        if(remoteEvents&1){ui::ThemeScreen::get().apply();ui::Sound::sync();}
+        if(remoteEvents&2)ui::Sound::test();
         ui::pollSettingsPersistence();
         publish(modelListener);
     }

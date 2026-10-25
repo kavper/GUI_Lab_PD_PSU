@@ -10,6 +10,7 @@ void restoreSound(){PsuAppearance a;psu_appearance_get(&a);level=a.sound_volume;
 void saveSound(){PsuAppearance a;psu_appearance_get(&a);a.sound_volume=(uint8_t)level;a.sound_enabled=audible;a.sound_tone=(uint8_t)pitch;a.sound_feedback=(uint8_t)responses;psu_appearance_set(&a);}
 }
 namespace ui {
+void Sound::sync(){restoreSound();apply();}
 unsigned Sound::volume(){restoreSound();return level;}
 bool Sound::enabled(){restoreSound();return audible && level;}
 unsigned Sound::tone(){restoreSound();return pitch;}

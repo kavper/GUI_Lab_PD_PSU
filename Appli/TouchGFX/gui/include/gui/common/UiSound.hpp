@@ -4,6 +4,7 @@
 namespace ui {
 class Sound {
 public:
+    static void sync();
     static unsigned volume();
     static bool enabled();
     static unsigned tone();

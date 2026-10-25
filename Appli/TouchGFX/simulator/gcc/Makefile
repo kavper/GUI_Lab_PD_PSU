@@ -20,7 +20,7 @@ all clean assets:
 $(error Spaces not allowed in path)
 else
 
-ADDITIONAL_SOURCES := ../Core/Src/psu_app.c ../Core/Src/psu_sim.c ../Core/Src/psu_limits.c ../Core/Src/psu_store.c ../Core/Src/psu_nvstore.c ../Core/Src/psu_seq.c ../Core/Src/psu_charger.c ../Core/Src/psu_format.c ../Core/Src/psu_edit.c ../Core/Src/psu_render.c ../Core/Src/g4_ascii.c ../Core/Src/g0_frame.c
+ADDITIONAL_SOURCES := ../Core/Src/psu_app.c ../Core/Src/psu_web_features.c ../Core/Src/psu_sim.c ../Core/Src/psu_limits.c ../Core/Src/psu_store.c ../Core/Src/psu_nvstore.c ../Core/Src/psu_seq.c ../Core/Src/psu_charger.c ../Core/Src/psu_format.c ../Core/Src/psu_edit.c ../Core/Src/psu_render.c ../Core/Src/g4_ascii.c ../Core/Src/g0_frame.c
 ADDITIONAL_INCLUDE_PATHS := ../Core/Inc
 ADDITIONAL_LIBRARY_PATHS := 
 ADDITIONAL_LIBRARIES :=

@@ -11,6 +11,7 @@
 #include "board_backlight.h"
 #include "board_panel.h"
 #include "board_settings.h"
+#include "board_net.h"
 
 static void BoardGPIO_Init(void)
 {
@@ -68,6 +69,19 @@ void StartDefaultTask(void *argument)
         osDelay(1);
     }
 }
+
+/* Ethernet never competes with the display or control task at equal priority. */
+static void BoardNetTask(void *argument)
+{
+    (void)argument;
+    BoardNet_Init();
+    for (;;) { BoardNet_Poll(HAL_GetTick()); osDelay(1); }
+}
+static const osThreadAttr_t boardNetTask_attributes = {
+    .name = "Ethernet",
+    .stack_size = 8192,
+    .priority = osPriorityNormal,
+};
 
 static void BoardMPU_Config(void)
 {
@@ -167,6 +181,15 @@ static void BoardMPU_Config(void)
   MPU_InitStruct.Size = MPU_REGION_SIZE_8KB;
 
   HAL_MPU_ConfigRegion(&MPU_InitStruct);
+  /* ETH descriptors and packet buffers: dedicated AHB SRAM, no cache aliases. */
+  MPU_InitStruct.Number = MPU_REGION_NUMBER8;
+  MPU_InitStruct.BaseAddress = 0x30000000;
+  MPU_InitStruct.Size = MPU_REGION_SIZE_32KB;
+  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL1;
+  MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
+  MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;
+  MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
+  HAL_MPU_ConfigRegion(&MPU_InitStruct);
   /* Enables the MPU */
   HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
 
@@ -260,6 +283,7 @@ int main(void)
 
   /* creation of TouchGFXTask */
   TouchGFXTaskHandle = osThreadNew(TouchGFX_Task, NULL, &TouchGFXTask_attributes);
+  if (osThreadNew(BoardNetTask, NULL, &boardNetTask_attributes) == NULL) Error_Handler();
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

@@ -74,6 +74,8 @@ SECTIONS
 /* Define specific placement of memory areas */
 SECTIONS
 {
+  .eth_dma (NOLOAD) : { . = ALIGN(32); *(.eth_dma) . = ALIGN(32); } >SRAMAHB
+  .network_memory (NOLOAD) : { . = ALIGN(32); *(.network_memory) . = ALIGN(32); } >EXTRAM
   BufferSection (NOLOAD) :
   {
     *(TouchGFX_Framebuffer TouchGFX_Framebuffer.*)

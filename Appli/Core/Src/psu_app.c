@@ -1,4 +1,5 @@
 #include "psu_app.h"
+#include "psu_web_features.h"
 #include "psu_limits.h"
 #include "psu_store.h"
 #include <stdio.h>
@@ -54,6 +55,7 @@ static uint8_t *store_a;
 static uint8_t *store_b;
 static size_t store_n;
 static char lease_client[24];
+static uint32_t lease_last_ms;
 static uint8_t g0_seen;
 static uint32_t host_serial, host_tx_count;
 static uint8_t clear_ack_pending;
@@ -248,6 +250,7 @@ static void refresh_snap_from_g0(void)
 
 void psu_app_init(void)
 {
+  psu_web_features_init();
   const PsuAppearance defaults={1,0,16,1,0,3};
   appearance=defaults;manual_mv=12000;manual_ma=2000;
   restore_manual_pending=0;
@@ -844,6 +847,9 @@ PsuSequencer *psu_sequencer(void) { return &sequencer; }
 PsuCharger *psu_charger(void) { return &charger; }
 G4Port *psu_g4(void) { return &g4; }
 
+void psu_net_configured(int configured)
+{ snap.ethernet_configured = configured ? 1U : 0U; touch(); publish_end(); }
+
 void psu_net_down(void)
 {
   snap.net_state = PSU_NET_DOWN;
@@ -1033,20 +1039,22 @@ static int lease_ok(const char *client, uint32_t now_hint)
   (void)now_hint;
   if (client == 0 || client[0] == '\0')
     return 0;
-  if (lease_client[0] == '\0' || strcmp(lease_client, client) == 0)
+  if (lease_client[0] == '\0' || strcmp(lease_client, client) == 0 ||
+      (uint32_t)(app_now - lease_last_ms) >= 10000U)
   {
     snprintf(lease_client, sizeof(lease_client), "%s", client);
+    lease_last_ms = app_now;
     return 1;
   }
   return 0;
 }
 
-int psu_web_write_state(char *dst, size_t n)
+int psu_web_write_snapshot(const PsuSnapshot *snapshot, char *dst, size_t n)
 {
-  PsuSnapshot s;
+  if (!snapshot) return 0;
+  const PsuSnapshot s = *snapshot;
   if (dst == 0 || n < 32U)
     return 0;
-  psu_snapshot(&s);
   return snprintf(dst, n,
                   "{\"rev\":%u,\"requested_mv\":%u,\"requested_ma\":%u,"
                   "\"applied_mv\":%u,\"applied_ma\":%u,\"applied_valid\":%u,"
@@ -1067,22 +1075,38 @@ int psu_web_write_state(char *dst, size_t n)
                   s.last_cmd_id, s.last_cmd_state);
 }
 
-static int json_u32(const char *body, const char *key, uint32_t *out)
+int psu_web_write_state(char *dst, size_t n)
 {
-  char pat[32];
-  const char *p;
-  snprintf(pat, sizeof(pat), "\"%s\":", key);
-  p = strstr(body, pat);
-  if (p == 0)
-    return 0;
-  p += strlen(pat);
-  *out = 0U;
-  while (*p >= '0' && *p <= '9')
-  {
-    *out = (*out * 10U) + (uint32_t)(*p - '0');
-    ++p;
+  PsuSnapshot snapshot; psu_snapshot(&snapshot);
+  return psu_web_write_snapshot(&snapshot,dst,n);
+}
+
+/* Strict flat JSON command object: whitespace allowed, no strings, duplicate
+ * keys, negative values, overflow, unknown members or trailing garbage. */
+static void web_space(const char **p) { while (**p==' '||**p=='\t'||**p=='\r'||**p=='\n') ++*p; }
+static unsigned web_fields(const char *body,uint32_t *mv,uint32_t *ma,uint32_t *en)
+{
+  if(!body)return 0;
+  const char *p=body;unsigned fields=0;
+  web_space(&p);if(*p++!='{')return 0;
+  for(unsigned members=0;members<3;members++) {
+    web_space(&p);if(*p++!='"')return 0;
+    const char *key=p;while(*p&&*p!='"')++p;if(!*p)return 0;
+    size_t len=p-key;unsigned field=0;uint32_t *dst=0;
+    if(len==10&&!memcmp(key,"voltage_mv",10)){field=1;dst=mv;}
+    if(len==10&&!memcmp(key,"current_ma",10)){field=2;dst=ma;}
+    if(len==6&&!memcmp(key,"output",6)){field=4;dst=en;}
+    if(!field||(fields&field))return 0;
+    ++p;web_space(&p);if(*p++!=':')return 0;web_space(&p);
+    if(*p<'0'||*p>'9')return 0;
+    if(*p=='0'&&p[1]>='0'&&p[1]<='9')return 0;
+    uint32_t value=0;
+    do {unsigned digit=*p++-'0';if(value>(UINT32_MAX-digit)/10U)return 0;value=value*10U+digit;}while(*p>='0'&&*p<='9');
+    *dst=value;fields|=field;web_space(&p);
+    if(*p=='}'){++p;web_space(&p);return *p?0:fields;}
+    if(*p++!=',')return 0;
   }
-  return 1;
+  return 0;
 }
 
 int psu_web_request(const char *method, const char *path, const char *body,
@@ -1100,24 +1124,35 @@ int psu_web_request(const char *method, const char *path, const char *body,
     snprintf(dst, n, "%s", page);
     return (int)strlen(dst);
   }
+  if (strcmp(method,"POST")==0 && strcmp(path,"/api/feature")==0)
+  {
+    if(!lease_ok(client,0U))return snprintf(dst,n,"{\"result\":\"rejected\",\"reason\":\"lease\"}");
+    return psu_web_features_submit(body,dst,n);
+  }
   if (strcmp(method, "POST") == 0 && strcmp(path, "/api/command") == 0)
   {
     uint32_t mv = 0, ma = 0, en = 0;
+    unsigned fields=web_fields(body,&mv,&ma,&en);
+    if ((fields!=3U && fields!=4U) || (fields==4U && en>1U))
+    {
+      snprintf(dst,n,"{\"result\":\"rejected\",\"reason\":\"invalid_command\"}");
+      return (int)strlen(dst);
+    }
     if (!lease_ok(client, 0U))
     {
       snprintf(dst, n, "{\"result\":\"rejected\",\"reason\":\"lease\"}");
       return (int)strlen(dst);
     }
-    if (body && json_u32(body, "voltage_mv", &mv) && json_u32(body, "current_ma", &ma))
+    if (fields == 3U)
     {
-      int ok = psu_app_set_limits(mv, ma, PSU_SRC_WEB);
+      int ok = !charger.running && !psu_seq_edit_locked(&sequencer) && psu_app_set_limits(mv, ma, PSU_SRC_WEB);
       snprintf(dst, n, "{\"result\":\"%s\",\"requested_mv\":%u,\"requested_ma\":%u}",
                ok ? "queued" : "rejected", (unsigned)snap.requested_mv, (unsigned)snap.requested_ma);
       return (int)strlen(dst);
     }
-    if (body && json_u32(body, "output", &en))
+    if (fields == 4U)
     {
-      int ok = psu_app_set_output(en ? 1 : 0, PSU_SRC_WEB);
+      int ok = en ? (!charger.running && !psu_seq_edit_locked(&sequencer) && psu_app_set_output(1, PSU_SRC_WEB)) : psu_app_shutdown();
       snprintf(dst, n, "{\"result\":\"%s\",\"output_requested\":%u}",
                ok ? "queued" : "rejected", snap.output_requested);
       return (int)strlen(dst);
@@ -1172,7 +1207,7 @@ const char *psu_web_page(void)
 
 
 int psu_remote_enabled(void){return remote_access!=0;}
-void psu_remote_enable(int enabled){remote_access=enabled?1:0;lease_client[0]=0;if(!enabled)psu_net_down();}
+void psu_remote_enable(int enabled){remote_access=enabled?1:0;lease_client[0]=0;}
 
 int psu_app_start_charging(void) {
   PsuChgSense sense;

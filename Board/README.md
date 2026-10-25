@@ -333,5 +333,12 @@ configuration restoration and OFF priority with the simulated supervisor.
 
 Hardware test: EEPROM detected, first commit verified with zero errors; after
 hardware reset the record was loaded, generation stayed 1, and CFSR/HFSR were 0.
-Ethernet bring-up is paused at the user's request; REF_CLK toggles at PD7, but
-LAN8742A SMI identification and RMII packet traffic have not been confirmed.
+Ethernet update 2026-10-25: after the user replaced the transformer, LAN8742A
+negotiates 100/full. The board-owned driver uses PD7 AF4 for RMII REF_CLK,
+DMA in dedicated noncacheable AHB SRAM, and lwIP with DHCP hostname LAB-PD-PSU.
+Actual DHCP address observed: 192.168.0.192; stable UID-derived local MAC
+02:4C:51:09:35:32. See docs/ethernet-console-2026-10-25.md for validation.
+The final browser console is native HTML/SVG, not a framebuffer stream.
+Network task priority is below GUI and UART; no LCD rendering/touch hook changed.
+
+The native browser console now includes seven instrument tabs, shared model commands, external charging, sequence/preset/appearance control and independent browser-side auto-ranging V/A charts. See docs/ethernet-console-2026-10-25.md. Run `python tools/package_remote.py` after editing its HTML/CSS/JS sources.

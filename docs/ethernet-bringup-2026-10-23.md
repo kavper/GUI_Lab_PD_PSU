@@ -49,8 +49,21 @@ Interpretation: SMI management communication works, but the physical Ethernet
 link does not. The short-range TDR indication suggests a local analog-path or
 termination/magnetics issue; it does not identify a particular faulty component.
 Next checks: actual T1 part/pin orientation and winding connections, ESD paths,
-and a scope measurement of REF_CLK frequency. A requested isolation measurement
-across the intended KMS-1102NL windings (pins 1-16 and 6-11) is still pending.
+and verification of the physical pin numbering used for continuity measurements.
+The user reports 50 MHz on R29/PD7 and actual transformer TM1102NL.
+Taoglas TM1102NL datasheet SPE-22-8-073-B, page 6, was visually checked:
+its winding pin assignments match the schematic KMS-1102NL symbol.
+User-reported 1 ohm across 1-16 and 6-11 is inconsistent with isolated
+windings if physical pin numbering is correct. This is not yet proof of a
+failed transformer: board paths and actual probe positions need verification.
+The supplied schematic screenshot confirms only pins 2/7 go to ETH_3V3A;
+15/10 go through separate 75 ohm resistors to the capacitor termination node.
+Requested direct center-tap measurements 2-15 and 7-10 with all power/probe/
+RJ45 disconnected, plus pin-1 marker alignment. No solder rework prescribed.
+The maintained modes wrapper was rerun successfully: AUTO, 100FD/HD and
+10FD/HD all stayed at BMSR 0x7809; internal loopback status reached 0x780D.
+PHY controls were restored afterward. Cable presence in this latest run was
+not independently confirmed.
 Supply resistance and winding DC continuity alone do not identify a fault.
 R33=12.1 kohm is confirmed. RMII packet traffic, DHCP and
 web/SCPI access are **not confirmed**. The current GUI release still leaves the
@@ -80,3 +93,15 @@ Reference: Microchip LAN8742A datasheet DS00001989A, section 3.8.9.1 and registe
 
 Transformer pin reference: ST MB1364 C-01 Ethernet schematic (sheet 6),
 https://www.st.com/resource/en/schematic_pack/mb1364-h743zi-c01_schematic.pdf .
+
+Actual transformer reference (pages 5-6, mechanical and winding drawings):
+https://www.taoglas.com/datasheets/TM1102NL.pdf .
+
+## Resolved 2026-10-25
+
+The user reports replacing the faulty transformer restored Ethernet LED activity.
+Live verification now confirms link/autonegotiation, RMII packets and DHCP.
+The earlier DC-short interpretation was not established by the later separate
+PCB/transformer measurements; do not treat those readings alone as proof of an
+isolation failure. Current firmware and validation are documented in
+ethernet-console-2026-10-25.md.
