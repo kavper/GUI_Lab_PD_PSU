@@ -16,6 +16,19 @@ foreach ($testName in @('test_binary','test_binary_app','test_startup','test_aut
   & $testExe
   if ($LASTEXITCODE -ne 0) { throw "Test failed: $testName" }
 }
+# Compile the HTTP lifetime regression with the actual bundled lwIP core.
+$httpLwipSources = @(Get-ChildItem (Join-Path $testRepo 'Middlewares/Third_Party/LwIP/src/core/*.c'),
+  (Join-Path $testRepo 'Middlewares/Third_Party/LwIP/src/core/ipv4/*.c') | ForEach-Object FullName) +
+  @(Join-Path $testRepo 'Middlewares/Third_Party/LwIP/src/netif/ethernet.c')
+$httpTestExe = Join-Path $testOutput 'test_http_lifetime.exe'
+& $Compiler -std=c11 -Wall -Wextra -DPSU_SIMULATOR `
+  -I (Join-Path $testRepo 'Board') -I (Join-Path $testRepo 'Appli/Core/Inc') `
+  -I (Join-Path $testRepo 'Middlewares/Third_Party/LwIP/src/include') `
+  -I (Join-Path $testRepo 'Middlewares/Third_Party/LwIP/system') `
+  (Join-Path $PSScriptRoot 'test_http_lifetime.c') @testSources @httpLwipSources -o $httpTestExe
+if ($LASTEXITCODE -ne 0) { throw 'Compilation failed: HTTP lifetime' }
+& $httpTestExe
+if ($LASTEXITCODE -ne 0) { throw 'Test failed: HTTP lifetime' }
 $displayCompiler = Join-Path (Split-Path $Compiler -Parent) 'g++.exe'
 $panelTest = Join-Path $testOutput 'test_panel_input.exe'
 & $Compiler -std=c11 -Wall -Wextra -Werror -I (Join-Path $testRepo 'Appli/Core/Inc') `

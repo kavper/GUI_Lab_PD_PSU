@@ -20,3 +20,9 @@ let p=context.decodePdo((100<<10)|300);assert.equal(p.name,'FIXED');assert.equal
 p=context.decodePdo((0xc0000000|(110<<17)|(33<<8)|60)>>>0);assert.equal(p.name,'PPS');assert(Math.abs(p.min-3.3)<1e-9);assert.equal(p.max,11);assert.equal(p.limit,3);
 p=context.decodePdo((0x40000000|(240<<20)|(100<<10)|180)>>>0);assert.equal(p.unit,'W');assert.equal(p.limit,45);
 console.log('PASS browser PDO decode: fixed, PPS, battery power units');
+
+assert.equal(context.niceStep(.020000000000000018),.02,'Floating-point noise must not jump a 20 mV tick to 50 mV');
+const flat=range('flat-voltage',[5.001],.05,0);let ticks=0;
+for(let t=Math.ceil(flat.lo/flat.step)*flat.step;t<=flat.hi+flat.step*.001;t+=flat.step)ticks++;
+assert(ticks>=3,'A flat voltage keeps several labelled grid lines');
+console.log('PASS floating-point tick boundaries and multiple labelled ticks for flat voltage');

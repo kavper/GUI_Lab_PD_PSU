@@ -190,8 +190,24 @@ static void BoardMPU_Config(void)
   MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;
   MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
   HAL_MPU_ConfigRegion(&MPU_InitStruct);
+  /* ES0596 2.2.17: speculative access to the unused GFXMMU virtual window
+   * can lock the entire interconnect, including debug access. Device + XN
+   * prevents speculation; deny architectural access since this GUI does not
+   * use GFXMMU. This window is distinct from GPU2D and real framebuffer RAM. */
+  MPU_InitStruct.Number = MPU_REGION_NUMBER9;
+  MPU_InitStruct.BaseAddress = 0x25000000;
+  MPU_InitStruct.Size = MPU_REGION_SIZE_16MB;
+  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
+  MPU_InitStruct.AccessPermission = MPU_REGION_NO_ACCESS;
+  MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_DISABLE;
+  MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
+  MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;
+  MPU_InitStruct.IsBufferable = MPU_ACCESS_BUFFERABLE;
+  HAL_MPU_ConfigRegion(&MPU_InitStruct);
   /* Enables the MPU */
   HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
+  __DSB();
+  __ISB();
 
 }
 
@@ -204,6 +220,11 @@ int main(void)
 
   /* MPU Configuration--------------------------------------------------------*/
   BoardMPU_Config();
+#if defined(GFXMMU)
+  /* Apply both measures recommended by ES0596 before enabling speculation. */
+  __HAL_RCC_GFXMMU_CLK_ENABLE();
+  __DSB();
+#endif
 
   /* Enable the CPU Cache */
 

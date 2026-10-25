@@ -172,3 +172,98 @@ in the browser, with no LCD capture or GPU involvement.
   PSRAM 10319392 B/32 MiB, ETH AHB 12480 B/32 KiB. RTOS reservation unchanged.
 - Verified code-only programming: Board/web-suite-flash-final.log, AP1, Under
   Reset, hardware reset, 1000 kHz, verification. Graphics were unchanged.
+
+
+## Freeze investigation and compact layout follow-up
+
+The user reported repeated complete LCD freezes after the suite release.
+Ethernet and core debug access disappeared together while ST-Link still
+reported 3.21 V. The earlier short runtime checks did not establish long-term
+stability. Reset alone could not always recover access; a full power cycle
+and repeated Under Reset connection recovered MCU ID 0x485 / Cortex-M7.
+
+Two distinct corrections were made:
+
+1. HTTP ownership: close_session accessed the TCP PCB after successful
+   tcp_close. The lwIP contract revokes ownership at success and may free the
+   PCB immediately. Callbacks are now detached before closing, restored only
+   on error (ownership retained), and no PCB access follows success.
+   test_http_lifetime.c uses the actual bundled lwIP allocator and instruments
+   callback setters against revoked ownership. The test fails on the prior
+   release and passes with this correction, including close-retry callbacks.
+   This HTTP correction alone did not resolve the observed complete freeze.
+
+2. Silicon workaround: the board MPU left the unused GFXMMU window
+   0x25000000-0x25FFFFFF subject to default speculative access. ST ES0596 Rev10
+   section 2.2.17 documents a whole-system hang from this access, including
+   speculation. MPU region 9 now marks the full 16-MiB window Device, XN,
+   noncacheable and no-access. On GFXMMU-equipped parts the clock is also
+   enabled before CPU caches, applying both ST-recommended measures. GPU2D,
+   real framebuffer RAM and all CPU/PSRAM/NOR/display clocks are unchanged.
+   Reference: https://www.st.com/resource/en/errata_sheet/es0596-stm32h7rxx7sxx-device-errata-stmicroelectronics.pdf
+
+The second correction is the leading explanation, supported by the missing
+workaround and failure symptoms; no fault-register dump was recoverable from
+the original locked state, so the exact triggering access was not observed.
+After verified programming of the guarded version, DHCP/HTTP and SWD returned,
+CFSR/HFSR were zero, and the GUI frame counter advanced. The user confirmed
+normal, responsive physical touch/menu behavior during the network stress run.
+The 300-second read-only stress run completed 7991 operations with zero errors,
+including incomplete/fragmented headers and aborted reads. Median/max mixed
+HTML/API response time was 16/63 ms. Final counters: RX 59769, TX 89366,
+RX drops 0, TX errors 0. At uptime 325466 ms the GUI frame counter was 10047,
+CFSR/HFSR were zero and backlight ready was 1. The user operated the local
+screen normally during the test; a subsequent view showed user-enabled
+5 V output with actual current around 0.765 A and controller ACK.
+Runtime MPU readback confirmed region 9, RBAR=0x25000009,
+RASR=0x1005002F. This is a bounded five-minute validation, not a guarantee
+against every future fault or traffic pattern.
+
+The desktop console now caps content at 1440 px wide and 700 px high, aligned
+under the navigation, instead of stretching to the entire monitor. Preset and
+system cards follow their content. The seven tabs still fit 1366x768, and the
+Full-HD layout leaves breathing room around the compact console. These are
+browser CSS changes only.
+
+Regression/build logs: Board/http-free-regressions.log (includes actual-lwIP
+lifetime test), http-free-generate.log, http-free-simulator.log,
+gfxmmu-guard-target.log and gfxmmu-guard-flash.log (download verified).
+Read-only extended test: tools/test_remote_stability.py; it mixes bounded
+parallel GETs with fragmented requests, incomplete headers and RST closes.
+It never sends power, setting or output commands.
+
+The final web bundle also tolerates floating-point noise at 1/2/5 tick
+boundaries, avoiding a single labelled grid line for an almost-flat voltage.
+A regression asserts multiple ticks at 5.001 V. This last adjustment changes
+browser JavaScript only; network/MPU code is identical to the five-minute run.
+Before the final code-only write, HTTP OUTPUT OFF was sent and confirmed.
+Final verified-programming log: Board/gfxmmu-guard-flash-final.log.
+The guarded compact build uses 292000 B AXI RAM and 10319392 B PSRAM;
+framebuffer allocation and graphics assets remain unchanged.
+
+A subsequent short run with an additional open browser experienced two
+network timeouts; the user explicitly confirmed the LCD remained responsive.
+The IP and HTTP recovered without a device reset, and CFSR/HFSR remained zero.
+This was not evidence of another whole-MCU freeze. Read-only SWD at 4000 kHz
+worked when the 1000-kHz debug-read connection failed; network_status.py now
+accepts --freq and defaults to 4000 for reads. Programming remains exactly
+AP1/Under Reset/hardware reset/1000 kHz/verification.
+
+To avoid making transient TCP/network outages look like a frozen web screen,
+each browser request now has a 3-second AbortController timeout covering both
+headers and the response body. The existing polling loop retries afterward,
+and recovered extended telemetry clears its stale connection error notice.
+tests/test_web_api.js covers request abort, stalled response body, timer cleanup,
+JSON POST preservation and HTTP error propagation. These browser changes do
+not alter MCU display scheduling. The final routine-usage check is recorded
+below; the stress tool supports one or two workers to distinguish normal
+browser traffic from intentional connection-capacity pressure.
+
+
+Final combined browser + single-worker 90-second test: 1151 operations,
+zero errors, median/max mixed response 16/63 ms; RX drops and TX errors zero.
+All seven live browser tabs stayed connected at 1366x768 with no clipped
+controls or page scroll; Full-HD content measured 1440x700 under the nav.
+At uptime 146270 ms SWD readout showed GUI frame counter 8188, backlight ready,
+and CFSR/HFSR=0. Output was confirmed OFF after the final update. The screenshot
+was saved as output/web-console-compact-2026-10-25.png in the chat workspace.

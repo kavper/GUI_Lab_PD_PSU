@@ -1,10 +1,14 @@
 """Read live network diagnostics using matching target ELF symbols; no writes/reset."""
+import argparse
 import ctypes as C
 import os
 from pathlib import Path
 import subprocess
 import struct
 from phy_probe import Parameters
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--freq',type=int,default=4000,help='Read-only SWD clock in kHz; programming settings remain 1000 kHz')
+args=parser.parse_args()
 root=Path(__file__).resolve().parents[2]
 binpath=Path('C:/Program Files/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin')
 nm=Path('C:/TouchGFX/4.26.1/env/MinGW/msys/1.0/gnu-arm-gcc/bin/arm-none-eabi-nm.exe')
@@ -23,7 +27,7 @@ def read(address,n):
  finally:api.freeLibraryMemory(data)
 probes=C.POINTER(Parameters)();count=api.getStLinkList(C.byref(probes),0)
 if count!=1:raise RuntimeError(f'Expected one probe, got {count}')
-p=probes[0];p.ap=1;p.mode=1;p.freq=1000
+p=probes[0];p.ap=1;p.mode=1;p.freq=args.freq
 if api.connectStLink(p):raise RuntimeError('SWD connect failed')
 try:
  for name,n in [('BoardNetDiagnostics',13),('BoardGraphicsProfile',7),('BoardBacklightReady',1),('uwTick',1)]:

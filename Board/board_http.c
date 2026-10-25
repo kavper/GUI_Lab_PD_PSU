@@ -25,10 +25,19 @@ typedef struct {
 static Session sessions[SESSION_COUNT] __attribute__((section(".network_memory"),aligned(32)));
 static uint32_t clock_ms;
 static void clear(Session *s) {s->pcb=0;}
+static err_t recv_cb(void *arg,struct tcp_pcb *pcb,struct pbuf *p,err_t err);
+static err_t sent_cb(void *arg,struct tcp_pcb *pcb,u16_t length);
+static void error_cb(void *arg,err_t err);
 static int close_session(Session *s) {
     struct tcp_pcb *pcb=s->pcb;
-    if(tcp_close(pcb)!=ERR_OK)return 0;
+    /* tcp_close may free pcb immediately. Detach while we still own it. */
     tcp_arg(pcb,0);tcp_recv(pcb,0);tcp_sent(pcb,0);tcp_err(pcb,0);
+    err_t result=tcp_close(pcb);
+    if(result!=ERR_OK) {
+        /* On error ownership remains ours; preserve callbacks for retry. */
+        tcp_arg(pcb,s);tcp_recv(pcb,recv_cb);tcp_sent(pcb,sent_cb);tcp_err(pcb,error_cb);
+        return 0;
+    }
     clear(s);return 1;
 }
 static void error_cb(void *arg,err_t err) {(void)err;if(arg)clear(arg);}

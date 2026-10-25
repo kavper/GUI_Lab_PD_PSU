@@ -23,3 +23,12 @@ for test_name in test_display_voltage test_power_gauge test_chart_axis test_usb_
     -IAppli/TouchGFX/gui/include -IAppli/Core/Inc "tests/$test_name.cpp" -o "$test_output/$test_name"
   "$test_output/$test_name"
 done
+
+http_sources=()
+for unit in "${units[@]}"; do http_sources+=("Appli/Core/Src/$unit.c"); done
+"${CC:-cc}" -std=c11 -Wall -Wextra -DPSU_SIMULATOR -IBoard -IAppli/Core/Inc \
+  -IMiddlewares/Third_Party/LwIP/src/include -IMiddlewares/Third_Party/LwIP/system \
+  tests/test_http_lifetime.c "${http_sources[@]}" Middlewares/Third_Party/LwIP/src/core/*.c \
+  Middlewares/Third_Party/LwIP/src/core/ipv4/*.c Middlewares/Third_Party/LwIP/src/netif/ethernet.c \
+  -lm -o "$test_output/test_http_lifetime"
+"$test_output/test_http_lifetime"
