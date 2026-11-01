@@ -27,9 +27,15 @@ void ScreenBatteryView::refresh(){
     lab_show(PackPower,PackPowerBuffer,PACKPOWER_SIZE,value,valid?lab_cyan():lab_muted());
     pack.value(value,sizeof(value),"pack_mv"," V",1000,3);lab_show(PackVoltage,PackVoltageBuffer,PACKVOLTAGE_SIZE,value,lab_text());
     pack.value(value,sizeof(value),"i_pack_ma"," A",1000,3);lab_show(PackCurrent,PackCurrentBuffer,PACKCURRENT_SIZE,value,lab_text());
-    char soc[50],charge[40]="-- Ah";int64_t q=0;pack.value(soc,sizeof(soc),"soc_permille"," %",10,1);
-    if(pack.get("passq_mah",q)){int64_t a=q<0?-q:q;snprintf(charge,sizeof(charge),"%s%ld.%03ld Ah",q<0?"-":"+",(long)(a/1000),(long)(a%1000));}
-    snprintf(value,sizeof(value),"SOC %s / dQ %s",soc,charge);lab_show(PackSoc,PackSocBuffer,PACKSOC_SIZE,value,lab_muted());
+    /* Gauge (G4 BATT group): SOC 0.1 %, learned capacity, SOH, cycles. */
+    TelemetryRecord gauge(G4_RECORD_BATT);
+    char soc[24],soh[24];int64_t gflags=0,cyc=0,rem=0,fcc=0,tte=0,ttf=0;
+    gauge.value(soc,sizeof(soc),"soc_permille"," %",10,1);gauge.value(soh,sizeof(soh),"soh_permille"," %",10,1);
+    if(!gauge.get("soc_permille",rem))pack.value(soc,sizeof(soc),"soc_permille"," %",10,1);
+    gauge.get("soc_flags",gflags);
+    if(gauge.get("cycles_x100",cyc))snprintf(value,sizeof(value),"SOC %s%s | SOH %s | %ld.%02ld cyc",(gflags&2)?"~":"",soc,soh,(long)(cyc/100),(long)(cyc%100));
+    else snprintf(value,sizeof(value),"SOC %s",soc);
+    lab_show(PackSoc,PackSocBuffer,PACKSOC_SIZE,value,lab_muted());
     lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,valid?"Internal pack / measured flow":"Internal pack / waiting for valid BMS data",lab_muted());
     touchgfx::Box* cards[]={&CellCard0,&CellCard1,&CellCard2,&CellCard3,&CellCard4};
     touchgfx::TextArea* labels[]={&CellLabel0,&CellLabel1,&CellLabel2,&CellLabel3,&CellLabel4};
@@ -70,12 +76,22 @@ void ScreenBatteryView::refresh(){
         const int64_t deci=temp-2732,mag=deci<0?-deci:deci;
         snprintf(temperature,sizeof(temperature),"BMS IC %s%ld.%ld C",deci<0?"-":"",(long)(mag/10),(long)(mag%10));
     }
+    if(pack.get("ts1_dK",temp)&&temp>=2000&&temp<=4500){
+        const int64_t deci=temp-2732,mag=deci<0?-deci:deci;
+        snprintf(temperature,sizeof(temperature),"Cell %s%ld.%ld C",deci<0?"-":"",(long)(mag/10),(long)(mag%10));
+    }
     snprintf(details,sizeof(details),"CHG %s / DSG %s | %s",!pack.fresh?"--":pack.is("chg",1)?"ON":"OFF",!pack.fresh?"--":pack.is("dsg",1)?"ON":"OFF",temperature);
     lab_show(ChargerStatus,ChargerStatusBuffer,CHARGERSTATUS_SIZE,details,lab_muted());
     PsuSnapshot snap;psu_snapshot(&snap);
     if(snap.battery_energy_valid)snprintf(value,sizeof(value),"%+.3f Wh",(double)snap.battery_energy_uwms/3600000000000.0);else strcpy(value,"-- Wh");
     lab_show(EnergyValue,EnergyValueBuffer,ENERGYVALUE_SIZE,value,lab_cyan());
-    lab_show(EnergyHint,EnergyHintBuffer,ENERGYHINT_SIZE,"NET ENERGY / SINCE START",lab_muted());
+    if(gauge.get("rem_mah",rem)&&gauge.get("fcc_mah",fcc)){
+        char t[24]="";
+        if(gauge.get("tte_min",tte))snprintf(t,sizeof(t)," | empty %ldh%02ld",(long)(tte/60),(long)(tte%60));
+        else if(gauge.get("ttf_min",ttf))snprintf(t,sizeof(t)," | full %ldh%02ld",(long)(ttf/60),(long)(ttf%60));
+        snprintf(details,sizeof(details),"%ld.%02ld / %ld.%02ld Ah%s",(long)(rem/1000),(long)(rem%1000/10),(long)(fcc/1000),(long)(fcc%1000/10),t);
+        lab_show(EnergyHint,EnergyHintBuffer,ENERGYHINT_SIZE,details,lab_muted());
+    } else lab_show(EnergyHint,EnergyHintBuffer,ENERGYHINT_SIZE,"NET ENERGY / SINCE START",lab_muted());
     int64_t faults=0,alarms=0;pack.get("fault",faults);pack.get("alarm",alarms);
     if(!noticeTicks && (faults||alarms)) {
         snprintf(details,sizeof(details),"BMS fault 0x%lX / alarm 0x%lX",(unsigned long)faults,(unsigned long)alarms);

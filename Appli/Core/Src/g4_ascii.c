@@ -1,4 +1,5 @@
 #include "g4_ascii.h"
+#include "tlm_fields.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -31,24 +32,68 @@ static const char *const keys_t[] = {
   "g0_vout_mv","g0_iout_ma","vpre_req_mv","vpre_cmd_mv","reg_ok","stage_en","ps_en","flt",
   "hold_ms","ps_err","g0_rx","g0_tlm","g0_age_ms","g0_err","g0_uart","pm_st","fmt","mode", NULL
 };
-static const char *const keys_tb[] = {
-  "bms","cfg","st","fault","alert","alarm","sa","sb","sc","fet","manuf","init_step",
-  "vcell_rb","batt","cfg_fail","chg","dsg","fets","series","c1_mv","c2_mv","c3_mv","c4_mv","c5_mv",
-  "min_mv","max_mv","dV_mv","sum_mv","pack_mv","stack_mv","i_pack_ma","i_cc2_ma","sample","alerts","i2c_err","passq_mah","soc_permille","cc1_ma","int_temp_dK","balance_mask","soc_flags", NULL
+/* TB / TC / AUX / BATT key lists come from the shared G4 dictionary
+ * (tlm_fields.h), so a field added on the G4 is available here by name. */
+#define TLMK_(sym, id, grp, name, type) TLMK_SEL_##grp(name)
+#define TLMK_SEL_BMS(n) n,
+#define TLMK_SEL_BATT(n)
+#define TLMK_SEL_PD(n)
+#define TLMK_SEL_AUX(n)
+static const char *const keys_tb[] = { TLM_FIELDS(TLMK_) NULL };
+#undef TLMK_SEL_BMS
+#undef TLMK_SEL_PD
+#define TLMK_SEL_BMS(n)
+#define TLMK_SEL_PD(n) n,
+static const char *const keys_tc[] = { TLM_FIELDS(TLMK_) NULL };
+#undef TLMK_SEL_PD
+#undef TLMK_SEL_AUX
+#define TLMK_SEL_PD(n)
+#define TLMK_SEL_AUX(n) n,
+static const char *const keys_aux[] = { TLM_FIELDS(TLMK_) NULL };
+#undef TLMK_SEL_AUX
+#undef TLMK_SEL_BATT
+#define TLMK_SEL_AUX(n)
+#define TLMK_SEL_BATT(n) n,
+static const char *const keys_batt[] = { TLM_FIELDS(TLMK_) NULL };
+#undef TLMK_SEL_BMS
+#undef TLMK_SEL_BATT
+#undef TLMK_SEL_PD
+#undef TLMK_SEL_AUX
+#undef TLMK_
+
+static const TlmFieldInfo_t s_tlm_fields[] = {
+#define TLM_INFO_(sym, id, grp, name, type) { (id), TLM_GROUP_##grp, (type), (name) },
+  TLM_FIELDS(TLM_INFO_)
+#undef TLM_INFO_
 };
-static const char *const keys_tc[] = {
-  "bq_ok","bq_vbat_mv","bq_vsys_mv","bq_ibat_ma","bq_ichg_ma","bq_idchg_ma","bq_vbus_mv","bq_iin_ma",
-  "bq_vreg_mv","bq_ichg_set_ma","bq_iin_set_ma","bq_st","bq_fault","bq_in","bq_pre","bq_fast","bq_otg",
-  "bq_iindpm","bq_vindpm","tps_vbus_mv","cc1","cc2","role","conn","plug","typec","rst","rst_busy",
-  "pd_role","pd_mv","pd_ma", "attach_gen", NULL
-};
-static const char *const keys_aux[]={"dac_cv_mv","dac_cc_mv","t1","t2","t3","t4","fan","pgood","bleed","valid","local_mv","remote_p_mv","remote_n_mv","sense_code","sense_flags","fan_rpm","stop_reason",NULL};
+const TlmFieldInfo_t *Tlm_Find(uint8_t id) {
+  unsigned i;
+  for (i = 0; i < sizeof(s_tlm_fields) / sizeof(s_tlm_fields[0]); i++)
+    if (s_tlm_fields[i].id == id) return &s_tlm_fields[i];
+  return NULL;
+}
+int Tlm_Decode(const uint8_t *p, uint8_t len, uint8_t *group, uint8_t *part,
+               uint8_t *parts, TlmFieldCb cb, void *ctx) {
+  uint8_t n = TLM_HEADER_BYTES;
+  if (len < TLM_HEADER_BYTES || p[0] != TLM_FIELDS_VERSION || p[3] == 0 || p[2] >= p[3]) return 0;
+  *group = p[1]; *part = p[2]; *parts = p[3];
+  while (n < len) {
+    uint8_t id, type, l, k; uint32_t v = 0;
+    if ((uint8_t)(len - n) < 2) return 0;
+    id = p[n++]; type = p[n++]; l = TLM_TYPE_LEN(type);
+    if ((l != 1 && l != 2 && l != 4) || (uint8_t)(len - n) < l) return 0;
+    for (k = 0; k < l; k++) v |= (uint32_t)p[n++] << (8 * k);
+    if (TLM_TYPE_SIGNED(type) && l < 4) { uint32_t sign = 1UL << (8 * l - 1); if (v & sign) v |= ~((sign << 1) - 1); }
+    if (cb) cb(ctx, id, (int32_t)v);
+  }
+  return 1;
+}
 static const char *const *record_keys(uint8_t kind) {
-  return kind==G4_RECORD_AUX ? keys_aux : kind==G4_RECORD_T ? keys_t : kind==G4_RECORD_TB ? keys_tb : keys_tc;
+  return kind==G4_RECORD_BATT ? keys_batt : kind==G4_RECORD_AUX ? keys_aux : kind==G4_RECORD_T ? keys_t : kind==G4_RECORD_TB ? keys_tb : keys_tc;
 }
 int g4_record_value(const G4Record *record,const char *key,int64_t *out) {
   unsigned i;const char *const *keys;
-  if(!record||!record->valid||record->kind>G4_RECORD_AUX||!key||!out)return 0;
+  if(!record||!record->valid||record->kind>G4_RECORD_BATT||!key||!out)return 0;
   keys=record_keys(record->kind);
   for(i=0;keys[i] && i<64;i++)if(!strcmp(keys[i],key)) {
     if(!(record->present&((uint64_t)1<<i)))return 0;
@@ -57,7 +102,7 @@ int g4_record_value(const G4Record *record,const char *key,int64_t *out) {
   return 0;
 }
 void g4_record_snapshot(const G4Port *p,uint8_t kind,G4Record *out) {
-  uint32_t irq;if(!p||!out||kind>G4_RECORD_AUX)return;
+  uint32_t irq;if(!p||!out||kind>G4_RECORD_BATT)return;
   irq=lock();*out=p->records[kind];unlock(irq);
 }
 static uint16_t u16(const uint8_t *p){return (uint16_t)(p[0]|((uint16_t)p[1]<<8));}
@@ -101,6 +146,45 @@ void g4_pd_capabilities_snapshot(G4Port *p,G4PdCapabilities *out)
 {
  uint32_t irq;if(!p||!out)return;irq=lock();*out=p->pd_caps;unlock(irq);
 }
+static void field(G4Record *r,const char *k,int64_t v);
+static uint8_t fields_kind(uint8_t group){
+  return group==TLM_GROUP_BMS?G4_RECORD_TB:group==TLM_GROUP_PD?G4_RECORD_TC:
+         group==TLM_GROUP_AUX?G4_RECORD_AUX:group==TLM_GROUP_BATT?G4_RECORD_BATT:0xFF;
+}
+static void fields_cb(void *ctx,uint8_t id,int32_t v){
+  G4Record *r=(G4Record *)ctx;const TlmFieldInfo_t *f=Tlm_Find(id);
+  if(f&&fields_kind(f->group)==r->kind)field(r,f->name,TLM_TYPE_SIGNED(f->type)?(int64_t)v:(int64_t)(uint32_t)v);
+}
+/* Rebuild the struct the UI reads directly from the merged TB record. */
+static void battery_from_record(G4Battery *b,const G4Record *r,uint32_t now){
+  int64_t v;unsigned i;memset(b,0,sizeof(*b));b->valid=1;b->ms=now;
+  if(g4_record_value(r,"bms",&v))b->present=(uint8_t)v;
+  if(g4_record_value(r,"cfg",&v))b->configured=(uint8_t)v;
+  if(g4_record_value(r,"fault",&v))b->fault=(uint32_t)v;
+  if(g4_record_value(r,"chg",&v))b->chg=(uint8_t)v;
+  if(g4_record_value(r,"dsg",&v))b->dsg=(uint8_t)v;
+  if(g4_record_value(r,"series",&v))b->series=(uint8_t)v;
+  if(g4_record_value(r,"pack_mv",&v))b->pack_mv=(uint32_t)v;
+  if(g4_record_value(r,"stack_mv",&v))b->stack_mv=(uint32_t)v;
+  if(g4_record_value(r,"i_pack_ma",&v))b->current_ma=(int32_t)v;
+  if(g4_record_value(r,"sample",&v))b->sample=(uint8_t)v;
+  for(i=0;i<5;i++){char key[8];snprintf(key,sizeof(key),"c%u_mv",i+1);b->cell_mv[i]=g4_record_value(r,key,&v)?(int32_t)v:-1;}
+}
+static void decode_fields(G4Port *p,const uint8_t *d,unsigned n,uint32_t now){
+  uint8_t group,part,parts,k;uint32_t irq;G4Record *st;
+  if(n<TLM_HEADER_BYTES||n>TLM_MAX_PAYLOAD){p->fields_errors++;return;}
+  group=d[1];k=fields_kind(group);
+  if(k==0xFF){p->fields_errors++;return;} /* newer group: ignore */
+  st=&p->stage[k];
+  if(d[2]==0){memset(st,0,sizeof(*st));st->kind=k;p->stage_next[k]=0;}
+  if(d[2]!=p->stage_next[k]){p->stage_next[k]=0xFF;return;} /* lost a part: wait for next part 0 */
+  if(!Tlm_Decode(d,(uint8_t)n,&group,&part,&parts,fields_cb,st)){p->fields_errors++;p->stage_next[k]=0xFF;return;}
+  p->stage_next[k]=(uint8_t)(part+1);
+  if(part+1!=parts)return;
+  st->valid=1;st->ms=now;p->fields_seen[k]=1;
+  irq=lock();p->records[k]=*st;if(k==G4_RECORD_TB)battery_from_record(&p->battery,st,now);unlock(irq);
+  p->fields_frames++;p->seen_rx=1;p->last_rx_ms=now;p->rx_lines++;
+}
 static void decode(G4Port *p,uint8_t type,uint8_t seq,const uint8_t *d,unsigned n,uint32_t now){
  unsigned i,k;G4Record r;uint32_t irq;
  if(type==0x14){
@@ -115,8 +199,12 @@ static void decode(G4Port *p,uint8_t type,uint8_t seq,const uint8_t *d,unsigned 
  }
 
  if(type==0x81||type==0x82){if(n!=(type==0x81?1u:2u)){p->parse_error_count++;return;}if(type==0x82){p->nack_valid=1;p->nack_type=d[0];p->nack_seq=seq;p->nack_reason=d[1];p->nack_ms=now;p->nack_matched=p->transaction_active[seq]==1&&p->transaction_type[seq]==d[0];snprintf(p->last_rx,sizeof(p->last_rx),"NACK TYPE=%02X SEQ=%u reason=%u %s",d[0],seq,d[1],p->nack_matched?"matched":"unmatched");log_line(p,0,p->last_rx,now);}if(p->transaction_active[seq]!=1||p->transaction_type[seq]!=d[0])return;irq=lock();reply(p,p->transaction_id[seq],type==0x81?2:3);p->transaction_active[seq]=0;for(i=0;i<2;i++)if(p->inflight_len[i]&&p->inflight_seq[i]==seq)p->inflight_len[i]=0;if(type==0x81)p->ack_count++;else p->err_count++;unlock(irq);return;}
+ if(type==TLM_FRAME_FIELDS){decode_fields(p,d,n,now);return;}
  if(type==0x20){if(n<1||n>96)return;memcpy(p->last_rx,d,n<sizeof(p->last_rx)?n:sizeof(p->last_rx)-1);p->last_rx[n<sizeof(p->last_rx)?n:sizeof(p->last_rx)-1]=0;log_line(p,0,p->last_rx,now);return;}
  k=type-0x10;if(k>3||n!=(k==2?64u:k==3?32u:72u)){p->parse_error_count++;return;}
+ /* G4 with the FIELDS dictionary also sends these fixed frames for older
+    H7 builds; once FIELDS delivered a group, the fixed copy is ignored. */
+ if(k&&p->fields_seen[k])return;
  if(p->rx_seen[k]&&p->rx_seq[k]==seq)return;
  memset(&r,0,sizeof(r));r.kind=k;r.valid=1;r.ms=now;
 #define F(key,v) field(&r,key,(v))

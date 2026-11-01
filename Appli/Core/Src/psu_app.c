@@ -630,7 +630,7 @@ void psu_app_tick(uint32_t now_ms)
     snap.bms_valid = g4.battery.valid && now_ms-g4.battery.ms<=1000U && g4.battery.present && g4.battery.configured && g4.battery.sample;
     memset(snap.cell_mv,0,sizeof(snap.cell_mv));
     /* BQ76922 4S uses physical taps 1,2,3,5 (c4=-1), compact for four UI cells. */
-    {unsigned k=0,j;for(j=0;j<5&&k<4;j++)if(g4.battery.cell_mv[j]>0)snap.cell_mv[k++]=(uint16_t)g4.battery.cell_mv[j];}
+    {unsigned k=0,j;for(j=0;j<5&&k<5;j++)if(g4.battery.cell_mv[j]>0)snap.cell_mv[k++]=(uint16_t)g4.battery.cell_mv[j];}
     snap.bms_fet_chg=g4.battery.chg;snap.bms_fet_dsg=g4.battery.dsg;
     if(g4.battery.fault)snprintf(snap.bms_fault,sizeof(snap.bms_fault),"BMS 0x%lX",(unsigned long)g4.battery.fault);
     else snprintf(snap.bms_fault,sizeof(snap.bms_fault),"%s",snap.bms_valid?"":"NO PACK DATA");

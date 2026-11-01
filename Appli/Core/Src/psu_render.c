@@ -57,9 +57,9 @@ void psu_render_bms(char *dst, size_t n)
     return;
   }
   snprintf(dst, n,
-           "C1 %u mV  C2 %u mV\nC3 %u mV  C4 %u mV\n"
+           "C1 %u  C2 %u  C3 %u mV\nC4 %u  C5 %u mV\n"
            "CHG FET %u  DSG FET %u  BAL 0x%02X\n%s",
-           s.cell_mv[0], s.cell_mv[1], s.cell_mv[2], s.cell_mv[3],
+           s.cell_mv[0], s.cell_mv[1], s.cell_mv[2], s.cell_mv[3], s.cell_mv[4],
            s.bms_fet_chg, s.bms_fet_dsg, s.bms_balancing, s.bms_fault);
 }
 

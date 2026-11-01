@@ -141,7 +141,7 @@ typedef struct
   uint8_t chg_state;
   char chg_reason[64];
   uint8_t bms_valid;
-  uint16_t cell_mv[4];
+  uint16_t cell_mv[5];
   int16_t bms_temp_centi[3];
   uint8_t bms_fet_chg;
   uint8_t bms_fet_dsg;
