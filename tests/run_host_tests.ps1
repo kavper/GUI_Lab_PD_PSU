@@ -39,7 +39,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Test failed: panel input' }
 $displayRuntimePath = $env:PATH
 try {
   $env:PATH = (Split-Path $displayCompiler -Parent) + ';' + $env:PATH
-  foreach ($displayName in @('test_display_voltage','test_power_gauge','test_chart_axis','test_usb_session','test_battery_trend','test_rounded_corners','test_pd_objects','test_edge_back')) {
+  foreach ($displayName in @('test_display_voltage','test_power_gauge','test_chart_axis','test_usb_session','test_battery_trend','test_rounded_corners','test_pd_objects','test_edge_back','test_cell_balance')) {
     $displayTest = Join-Path $testOutput "$displayName.exe"
     & $displayCompiler -std=c++11 -Wall -Wextra -Werror `
       -I (Join-Path $testRepo 'Appli/TouchGFX/gui/include') -I (Join-Path $testRepo 'Appli/Core/Inc') `

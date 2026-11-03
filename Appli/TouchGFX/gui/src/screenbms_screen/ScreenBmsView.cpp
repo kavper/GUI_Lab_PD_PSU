@@ -2,6 +2,7 @@
 #include <gui/common/ErrorCatalog.hpp>
 #include <gui/common/KitPage.hpp>
 #include <gui/common/UiTheme.hpp>
+#include <gui/common/CellBalance.hpp>
 #include <stdlib.h>
 
 ScreenBmsView::ScreenBmsView() : divider(0), noticeTicks(0), clicked(this, &ScreenBmsView::onClick) { notice[0] = 0; }
@@ -101,6 +102,7 @@ void ScreenBmsView::refresh()
         if (usable[i]) { if (cells[i] < lo) lo = cells[i]; if (cells[i] > hi) hi = cells[i]; sum += cells[i]; ++active; }
     }
     const int64_t avg = active ? sum / active : 0;
+    const int32_t scale = cellbalance::scaleMv(active ? (hi - avg > avg - lo ? hi - avg : avg - lo) : 0);
     for (int i = 0; i < CELLS; ++i) {
         if (usable[i]) {
             kit::milli(b, sizeof(b), cells[i], "", 3);
@@ -108,7 +110,7 @@ void ScreenBmsView::refresh()
             const int64_t d = cells[i] - avg;
             snprintf(b, sizeof(b), "%s%ld", d > 0 ? "+" : "", (long)d);
             cellDelta[i].set(b, ui::MUTED);
-            deviation[i].set((int)(d * 1000 / 20), cells[i] == lo && lo != hi ? ui::CAUTION : ui::ACCENT);
+            deviation[i].set(cellbalance::permille(d, scale), cells[i] == lo && lo != hi ? ui::CAUTION : ui::ACCENT);
             const bool bal = balance & (1U << i);
             const char* st = bal ? "balancing" : (lo != hi && cells[i] == lo) ? "min" : (lo != hi && cells[i] == hi) ? "max" : "";
             cellState[i].set(st, bal ? ui::POSITIVE : ui::MUTED);
@@ -121,8 +123,8 @@ void ScreenBmsView::refresh()
             cellName[i].setRole(ui::MUTED);
         }
     }
-    if (pack.get("series", series) && series > 0) snprintf(b, sizeof(b), "%ldS \xC2\xB7 avg %ld.%03ld V", (long)series, (long)(avg / 1000), (long)(avg % 1000));
-    else snprintf(b, sizeof(b), active ? "avg %ld.%03ld V" : "waiting for cell samples", (long)(avg / 1000), (long)(avg % 1000));
+    if (pack.get("series", series) && series > 0) snprintf(b, sizeof(b), "%ldS \xC2\xB7 avg %ld.%03ld V \xC2\xB7 bars +/-%ld mV", (long)series, (long)(avg / 1000), (long)(avg % 1000), (long)scale);
+    else snprintf(b, sizeof(b), active ? "avg %ld.%03ld V \xC2\xB7 bars +/-%ld mV": "waiting for cell samples", (long)(avg / 1000), (long)(avg % 1000), (long)scale);
     cellsCard.setNote(b);
     int64_t v = 0;
     if (sample && pack.get("stack_mv", v)) { kit::milli(b, sizeof(b), v, "V"); foot[0].set(b, ui::VOLT); } else foot[0].set("-- V", ui::MUTED);

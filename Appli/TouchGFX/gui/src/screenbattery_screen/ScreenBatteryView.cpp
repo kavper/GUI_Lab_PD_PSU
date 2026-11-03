@@ -3,6 +3,7 @@
 #include <gui/screenbattery_screen/ScreenBatteryView.hpp>
 #include <gui/common/LabText.hpp>
 #include <gui/common/TelemetryData.hpp>
+#include <gui/common/CellBalance.hpp>
 #include <gui/common/FrontendApplication.hpp>
 #include <images/BitmapDatabase.hpp>
 
@@ -184,7 +185,7 @@ void ScreenBatteryView::refresh()
     faultChip.setX(dsgChip.getX() + dsgChip.getWidth() + 6);
     healthCard.invalidate();
 
-    // Cells: value, level tube (2.5 .. 4.25 V), state and balancing.
+    // Cells: value, imbalance tube (half full = average, dynamic +/- scale), state and balancing.
     touchgfx::TextArea* readings[] = { &CellValue0, &CellValue1, &CellValue2, &CellValue3, &CellValue4 };
     touchgfx::TextArea* states[] = { &CellStatus0, &CellStatus1, &CellStatus2, &CellStatus3, &CellStatus4 };
     touchgfx::Unicode::UnicodeChar* rb[] = { CellValue0Buffer, CellValue1Buffer, CellValue2Buffer, CellValue3Buffer, CellValue4Buffer };
@@ -196,6 +197,8 @@ void ScreenBatteryView::refresh()
         available[i] = pack.get(key, cells[i]);
         if (available[i] && cells[i] > 0 && cells[i] <= 5000) { if (cells[i] < lo) lo = cells[i]; if (cells[i] > hi) hi = cells[i]; sum += cells[i]; ++active; }
     }
+    const int64_t avg = active ? sum / active : 0;
+    const int32_t scale = cellbalance::scaleMv(active ? (hi - avg > avg - lo ? hi - avg : avg - lo) : 0);
     for (unsigned i = 0; i < 5; i++) {
         const bool usable = available[i] && cells[i] > 0 && cells[i] <= 5000;
         const bool unused = available[i] && cells[i] == -1;
@@ -204,10 +207,10 @@ void ScreenBatteryView::refresh()
         lab_show(*readings[i], rb[i], 100, value, ui::Theme::color(usable ? ui::TEXT : ui::MUTED));
         const char* status = unused ? "inactive" : !usable ? "no data" : balancing ? "balancing" : (cells[i] == lo && cells[i] == hi) ? "" : cells[i] == lo ? "min" : cells[i] == hi ? "max" : "";
         lab_show(*states[i], sb[i], 100, status, ui::Theme::color(balancing ? ui::POSITIVE : ui::MUTED));
-        const int permille = usable ? (int)((cells[i] - 2500) * 1000 / 1750) : 0;
+        const int permille = usable ? 500 + cellbalance::permille(cells[i] - avg, scale) / 2 : 0;
         cellLevel[i].set(permille, ui::VOLT, balancing ? ui::POSITIVE : ui::BORDER);
     }
-    if (active) snprintf(value, sizeof(value), "spread %ld mV · avg %ld.%03ld V · %u active", (long)(hi - lo), (long)(sum / active / 1000), (long)(sum / active % 1000), active);
+    if (active) snprintf(value, sizeof(value), "spread %ld mV · avg %ld.%03ld V · bars +/-%ld mV", (long)(hi - lo), (long)(avg / 1000), (long)(avg % 1000), (long)scale);
     else strcpy(value, "waiting for valid cell samples");
     lab_show(CellSpread, CellSpreadBuffer, CELLSPREAD_SIZE, value, lab_muted());
     int64_t series = 0; char caption[24];
