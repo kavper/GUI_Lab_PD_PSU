@@ -25,5 +25,10 @@ int main(){
  c.rdo=(6u<<28)|(550u<<9)|40u;c.active_pdo=pps.raw;ui::formatPdRequest(text,sizeof(text),c);assert(strstr(text,"11.00 V")&&strstr(text,"2.00 A"));
  c.flags=1;ui::formatPdRequest(text,sizeof(text),c);assert(strstr(text,"No active RDO"));assert(!ui::selectedPdObject(c));
  c.flags=7;c.rdo=8u<<28;assert(!ui::selectedPdObject(c));
- puts("PASS PDO/RDO units, fixed/variable/battery/PPS, unknown APDO, giveback, selection and cable-session freshness");
+ // DRP toggling without a partner must not surface a role; a live session
+ // prefers the contract role and falls back to the TPS role while negotiating.
+ assert(ui::usbPortRole(false,0,1)==0&&ui::usbPortRole(false,0,2)==0&&ui::usbPortRole(false,2,2)==0);
+ assert(ui::usbPortRole(true,1,2)==1&&ui::usbPortRole(true,2,1)==2);
+ assert(ui::usbPortRole(true,0,1)==1&&ui::usbPortRole(true,0,2)==2&&ui::usbPortRole(true,0,0)==0&&ui::usbPortRole(true,3,7)==0);
+ puts("PASS PDO/RDO units, fixed/variable/battery/PPS, unknown APDO, giveback, selection, cable-session freshness and partner-only role");
 }

@@ -4,6 +4,14 @@
 #include <string.h>
 #include "g4_pd_caps.h"
 namespace ui {
+// TPS PresentRole means something only with a live partner (conn 6/7). While
+// the port DRP-toggles (cable only, detach, role reset) it alternates
+// SINK/SOURCE several times a second, which made the page flicker.
+inline unsigned usbPortRole(bool attached,int64_t contractRole,int64_t typecRole) {
+    if (!attached) return 0;
+    if (contractRole==1||contractRole==2) return (unsigned)contractRole;
+    return (typecRole==1||typecRole==2) ? (unsigned)typecRole : 0u;
+}
 inline bool pdCapabilitiesCurrent(const G4PdCapabilities& c,uint32_t now,bool attached,unsigned role,unsigned generation) {
     // Capabilities arrive about once a second; a late record must not blank
     // the table for a frame (seen as the whole page blinking once).

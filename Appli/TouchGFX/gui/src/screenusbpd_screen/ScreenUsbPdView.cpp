@@ -150,14 +150,14 @@ void ScreenUsbPdView::refresh()
     const bool rawAttached = usb.is("plug", 1) && haveConnectionState &&
                              (connectionState == 6 || connectionState == 7);
     usb.get("pd_role", contractRole);
-    roleCode = contractRole;
-    if (roleCode != 1 && roleCode != 2) usb.get("role", roleCode);
+    int64_t typecRole = 0;
+    usb.get("role", typecRole);
     const bool rawContract = rawAttached && (contractRole == 1 || contractRole == 2) && usb.get("pd_mv", pdMv) && usb.get("pd_ma", pdMa) && pdMv > 0 && pdMa > 0;
     // A reported detach/stale frame invalidates the session immediately.
     // Smooth labels only; never hold old capabilities across a cable change.
     const bool attached = rawAttached;
-    const unsigned sessionRole = (unsigned)roleCode;
-    roleCode = steadyRole.update((int)roleCode, now, 1200);
+    const unsigned sessionRole = ui::usbPortRole(attached, contractRole, typecRole);
+    roleCode = steadyRole.update((int)sessionRole, now, 1200);
     const bool contract = steadyContract.update(rawContract, now, 1200) != 0 && pdMv > 0 && pdMa > 0;
     // Buttons stay usable through short telemetry gaps.
     const bool online = steadyOnline.update(usb.record.valid && now - usb.record.ms < 3000, now, 1500) != 0;

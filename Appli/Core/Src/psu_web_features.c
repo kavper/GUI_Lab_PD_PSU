@@ -147,7 +147,8 @@ static void record(Json *w,unsigned kind) {
         const char *key=g4_record_key(kind,k);if(!key||!key[0])continue;
         if(emitted++)add(w,",");
         string(w,key);add(w,":");integer64(w,r.values[k]);
-    }add(w,"},\"raw\":");char raw[1600];g4_raw_snapshot(psu_g4(),kind,raw,sizeof(raw));string(w,raw);add(w,"}");
+    }
+    add(w,"},\"raw\":");char raw[1600];g4_raw_snapshot(psu_g4(),kind,raw,sizeof(raw));string(w,raw);add(w,"}");
 }
 int psu_web_features_state(const char *path,char *out,size_t size) {
     Json w={out,size,0,0};if(!out||size<32)return 0;
