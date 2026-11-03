@@ -5,7 +5,9 @@
 #include "g4_pd_caps.h"
 namespace ui {
 inline bool pdCapabilitiesCurrent(const G4PdCapabilities& c,uint32_t now,bool attached,unsigned role,unsigned generation) {
-    return attached&&c.valid&&now-c.ms<=1000u&&(c.flags&1u)&&c.role==role&&
+    // Capabilities arrive about once a second; a late record must not blank
+    // the table for a frame (seen as the whole page blinking once).
+    return attached&&c.valid&&now-c.ms<=3500u&&(c.flags&1u)&&c.role==role&&
         (uint8_t)c.attach_generation==(uint8_t)generation;
 }
 struct PdObject {

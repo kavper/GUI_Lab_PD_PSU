@@ -60,7 +60,7 @@ int main(void)
     assert(s.commits==2&&!s.dirty);psu_nv_init(&boot,rd,wr,0);assert(psu_nv_load(&boot,out)&&!memcmp(out,a,sizeof(a)));
 
     psu_app_init();assert(psu_preset_set(0,12345,2345));assert(psu_app_set_limits(7654,1234,PSU_SRC_LCD));
-    PsuAppearance appearance={0,2,70,0,2,1};psu_appearance_set(&appearance);
+    PsuAppearance appearance={0,2,70,0,2,1,PSU_THEME_LIGHT,60};psu_appearance_set(&appearance);
     assert(psu_config_encode(a,sizeof(a)));psu_app_init();assert(psu_config_decode(a,sizeof(a)));
     PsuSnapshot snapshot;psu_snapshot(&snapshot);PsuAppearance restored;psu_appearance_get(&restored);
     assert(snapshot.requested_mv==7654&&snapshot.requested_ma==1234);
@@ -68,6 +68,13 @@ int main(void)
     assert(psu_preset_get(0)->voltage_mv==12345&&psu_preset_get(0)->current_ma==2345);
     assert(!memcmp(&appearance,&restored,sizeof(restored)));
     memcpy(b,a,sizeof(b));b[13]=99;assert(!psu_config_decode(b,sizeof(b))); /* Invalid accent: no partial import. */
+    {   /* Older records without theme/brightness bytes keep the dark/light family at full backlight. */
+        uint8_t legacy[512];memcpy(legacy,a,sizeof(legacy));legacy[331]=legacy[332]=0;
+        assert(psu_config_decode(legacy,sizeof(legacy)));PsuAppearance l;psu_appearance_get(&l);
+        assert(l.theme==PSU_THEME_LIGHT&&l.brightness==100);
+        memcpy(b,a,sizeof(b));b[332]=2;assert(!psu_config_decode(b,sizeof(b))); /* Brightness below minimum. */
+        assert(psu_config_decode(a,sizeof(a)));
+    }
     assert(psu_config_encode(b,sizeof(b))&&!memcmp(a,b,sizeof(a)));
     /* Restored setpoints must survive the supervisor's initial default readback. */
     for(uint32_t t=16;t<1000;t+=16){psu_sim_tick(t);psu_app_tick(t);}

@@ -2,13 +2,30 @@
 #define FRONTENDAPPLICATION_HPP
 #include <gui_generated/common/FrontendApplicationBase.hpp>
 #include <gui/common/FingerSwipeState.hpp>
-#include <gui/common/EdgeBackGesture.hpp>
+#include <gui/common/Kit.hpp>
 class FrontendHeap;
 using namespace touchgfx;
+
+// Navigation model of the unified UI:
+//  - pages belong to groups (Monitor, Tools, System); a horizontal finger
+//    swipe moves to the neighbouring page of the same group,
+//  - a downward swipe from the top edge opens the quick menu sheet,
+//  - the header back button returns home (or closes the menu).
 class FrontendApplication : public FrontendApplicationBase
 {
 public:
-    enum SwipePage { OTHER, MAIN, SETTINGS, USB_PD, DETAIL, BATTERY, BMS };
+    enum Page {
+        OTHER, SPLASH, MAIN, MENU,
+        BATTERY, BMS, USB_PD, OUTPUT, SENSE, PROTECTION,
+        PRESETS, SEQUENCER, CHARGER,
+        DIAGNOSTICS, NETWORK, APPEARANCE, SERVICE,
+        PAGE_COUNT
+    };
+    enum Motion { FORWARD, BACKWARD, DOWN, UP, INSTANT };
+    // Legacy names still used by a few views.
+    static const Page SETTINGS = MENU;
+    typedef Page SwipePage;
+
     FrontendApplication(Model& m, FrontendHeap& heap);
     virtual ~FrontendApplication() { }
     virtual void handleTickEvent();
@@ -16,49 +33,60 @@ public:
     virtual void handleClickEvent(const touchgfx::ClickEvent& event);
     virtual void handleDragEvent(const touchgfx::DragEvent& event);
     virtual void handleGestureEvent(const touchgfx::GestureEvent& event);
+
+    void go(Page target, Motion motion = FORWARD);
+    void openMenu();
+    void closeMenu();
     void navigateBack();
+    static kit::PageInfo pageInfo(Page page);
+    static Page neighbour(Page page, int direction);
+
     bool isScreenTransitionActive() const
     {
         return swipe.active() || (currentTransition && !currentTransition->isDone());
     }
-    void setSwipePage(SwipePage value) { page=value; }
-    SwipePage swipePage() const { return page; }
+    void setSwipePage(Page value) { page = value; }
+    Page swipePage() const { return page; }
     FingerSwipeState& fingerSwipe() { return swipe; }
-    // Hide the generated entry points with cached transitions; Designer calls
-    // still use the same names and generated sources remain unchanged.
-#define CACHED_ROUTE(name) void name(); void name##CachedImpl();
-    CACHED_ROUTE(gotoScreen1ScreenWipeTransitionEast)
-    CACHED_ROUTE(gotoScreenSettingsScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenSettingsScreenWipeTransitionEast)
-    CACHED_ROUTE(gotoScreenMeasurementsScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenDiagnosticsScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenPresetsScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenSequencerScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenBmsScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenBatteryScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenBatteryScreenWipeTransitionEast)
-    CACHED_ROUTE(gotoScreenPowerPathScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenUsbPdScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenExtChargerScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenNetworkScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenAppearanceScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenProtectionScreenWipeTransitionWest)
-    CACHED_ROUTE(gotoScreenServiceScreenWipeTransitionWest)
-#undef CACHED_ROUTE
+
+    // Compatibility wrappers for existing call sites.
+    void gotoScreen1ScreenWipeTransitionEast() { go(MAIN, BACKWARD); }
+    void gotoScreenSettingsScreenWipeTransitionWest() { openMenu(); }
+    void gotoScreenSettingsScreenWipeTransitionEast() { openMenu(); }
+    void gotoScreenMeasurementsScreenWipeTransitionWest() { go(OUTPUT); }
+    void gotoScreenDiagnosticsScreenWipeTransitionWest() { go(DIAGNOSTICS); }
+    void gotoScreenPresetsScreenWipeTransitionWest() { go(PRESETS); }
+    void gotoScreenSequencerScreenWipeTransitionWest() { go(SEQUENCER); }
+    void gotoScreenBmsScreenWipeTransitionWest() { go(BMS); }
+    void gotoScreenBatteryScreenWipeTransitionWest() { go(BATTERY); }
+    void gotoScreenBatteryScreenWipeTransitionEast() { go(BATTERY, BACKWARD); }
+    void gotoScreenPowerPathScreenWipeTransitionWest() { go(SENSE); }
+    void gotoScreenUsbPdScreenWipeTransitionWest() { go(USB_PD); }
+    void gotoScreenExtChargerScreenWipeTransitionWest() { go(CHARGER); }
+    void gotoScreenNetworkScreenWipeTransitionWest() { go(NETWORK); }
+    void gotoScreenAppearanceScreenWipeTransitionWest() { go(APPEARANCE); }
+    void gotoScreenProtectionScreenWipeTransitionWest() { go(PROTECTION); }
+    void gotoScreenServiceScreenWipeTransitionWest() { go(SERVICE); }
+
 private:
-    EdgeBackGesture edgeBack;
-    SwipePage backPage = SETTINGS;
-    SwipePage page,origin,destination;
+    Page page, origin, destination, menuReturn, pendingPage;
+    Motion pendingMotion;
     FingerSwipeState swipe;
-    int16_t startX,startY;
-    bool armed,rollbackQueued;
+    int16_t startX, startY;
+    bool armed, rollbackQueued, menuGesture;
+    int16_t snapX, snapY; // touch redirected to a nearby control
     MainSwipeEditorState editorState;
     char usbNotice[100];
     uint16_t usbNoticeTicks;
+    uint8_t appliedBrightness;
     touchgfx::Callback<FrontendApplication> fingerTransitionCallback;
-    touchgfx::Callback<FrontendApplication> cachedTransitionCallback;
+    touchgfx::Callback<FrontendApplication> routeCallback;
     void beginFingerTransition();
     void rollbackFingerTransition();
     void saveOriginState();
+    void performRoute();
+    void startSheet(bool open, int pixels, bool autoplay = false);
+    template <class Transition> void makeScreen(Page target);
+    void applyBrightness();
 };
 #endif

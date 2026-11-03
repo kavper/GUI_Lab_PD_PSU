@@ -1,0 +1,847 @@
+{
+  "version": 1,
+  "rule": "Decode by (source,field), never by hex alone; bitmasks may contain several active bits; enum values are not bitmasks. Keep and display unknown bits.",
+  "groups": [
+    {
+      "key": "BMS.fault",
+      "kind": "bitmask",
+      "entries": [
+        {
+          "value": 1,
+          "hex": "0x1",
+          "symbol": "CELL_OV",
+          "text_pl": "Za wysokie napięcie ogniwa",
+          "severity": "fault"
+        },
+        {
+          "value": 2,
+          "hex": "0x2",
+          "symbol": "CELL_UV",
+          "text_pl": "Za niskie napięcie ogniwa",
+          "severity": "fault"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "PACK_OV",
+          "text_pl": "Za wysokie napięcie pakietu (bit zarezerwowany przez firmware; obecnie nieustawiany)",
+          "severity": "reserved"
+        },
+        {
+          "value": 8,
+          "hex": "0x8",
+          "symbol": "PACK_UV",
+          "text_pl": "Za niskie napięcie pakietu (bit zarezerwowany przez firmware; obecnie nieustawiany)",
+          "severity": "reserved"
+        },
+        {
+          "value": 16,
+          "hex": "0x10",
+          "symbol": "IMBALANCE",
+          "text_pl": "Różnica napięć ogniw co najmniej 100 mV",
+          "severity": "warning"
+        },
+        {
+          "value": 32,
+          "hex": "0x20",
+          "symbol": "SAFETY",
+          "text_pl": "Aktywne zabezpieczenie BMS — szczegóły w sa/sb/sc",
+          "severity": "fault"
+        },
+        {
+          "value": 64,
+          "hex": "0x40",
+          "symbol": "ALERT",
+          "text_pl": "Zatrzaśnięte zdarzenie BMS — szczegóły w alarm",
+          "severity": "warning"
+        },
+        {
+          "value": 128,
+          "hex": "0x80",
+          "symbol": "I2C",
+          "text_pl": "Błąd komunikacji G4–BMS",
+          "severity": "fault"
+        },
+        {
+          "value": 256,
+          "hex": "0x100",
+          "symbol": "FET_START",
+          "text_pl": "Nieudany rozruch toru akumulatora / predischarge",
+          "severity": "fault"
+        }
+      ]
+    },
+    {
+      "key": "BMS.sa",
+      "kind": "bitmask",
+      "entries": [
+        {
+          "value": 128,
+          "hex": "0x80",
+          "symbol": "SCD",
+          "text_pl": "Zwarcie podczas rozładowania",
+          "severity": "fault"
+        },
+        {
+          "value": 64,
+          "hex": "0x40",
+          "symbol": "OCD2",
+          "text_pl": "Nadprąd rozładowania, poziom 2",
+          "severity": "fault"
+        },
+        {
+          "value": 32,
+          "hex": "0x20",
+          "symbol": "OCD1",
+          "text_pl": "Nadprąd rozładowania, poziom 1",
+          "severity": "fault"
+        },
+        {
+          "value": 16,
+          "hex": "0x10",
+          "symbol": "OCC",
+          "text_pl": "Nadprąd ładowania",
+          "severity": "fault"
+        },
+        {
+          "value": 8,
+          "hex": "0x8",
+          "symbol": "COV",
+          "text_pl": "Za wysokie napięcie ogniwa",
+          "severity": "fault"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "CUV",
+          "text_pl": "Za niskie napięcie ogniwa",
+          "severity": "fault"
+        }
+      ]
+    },
+    {
+      "key": "BMS.sb",
+      "kind": "bitmask",
+      "entries": [
+        {
+          "value": 128,
+          "hex": "0x80",
+          "symbol": "OTF",
+          "text_pl": "Przegrzanie czujnika przypisanego do FET",
+          "severity": "fault"
+        },
+        {
+          "value": 64,
+          "hex": "0x40",
+          "symbol": "OTINT",
+          "text_pl": "Przegrzanie wnętrza układu BMS",
+          "severity": "fault"
+        },
+        {
+          "value": 32,
+          "hex": "0x20",
+          "symbol": "OTD",
+          "text_pl": "Za wysoka temperatura dla rozładowania",
+          "severity": "fault"
+        },
+        {
+          "value": 16,
+          "hex": "0x10",
+          "symbol": "OTC",
+          "text_pl": "Za wysoka temperatura dla ładowania",
+          "severity": "fault"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "UTINT",
+          "text_pl": "Za niska temperatura wnętrza BMS",
+          "severity": "fault"
+        },
+        {
+          "value": 2,
+          "hex": "0x2",
+          "symbol": "UTD",
+          "text_pl": "Za niska temperatura dla rozładowania",
+          "severity": "fault"
+        },
+        {
+          "value": 1,
+          "hex": "0x1",
+          "symbol": "UTC",
+          "text_pl": "Za niska temperatura dla ładowania",
+          "severity": "fault"
+        }
+      ]
+    },
+    {
+      "key": "BMS.sc",
+      "kind": "bitmask",
+      "entries": [
+        {
+          "value": 128,
+          "hex": "0x80",
+          "symbol": "OCD3",
+          "text_pl": "Nadprąd rozładowania, poziom 3",
+          "severity": "fault"
+        },
+        {
+          "value": 64,
+          "hex": "0x40",
+          "symbol": "SCDL",
+          "text_pl": "Zatrzaśnięta ochrona zwarciowa",
+          "severity": "fault"
+        },
+        {
+          "value": 32,
+          "hex": "0x20",
+          "symbol": "OCDL",
+          "text_pl": "Zatrzaśnięta ochrona nadprądowa",
+          "severity": "fault"
+        },
+        {
+          "value": 16,
+          "hex": "0x10",
+          "symbol": "COVL",
+          "text_pl": "Zatrzaśnięta ochrona nadnapięciowa ogniwa",
+          "severity": "fault"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "PTO",
+          "text_pl": "Przekroczony czas precharge BMS",
+          "severity": "fault"
+        },
+        {
+          "value": 2,
+          "hex": "0x2",
+          "symbol": "HWDF",
+          "text_pl": "Watchdog hosta BMS",
+          "severity": "fault"
+        }
+      ]
+    },
+    {
+      "key": "BMS.alarm",
+      "kind": "bitmask",
+      "entries": [
+        {
+          "value": 32768,
+          "hex": "0x8000",
+          "symbol": "SSBC",
+          "text_pl": "Zdarzenie zabezpieczenia w sb/sc",
+          "severity": "warning"
+        },
+        {
+          "value": 16384,
+          "hex": "0x4000",
+          "symbol": "SSA",
+          "text_pl": "Zdarzenie zabezpieczenia w sa",
+          "severity": "warning"
+        },
+        {
+          "value": 8192,
+          "hex": "0x2000",
+          "symbol": "PF",
+          "text_pl": "Permanent Fail — wymaga szczegółowej diagnostyki",
+          "severity": "fault"
+        },
+        {
+          "value": 4096,
+          "hex": "0x1000",
+          "symbol": "MSK_SFALERT",
+          "text_pl": "Zamaskowane zbiorczo zdarzenie Safety Alert",
+          "severity": "warning"
+        },
+        {
+          "value": 2048,
+          "hex": "0x800",
+          "symbol": "MSK_PFALERT",
+          "text_pl": "Zamaskowane zbiorczo zdarzenie PF Alert",
+          "severity": "warning"
+        },
+        {
+          "value": 1024,
+          "hex": "0x400",
+          "symbol": "INITSTART",
+          "text_pl": "Rozpoczęto inicjalizację",
+          "severity": "info"
+        },
+        {
+          "value": 512,
+          "hex": "0x200",
+          "symbol": "INITCOMP",
+          "text_pl": "Zakończono inicjalizację",
+          "severity": "info"
+        },
+        {
+          "value": 128,
+          "hex": "0x80",
+          "symbol": "FULLSCAN",
+          "text_pl": "Zakończono skan pomiarów",
+          "severity": "info"
+        },
+        {
+          "value": 64,
+          "hex": "0x40",
+          "symbol": "XCHG",
+          "text_pl": "Ładowanie zablokowane",
+          "severity": "warning"
+        },
+        {
+          "value": 32,
+          "hex": "0x20",
+          "symbol": "XDSG",
+          "text_pl": "Rozładowanie zablokowane",
+          "severity": "warning"
+        },
+        {
+          "value": 16,
+          "hex": "0x10",
+          "symbol": "SHUTV",
+          "text_pl": "Warunek niskiego napięcia wyłączenia",
+          "severity": "warning"
+        },
+        {
+          "value": 8,
+          "hex": "0x8",
+          "symbol": "FUSE",
+          "text_pl": "Zdarzenie bezpiecznika",
+          "severity": "fault"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "CB",
+          "text_pl": "Zdarzenie balansowania",
+          "severity": "info"
+        },
+        {
+          "value": 2,
+          "hex": "0x2",
+          "symbol": "ADSCAN",
+          "text_pl": "Zakończono skan ADC",
+          "severity": "info"
+        },
+        {
+          "value": 1,
+          "hex": "0x1",
+          "symbol": "WAKE",
+          "text_pl": "Wybudzenie",
+          "severity": "info"
+        }
+      ]
+    },
+    {
+      "key": "PD.bq_fault",
+      "kind": "bitmask",
+      "entries": [
+        {
+          "value": 128,
+          "hex": "0x80",
+          "symbol": "ACOV",
+          "text_pl": "Za wysokie napięcie wejścia ładowarki",
+          "severity": "fault"
+        },
+        {
+          "value": 64,
+          "hex": "0x40",
+          "symbol": "BATOC",
+          "text_pl": "Nadprąd baterii; w PTM możliwy też BATOVP",
+          "severity": "fault"
+        },
+        {
+          "value": 32,
+          "hex": "0x20",
+          "symbol": "ACOC",
+          "text_pl": "Nadprąd wejścia ładowarki",
+          "severity": "fault"
+        },
+        {
+          "value": 16,
+          "hex": "0x10",
+          "symbol": "SYSOVP",
+          "text_pl": "Za wysokie napięcie SYS",
+          "severity": "fault"
+        },
+        {
+          "value": 8,
+          "hex": "0x8",
+          "symbol": "VSYS_UVP",
+          "text_pl": "Za niskie napięcie SYS",
+          "severity": "fault"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "FORCE_CONVERTER_OFF",
+          "text_pl": "Przetwornica wymuszenie wyłączona",
+          "severity": "warning"
+        },
+        {
+          "value": 2,
+          "hex": "0x2",
+          "symbol": "OTG_OVP",
+          "text_pl": "Za wysokie napięcie wyjścia OTG",
+          "severity": "fault"
+        },
+        {
+          "value": 1,
+          "hex": "0x1",
+          "symbol": "OTG_UVP",
+          "text_pl": "Za niskie napięcie wyjścia OTG",
+          "severity": "fault"
+        }
+      ]
+    },
+    {
+      "key": "METER.psu_fault",
+      "kind": "bitmask",
+      "entries": [
+        {
+          "value": 1,
+          "hex": "0x1",
+          "symbol": "DRIVER",
+          "text_pl": "Błąd sterownika głównej przetwornicy",
+          "severity": "fault"
+        },
+        {
+          "value": 2,
+          "hex": "0x2",
+          "symbol": "OVP",
+          "text_pl": "Nadnapięcie głównego wyjścia",
+          "severity": "fault"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "OCP",
+          "text_pl": "Nadprąd głównego wyjścia",
+          "severity": "fault"
+        },
+        {
+          "value": 8,
+          "hex": "0x8",
+          "symbol": "UVIN",
+          "text_pl": "Za niskie napięcie wejścia głównej przetwornicy",
+          "severity": "fault"
+        },
+        {
+          "value": 16,
+          "hex": "0x10",
+          "symbol": "ADC",
+          "text_pl": "Błąd pomiarów ADC",
+          "severity": "fault"
+        },
+        {
+          "value": 32,
+          "hex": "0x20",
+          "symbol": "BMS",
+          "text_pl": "Wyjście zatrzymane przez BMS — odczytaj BMS.fault/sa/sb/sc",
+          "severity": "fault"
+        }
+      ]
+    },
+    {
+      "key": "METER.g0_fault",
+      "kind": "bitmask",
+      "entries": [
+        {
+          "value": 1,
+          "hex": "0x1",
+          "symbol": "HW_INIT",
+          "text_pl": "G0: błąd inicjalizacji sprzętu",
+          "severity": "fault"
+        },
+        {
+          "value": 2,
+          "hex": "0x2",
+          "symbol": "PGOOD_LOST",
+          "text_pl": "G0: utrata PGOOD",
+          "severity": "fault"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "POWER_KILL",
+          "text_pl": "G0: aktywny sygnał zatrzymania",
+          "severity": "fault"
+        },
+        {
+          "value": 8,
+          "hex": "0x8",
+          "symbol": "VIN_LOW",
+          "text_pl": "G0: za niskie napięcie wejścia",
+          "severity": "fault"
+        },
+        {
+          "value": 16,
+          "hex": "0x10",
+          "symbol": "VOUT_HARD",
+          "text_pl": "G0: twarde przekroczenie napięcia wyjścia",
+          "severity": "fault"
+        },
+        {
+          "value": 32,
+          "hex": "0x20",
+          "symbol": "VOUT_HIGH",
+          "text_pl": "G0: przekroczone napięcie wyjścia",
+          "severity": "fault"
+        },
+        {
+          "value": 64,
+          "hex": "0x40",
+          "symbol": "TEMP_HIGH",
+          "text_pl": "G0: przegrzanie",
+          "severity": "fault"
+        },
+        {
+          "value": 128,
+          "hex": "0x80",
+          "symbol": "IOUT_HARD",
+          "text_pl": "G0: twarde przekroczenie prądu",
+          "severity": "fault"
+        }
+      ]
+    },
+    {
+      "key": "NACK.reason",
+      "kind": "enum",
+      "entries": [
+        {
+          "value": 1,
+          "hex": "0x1",
+          "symbol": "UNKNOWN",
+          "text_pl": "Nieznany typ polecenia",
+          "severity": "warning"
+        },
+        {
+          "value": 2,
+          "hex": "0x2",
+          "symbol": "BAD_PAYLOAD",
+          "text_pl": "Nieprawidłowa długość lub format polecenia",
+          "severity": "warning"
+        },
+        {
+          "value": 3,
+          "hex": "0x3",
+          "symbol": "RANGE",
+          "text_pl": "Parametr poza zakresem",
+          "severity": "warning"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "UNSAFE",
+          "text_pl": "Polecenie niedozwolone w obecnym stanie",
+          "severity": "warning"
+        },
+        {
+          "value": 5,
+          "hex": "0x5",
+          "symbol": "BUSY",
+          "text_pl": "Urządzenie zajęte",
+          "severity": "info"
+        },
+        {
+          "value": 6,
+          "hex": "0x6",
+          "symbol": "TIMEOUT",
+          "text_pl": "Przekroczono czas odpowiedzi",
+          "severity": "fault"
+        },
+        {
+          "value": 7,
+          "hex": "0x7",
+          "symbol": "LINK",
+          "text_pl": "Brak wymaganego połączenia",
+          "severity": "fault"
+        }
+      ]
+    },
+    {
+      "key": "AUX.stop_reason",
+      "kind": "enum",
+      "entries": [
+        {
+          "value": 0,
+          "hex": "0x0",
+          "symbol": "NONE",
+          "text_pl": "Brak zapisanej przyczyny zatrzymania",
+          "severity": "info"
+        },
+        {
+          "value": 1,
+          "hex": "0x1",
+          "symbol": "HOST_LINK",
+          "text_pl": "Utrata połączenia H7–G4",
+          "severity": "fault"
+        },
+        {
+          "value": 2,
+          "hex": "0x2",
+          "symbol": "G0_LINK",
+          "text_pl": "Utrata połączenia G4–G0",
+          "severity": "fault"
+        },
+        {
+          "value": 3,
+          "hex": "0x3",
+          "symbol": "G0_KILL",
+          "text_pl": "G0 zatrzymał wyjście sygnałem KILL",
+          "severity": "fault"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "G0_FAULT",
+          "text_pl": "Błąd G0 zatrzymał wyjście",
+          "severity": "fault"
+        },
+        {
+          "value": 5,
+          "hex": "0x5",
+          "symbol": "START_FAILURE",
+          "text_pl": "Nieudany rozruch wyjścia",
+          "severity": "fault"
+        }
+      ]
+    },
+    {
+      "key": "AUX.sense_code",
+      "kind": "enum",
+      "entries": [
+        {
+          "value": 0,
+          "hex": "0x0",
+          "symbol": "OK",
+          "text_pl": "Remote sense poprawny",
+          "severity": "info"
+        },
+        {
+          "value": 1,
+          "hex": "0x1",
+          "symbol": "NOT_READY",
+          "text_pl": "Napięcie za niskie do testu sense",
+          "severity": "info"
+        },
+        {
+          "value": 2,
+          "hex": "0x2",
+          "symbol": "DROP_P",
+          "text_pl": "Za duży spadek przewodu dodatniego",
+          "severity": "fault"
+        },
+        {
+          "value": 3,
+          "hex": "0x3",
+          "symbol": "DROP_SUM",
+          "text_pl": "Za duża suma spadków przewodów",
+          "severity": "fault"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "REVERSED",
+          "text_pl": "Odwrócone przewody sense",
+          "severity": "fault"
+        },
+        {
+          "value": 5,
+          "hex": "0x5",
+          "symbol": "N_ON_POUT",
+          "text_pl": "Oba przewody sense przy dodatnim wyjściu",
+          "severity": "fault"
+        },
+        {
+          "value": 6,
+          "hex": "0x6",
+          "symbol": "SHORT",
+          "text_pl": "Podejrzenie zwarcia przewodów sense",
+          "severity": "fault"
+        },
+        {
+          "value": 7,
+          "hex": "0x7",
+          "symbol": "DROP_N",
+          "text_pl": "Za duży spadek przewodu ujemnego",
+          "severity": "fault"
+        },
+        {
+          "value": 8,
+          "hex": "0x8",
+          "symbol": "NO_SAMPLE",
+          "text_pl": "Brak próbki ADC sense",
+          "severity": "fault"
+        },
+        {
+          "value": 9,
+          "hex": "0x9",
+          "symbol": "LOCAL_HIGH",
+          "text_pl": "Nasycenie/przekroczenie zakresu pomiaru lokalnego",
+          "severity": "fault"
+        },
+        {
+          "value": 10,
+          "hex": "0xa",
+          "symbol": "CV_VD",
+          "text_pl": "Remote sense: brak zgodności napięcia z zadaniem w CV",
+          "severity": "fault"
+        }
+      ]
+    },
+    {
+      "key": "BATT.soc_flags",
+      "kind": "bitmask",
+      "entries": [
+        {
+          "value": 1,
+          "hex": "0x1",
+          "symbol": "VALID",
+          "text_pl": "SOC dostępny",
+          "severity": "info"
+        },
+        {
+          "value": 2,
+          "hex": "0x2",
+          "symbol": "UNCERTAIN",
+          "text_pl": "SOC niepotwierdzony wiarygodną kotwicą",
+          "severity": "warning"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "RESTING",
+          "text_pl": "Prąd w paśmie spoczynku estymatora",
+          "severity": "info"
+        },
+        {
+          "value": 8,
+          "hex": "0x8",
+          "symbol": "RELAXED",
+          "text_pl": "Upłynął czas relaksacji estymatora",
+          "severity": "info"
+        },
+        {
+          "value": 16,
+          "hex": "0x10",
+          "symbol": "FCC_LEARNED",
+          "text_pl": "Co najmniej jedna zaakceptowana aktualizacja FCC",
+          "severity": "info"
+        },
+        {
+          "value": 32,
+          "hex": "0x20",
+          "symbol": "CHARGING",
+          "text_pl": "Ładowanie według estymatora",
+          "severity": "info"
+        },
+        {
+          "value": 64,
+          "hex": "0x40",
+          "symbol": "DISCHARGING",
+          "text_pl": "Rozładowanie według estymatora",
+          "severity": "info"
+        },
+        {
+          "value": 128,
+          "hex": "0x80",
+          "symbol": "FULL",
+          "text_pl": "Potwierdzona kotwica pełnego naładowania",
+          "severity": "info"
+        },
+        {
+          "value": 256,
+          "hex": "0x100",
+          "symbol": "LOW",
+          "text_pl": "Niski poziom ładunku",
+          "severity": "warning"
+        },
+        {
+          "value": 512,
+          "hex": "0x200",
+          "symbol": "EMPTY",
+          "text_pl": "Kotwica dolna/pusty pakiet",
+          "severity": "warning"
+        },
+        {
+          "value": 1024,
+          "hex": "0x400",
+          "symbol": "RESTORED",
+          "text_pl": "SOC odtworzony z pamięci",
+          "severity": "info"
+        },
+        {
+          "value": 2048,
+          "hex": "0x800",
+          "symbol": "CLEAN_RESTORE",
+          "text_pl": "Odtworzono zapis z kontrolowanego shutdown",
+          "severity": "info"
+        },
+        {
+          "value": 4096,
+          "hex": "0x1000",
+          "symbol": "DIRTY",
+          "text_pl": "Stan oczekuje zapisu do pamięci",
+          "severity": "info"
+        }
+      ]
+    },
+    {
+      "key": "BMS.st",
+      "kind": "enum",
+      "entries": [
+        {
+          "value": 0,
+          "hex": "0x0",
+          "symbol": "ABSENT",
+          "text_pl": "BMS nieobecny",
+          "severity": "fault"
+        },
+        {
+          "value": 1,
+          "hex": "0x1",
+          "symbol": "INIT",
+          "text_pl": "Inicjalizacja BMS",
+          "severity": "info"
+        },
+        {
+          "value": 2,
+          "hex": "0x2",
+          "symbol": "READY",
+          "text_pl": "BMS gotowy",
+          "severity": "info"
+        },
+        {
+          "value": 3,
+          "hex": "0x3",
+          "symbol": "DISCHARGING",
+          "text_pl": "Rozładowanie",
+          "severity": "info"
+        },
+        {
+          "value": 4,
+          "hex": "0x4",
+          "symbol": "CHARGING",
+          "text_pl": "Ładowanie",
+          "severity": "info"
+        },
+        {
+          "value": 5,
+          "hex": "0x5",
+          "symbol": "WARN",
+          "text_pl": "Ostrzeżenie BMS; sprawdź napięcia, temperatury i fault",
+          "severity": "warning"
+        },
+        {
+          "value": 6,
+          "hex": "0x6",
+          "symbol": "FAULT",
+          "text_pl": "Błąd BMS",
+          "severity": "fault"
+        }
+      ]
+    }
+  ]
+}

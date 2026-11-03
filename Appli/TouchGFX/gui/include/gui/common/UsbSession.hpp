@@ -23,6 +23,15 @@ private:
     bool connected,primed,hasData;
     uint8_t generation;
 };
+class TelemetryRecord;
+// Port power in either direction.
+//  SINK:   measured at the charger input (VBUS x IIN).
+//  SOURCE: the charger input ADC does not measure the outgoing direction, so
+//          the power is the battery discharge (VBAT x IDCHG) feeding the OTG
+//          converter; the port current is that power / VBUS (an upper bound,
+//          converter losses included) and is flagged as estimated.
+struct UsbPortPower { bool valid, source, estimated; int64_t mw, ma, mv; };
+UsbPortPower usbPortPower(const TelemetryRecord& usb, int role);
 UsbSession& usbSession();
 void updateUsbSession();
 #endif

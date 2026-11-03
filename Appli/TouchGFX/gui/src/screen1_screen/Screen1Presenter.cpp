@@ -50,9 +50,9 @@ void Screen1Presenter::ldoTelemetryUpdated(uint32_t inputVoltageMv,
     const uint32_t shownMv = outputVoltageFilter.update(live.vout_mv, live.meter_ms, live.meter_serial, fresh, changing);
     const uint32_t shownInputMv = inputVoltageFilter.update(live.vin_mv, live.meter_ms, live.meter_serial, fresh);
     (void)inputVoltageMv;
-    view.setMeasurements(shownMv, shownUa, mosfetDeciC);
+    if(fresh)view.setMeasurements(shownMv, shownUa, mosfetDeciC);
     view.setInputMetrics(shownInputMv, psu_output_power_mw(voltageMv, shownUa));
-    view.setPcbTemperature(pcbDeciC);
+    if(!live.g4_uart_configured)view.setPcbTemperature(pcbDeciC);
     view.setRegulationMode(mode == 2);
     view.setCurrentMeasurementCalibrated(currentValid && currentCalibrated);
     view.setControllerOutputState(connected && outputRequested);
@@ -61,7 +61,7 @@ void Screen1Presenter::ldoTelemetryUpdated(uint32_t inputVoltageMv,
         char link[24];
         psu_snapshot(&snap);
         view.syncControllerSetpoints(snap.requested_mv, snap.requested_ma);
-        view.setTemperaturesDeciC(snap.mos_centi / 10, snap.pcb_centi / 10);
+        if(!snap.g4_uart_configured)view.setTemperaturesDeciC(snap.mos_centi / 10, snap.pcb_centi / 10);
         view.setTelemetryAvailable(connected && !snap.g0_stale && currentValid, currentValid, snap.temperature_valid);
         if(snap.g4_uart_configured)view.setHostAuxMetrics();
         if (snap.g4_uart_configured && snap.g4_link != G4_LINK_ONLINE) snprintf(link, sizeof(link), "G4 OFFLINE");

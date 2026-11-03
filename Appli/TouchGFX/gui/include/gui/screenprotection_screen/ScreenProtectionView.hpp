@@ -3,9 +3,10 @@
 #include <gui_generated/screenprotection_screen/ScreenProtectionViewBase.hpp>
 #include <gui/screenprotection_screen/ScreenProtectionPresenter.hpp>
 #include <stdint.h>
+#include <gui/common/Kit.hpp>
+// Protection: status banner, four supervisor cards, active faults, link health.
 class ScreenProtectionView : public ScreenProtectionViewBase {
 public:
-    void setupTheme();
     ScreenProtectionView();
     virtual ~ScreenProtectionView() {}
     virtual void setupScreen();
@@ -20,5 +21,15 @@ protected:
     char notice[100];
     void refresh();
     void notify(const char* text);
+    void layout();
+    void onClick(const kit::Btn& b) { if (b.tag == 1) clearFault(); else refreshTelemetry(); }
+    kit::Header header;
+    kit::Panel banner;
+    kit::Btn bannerIcon, clearBtn, refreshBtn;
+    kit::Label bannerTitle, bannerSub;
+    kit::Metric status[4];
+    kit::Card faultsCard, linkCard;
+    kit::Rows faultRows, linkRows;
+    touchgfx::Callback<ScreenProtectionView, const kit::Btn&> clicked;
 };
 #endif

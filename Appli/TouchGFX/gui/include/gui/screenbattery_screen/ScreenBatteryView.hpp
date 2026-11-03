@@ -4,8 +4,8 @@
 #include <gui/screenbattery_screen/ScreenBatteryPresenter.hpp>
 #include <stdint.h>
 #include <gui/common/BatteryTrendWidget.hpp>
+#include <gui/common/Kit.hpp>
 class ScreenBatteryView : public ScreenBatteryViewBase {
-    friend class InstrumentUiSelfTest;
 public:
     void setupTheme();
     ScreenBatteryView();
@@ -21,7 +21,6 @@ public:
     virtual void showEnergy();
     virtual void openUsb();
 protected:
-    friend class BatterySelfTest;
     BatteryTrendWidget trend;
     unsigned page;
     uint8_t divider;
@@ -29,5 +28,16 @@ protected:
     char notice[100];
     void refresh();
     void notify(const char* text);
+    void layout();
+    kit::Header header;
+    kit::Panel socCard, flowCard, healthCard, cellsCard, chargerCard, energyCard;
+    kit::Value socValue, packPower, packVolts, packAmps;
+    kit::Label socCaption, socDetail, flowCaption, healthCaption, cellsCaption, chargerCaption, chargerPhase, energyCaption;
+    kit::Label healthKey[4], healthValue[4], cellName[5];
+    kit::Segments socBar;
+    kit::Bar chargeBar;
+    kit::Level cellLevel[5];
+    kit::Chip chgChip, dsgChip, faultChip;
+    kit::Rows chargerRows;
 };
 #endif

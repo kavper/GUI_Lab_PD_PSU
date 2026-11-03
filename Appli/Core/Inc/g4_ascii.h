@@ -33,7 +33,8 @@ typedef struct {
   uint32_t ms;
   uint8_t kind, valid;
 } G4Record;
-enum { G4_RECORD_T, G4_RECORD_TB, G4_RECORD_TC, G4_RECORD_AUX };
+enum { G4_RECORD_T, G4_RECORD_TB, G4_RECORD_TC, G4_RECORD_AUX, G4_RECORD_BATT };
+#define G4_RECORD_COUNT 5
 
 typedef struct {
   uint8_t valid, g0, out, want, mode, permit, remote;
@@ -135,7 +136,11 @@ typedef struct
   G4Telemetry telemetry;
   G4Battery battery;
   G4Charger charger;
-  G4Record records[4];
+  G4Record records[G4_RECORD_COUNT];
+  /* FIELDS (0x15) group snapshots under construction, see tlm_fields.h */
+  G4Record stage[G4_RECORD_COUNT];
+  uint8_t stage_next[G4_RECORD_COUNT], fields_seen[G4_RECORD_COUNT];
+  uint32_t fields_frames, fields_errors;
 
   uint32_t ack_count, err_count, event_fault, event_g0_fault;
   uint8_t event_ctrl_fault, event_g0_stale, output_phase;

@@ -3,88 +3,64 @@
 
 #include <gui_generated/screensequencer_screen/ScreenSequencerViewBase.hpp>
 #include <gui/screensequencer_screen/ScreenSequencerPresenter.hpp>
+#include <gui/common/Kit.hpp>
 #include <stdint.h>
 extern "C" {
 #include "psu_seq.h"
+#include "psu_app.h"
 }
 
+// Sequencer: profile preview on top, the step table below (tap a value to
+// edit it), run / repeat controls on the right. While a value is edited the
+// run card turns into a keypad.
 class ScreenSequencerView : public ScreenSequencerViewBase
 {
-    friend class UsbSelfTest;
 public:
-    void setupTheme();
     ScreenSequencerView();
     virtual ~ScreenSequencerView() {}
     virtual void setupScreen();
-    virtual void tearDownScreen();
+    virtual void tearDownScreen() { ScreenSequencerViewBase::tearDownScreen(); }
     virtual void handleTickEvent();
-    virtual void seqCycles();
-    virtual void seqCycleLess();
-    virtual void seqCycleMore();
-    virtual void seqInfinity();
-    virtual void seqRun();
-    virtual void seqPause();
-    virtual void seqStop();
-    virtual void seqAdd();
-    virtual void seqRemove();
-    virtual void seqPrev();
-    virtual void seqNext();
-    virtual void seqFieldVolt();
-    virtual void seqFieldAmp();
-    virtual void seqFieldTime();
-    virtual void seqFieldSlew();
-    virtual void seqPick1();
-    virtual void seqPick2();
-    virtual void seqPick3();
-    virtual void seqPick4();
-    virtual void seqPick5();
-    virtual void seqPick6();
-    virtual void seqKey0();
-    virtual void seqKey1();
-    virtual void seqKey2();
-    virtual void seqKey3();
-    virtual void seqKey4();
-    virtual void seqKey5();
-    virtual void seqKey6();
-    virtual void seqKey7();
-    virtual void seqKey8();
-    virtual void seqKey9();
-    virtual void seqKeyDot();
-    virtual void seqKeyClr();
-    virtual void seqKeyDel();
-    virtual void seqKeyApply();
-    virtual void seqSyncKeypad();
     virtual void allOff();
-    virtual void handleDragEvent(const touchgfx::DragEvent& e);
-protected:
-    static const int16_t KEYPAD_X = 524;
-    static const int16_t KEYPAD_SHOWN_Y = 116;
-    static const int16_t KEYPAD_HIDDEN_Y = 132;
-    static const uint8_t KEYPAD_TICKS = 12;
-    int dragPixels = 0;
-    bool listDragging = false;
     virtual void handleClickEvent(const touchgfx::ClickEvent& e);
-    virtual void handleGestureEvent(const touchgfx::GestureEvent& e);
-    bool cycleEditing = false;
-    PsuEditor cycleEditor = {};
-    void cycleKey(char key);
-    uint8_t divider;
-    uint8_t visible_start;
+    virtual void handleDragEvent(const touchgfx::DragEvent& e);
+
+private:
+    enum { ROWS = 5, COLS = 5, KEYS = 14, ACTIONS = 5, POINTS = 160 };
+    uint8_t divider, first;
+    bool cycleEditing, listDragging;
+    int dragPixels;
     PsuSeqEdit edit;
-    int16_t keypadFromY;
-    int16_t keypadToY;
-    int16_t keypadFromA;
-    int16_t keypadToA;
-    int16_t keypadAlpha;
-    uint8_t keypadTick;
-    bool keypadMoving;
+    PsuEditor cycleEditor;
+
+    kit::Header header;
+    kit::Panel profileCard, stepsCard, runCard, rowMark;
+    kit::Label profileCaption, legend, tableHead[COLS], listRange;
+    kit::Btn cell[ROWS][COLS];
+    kit::Btn action[ACTIONS];
+    kit::Plot plot;
+    kit::Label runCaption, runTime, runTotal, runInfo, repeatCaption;
+    kit::Chip runChip;
+    kit::Bar progress;
+    kit::Btn mode[3], cycleLess, cycleMore, cycleCount, runBtn, stopBtn;
+    kit::Label editCaption, editValue, editHint;
+    kit::Btn keys[KEYS];
+    touchgfx::Callback<ScreenSequencerView, const kit::Btn&> clicked;
+
+    void layout();
+    void setupTheme();
     void refresh();
-    void syncEdit();
-    void pickRow(uint8_t row);
-    void chooseField(uint8_t field);
-    void setKeys(bool on, bool enabled);
-    void poseKeypad(int16_t y, int16_t alpha);
-    void seqStepKeypad();
+    void refreshProfile(uint32_t& totalMs, uint32_t& elapsedMs);
+    void onClick(const kit::Btn& b);
+    void showEditor(bool on);
+    bool editing() const { return cycleEditing || edit.field != PSU_SEQ_FIELD_NONE; }
+    void select(uint8_t index);
+    void move(int direction);
+    void duplicate();
+    void run();
+    void scroll(int delta);
+    void keyPressed(int k);
+    static uint32_t rampMs(uint32_t fromMv, const PsuSeqStep& s);
 };
 
 #endif

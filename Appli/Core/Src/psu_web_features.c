@@ -101,7 +101,7 @@ void psu_web_features_poll(void) {
     case 22:ok=psu_app_shutdown();break;
     case 30:if(v[VALUE]<=2){const char *roles[]={"AUTO","SINK","SOURCE"};ok=psu_app_usb_role(roles[v[VALUE]],PSU_SRC_WEB);}break;
     case 40:if(v[DARK]<=1&&v[ACCENT]<=3&&v[VOLUME]<=100&&v[SOUND]<=1&&v[TONE]<=2&&v[FEEDBACK]<=3){
-        PsuAppearance a={(uint8_t)v[DARK],(uint8_t)v[ACCENT],(uint8_t)v[VOLUME],(uint8_t)v[SOUND],(uint8_t)v[TONE],(uint8_t)v[FEEDBACK]};psu_appearance_set(&a);gui_events|=1;ok=1;}break;
+        PsuAppearance a;psu_appearance_get(&a);a.dark=(uint8_t)v[DARK];a.accent=(uint8_t)v[ACCENT];a.sound_volume=(uint8_t)v[VOLUME];a.sound_enabled=(uint8_t)v[SOUND];a.sound_tone=(uint8_t)v[TONE];a.sound_feedback=(uint8_t)v[FEEDBACK];psu_appearance_set(&a);gui_events|=1;ok=1;}break;
     case 41:gui_events|=2;ok=1;break;
     case 50:ok=psu_app_clear_fault();break;
     case 51:if(v[VALUE]<=1)ok=psu_app_service(v[VALUE]);break;

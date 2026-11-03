@@ -8,8 +8,8 @@ static int transfer(void) { return ++operations == fail_at ? HAL_ERROR : HAL_OK;
 static void check_current(void)
 {
     if (en && (regfile[1] & 1)) {
-        if (regfile[0x16] != 3 || regfile[0xA0] != 255 || regfile[0xA1] != 0x3F ||
-            (regfile[0xA2] & 4) || (regfile[0xA5] & 0x80)) enabled_before_config = 1;
+        if (regfile[0x16] != 3 || regfile[0xA0] != 255 || regfile[0xA1] != 0x6F ||
+            (regfile[0xA2] & 0x1F) || (regfile[0xA5] & 0xF0) != 0x70) enabled_before_config = 1;
     }
 }
 HAL_StatusTypeDef HAL_I2C_Mem_Write(I2C_HandleTypeDef *h,uint16_t addr,uint16_t r,uint16_t size,uint8_t *v,uint16_t count,uint32_t timeout)
@@ -46,23 +46,33 @@ int main(void)
 {
     I2C_HandleTypeDef i2c = {0};
     reset();
-    assert(BoardBacklight_Init40mA(&i2c));
-    assert(en && regfile[0] == 255 && regfile[1] == 0x85);
-    assert(regfile[0xA2] == 0x20 && regfile[0xA5] == 0x05); /* preserve unrelated settings */
+    assert(!BoardBacklight_SetPercent(&i2c, 50)); /* never before the driver is configured */
+    assert(operations == 0);
+    assert(BoardBacklight_Init60mA(&i2c));
+    assert(en && regfile[0] == 255 && regfile[1] == 0x85 && regfile[0xA1] == 0x6F);
+    assert(regfile[0xA2] == 0x20 && regfile[0xA5] == 0x75); /* preserve unrelated settings */
     assert(!enabled_before_config);
     int total = operations;
     /* Each I2C operation can fail: every failure must shut down EN. */
     for (int i=1;i<=total;++i) {
         reset(); fail_at = i;
-        assert(!BoardBacklight_Init40mA(&i2c));
+        assert(!BoardBacklight_Init60mA(&i2c));
         assert(!en && !enabled_before_config);
     }
     /* Every readback paired with a write must detect corrupt data. */
-    const int readbacks[] = {2,4,6,8,10,14,16,18,20};
+    const int readbacks[] = {2,4,6,8,10,16,18,20,22,24,26,28,30};
     for (unsigned i=0;i<sizeof(readbacks)/sizeof(readbacks[0]);++i) {
         reset(); corrupt_at = readbacks[i];
-        assert(!BoardBacklight_Init40mA(&i2c));
+        assert(!BoardBacklight_Init60mA(&i2c));
         assert(!en);
     }
-    puts("PASS: 40mA setup, sequencing, all I2C failures, register readback corruption");
+    /* Brightness: register 0x00 only, perceptual curve, floor, and EN untouched on failure. */
+    reset(); assert(BoardBacklight_Init60mA(&i2c));
+    assert(BoardBacklight_LevelForPercent(100) == 255 && BoardBacklight_LevelForPercent(0) == BoardBacklight_LevelForPercent(5));
+    assert(BoardBacklight_LevelForPercent(5) >= 4 && BoardBacklight_LevelForPercent(50) == 64);
+    for (unsigned p = 5; p < 100; ++p) assert(BoardBacklight_LevelForPercent(p) <= BoardBacklight_LevelForPercent(p + 1));
+    assert(BoardBacklight_SetPercent(&i2c, 50) && regfile[0] == 64 && regfile[1] == 0x85 && en);
+    fail_at = operations + 1;
+    assert(!BoardBacklight_SetPercent(&i2c, 80) && regfile[0] == 64 && en);
+    puts("PASS: 60mA setup, sequencing, all I2C failures, readback corruption, brightness curve and failures keep EN");
 }

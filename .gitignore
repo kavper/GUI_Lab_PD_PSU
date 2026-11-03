@@ -68,3 +68,5 @@ Appli/TouchGFX/settings.eeprom
 Board/remote_preview.html
 Board/web-suite-fixture.json
 Board/diagnostics/__pycache__/
+Board/fps-*.json
+Board/fps-*.png

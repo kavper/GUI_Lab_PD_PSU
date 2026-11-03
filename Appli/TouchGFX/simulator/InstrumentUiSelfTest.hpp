@@ -13,14 +13,14 @@ public:
    if(++boot==20)shot("00-startup.bmp");
    if(boot>600)fail("startup timeout");
    if(app->swipePage()!=FrontendApplication::MAIN||app->isScreenTransitionActive())return false;
-   shot("01-main.bmp");started=true;open(app);return false;
+   shot("01-main.bmp");verifyCapture(app);started=true;open(app);return false;
   }
   if(app->isScreenTransitionActive())return false;
   if(parent){parent=false;app->gotoScreenBmsScreenWipeTransitionWest();return false;}
   ++frame;
   if(frame==24){
    if(app->swipePage()!=routes()[stage].expected)fail("wrong screen");
-   shot(routes()[stage].name);fprintf(log,"PASS view %s\n",routes()[stage].name);fflush(log);
+   shot(routes()[stage].name);if(stage==0)verifyCapture(app);fprintf(log,"PASS view %s\n",routes()[stage].name);fflush(log);
    if(stage==1){auto *v=static_cast<ScreenUsbPdView*>(app->getCurrentScreen());G4PdCapabilities c;g4_pd_capabilities_snapshot(psu_g4(),&c);if(c.count!=7||!v->PdoSelected.isVisible())fail("full source PDO list / selected RDO");}
    if(stage==2){auto *v=static_cast<ScreenBatteryView*>(app->getCurrentScreen());if(!v->CellCard4.isVisible()||!v->ChargerPanel.isVisible()||!v->EnergyPanel.isVisible()||!v->trend.isVisible())fail("battery overview hides useful information");if(v->CellValue3Buffer[0]!='U')fail("physical CH4 unused");}
   }
@@ -62,6 +62,17 @@ public:
   return false;
  }
 private:
+ void verifyCapture(FrontendApplication *app){
+  const auto bitmap=touchgfx::Bitmap::dynamicBitmapCreate(800,480,touchgfx::Bitmap::RGB565);
+  if(bitmap==touchgfx::BITMAP_INVALID)fail("snapshot allocation");
+  const uint16_t *live=touchgfx::HAL::getInstance()->getTFTFrameBuffer();
+  for(int strip=0;strip<4;strip++)ui::ThemeScreen::get().capture(app->getCurrentScreen()->getRootContainer(),bitmap,touchgfx::Rect(0,strip*120,800,120));
+  const uint16_t *captured=reinterpret_cast<const uint16_t*>(touchgfx::Bitmap::dynamicBitmapGetAddress(bitmap));
+  unsigned differences=0;for(unsigned i=0;i<800*480;i++)differences+=live[i]!=captured[i];
+  touchgfx::Bitmap::dynamicBitmapDelete(bitmap);
+  if(differences){fprintf(log,"Capture pixel differences: %u\n",differences);fail("snapshot differs from normal rendered screen");}
+  fprintf(log,"PASS four-part snapshot matches normal screen pixel for pixel\n");fflush(log);
+ }
  struct Route {const char *name;void(FrontendApplication::*open)();FrontendApplication::SwipePage expected;};
  static const Route *routes(){
   static const Route r[]={

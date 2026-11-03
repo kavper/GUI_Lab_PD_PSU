@@ -5,6 +5,7 @@
 #include <gui/screen1_screen/Screen1Presenter.hpp>
 #include <touchgfx/events/GestureEvent.hpp>
 #include <gui/common/FingerSwipeState.hpp>
+#include <gui/common/Kit.hpp>
 #include <stdint.h>
 
 class Screen1View : public Screen1ViewBase
@@ -83,6 +84,21 @@ protected:
     void refreshSetpoints();
     void applyPreset(uint8_t preset, uint32_t voltageMv, uint32_t currentMa);
     void updatePresetHighlight(uint8_t preset);
+    void layout();
+    void refreshPowerStrip();
+    kit::Header header;
+    kit::Panel card[2], powerStrip, keypad;
+    kit::Label caption[2], setCaption[2], loadValue, notice;
+    kit::Value measured[2], setValue[2], powerValue;
+    kit::Fill divider[2];
+    kit::Btn nudge[2][3], senseLink, preset[3], output, keys[12], clearKey, enterKey;
+    kit::Bar currentBar;
+    kit::Chip modeChip;
+    touchgfx::Callback<Screen1View, const kit::Btn&> clicked;
+    void onKit(const kit::Btn& b);
+    void syncKit();
+    uint8_t stripDivider;
+    bool modeShown = false;
 };
 
 #endif // SCREEN1VIEW_HPP

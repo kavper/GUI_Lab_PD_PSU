@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.26.1">
   <Languages>
     <Language Id="GB" />
@@ -1560,15 +1560,13 @@
         <Translation Language="GB">CH 5</Translation>
       </Text>
       <Text Id="TXT_BATTERY_FUTURE" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">SOC --    Remaining capacity --    Temperature --
-Balancing -- / awaiting BMS telemetry support</Translation>
+        <Translation Language="GB">SOC --    Remaining capacity --    Temperature --&#10;Balancing -- / awaiting BMS telemetry support</Translation>
       </Text>
       <Text Id="TXT_PD_CAPABILITY" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">PDO list / selected index / PPS range: not reported by G4
-Role buttons request a change; the contract above is confirmed telemetry.</Translation>
+        <Translation Language="GB">PDO list / selected index / PPS range: not reported by G4&#10;Role buttons request a change; the contract above is confirmed telemetry.</Translation>
       </Text>
       <Text Id="TXT_PRESET_BLANK" Alignment="Center" TypographyId="Button">
-        <Translation Language="GB" />
+        <Translation Language="GB"></Translation>
       </Text>
       <Text Id="TXT_QUICK_PRESET" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">&lt;value&gt;</Translation>
@@ -1733,8 +1731,7 @@ Role buttons request a change; the contract above is confirmed telemetry.</Trans
         <Translation Language="GB">Theme and sound settings are saved automatically.</Translation>
       </Text>
       <Text Id="TXT_APPEARANCE_MODE_DETAIL" Alignment="Left" TypographyId="UiCaption">
-        <Translation Language="GB">Choose a light or dark
-interface.</Translation>
+        <Translation Language="GB">Choose a light or dark&#10;interface.</Translation>
       </Text>
       <Text Id="TXT_USB_CONTRACT" Alignment="Left" TypographyId="UiEyebrow">
         <Translation Language="GB">CONTRACT / LIMITS</Translation>
@@ -1949,22 +1946,22 @@ interface.</Translation>
       <Text Id="TXT_USBBUTTON" Alignment="Center" TypographyId="Button">
         <Translation Language="GB">USB-C &gt;</Translation>
       </Text>
-      <Text Id="TXT_REFINE_SessionHeading" TypographyId="UiEyebrow" Alignment="Left">
+      <Text Id="TXT_REFINE_SessionHeading" Alignment="Left" TypographyId="UiEyebrow">
         <Translation Language="GB">SESSION / RECEIVED ENERGY</Translation>
       </Text>
-      <Text Id="TXT_REFINE_CapabilitiesHeading" TypographyId="UiEyebrow" Alignment="Left">
+      <Text Id="TXT_REFINE_CapabilitiesHeading" Alignment="Left" TypographyId="UiEyebrow">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_REFINE_PdoRows" TypographyId="TelemetryDetails" Alignment="Left">
+      <Text Id="TXT_REFINE_PdoRows" Alignment="Left" TypographyId="TelemetryDetails">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_REFINE_RequestHeading" TypographyId="UiEyebrow" Alignment="Left">
+      <Text Id="TXT_REFINE_RequestHeading" Alignment="Left" TypographyId="UiEyebrow">
         <Translation Language="GB">REQUEST / RDO</Translation>
       </Text>
-      <Text Id="TXT_REFINE_RequestDetails" TypographyId="TelemetryDetails" Alignment="Left">
+      <Text Id="TXT_REFINE_RequestDetails" Alignment="Left" TypographyId="TelemetryDetails">
         <Translation Language="GB">&lt;&gt;</Translation>
       </Text>
-      <Text Id="TXT_REFINE_StartupHint" TypographyId="UiCaption" Alignment="Left">
+      <Text Id="TXT_REFINE_StartupHint" Alignment="Left" TypographyId="UiCaption">
         <Translation Language="GB">Telemetry connects automatically. You can continue offline.</Translation>
       </Text>
       <Text Id="TXT_CHG_SESSION_HEADING" Alignment="Left" TypographyId="UiEyebrow">
@@ -2004,17 +2001,2526 @@ interface.</Translation>
         <Translation Language="GB">+</Translation>
       </Text>
     </TextGroup>
+    <TextGroup Id="Kit">
+      <Text Id="K_KCap_L" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KCap_C" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KCap_R" Alignment="Right" TypographyId="KCap">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KSub_L" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KSub_C" Alignment="Center" TypographyId="KSub">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KSub_R" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KBody_L" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KBody_C" Alignment="Center" TypographyId="KBody">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KBody_R" Alignment="Right" TypographyId="KBody">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KBodyM_L" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KBodyM_C" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KBodyM_R" Alignment="Right" TypographyId="KBodyM">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KLabel_L" Alignment="Left" TypographyId="KLabel">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KLabel_C" Alignment="Center" TypographyId="KLabel">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KLabel_R" Alignment="Right" TypographyId="KLabel">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KTitle_L" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KTitle_C" Alignment="Center" TypographyId="KTitle">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KTitle_R" Alignment="Right" TypographyId="KTitle">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KHead_L" Alignment="Left" TypographyId="KHead">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KHead_C" Alignment="Center" TypographyId="KHead">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KHead_R" Alignment="Right" TypographyId="KHead">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM12_L" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM12_C" Alignment="Center" TypographyId="KM12">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM12_R" Alignment="Right" TypographyId="KM12">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM14_L" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM14_C" Alignment="Center" TypographyId="KM14">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM14_R" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM16_L" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM16_C" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM16_R" Alignment="Right" TypographyId="KM16">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM20_L" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM20_C" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM20_R" Alignment="Right" TypographyId="KM20">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM26_L" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM26_C" Alignment="Center" TypographyId="KM26">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM26_R" Alignment="Right" TypographyId="KM26">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM34_L" Alignment="Left" TypographyId="KM34">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM34_C" Alignment="Center" TypographyId="KM34">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM34_R" Alignment="Right" TypographyId="KM34">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM52_L" Alignment="Left" TypographyId="KM52">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM52_C" Alignment="Center" TypographyId="KM52">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM52_R" Alignment="Right" TypographyId="KM52">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM60_L" Alignment="Left" TypographyId="KM60">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM60_C" Alignment="Center" TypographyId="KM60">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="K_KM60_R" Alignment="Right" TypographyId="KM60">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+    </TextGroup>
+    <TextGroup Id="Layout">
+      <Text Id="D_ScreenSplash_002" Alignment="Left" TypographyId="KHead">
+        <Translation Language="GB">Lab PD PSU</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_003" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Laboratory power supply</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_004" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">USB-PD · battery · 0–27 V / 5 A</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_005" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">FW 1.2.0 · 2026-11-02</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_006" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">ui/unified-redesign</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_007" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Missing modules can connect later –&#10;you can continue offline.</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_008" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">SYSTEM CHECK</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_009" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB">Output stays OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_011" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Supervisor G4 · output control</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_012" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">ONLINE</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_015" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">LDO stage G0</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_016" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">ONLINE</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_019" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Battery / BMS · 4S LFP</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_020" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">78 %</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_023" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">USB-C power delivery</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_024" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">ONLINE</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_026" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">·</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_027" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Ethernet</Translation>
+      </Text>
+      <Text Id="D_ScreenSplash_028" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">NOT FITTED</Translation>
+      </Text>
+      <Text Id="D_Screen1_001" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUTPUT VOLTAGE</Translation>
+      </Text>
+      <Text Id="D_Screen1_002" Alignment="Left" TypographyId="KM60">
+        <Translation Language="GB">0.000</Translation>
+      </Text>
+      <Text Id="D_Screen1_002u" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">V</Translation>
+      </Text>
+      <Text Id="D_Screen1_004" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">SET</Translation>
+      </Text>
+      <Text Id="D_Screen1_005" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">12.000</Translation>
+      </Text>
+      <Text Id="D_Screen1_005u" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">V</Translation>
+      </Text>
+      <Text Id="D_Screen1_007" Alignment="Center" TypographyId="KM12">
+        <Translation Language="GB">0.1 V</Translation>
+      </Text>
+      <Text Id="D_Screen1_010" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUTPUT CURRENT</Translation>
+      </Text>
+      <Text Id="D_Screen1_011" Alignment="Left" TypographyId="KM60">
+        <Translation Language="GB">0.000</Translation>
+      </Text>
+      <Text Id="D_Screen1_011u" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">A</Translation>
+      </Text>
+      <Text Id="D_Screen1_013" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">LIMIT</Translation>
+      </Text>
+      <Text Id="D_Screen1_014" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">2.000</Translation>
+      </Text>
+      <Text Id="D_Screen1_014u" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">A</Translation>
+      </Text>
+      <Text Id="D_Screen1_016" Alignment="Center" TypographyId="KM12">
+        <Translation Language="GB">0.1 A</Translation>
+      </Text>
+      <Text Id="D_Screen1_018" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Remote sense: local</Translation>
+      </Text>
+      <Text Id="D_Screen1_021" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">0.00</Translation>
+      </Text>
+      <Text Id="D_Screen1_021u" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">W</Translation>
+      </Text>
+      <Text Id="D_Screen1_023" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Output off</Translation>
+      </Text>
+      <Text Id="D_Screen1_024" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Keypad edits the voltage</Translation>
+      </Text>
+      <Text Id="D_Screen1_025" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">P1</Translation>
+      </Text>
+      <Text Id="D_Screen1_025d" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">5.00 V · 1.0 A</Translation>
+      </Text>
+      <Text Id="D_Screen1_026" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">P2</Translation>
+      </Text>
+      <Text Id="D_Screen1_026d" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">12.00 V · 2.0 A</Translation>
+      </Text>
+      <Text Id="D_Screen1_027" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">P3</Translation>
+      </Text>
+      <Text Id="D_Screen1_027d" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">20.00 V · 3.0 A</Translation>
+      </Text>
+      <Text Id="D_Screen1_028" Alignment="Center" TypographyId="KHead">
+        <Translation Language="GB">OUTPUT OFF</Translation>
+      </Text>
+      <Text Id="D_Screen1_030" Alignment="Center" TypographyId="KM26">
+        <Translation Language="GB">1</Translation>
+      </Text>
+      <Text Id="D_Screen1_031" Alignment="Center" TypographyId="KM26">
+        <Translation Language="GB">2</Translation>
+      </Text>
+      <Text Id="D_Screen1_032" Alignment="Center" TypographyId="KM26">
+        <Translation Language="GB">3</Translation>
+      </Text>
+      <Text Id="D_Screen1_033" Alignment="Center" TypographyId="KM26">
+        <Translation Language="GB">4</Translation>
+      </Text>
+      <Text Id="D_Screen1_034" Alignment="Center" TypographyId="KM26">
+        <Translation Language="GB">5</Translation>
+      </Text>
+      <Text Id="D_Screen1_035" Alignment="Center" TypographyId="KM26">
+        <Translation Language="GB">6</Translation>
+      </Text>
+      <Text Id="D_Screen1_036" Alignment="Center" TypographyId="KM26">
+        <Translation Language="GB">7</Translation>
+      </Text>
+      <Text Id="D_Screen1_037" Alignment="Center" TypographyId="KM26">
+        <Translation Language="GB">8</Translation>
+      </Text>
+      <Text Id="D_Screen1_038" Alignment="Center" TypographyId="KM26">
+        <Translation Language="GB">9</Translation>
+      </Text>
+      <Text Id="D_Screen1_039" Alignment="Center" TypographyId="KM26">
+        <Translation Language="GB">.</Translation>
+      </Text>
+      <Text Id="D_Screen1_040" Alignment="Center" TypographyId="KM26">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_Screen1_042" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">CLEAR</Translation>
+      </Text>
+      <Text Id="D_Screen1_043" Alignment="Center" TypographyId="KLabel">
+        <Translation Language="GB">SET VOLTAGE</Translation>
+      </Text>
+      <Text Id="D_Screen1_047" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Lab PD PSU</Translation>
+      </Text>
+      <Text Id="D_Screen1_048" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Monitor · 1 / 7</Translation>
+      </Text>
+      <Text Id="D_Screen1_050" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_Screen1_051" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%  +5.1 W</Translation>
+      </Text>
+      <Text Id="D_Screen1_052" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">G4 · BMS · PD</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_002" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_003" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">0.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_004" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">0.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_005" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">0.00 W</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_006" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">POWER OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_007" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">MONITOR</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_008" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">TOOLS &amp; SYSTEM</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_009" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Output</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_009d" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">12.00 V · 2.00 A</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_010" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Battery</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_010d" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">78% · +5.12 W</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_011" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Cells / BMS</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_011d" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">spread 4 mV</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_012" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">USB-C</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_012d" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">20.01 V · 0.60 A</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_013" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Output path</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_013d" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">Buck 0.0 %</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_014" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Sense &amp; temps</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_014d" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">max 28.3 °C</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_015" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Protection</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_015d" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">All clear</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_016" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Presets</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_016d" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">3 stored</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_017" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Sequencer</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_017d" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">12 steps · idle</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_018" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Cell charger</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_018d" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">Li-ion 1S · idle</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_019" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Diagnostics</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_019d" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">ACK 34 · ERR 0</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_020" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Network</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_020d" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">Not configured</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_021" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Appearance · Instrument</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_022" Alignment="Left" TypographyId="KBodyM">
+        <Translation Language="GB">Service · locked</Translation>
+      </Text>
+      <Text Id="D_ScreenSettings_024" Alignment="Center" TypographyId="KSub">
+        <Translation Language="GB">Swipe up or tap outside to close</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_006" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">STATE OF CHARGE</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_007" Alignment="Left" TypographyId="KM52">
+        <Translation Language="GB">78.0</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_007u" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">%</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_009" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Capacity not learned yet</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_010" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">PACK FLOW</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_011" Alignment="Left" TypographyId="KM34">
+        <Translation Language="GB">+5.12</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_011u" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">W</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_012" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">16.020</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_012u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">V</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_013" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">+0.320</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_013u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">A</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_014" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">HEALTH</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_015" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">SOH</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_016" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_017" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Cycles</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_018" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_019" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Cell temp</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_020" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_021" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">BMS IC</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_022" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">25.0 °C</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_023" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">CHG</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_024" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">DSG</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_025" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OK</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_026" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">CELLS · 4S</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_028" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">C1</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_030" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">C2</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_032" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">C3</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_034" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">C4</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_036" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">C5</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_037" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">CHARGER</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_038" Alignment="Right" TypographyId="KCap">
+        <Translation Language="GB">FAST</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_039r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">USB in</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_039r0v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">19.980 V · 0.600 A</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_039r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Target</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_039r1v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">16.800 V · 1.500 A</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_039r2l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Phase</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_039r2v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">FAST</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_041" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">ENERGY</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_046" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Battery</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_047" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Monitor · 2 / 7</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_049" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenBattery_050" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_001" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">CELLS</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_002" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB">4S · avg 4.002 V</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_004" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">SAFETY REGISTERS</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_005" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenBms_007" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">DEVICE</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_008" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenBms_009" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">CELL</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_010" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">DEVIATION FROM AVG</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_011" Alignment="Right" TypographyId="KCap">
+        <Translation Language="GB">VOLTAGE</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_012" Alignment="Right" TypographyId="KCap">
+        <Translation Language="GB">Δ mV</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_013" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">STATE</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_015" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">C1</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_017" Alignment="Right" TypographyId="KM16">
+        <Translation Language="GB">4.001</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_018" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">-1</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_019" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">min</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_021" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">C2</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_023" Alignment="Right" TypographyId="KM16">
+        <Translation Language="GB">4.002</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_024" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_025" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">balancing</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_027" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">C3</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_029" Alignment="Right" TypographyId="KM16">
+        <Translation Language="GB">4.003</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_030" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">+1</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_031" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenBms_033" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">C4</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_035" Alignment="Right" TypographyId="KM16">
+        <Translation Language="GB">unused</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_036" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenBms_037" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">inactive</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_039" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">C5</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_041" Alignment="Right" TypographyId="KM16">
+        <Translation Language="GB">4.005</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_042" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">+3</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_043" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">max</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_044" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">STACK</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_045" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">16.011</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_045u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">V</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_046" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">SPREAD</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_047" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">4</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_047u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">mV</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_048" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">PACK I</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_049" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">+0.320</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_049u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">A</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_050" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">INITIALIZE BMS</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_051" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">REFRESH</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_052" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Safety A</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_052d" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">0x00 ok</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_053" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Safety B</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_053d" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">0x00 ok</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_054" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Safety C</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_054d" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">0x00 ok</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_055" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Alarm</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_055d" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">0x00 ok</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_056" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Fault</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_056d" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">0x00 ok</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_057" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">FET</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_057d" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">0x05 CHG</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_058" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">ALL CLEAR</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Init step</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r0v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">12</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">VCell mode</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r1v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0x17</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r2l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Battery status</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r2v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0x0</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r3l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Config failures</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r3v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r4l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">I2C errors</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r4v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r5l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Alert count</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r5v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r6l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Configuration</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_059r6v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">READY</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_064" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Cells &amp; BMS</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_065" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">updated 176 ms ago</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_067" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenBms_068" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_001" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">PORT · MEASURED</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_002" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_004" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">CHARGER OFFERS · 7 PDO</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_005" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_007" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">BATTERY FLOW</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_008" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_009" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">SINK · PDO 5</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_010" Alignment="Left" TypographyId="KM34">
+        <Translation Language="GB">20.01</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_010u" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">V</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_011" Alignment="Left" TypographyId="KM34">
+        <Translation Language="GB">0.600</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_011u" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">A</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_012" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">contract 20.00 V</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_013" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">limit 3.00 A</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_014" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">11.9</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_014u" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">W</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_015" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">of 60 W</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_016" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">19 %</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_018" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">RECEIVED</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_019" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">0.01 Wh</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_020" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">SESSION</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_021" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">0:00:05</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_022" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">PEAK IN</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_023" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">11.98 W</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_025" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">AUTO</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_026" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">SINK</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_027" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">SOURCE</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_028" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">TYPE</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_029" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">VOLTAGE</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_030" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_031" Alignment="Right" TypographyId="KCap">
+        <Translation Language="GB">CURRENT</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_032" Alignment="Right" TypographyId="KCap">
+        <Translation Language="GB">POWER</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_034" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">1</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_035" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Fixed</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_036" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">5.00 V</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_037" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">3.00 A</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_038" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">15 W</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_039" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">2</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_040" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Fixed</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_041" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">9.00 V</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_042" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">3.00 A</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_043" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">27 W</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_044" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">3</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_045" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Fixed</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_046" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">12.00 V</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_047" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">3.00 A</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_048" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">36 W</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_049" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">4</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_050" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Fixed</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_051" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">15.00 V</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_052" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">3.00 A</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_053" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">45 W</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_054" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">5</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_055" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Fixed</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_056" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">20.00 V</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_057" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">3.00 A</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_058" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">60 W</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_059" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">6</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_060" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">PPS</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_061" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">3.3-21.0 V</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_062" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">3.00 A</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_063" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">63 W</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_064" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">7</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_065" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">AVS</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_066" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">9-20 V</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_067" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">3.00 A</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_068" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_069" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">RDO 0x5004B12C · contract utilisation 19 %</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_070" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">+5.12</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_070u" Alignment="Left" TypographyId="KM14">
+        <Translation Language="GB">W</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_073" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">-100 W discharging</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_074" Alignment="Center" TypographyId="KSub">
+        <Translation Language="GB">16.02 V · 0.32 A · auto ±100 W</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_075" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB">charging +100 W</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_080" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">USB-C · Power Delivery</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_081" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">updated 192 ms ago</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_083" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenUsbPd_084" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_001" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">INPUT</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_002" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_003" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">20.00</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_003u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">V</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_004" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">USB-C 20.00 V</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_005" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">bat 16.02 V</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_006" Alignment="Center" TypographyId="KHead">
+        <Translation Language="GB">→</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_008" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">BUCK-BOOST</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_009" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_010" Alignment="Left" TypographyId="KLabel">
+        <Translation Language="GB">OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_011" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">duty A 0.0 %</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_012" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">duty C 0.0 %</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_013" Alignment="Center" TypographyId="KHead">
+        <Translation Language="GB">→</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_015" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">DCDC RAIL</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_016" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_017" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">0.00</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_017u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">V</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_018" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">target 0.00 V</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_019" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">settling</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_020" Alignment="Center" TypographyId="KHead">
+        <Translation Language="GB">→</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_022" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">LDO</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_023" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_024" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">0.00</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_024u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">V</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_025" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">headroom</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_026" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">permit · 0.00 W</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_027" Alignment="Center" TypographyId="KHead">
+        <Translation Language="GB">→</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_029" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUTPUT</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_030" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_031" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">0.000</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_031u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">V</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_032" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_033" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_034" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">0.000</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_034u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">A</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_037" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">SWITCHING STAGE</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_038" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_040" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">RAIL REGULATION</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_041" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_043" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">LDO EFFICIENCY</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_044" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Buck PWM (TA1)</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r0v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0.0 %</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Boost PWM (TC2)</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r1v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0.0 %</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r2l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Buck aux</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r2v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r3l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Boost aux</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r3v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r4l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Buck current</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r4v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r5l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Boost current</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r5v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r6l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">DCDC current</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_045r6v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_046r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Rail target</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_046r0v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_046r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Slew command</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_046r1v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_046r2l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Regulation</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_046r2v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">SETTLING</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_046r3l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Power stage</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_046r3v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_046r4l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Driver fault</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_046r4v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">CLEAR</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_046r5l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Start hold</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_046r5v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_047" Alignment="Left" TypographyId="KM34">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_047u" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">%</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_048r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">In (rail)</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_048r0v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_048r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Out</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_048r1v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_048r2l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Loss</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_048r2v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_049" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">REFRESH</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_054" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Output path</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_055" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">DCDC + LDO · updated 0 ms ago</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_057" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenMeasurements_058" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_001" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">REMOTE SENSE</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_002" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB">relay K1 local · fault latch clear</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_004" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">TEMPERATURES</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_005" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB">T1-T4</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_007" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_008" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_010" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">LOCAL</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_011" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">REMOTE 4-WIRE</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_012" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Local terminals</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_012d" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">0.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_013" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">At load (remote)</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_013d" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">-- V</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_014r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Remote + / -</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_014r0v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0.000 / 0.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_014r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Lead drop P / N</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_014r1v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0 / 0 mV</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_014r2l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Sense self-test</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_014r2v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">NOT READY</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_014r3l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Remote request</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_014r3v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">NO</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_014r4l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">LDO permit</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_014r4v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">ALLOWED</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_014r5l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">PSU path</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_014r5v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">STOPPED</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_015" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">LDO PERMIT: ON</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_016" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">REFRESH</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_017" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Remote sense switches on only after the&#10;sense test passes.</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_018" Alignment="Center" TypographyId="KM14">
+        <Translation Language="GB">25.3°</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_020" Alignment="Center" TypographyId="KSub">
+        <Translation Language="GB">MOSFET</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_021" Alignment="Center" TypographyId="KM14">
+        <Translation Language="GB">26.3°</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_023" Alignment="Center" TypographyId="KSub">
+        <Translation Language="GB">Ambient</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_024" Alignment="Center" TypographyId="KM14">
+        <Translation Language="GB">27.3°</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_026" Alignment="Center" TypographyId="KSub">
+        <Translation Language="GB">Bleeder</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_027" Alignment="Center" TypographyId="KM14">
+        <Translation Language="GB">28.3°</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_029" Alignment="Center" TypographyId="KSub">
+        <Translation Language="GB">LDO/PCB</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_031" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">FAN</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_032" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_032u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">RPM</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_033" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">PWM 0 % · auto</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_038" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Sense &amp; temperatures</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_039" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Low output: sense wiring not evaluated yet</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_041" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenPowerPath_042" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_002" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">All protections clear</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_003" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Output permitted</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_004" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">CLEAR FAULT</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_006" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">G4 SUPERVISOR</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_007" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">CLEAR</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_008" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">mask 0x0</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_010" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">G0 LDO</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_011" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">CLEAR</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_012" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">mask 0x0</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_014" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">GATE DRIVER</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_015" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">CLEAR</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_016" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_018" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">LDO PERMIT</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_019" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">ALLOWED</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_020" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">output off</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_022" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">ACTIVE FAULTS</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_023" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB">G4 fault bits</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_025" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">LINK HEALTH</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_026" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_027r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">No G4 fault bits re</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_027r0v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">ported.</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_027r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">HMI fault latch</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_027r1v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">CLEAR</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_028r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">G0 UART errors</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_028r0v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_028r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">G0 UART flags</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_028r1v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_028r2l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Power-stage error</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_028r2v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_028r3l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">G0 CRC errors</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_028r3v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_028r4l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">G4 link</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_028r4v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">ONLINE</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_029" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">REFRESH</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_034" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Protection</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_035" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">updated 0 ms ago</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_037" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenProtection_038" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_001" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">P1</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_002" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">editing</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_003" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">VOLTAGE</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_003d" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">5.000_ V</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_004" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">LIMIT</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_004d" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">1.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_005" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">MAX</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_006" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">5.0</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_006u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">W</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_007" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">APPLY</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_009" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">P2</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_010" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_011" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">VOLTAGE</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_011d" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">12.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_012" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">LIMIT</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_012d" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">2.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_013" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">MAX</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_014" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">24.0</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_014u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">W</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_015" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">APPLY</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_017" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">P3</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_018" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_019" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">VOLTAGE</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_019d" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">20.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_020" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">LIMIT</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_020d" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">3.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_021" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">MAX</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_022" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">60.0</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_022u" Alignment="Left" TypographyId="KM12">
+        <Translation Language="GB">W</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_023" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">APPLY</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_024" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Tap a value to edit it. APPLY loads the preset to the&#10;output setpoints; output state is unchange</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_026" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">EDIT P1</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_027" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_029" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">VOLTAGE</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_030" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">LIMIT</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_031" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">5.000_</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_032" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB">0-27 V</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_033" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">1</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_034" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">2</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_035" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">3</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_036" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">4</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_037" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">5</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_038" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">6</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_039" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">7</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_040" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">8</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_041" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">9</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_042" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">.</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_043" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_045" Alignment="Center" TypographyId="KLabel">
+        <Translation Language="GB">SAVE P1</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_050" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Presets</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_051" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Tap a value to edit it · stored in EEPROM</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_053" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenPresets_054" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_003" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">PROFILE</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_004" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB">– voltage   - - current   total 00:12</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_006" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">#</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_007" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">VOLTAGE</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_008" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">CURRENT</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_009" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">RAMP</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_010" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">HOLD</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_012" Alignment="Center" TypographyId="KM14">
+        <Translation Language="GB">1</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_013" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">5.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_014" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">1.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_015" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">instant</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_016" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">1 s</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_017" Alignment="Center" TypographyId="KM14">
+        <Translation Language="GB">2</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_018" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">5.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_019" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">1.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_020" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">instant</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_021" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">1 s</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_022" Alignment="Center" TypographyId="KM14">
+        <Translation Language="GB">3</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_023" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">5.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_024" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">1.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_025" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">instant</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_026" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">1 s</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_027" Alignment="Center" TypographyId="KM14">
+        <Translation Language="GB">4</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_028" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">5.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_029" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">1.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_030" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">instant</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_031" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">1 s</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_032" Alignment="Center" TypographyId="KM14">
+        <Translation Language="GB">5</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_033" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">5.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_034" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">1.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_035" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">instant</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_036" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">1 s</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_037" Alignment="Center" TypographyId="KSub">
+        <Translation Language="GB">+ add step (up to 12)</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_038" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">↑ Move</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_039" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">↓ Move</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_040" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">Duplicate</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_041" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">Delete</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_042" Alignment="Right" TypographyId="KCap">
+        <Translation Language="GB">1-5 / 12</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_043" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">RUN</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_044" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">IDLE</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_045" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">00:00</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_046" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">of 00:12 per cycle</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_048" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Ready&#10;RUN switches the output on</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_049" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">REPEAT</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_050" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">ONCE</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_051" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">N ×</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_052" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">LOOP</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_054" Alignment="Center" TypographyId="KM16">
+        <Translation Language="GB">1×</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_056" Alignment="Center" TypographyId="KLabel">
+        <Translation Language="GB">RUN</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_057" Alignment="Center" TypographyId="KLabel">
+        <Translation Language="GB">STOP</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_058" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_059" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_060" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_061" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">1</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_062" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">2</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_063" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">3</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_064" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">4</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_065" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">5</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_066" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">6</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_067" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">7</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_068" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">8</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_069" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">9</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_070" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">.</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_071" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_073" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">CLR</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_074" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">APPLY</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_079" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Sequencer</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_080" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">12 steps · tap a value to edit</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_082" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenSequencer_083" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_002" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">1</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_003" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">CHEMISTRY</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_004" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">2</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_005" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">PACK</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_006" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">3</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_007" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">SAFETY</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_008" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">Li-ion</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_009" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">LiHV</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_010" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">LiFePO₄</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_011" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">LTO</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_012" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">Lead</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_013" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">NiMH</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_017" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">1S</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_018" Alignment="Center" TypographyId="KSub">
+        <Translation Language="GB">in series</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_019" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Target pack voltage</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_019d" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">4.200 V</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_020" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Charge current</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_020d" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">0.500 A</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_021" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Stop below</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_021d" Alignment="Left" TypographyId="KM20">
+        <Translation Language="GB">0.100 A</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_022" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Confirm polarity</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_022d" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">pack + on red terminal · 0.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_023" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Check the wiring, then confirm&#10;polarity to enable START.</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_024" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">CC · CURRENT</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_025" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">CV · VOLTAGE</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_026" Alignment="Center" TypographyId="KCap">
+        <Translation Language="GB">DONE</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_027" Alignment="Left" TypographyId="KM34">
+        <Translation Language="GB">0.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_028" Alignment="Left" TypographyId="KM34">
+        <Translation Language="GB">0.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_029" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">TIME</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_030" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">00:00:00</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_031" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">CHARGED</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_032" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">0 mAh</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_033" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">ENERGY</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_034" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">0.00 Wh</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_036" Alignment="Center" TypographyId="KSub">
+        <Translation Language="GB">Chart starts with the charge session</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_037" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Switches to CV at 4.200 V&#10;stops below 0.100 A · Li-ion 1S</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_038" Alignment="Center" TypographyId="KLabel">
+        <Translation Language="GB">START</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_039" Alignment="Center" TypographyId="KLabel">
+        <Translation Language="GB">STOP</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_040" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_041" Alignment="Left" TypographyId="KM34">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_042" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_043" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">1</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_044" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">2</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_045" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">3</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_046" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">4</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_047" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">5</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_048" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">6</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_049" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">7</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_050" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">8</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_051" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">9</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_052" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">.</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_053" Alignment="Center" TypographyId="KM20">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_055" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">CLR</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_056" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">APPLY</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_061" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Cell charger</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_062" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">IDLE · charges a pack on the output terminals</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_064" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenExtCharger_065" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_001" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">METER</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_002" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">SENSE</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_003" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">BMS</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_004" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">PD</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_005" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">PARSED</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_006" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">RAW UART</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_008" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_009" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_011" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_012" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_014" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">G4 LINK</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_015" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_017" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">LAST EVENT</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_018" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">vin_mv</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r0v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">20.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">vout_mv</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r1v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r2l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">iout_ma</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r2v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r3l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">i_buck_ma</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r3v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r4l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">i_boost_ma</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r4v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r5l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">set_mv</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r5v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">12.000 V</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r6l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">ilim_ma</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r6v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">2.000 A</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r7l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">duty_a_x10</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r7v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0.0 %</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r8l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">duty_c_x10</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r8v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0.0 %</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r9l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">ucc_a</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r9v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r10l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">ucc_c</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r10v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r11l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">run</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r11v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r12l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">fault</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_019r12v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0x0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">pd</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r0v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">pd_mv</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r1v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r2l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">pd_ma</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r2v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r3l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">pd_mw</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r3v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r4l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">permit</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r4v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">1</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r5l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">rem_sense</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r5v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r6l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">g0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r6v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">1</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r7l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">g0_out</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r7v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r8l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">g0_want</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r8v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r9l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">g0_ctrl</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r9v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r10l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">g0_kill</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r10v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r11l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">g0_outoff</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r11v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">1</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r12l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">g0_fault</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_020r12v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">0x0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_021" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">RX frames</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_021d" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">828</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_022" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">ACK</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_022d" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">92</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_023" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Bad</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_023d" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_024" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Errors</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_024d" Alignment="Left" TypographyId="KM16">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_025r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">none</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_025r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">H7 OFF: READY</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_025r2l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">G4 fault 0x0 ctrl 0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_025r2v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">latch 0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_025r3l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">G0 fault 0x0 kill 0</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_025r4l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Last NACK: none</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_026" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">CLEAR FAULT</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_031" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Diagnostics</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_032" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">METER · live · 44 fields · drag to scroll</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_034" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenDiagnostics_035" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_001" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_002" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_004" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">ADDRESS</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_005" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_007" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_008" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_010" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">WEB CONSOLE</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_011" Alignment="Left" TypographyId="KM26">
+        <Translation Language="GB">Ethernet not configured</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_012" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Local controls stay available without a network</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_013" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">NOT READY</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_014r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">IP</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_014r0v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_014r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Mask</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_014r1v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_014r2l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Gateway</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_014r2v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">--</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_014r3l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">MAC</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_014r3v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">UNASSIGNED</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_014r4l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Link</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_014r4v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">NOT READY</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_015" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Wi-Fi module not fitted</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_016" Alignment="Left" TypographyId="KLabel">
+        <Translation Language="GB">Remote control</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_017" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Browsers can change setpoints and the&#10;output; write access ends 10 s after&#10;the last command.</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_018" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">ON</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_023" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Network</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_024" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Ethernet bring-up pending · local controls available</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_026" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenNetwork_027" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_001" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">THEME</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_002" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_004" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">ACCENT</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_005" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_007" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">SOUND &amp; FEEDBACK</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_008" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_017" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Blue</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_018" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">BACKLIGHT BRIGHTNESS</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_020" Alignment="Right" TypographyId="KM16">
+        <Translation Language="GB">100 %</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_021" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Key sounds</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_022" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">ON</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_023" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">Volume</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_025" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">16 %</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_026" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Tone 4 kHz · touch + controls</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_027" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">TONE</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_028" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">FEEDBACK</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_029" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">TEST</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_030" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Theme and sound settings are saved automatically · Settings saved</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_035" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Appearance</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_036" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Instrument · Blue</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_038" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenAppearance_039" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+      <Text Id="D_ScreenService_001" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">CONTROLLER CONSOLE</Translation>
+      </Text>
+      <Text Id="D_ScreenService_002" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB">G4 · binary + ASCII</Translation>
+      </Text>
+      <Text Id="D_ScreenService_004" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenService_005" Alignment="Right" TypographyId="KSub">
+        <Translation Language="GB"></Translation>
+      </Text>
+      <Text Id="D_ScreenService_006r0l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">00:11 → BIN type=05</Translation>
+      </Text>
+      <Text Id="D_ScreenService_006r0v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">seq=104</Translation>
+      </Text>
+      <Text Id="D_ScreenService_006r1l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">00:11 → BIN type=05</Translation>
+      </Text>
+      <Text Id="D_ScreenService_006r1v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">seq=105</Translation>
+      </Text>
+      <Text Id="D_ScreenService_006r2l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">00:11 → BIN type=05</Translation>
+      </Text>
+      <Text Id="D_ScreenService_006r2v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">seq=106</Translation>
+      </Text>
+      <Text Id="D_ScreenService_006r3l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">00:11 → BIN type=05</Translation>
+      </Text>
+      <Text Id="D_ScreenService_006r3v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">seq=107</Translation>
+      </Text>
+      <Text Id="D_ScreenService_006r4l" Alignment="Left" TypographyId="KBody">
+        <Translation Language="GB">00:11 → BIN type=05</Translation>
+      </Text>
+      <Text Id="D_ScreenService_006r4v" Alignment="Right" TypographyId="KM14">
+        <Translation Language="GB">seq=108</Translation>
+      </Text>
+      <Text Id="D_ScreenService_007" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Read-only while locked. Unlock to send service commands.</Translation>
+      </Text>
+      <Text Id="D_ScreenService_009" Alignment="Center" TypographyId="KHead">
+        <Translation Language="GB">LOCKED</Translation>
+      </Text>
+      <Text Id="D_ScreenService_010" Alignment="Center" TypographyId="KSub">
+        <Translation Language="GB">Service mode</Translation>
+      </Text>
+      <Text Id="D_ScreenService_011" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">UNLOCK SERVICE</Translation>
+      </Text>
+      <Text Id="D_ScreenService_012" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">SEND STATUS</Translation>
+      </Text>
+      <Text Id="D_ScreenService_013" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">HELP</Translation>
+      </Text>
+      <Text Id="D_ScreenService_014" Alignment="Center" TypographyId="KBodyM">
+        <Translation Language="GB">CLEAR LOG</Translation>
+      </Text>
+      <Text Id="D_ScreenService_019" Alignment="Left" TypographyId="KTitle">
+        <Translation Language="GB">Service</Translation>
+      </Text>
+      <Text Id="D_ScreenService_020" Alignment="Left" TypographyId="KSub">
+        <Translation Language="GB">Service commands and controller replies</Translation>
+      </Text>
+      <Text Id="D_ScreenService_022" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">OUT OFF</Translation>
+      </Text>
+      <Text Id="D_ScreenService_023" Alignment="Left" TypographyId="KCap">
+        <Translation Language="GB">78%</Translation>
+      </Text>
+    </TextGroup>
   </Texts>
   <Typographies>
     <Typography Id="Title" Font="IBMPlexSans-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="Label" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Small" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="Small" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
     <Typography Id="Value" Font="IBMPlexMono-Medium.ttf" Size="60" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ-|" WildcardCharacterRanges="0-9" />
     <Typography Id="SetValue" Font="IBMPlexMono-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". VAąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" WildcardCharacterRanges="0-9" />
     <Typography Id="LimitHint" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="HeaderLabel" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="HeaderValue" Font="IBMPlexMono-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()%_&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
-    <Typography Id="Button" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="HeaderValue" Font="IBMPlexMono-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()%_&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="Button" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:./-() &#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
     <Typography Id="Output" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZ .-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
     <Typography Id="Input" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=".ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" WildcardCharacterRanges="0-9" />
     <Typography Id="Key" Font="IBMPlexSans-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
@@ -2025,21 +4531,36 @@ interface.</Translation>
     <Typography Id="MenuHint" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="SplashMeta" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
     <Typography Id="SplashStatus" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Dynamic" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
-    <Typography Id="LabHero" Font="IBMPlexMono-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="Dynamic" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="LabHero" Font="IBMPlexMono-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
     <Typography Id="Readout" Font="IBMPlexMono-Regular.ttf" Size="48" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". -VAWC|" WildcardCharacterRanges="0-9" />
     <Typography Id="LabRead" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=". -VAWC|" WildcardCharacterRanges="0-9" />
     <Typography Id="LabBig" Font="IBMPlexMono-Regular.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. VAmWCRANGEs/-ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
-    <Typography Id="LabState" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
-    <Typography Id="LabMid" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#10;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="LabState" Font="IBMPlexSans-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
+    <Typography Id="LabMid" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#&#xA;ąćęłńóśźżĄĆĘŁŃÓŚŹŻ|" />
     <Typography Id="LabTile" Font="IBMPlexSans-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="UiCaption" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#10;|" />
-    <Typography Id="UiEyebrow" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#10;|" />
-    <Typography Id="UiDiagnostic" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#10;|" />
-    <Typography Id="UiState" Font="IBMPlexSans-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#10;|" />
-    <Typography Id="TelemetryMetric" Font="IBMPlexMono-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#10;|" />
-    <Typography Id="TelemetryDetails" Font="IBMPlexMono-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#10;|" />
+    <Typography Id="UiCaption" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
+    <Typography Id="UiEyebrow" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
+    <Typography Id="UiDiagnostic" Font="IBMPlexMono-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
+    <Typography Id="UiState" Font="IBMPlexSans-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
+    <Typography Id="TelemetryMetric" Font="IBMPlexMono-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
+    <Typography Id="TelemetryDetails" Font="IBMPlexMono-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,:;/+-()[]%_#?!=&lt;&gt;&#xA;|" />
     <Typography Id="UsbReading" Font="IBMPlexMono-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. -VAW+" />
     <Typography Id="UsbPower" Font="IBMPlexMono-Regular.ttf" Size="40" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789. -W+" />
+    <Typography Id="KCap" Font="IBMPlexSans-Medium.ttf" Size="11" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KSub" Font="IBMPlexSans-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KBody" Font="IBMPlexSans-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KBodyM" Font="IBMPlexSans-Medium.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KLabel" Font="IBMPlexSans-Medium.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KTitle" Font="IBMPlexSans-Medium.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KHead" Font="IBMPlexSans-Medium.ttf" Size="22" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KM12" Font="IBMPlexMono-Regular.ttf" Size="12" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KM14" Font="IBMPlexMono-Regular.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KM16" Font="IBMPlexMono-Medium.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KM20" Font="IBMPlexMono-Medium.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KM26" Font="IBMPlexMono-Medium.ttf" Size="26" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KM34" Font="IBMPlexMono-Medium.ttf" Size="34" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KM52" Font="IBMPlexMono-Medium.ttf" Size="52" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="KM60" Font="IBMPlexMono-Medium.ttf" Size="60" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="°·–→←↑↓Δ±Ωµ≥≤…×₄✓•" WildcardCharacterRanges="0x20-0x7E" />
   </Typographies>
 </TextDatabase>

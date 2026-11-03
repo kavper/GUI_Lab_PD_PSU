@@ -50,3 +50,19 @@ fail:
     HAL_GPIO_WritePin(GPIOG, GPIO_PIN_15, GPIO_PIN_RESET);
     return 0;
 }
+
+uint8_t BoardBacklight_LevelForPercent(uint8_t percent)
+{
+    /* Perceptual (quadratic) curve; never fully dark so the panel stays usable. */
+    if (percent < 5U) percent = 5U;
+    if (percent > 100U) percent = 100U;
+    uint32_t level = ((uint32_t)percent * percent * 255U + 5000U) / 10000U;
+    if (level < 4U) level = 4U;
+    return (uint8_t)level;
+}
+int BoardBacklight_SetPercent(I2C_HandleTypeDef *h, uint8_t percent)
+{
+    if (!BoardBacklightReady) return 0;
+    /* A failed brightness write leaves the previous level; it never disables BL_EN. */
+    return write_verify(h, 0x00, BoardBacklight_LevelForPercent(percent));
+}

@@ -8,12 +8,18 @@
 #include <touchgfx/widgets/TextArea.hpp>
 
 namespace ui {
-enum Role { BACKGROUND, SURFACE, RAISED, BORDER, TEXT, MUTED, ACCENT, ACCENT_SOFT, POSITIVE, CAUTION, NEGATIVE, ON_ACCENT };
+enum Role { BACKGROUND, SURFACE, RAISED, BORDER, TEXT, MUTED, ACCENT, ACCENT_SOFT, POSITIVE, CAUTION, NEGATIVE, ON_ACCENT, VOLT, AMP, WATT, ROLE_COUNT };
 enum SurfaceStyle { PANEL, NORMAL, PRIMARY, DANGER, OUTPUT, PILL, SELECTION, ICON, SWATCH_BLUE, SWATCH_TEAL, SWATCH_VIOLET, SWATCH_AMBER };
 class Theme {
 public:
     static bool dark();
     static unsigned accentIndex();
+    static unsigned themeIndex();
+    static const char* themeName(unsigned index);
+    static void setTheme(unsigned index);
+    // Theme colours by role for any theme (used by previews in Appearance).
+    static touchgfx::colortype colorFor(unsigned theme, Role role);
+    static bool accentSelectable();
     static void setDark(bool value);
     static void setAccent(unsigned value);
     static touchgfx::colortype color(Role role);
@@ -45,6 +51,11 @@ private:
     bool selected() const;
 };
 
+// Antialiased rounded rectangle with a 1px border, composited over `base`.
+// Supported radii: 5, 6, 7, 8, 10, 11, 12. Absolute coordinates.
+void drawRounded(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::colortype border,touchgfx::colortype surface,touchgfx::colortype base,int radius);
+void fillRect(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::colortype color,uint8_t alpha=255);
+
 class ThemeScreen {
 public:
     ThemeScreen();
@@ -59,6 +70,8 @@ public:
     void image(touchgfx::Image& widget, SurfaceStyle style, touchgfx::Button* tile=0);
     void sync();
     void apply();
+    void capture(touchgfx::Container& container,touchgfx::BitmapId bitmap);
+    void capture(touchgfx::Container& container,touchgfx::BitmapId bitmap,const touchgfx::Rect& area);
     Role backgroundBehind(const touchgfx::Drawable& widget) const;
 private:
     struct TextBinding { touchgfx::TextArea* widget; int8_t role; };

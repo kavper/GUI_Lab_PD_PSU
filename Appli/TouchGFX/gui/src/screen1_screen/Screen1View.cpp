@@ -32,7 +32,9 @@ Screen1View::Screen1View()
       selectedPreset(0),
       editorNoticeTicks(0),
       voltageStep(1),
-      currentStep(1)
+      currentStep(1),
+      clicked(this, &Screen1View::onKit),
+      stripDivider(0)
 {
     editAscii[0] = '\0';
 }
@@ -74,8 +76,219 @@ void Screen1View::setupScreen()
     setPcbTemperature(0);
 #endif
 
+    layout();
     setupTheme();
     refreshRemoteSense();
+    refreshPowerStrip();
+}
+
+// Unified layout (mockup "Main"): two measurement cards with the setpoint
+// column, power strip and presets on the left; output switch and keypad on the
+// right. Designer widgets stay as hidden state holders; kit widgets mirror them.
+void Screen1View::layout()
+{
+    using kit::place;
+    kit::clearNoSwipe();
+    kit::hideAll(getRootContainer());
+    Background.setVisible(true);
+    // Invisible hit areas used by handleClickEvent to pick the edit target.
+    place(SetVoltageButton, 12, 58, 478, 132);
+    place(SetCurrentButton, 12, 200, 478, 132);
+
+    for (int c = 0; c < 2; ++c) {
+        const int y = c ? 200 : 58;
+        card[c].setup(12, y, 478, 132, ui::SURFACE, ui::BORDER, ui::BACKGROUND, 11);
+        add(card[c]);
+        caption[c].setup(kit::CAP, kit::LEFT, 26, y + 11, 280, 16, ui::MUTED);
+        caption[c].set(c ? "OUTPUT CURRENT" : "OUTPUT VOLTAGE");
+        measured[c].setup(kit::M60, kit::M26, kit::LEFT, 22, y + 30, 300, 72, c ? ui::AMP : ui::VOLT);
+        divider[c].setup(326, y + 14, 1, 104, ui::BORDER);
+        setCaption[c].setup(kit::CAP, kit::LEFT, 342, y + 11, 136, 16, ui::MUTED);
+        setCaption[c].set(c ? "LIMIT" : "SET");
+        setValue[c].setup(kit::M26, kit::M14, kit::LEFT, 340, y + 32, 146, 36, ui::TEXT);
+        nudge[c][0].setup(340, y + 84, 38, 36, "", kit::Btn::NORMAL);
+        nudge[c][0].setIcon(kit::ICON_MINUS);
+        nudge[c][1].setup(383, y + 84, 56, 36, "0.1", kit::Btn::NORMAL, kit::M12);
+        nudge[c][2].setup(444, y + 84, 38, 36, "", kit::Btn::NORMAL);
+        nudge[c][2].setIcon(kit::ICON_PLUS);
+        add(caption[c]); add(measured[c]); add(divider[c]); add(setCaption[c]); add(setValue[c]);
+        for (int k = 0; k < 3; ++k) {
+            nudge[c][k].setBase(ui::SURFACE);
+            nudge[c][k].tag = 10 + c * 3 + k;
+            nudge[c][k].setAction(clicked);
+            add(nudge[c][k]);
+        }
+    }
+    senseLink.setup(16, 58 + 100, 240, 26, "", kit::Btn::GHOST, kit::SUB);
+    senseLink.setBase(ui::SURFACE);
+    senseLink.setAlign(kit::LEFT);
+    senseLink.tag = 40; senseLink.setAction(clicked);
+    add(senseLink);
+    currentBar.setup(26, 200 + 116, 284, 5, ui::AMP);
+    add(currentBar);
+
+    // Power strip.
+    powerStrip.setup(12, 342, 478, 58, ui::SURFACE, ui::BORDER, ui::BACKGROUND, 11);
+    add(powerStrip);
+    powerValue.setup(kit::M26, kit::M14, kit::LEFT, 24, 350, 150, 42, ui::WATT);
+    modeChip.setXY(176, 359);
+    loadValue.setup(kit::SUB, kit::LEFT, 236, 352, 246, 18, ui::MUTED);
+    notice.setup(kit::SUB, kit::LEFT, 236, 372, 246, 18, ui::MUTED);
+    add(powerValue); add(modeChip); add(loadValue); add(notice);
+
+    // Presets.
+    for (int i = 0; i < 3; ++i) {
+        preset[i].setup(12 + i * 162, 410, 154, 58, "", kit::Btn::NORMAL, kit::CAP);
+        preset[i].tag = 50 + i; preset[i].setAction(clicked);
+        add(preset[i]);
+    }
+
+    // Output switch and keypad.
+    output.setup(500, 58, 288, 76, "OUTPUT OFF", kit::Btn::NORMAL, kit::HEAD);
+    output.tag = 60; output.setAction(clicked);
+    add(output);
+    keypad.setup(500, 144, 288, 324, ui::SURFACE, ui::BORDER, ui::BACKGROUND, 11);
+    add(keypad);
+    static const char* const labels[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "" };
+    for (int i = 0; i < 12; ++i) {
+        keys[i].setup(510 + (i % 3) * 92, 154 + (i / 3) * 62, 86, 56, labels[i], kit::Btn::KEY, kit::M26);
+        keys[i].setBase(ui::SURFACE);
+        keys[i].tag = 100 + i; keys[i].setAction(clicked);
+        add(keys[i]);
+    }
+    keys[11].setIcon(kit::ICON_DEL);
+    clearKey.setup(510, 402, 86, 56, "CLEAR", kit::Btn::KEY, kit::BODYM);
+    enterKey.setup(602, 402, 178, 56, "SET VOLTAGE", kit::Btn::PRIMARY, kit::LABEL);
+    clearKey.setBase(ui::SURFACE); enterKey.setBase(ui::SURFACE);
+    clearKey.tag = 112; enterKey.tag = 113;
+    clearKey.setAction(clicked); enterKey.setAction(clicked);
+    add(clearKey); add(enterKey);
+
+    header.setup(FrontendApplication::pageInfo(FrontendApplication::MAIN));
+    add(header);
+    syncKit();
+}
+
+void Screen1View::onKit(const kit::Btn& b)
+{
+    switch (b.tag) {
+    case 10: nudgeVoltDown(); break;
+    case 11: stepVolt(); break;
+    case 12: nudgeVoltUp(); break;
+    case 13: nudgeAmpDown(); break;
+    case 14: stepAmp(); break;
+    case 15: nudgeAmpUp(); break;
+    case 40: toggleRemoteSense(); break;
+    case 50: preset1(); break;
+    case 51: preset2(); break;
+    case 52: preset3(); break;
+    case 60: outputToggled(); break;
+    case 112: keyClear(); break;
+    case 113: keyEnter(); break;
+    default:
+        if (b.tag >= 100 && b.tag < 112) {
+            static const char k[] = "123456789.0";
+            if (b.tag == 111) keyBack(); else appendKey(k[b.tag - 100]);
+        }
+        break;
+    }
+    syncKit();
+}
+
+namespace {
+void utf8(const touchgfx::Unicode::UnicodeChar* src, char* out, size_t n)
+{
+    touchgfx::Unicode::toUTF8(src, reinterpret_cast<uint8_t*>(out), (uint16_t)n);
+    out[n - 1] = 0;
+}
+bool dashes(const char* t) { return t[0] == '-' && t[1] == '-'; }
+}
+
+// Mirror the state kept in the Designer widgets into the kit widgets.
+void Screen1View::syncKit()
+{
+    char t[48];
+    utf8(ActualVoltageValueBuffer, t, sizeof(t));
+    measured[0].set(t, dashes(t) ? ui::MUTED : ui::VOLT);
+    utf8(ActualCurrentValueBuffer, t, sizeof(t));
+    measured[1].set(t, dashes(t) ? ui::MUTED : ui::AMP);
+    utf8(SetVoltageValueBuffer, t, sizeof(t));
+    setValue[0].set(t, editTarget == EDIT_VOLTAGE ? ui::ACCENT : ui::TEXT);
+    utf8(SetCurrentValueBuffer, t, sizeof(t));
+    setValue[1].set(t, editTarget == EDIT_CURRENT ? ui::ACCENT : ui::TEXT);
+    card[0].setBorder(editTarget == EDIT_VOLTAGE ? ui::ACCENT : ui::BORDER);
+    card[1].setBorder(editTarget == EDIT_CURRENT ? ui::ACCENT : ui::BORDER);
+    setCaption[0].setRole(editTarget == EDIT_VOLTAGE ? ui::ACCENT : ui::MUTED);
+    setCaption[1].setRole(editTarget == EDIT_CURRENT ? ui::ACCENT : ui::MUTED);
+    static const char* const vSteps[] = { "10 mV", "0.1 V", "1 V" };
+    static const char* const aSteps[] = { "10 mA", "0.1 A", "1 A" };
+    nudge[0][1].setLabel(vSteps[voltageStep % 3]);
+    nudge[1][1].setLabel(aSteps[currentStep % 3]);
+    currentBar.set(currentLimitMa ? (int)((int64_t)measuredCurrentMa * 1000 / currentLimitMa) : 0,
+                   constantCurrentMode ? ui::CAUTION : ui::AMP);
+
+    // Remote sense line in the voltage card.
+    utf8(RemoteSenseTextBuffer, t, sizeof(t));
+    char* nl = strchr(t, '\n');
+    char line[48];
+    snprintf(line, sizeof(line), "Remote sense: %s", nl ? nl + 1 : t);
+    for (char* p = line + 14; *p; ++p) if (*p >= 'A' && *p <= 'Z') *p = (char)(*p - 'A' + 'a');
+    senseLink.setLabel(line);
+
+    // Output switch.
+    utf8(OutputLabelBuffer, t, sizeof(t));
+    const bool on = !strcmp(t, "OUTPUT ON");
+    output.setLabel(t);
+    output.setStyle(on ? kit::Btn::POSITIVE_FILL : kit::Btn::NORMAL);
+    output.setIcon(on ? kit::ICON_DOT : kit::ICON_NONE);
+    output.setIconLeft(true);
+
+    // Mode chip and notices.
+    PsuSnapshot live;
+    psu_snapshot(&live);
+    const bool showMode = modeShown || (on && live.regulation_mode);
+    if (showMode) modeChip.set(constantCurrentMode ? "CC" : "CV", -1, constantCurrentMode ? ui::CAUTION : ui::POSITIVE);
+    else modeChip.set("");
+    modeChip.setVisible(showMode);
+    if (editorNoticeTicks) { utf8(EditorStatusBuffer, t, sizeof(t)); notice.set(t, ui::CAUTION); }
+    else notice.set(editTarget == EDIT_VOLTAGE ? "Keypad edits the voltage" : "Keypad edits the current limit", ui::MUTED);
+
+    // Presets.
+    for (int i = 0; i < 3; ++i) {
+        const PsuPreset* p = psu_preset_get(i);
+        char d[40];
+        if (p) snprintf(d, sizeof(d), "%lu.%02lu V \xC2\xB7 %lu.%01lu A", (unsigned long)(p->voltage_mv / 1000), (unsigned long)(p->voltage_mv % 1000 / 10),
+                        (unsigned long)(p->current_ma / 1000), (unsigned long)(p->current_ma % 1000 / 100));
+        else snprintf(d, sizeof(d), "--");
+        snprintf(t, sizeof(t), selectedPreset == i + 1 ? "P%d \xC2\xB7 active" : "P%d", i + 1);
+        preset[i].setLabel(t);
+        preset[i].setDetail(d, kit::M14);
+        preset[i].setSelected(selectedPreset == i + 1);
+    }
+    enterKey.setLabel(editTarget == EDIT_VOLTAGE ? "SET VOLTAGE" : "SET LIMIT");
+}
+
+void Screen1View::refreshPowerStrip()
+{
+    PsuSnapshot live;
+    psu_snapshot(&live);
+    char text[48];
+    const bool valid = live.g0_connected && !live.g0_stale && live.current_valid;
+    const int32_t ua = live.display_current_ua > 0 ? live.display_current_ua : 0;
+    if (valid) {
+        const uint64_t mw = (uint64_t)live.vout_mv * (uint64_t)ua / 1000000ULL;
+        snprintf(text, sizeof(text), "%lu.%02lu W", (unsigned long)(mw / 1000), (unsigned long)(mw % 1000 / 10));
+        powerValue.set(text, ui::WATT);
+        if (ua > 5000 && live.output_confirmed) {
+            const uint64_t mohm = (uint64_t)live.vout_mv * 1000000ULL / (uint64_t)ua;
+            if (mohm < 1000000ULL) snprintf(text, sizeof(text), "Load %lu.%02lu \xCE\xA9", (unsigned long)(mohm / 1000), (unsigned long)(mohm % 1000 / 10));
+            else snprintf(text, sizeof(text), "Load %lu \xCE\xA9", (unsigned long)(mohm / 1000));
+        } else snprintf(text, sizeof(text), live.output_confirmed ? "No load" : "Output off");
+        loadValue.set(text, ui::MUTED);
+    } else {
+        powerValue.set("-- W", ui::MUTED);
+        loadValue.set(live.g0_connected ? "Waiting for current" : "LDO link offline", ui::MUTED);
+    }
 }
 
 void Screen1View::tearDownScreen()
@@ -150,27 +363,22 @@ void Screen1View::handleClickEvent(const touchgfx::ClickEvent& event)
 
 void Screen1View::setMeasurements(uint32_t voltageMv, int32_t currentUa, int16_t temperatureDeciC)
 {
+    char text[32];
     if (voltageMv < 10000)
-        touchgfx::Unicode::snprintf(ActualVoltageValueBuffer, ACTUALVOLTAGEVALUE_SIZE,
+        snprintf(text, sizeof(text),
                                    "%u.%03u V", voltageMv / 1000, voltageMv % 1000);
     else
-        touchgfx::Unicode::snprintf(ActualVoltageValueBuffer, ACTUALVOLTAGEVALUE_SIZE,
+        snprintf(text, sizeof(text),
                                    "%u.%02u V", voltageMv / 1000, (voltageMv % 1000) / 10);
+    lab_show(ActualVoltageValue,ActualVoltageValueBuffer,ACTUALVOLTAGEVALUE_SIZE,text,lab_text());
     const int32_t displayCurrentUa = currentUa > 0 ? currentUa : 0;
     const int32_t roundedCurrentMa = (displayCurrentUa + 500) / 1000;
-    touchgfx::Unicode::snprintf(ActualCurrentValueBuffer, ACTUALCURRENTVALUE_SIZE,
+    snprintf(text, sizeof(text),
                                "%d.%03d A", (int)(roundedCurrentMa / 1000),
                                (int)(roundedCurrentMa % 1000));
-    const int32_t absTemperature = temperatureDeciC < 0 ? -(int32_t)temperatureDeciC : (int32_t)temperatureDeciC;
-    if (temperatureDeciC < 0)
-        touchgfx::Unicode::snprintf(TemperatureValueBuffer, TEMPERATUREVALUE_SIZE,
-                                   "-%d.%d C", absTemperature / 10, absTemperature % 10);
-    else
-        touchgfx::Unicode::snprintf(TemperatureValueBuffer, TEMPERATUREVALUE_SIZE,
-                                   "%d.%d C", absTemperature / 10, absTemperature % 10);
-    ActualVoltageValue.invalidate();
-    ActualCurrentValue.invalidate();
-    TemperatureValue.invalidate();
+    lab_show(ActualCurrentValue,ActualCurrentValueBuffer,ACTUALCURRENTVALUE_SIZE,text,lab_text());
+    PsuSnapshot live;psu_snapshot(&live);
+    if(!live.g4_uart_configured){psu_format_deci_c(text,sizeof(text),temperatureDeciC);lab_show(TemperatureValue,TemperatureValueBuffer,TEMPERATUREVALUE_SIZE,text,lab_text());}
     measuredCurrentMa = displayCurrentUa / 1000;
     setRegulationMode(outputEnabled && measuredCurrentMa >= (int32_t)currentLimitMa);
 }
@@ -184,10 +392,10 @@ void Screen1View::setInputMetrics(uint32_t inputVoltageMv, uint32_t outputPowerM
 
 void Screen1View::setCurrentMeasurementCalibrated(bool calibrated)
 {
-    ActualCurrentLabel.setTypedText(touchgfx::TypedText(calibrated
+    const touchgfx::TypedText text(calibrated
         ? T_TXT_ACTUAL_I
-        : T_TXT_ACTUAL_I_UNCAL));
-    ActualCurrentLabel.invalidate();
+        : T_TXT_ACTUAL_I_UNCAL);
+    if(ActualCurrentLabel.getTypedText().getId()!=text.getId()){ActualCurrentLabel.setTypedText(text);ActualCurrentLabel.invalidate();}
 }
 
 void Screen1View::setControllerOutputState(bool enabled)
@@ -195,15 +403,15 @@ void Screen1View::setControllerOutputState(bool enabled)
     PsuSnapshot live;
     psu_snapshot(&live);
     outputEnabled = enabled;
-    OutputEnable.forceState(enabled);
+    if(OutputEnable.getState()!=enabled){OutputEnable.forceState(enabled);OutputEnable.invalidate();}
     // The control label describes the action that a press will perform.  The
     // previous "PSU OFF" label described the current state and made the
     // toggle's behaviour ambiguous.
     const char *label = live.shutdown_pending ? "TURNING OFF..." : !live.g0_connected ? "NO LINK" : live.output_requested != enabled
         ? (live.output_requested ? "TURNING ON..." : "TURNING OFF...")
-        : (enabled ? "TURN OFF" : "TURN ON");
+        : (enabled ? "OUTPUT ON" : "OUTPUT OFF");
     touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(label), OutputLabelBuffer, OUTPUTLABEL_SIZE);
-    OutputLabel.setColor(enabled ? touchgfx::Color::getColorFromRGB(255,255,255) : touchgfx::Color::getColorFromRGB(23,35,55));
+    OutputLabel.setColor(ui::Theme::color(enabled ? ui::ON_ACCENT : ui::TEXT));
     OutputEnable.invalidate(); OutputLabel.invalidate();
 #ifndef SIMULATOR
     PSU_SetOutputLed(enabled ? 1U : 0U);
@@ -257,7 +465,7 @@ void Screen1View::showEditorStatus(const char* text, bool warning)
 {
     touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text), EditorStatusBuffer, EDITORSTATUS_SIZE);
     editorNoticeTicks=180;
-    EditorStatus.setVisible(true);
+    EditorStatus.setVisible(false); // shown by the kit notice line
     EditorStatus.setColor(ui::Theme::color(warning ? ui::CAUTION : ui::POSITIVE));
     EditorStatus.invalidate();
 }
@@ -319,7 +527,7 @@ void Screen1View::selectVoltage()
 {
     refreshSetpoints();
     editTarget = EDIT_VOLTAGE;
-    VoltageSelection.setVisible(true);
+    VoltageSelection.setVisible(false); // kit card border shows the selection
     CurrentSelection.setVisible(false);
     VoltageSelection.invalidate();
     CurrentSelection.invalidate();
@@ -338,7 +546,7 @@ void Screen1View::selectCurrent()
     refreshSetpoints();
     editTarget = EDIT_CURRENT;
     VoltageSelection.setVisible(false);
-    CurrentSelection.setVisible(true);
+    CurrentSelection.setVisible(false);
     VoltageSelection.invalidate();
     CurrentSelection.invalidate();
     SetVoltageLabel.setColor(ui::Theme::color(ui::MUTED));
@@ -366,6 +574,8 @@ void Screen1View::outputToggled()
 
 void Screen1View::setRegulationMode(bool constantCurrent)
 {
+    const auto bitmap=constantCurrent?BITMAP_MODE_CC_58X36_ID:BITMAP_MODE_CV_58X36_ID;
+    if(ModePill.getBitmap().getId()==bitmap){constantCurrentMode=constantCurrent;return;}
     constantCurrentMode = constantCurrent;
     ModePill.setBitmap(touchgfx::Bitmap(constantCurrent
         ? BITMAP_MODE_CC_58X36_ID
@@ -434,13 +644,7 @@ void Screen1View::keyEnter()
 
 void Screen1View::setLinkStatus(const char *text)
 {
-    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text ? text : "G4 OFFLINE"),
-                               LinkStatusBuffer, LINKSTATUS_SIZE);
-    LinkStatus.setColor(touchgfx::Color::getColorFromRGB(
-        text && strstr(text, "ONLINE") ? 22 : 168,
-        text && strstr(text, "ONLINE") ? 117 : 91,
-        text && strstr(text, "ONLINE") ? 72 : 5));
-    LinkStatus.invalidate();
+    lab_show(LinkStatus,LinkStatusBuffer,LINKSTATUS_SIZE,text?text:"G4 OFFLINE",text&&strstr(text,"ONLINE")?lab_green():lab_amber());
 }
 
 void Screen1View::updatePresetHighlight(uint8_t preset)
@@ -465,6 +669,8 @@ void Screen1View::updatePresetHighlight(uint8_t preset)
     Preset1Button.invalidate();
     Preset2Button.invalidate();
     Preset3Button.invalidate();
+    touchgfx::TextArea* quick[] = { &QuickPreset1, &QuickPreset2, &QuickPreset3 };
+    for (int i = 0; i < 3; ++i) { quick[i]->setColor(kit::col(preset == i + 1 ? ui::ACCENT : ui::TEXT)); quick[i]->invalidate(); }
 }
 
 void Screen1View::applyPreset(uint8_t preset, uint32_t voltageMv, uint32_t currentMa)
@@ -507,28 +713,23 @@ void Screen1View::setTelemetryAvailable(bool available, bool currentValid, bool 
     PsuSnapshot live;
     psu_snapshot(&live);
     const bool showMode = available && live.regulation_mode != 0;
-    if (ModeTextFront.isVisible() != showMode) {
-        ModeTextFront.setVisible(showMode); ModePill.setVisible(showMode);
+    if (modeShown != showMode) {
+        ModeTextFront.setVisible(false); ModePill.setVisible(false); modeShown = showMode;
         ModeTextFront.invalidate(); ModePill.invalidate();
     }
     if (!available) {
-        touchgfx::Unicode::snprintf(ActualVoltageValueBuffer, ACTUALVOLTAGEVALUE_SIZE, "-- V");
-        touchgfx::Unicode::snprintf(TemperatureValueBuffer, TEMPERATUREVALUE_SIZE, "-- C");
-        touchgfx::Unicode::snprintf(PcbTemperatureValueBuffer, PCBTEMPERATUREVALUE_SIZE, "-- C");
-        TemperatureValue.invalidate(); PcbTemperatureValue.invalidate();
+        lab_show(ActualVoltageValue,ActualVoltageValueBuffer,ACTUALVOLTAGEVALUE_SIZE,"-- V",lab_muted());
     }
-    if (!temperatureValid) {
-        touchgfx::Unicode::snprintf(TemperatureValueBuffer, TEMPERATUREVALUE_SIZE, "-- C");
-        touchgfx::Unicode::snprintf(PcbTemperatureValueBuffer, PCBTEMPERATUREVALUE_SIZE, "-- C");
-        TemperatureValue.invalidate(); PcbTemperatureValue.invalidate();
+    if (!live.g4_uart_configured && (!available || !temperatureValid)) {
+        lab_show(TemperatureValue,TemperatureValueBuffer,TEMPERATUREVALUE_SIZE,"-- C",lab_muted());
+        lab_show(PcbTemperatureValue,PcbTemperatureValueBuffer,PCBTEMPERATUREVALUE_SIZE,"-- C",lab_muted());
     }
     if (!available || !currentValid) {
-        touchgfx::Unicode::snprintf(ActualCurrentValueBuffer, ACTUALCURRENTVALUE_SIZE, "-- A");
-        touchgfx::Unicode::snprintf(PowerValueBuffer, POWERVALUE_SIZE, "-- W");
-        PowerValue.invalidate();
+        lab_show(ActualCurrentValue,ActualCurrentValueBuffer,ACTUALCURRENTVALUE_SIZE,"-- A",lab_muted());
+        if(!live.g4_uart_configured)lab_show(PowerValue,PowerValueBuffer,POWERVALUE_SIZE,"-- W",lab_muted());
     }
-    ActualVoltageValue.setColor(available ? touchgfx::Color::getColorFromRGB(23, 35, 55) : touchgfx::Color::getColorFromRGB(96, 112, 133));
-    ActualCurrentValue.setColor(available && currentValid ? touchgfx::Color::getColorFromRGB(23, 35, 55) : touchgfx::Color::getColorFromRGB(96, 112, 133));
+    ActualVoltageValue.setColor(ui::Theme::color(available ? ui::VOLT : ui::MUTED));
+    ActualCurrentValue.setColor(ui::Theme::color(available && currentValid ? ui::AMP : ui::MUTED));
     ActualVoltageValue.invalidate(); ActualCurrentValue.invalidate();
 }
 
@@ -536,10 +737,9 @@ void Screen1View::setTemperaturesDeciC(int16_t mosDeciC, int16_t pcbDeciC)
 {
     char text[16];
     psu_format_deci_c(text, sizeof(text), mosDeciC);
-    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text), TemperatureValueBuffer, TEMPERATUREVALUE_SIZE);
+    lab_show(TemperatureValue,TemperatureValueBuffer,TEMPERATUREVALUE_SIZE,text,lab_text());
     psu_format_deci_c(text, sizeof(text), pcbDeciC);
-    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text), PcbTemperatureValueBuffer, PCBTEMPERATUREVALUE_SIZE);
-    TemperatureValue.invalidate(); PcbTemperatureValue.invalidate();
+    lab_show(PcbTemperatureValue,PcbTemperatureValueBuffer,PCBTEMPERATUREVALUE_SIZE,text,lab_text());
 }
 
 void Screen1View::syncControllerSetpoints(uint32_t mv, uint32_t ma)
@@ -559,12 +759,11 @@ void Screen1View::setHostAuxMetrics()
     if(rail.valid && psu_app_now()-rail.ms<=50U && g4_record_value(&rail,"vout_mv",&value))
         snprintf(text,sizeof(text),"%lu.%lu V",(unsigned long)(value/1000),(unsigned long)((value%1000)/100));
     else snprintf(text,sizeof(text),"-- V");
-    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text),TemperatureValueBuffer,TEMPERATUREVALUE_SIZE);
+    lab_show(TemperatureValue,TemperatureValueBuffer,TEMPERATUREVALUE_SIZE,text,lab_text());
     if(pd.valid && psu_app_now()-pd.ms<=1000U && g4_record_value(&pd,"pd_mv",&value))
         snprintf(text,sizeof(text),"%lu.%lu V",(unsigned long)(value/1000),(unsigned long)((value%1000)/100));
     else snprintf(text,sizeof(text),"-- V");
-    touchgfx::Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text),PcbTemperatureValueBuffer,PCBTEMPERATUREVALUE_SIZE);
-    TemperatureValue.invalidate();PcbTemperatureValue.invalidate();
+    lab_show(PcbTemperatureValue,PcbTemperatureValueBuffer,PCBTEMPERATUREVALUE_SIZE,text,lab_text());
     TelemetryRecord battery(G4_RECORD_TB);
     int64_t mv=0,ma=0;char flow[32];
     const bool valid=battery.is("sample",1)&&battery.is("bms",1)&&battery.get("pack_mv",mv)&&battery.get("i_pack_ma",ma);
@@ -596,7 +795,7 @@ void Screen1View::restoreSwipeEditor(const MainSwipeEditorState& state)
     memcpy(EditorStatusBuffer,state.status,sizeof(EditorStatusBuffer));
     EditorStatus.setColor(state.statusColor);
     editorNoticeTicks=state.statusTicks;
-    EditorStatus.setVisible(editorNoticeTicks!=0);
+    EditorStatus.setVisible(false);
     EditorStatus.invalidate();
 }
 
@@ -620,11 +819,11 @@ void Screen1View::setupTheme()
     theme.button(OutputEnable,ui::OUTPUT);
     theme.text(OutputLabel);
     theme.text(ActualVoltageLabel);
-    theme.text(ActualVoltageValue);
+    theme.text(ActualVoltageValue,ui::VOLT);
     theme.text(SetVoltageLabel);
     theme.text(SetVoltageValue);
     theme.text(ActualCurrentLabel);
-    theme.text(ActualCurrentValue);
+    theme.text(ActualCurrentValue,ui::AMP);
     theme.text(SetCurrentLabel);
     theme.text(SetCurrentValue);
     theme.button(Key1,ui::NORMAL);
@@ -661,9 +860,6 @@ void Screen1View::setupTheme()
     theme.text(LinkStatus);
     theme.text(EditorStatus);
     theme.text(EditorHelp);
-    theme.text(QuickPreset1);
-    theme.text(QuickPreset2);
-    theme.text(QuickPreset3);
     theme.apply();
 }
 
@@ -671,6 +867,9 @@ void Screen1View::handleTickEvent()
 {
     if(static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->isScreenTransitionActive())return;
     refreshRemoteSense();
+    
+    if (++stripDivider >= 6) { stripDivider = 0; refreshPowerStrip(); }
+    syncKit();
     if(editorNoticeTicks && --editorNoticeTicks==0) {
         EditorStatus.setVisible(false);
         EditorStatus.invalidate();
@@ -682,7 +881,7 @@ void Screen1View::allOff() { showEditorStatus(psu_app_power_shutdown()?"POWER OF
 void Screen1View::refreshRemoteSense(){
  TelemetryRecord aux(G4_RECORD_AUX);int64_t flags=0,code=0;
  const bool fresh=aux.get("sense_flags",flags)&&aux.get("sense_code",code);
- const char* label=!fresh?"REMOTE SENSE\nNO DATA":flags&4?"REMOTE SENSE\nFAULT >":flags&1?"REMOTE SENSE\nON":flags&2?"REMOTE SENSE\nARMED":"REMOTE SENSE\nOFF / LOCAL";
+ const char* label=!fresh?"SENSE\nNO DATA":flags&4?"SENSE\nFAULT":flags&1?"SENSE\nREMOTE":flags&2?"SENSE\nARMED":"SENSE\nLOCAL";
  lab_show(RemoteSenseText,RemoteSenseTextBuffer,REMOTESENSETEXT_SIZE,label,
      !fresh?lab_muted():(flags&4)?lab_red():(flags&2 && !(flags&1))?lab_amber():lab_text());
  const touchgfx::BitmapId released=fresh&&(flags&1)?BITMAP_MAIN_SENSE_SEL_148X60_ID:BITMAP_MAIN_SENSE_REL_148X60_ID;

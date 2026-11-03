@@ -45,31 +45,51 @@ LOCATION_PRAGMA_NOLOAD("TouchGFX_Framebuffer")
 uint32_t rotatedBuffers[2][maxDisplayWidth * maxDisplayHeight / 2] LOCATION_ATTRIBUTE_NOLOAD("TouchGFX_Framebuffer");
 LOCATION_PRAGMA_NOLOAD("TouchGFX_Framebuffer")
 uint32_t bitmapCache[2 * 1024 * 1024 / 4] LOCATION_ATTRIBUTE_NOLOAD("TouchGFX_Framebuffer");
-LOCATION_PRAGMA_NOLOAD("TouchGFX_Framebuffer")
-uint32_t transitionTextures[2][maxDisplayWidth * maxDisplayHeight / 2] LOCATION_ATTRIBUTE_NOLOAD("TouchGFX_Framebuffer");
 uint16_t* volatile displayedLogicalBuffer = nullptr;
 uint32_t frameStartCycles;
 Rect currentDirty;
 Rect previousDirty;
+const uint16_t* transitionLogicalSource = nullptr;
+const uint16_t* transitionOutgoingSource = nullptr;
+unsigned transitionLogicalCopies = 0;
+bool logicalBuffersSynchronized = false;
 }
 
 DisplayComposition boardDisplayComposition = {};
+extern "C" { volatile uint32_t BoardGraphicsTransitionUs[4] = {}; }
+uint32_t BoardDisplayCycles() { return DWT->CYCCNT; }
+void BoardDisplayMeasure(unsigned stage,uint32_t started)
+{
+    if(stage<4) BoardGraphicsTransitionUs[stage]=(DWT->CYCCNT-started)/600;
+}
 void BoardDisplayPrepare(const uint16_t* outgoing, const uint16_t* incoming)
 {
+    const uint32_t started=BoardDisplayCycles();
+    transitionLogicalSource=incoming;
+    transitionOutgoingSource=outgoing;
+    transitionLogicalCopies=0;
     auto* hal=touchgfx::HALGPU2D::getInstance();
-    const unsigned width=touchgfx::HAL::DISPLAY_WIDTH, height=touchgfx::HAL::DISPLAY_HEIGHT;
     // Finish the outgoing snapshot DMA and destination bitmap render first.
     hal->lockFrameBuffer(); hal->unlockFrameBuffer();
     HAL_ICACHE_Invalidate();
-    for(unsigned n=0;n<2;n++) {
-        nema_bind_dst_tex(reinterpret_cast<uintptr_t>(transitionTextures[n]),width,height,NEMA_RGB565,width*2);
-        nema_bind_src_tex(reinterpret_cast<uintptr_t>(n?incoming:outgoing),width,height,NEMA_RGB565,width*2,NEMA_FILTER_PS);
-        nema_set_clip(0,0,width,height); nema_set_blend_blit(NEMA_BL_SRC);
-        nema_blit_rotate(0,0,NEMA_ROT_180_CW);
-    }
-    hal->submitExecBuffer();
-    hal->lockFrameBuffer(); hal->unlockFrameBuffer();
+    BoardDisplayMeasure(1,started);
+    // Rotate each visible source region directly into scanout. Pre-rotating
+    // both full snapshots here added two unnecessary PSRAM read/write passes.
 }
+
+bool BoardDisplayFinish()
+{
+    if (!boardDisplayComposition.active) return false;
+    const bool restored=transitionLogicalCopies==8;
+    boardDisplayComposition.active=false;
+    boardDisplayComposition.preparing=false;
+    boardDisplayComposition.resumeFrames=restored?0:2;
+    logicalBuffersSynchronized=restored;
+    if(restored)previousDirty=Rect(); // Both scanout buffers contain the endpoint.
+    transitionLogicalSource=nullptr;
+    return restored;
+}
+bool BoardDisplayReady() { return transitionLogicalCopies==8; }
 
 extern "C" {
 volatile uint32_t BoardDisplayRotationFrames = 0;
@@ -81,8 +101,10 @@ volatile uint32_t BoardGraphicsCpuUs = 0;
 volatile uint32_t BoardGraphicsFinishUs = 0;
 volatile uint32_t BoardGraphicsSkipRotation = 0;
 volatile uint32_t BoardGraphicsSwipeBenchmark = 0;
+volatile uint32_t BoardGraphicsRouteBenchmark = 0;
 volatile uint32_t BoardGraphicsMotion = 0;
 volatile uint32_t BoardGraphicsFrameTimes[128][3] = {};
+volatile uint32_t BoardGraphicsPreparationProfile[4] = {};
 }
 
 void TouchGFXHAL::initialize()
@@ -95,8 +117,8 @@ void TouchGFXHAL::initialize()
 
     TouchGFXGeneratedHAL::initialize();
     if (DISPLAY_WIDTH > maxDisplayWidth || DISPLAY_HEIGHT > maxDisplayHeight) Error_Handler();
-    // 128 corner palettes x 4 textures plus transition bitmaps.
-    Bitmap::setCache(reinterpret_cast<uint16_t*>(bitmapCache), sizeof(bitmapCache), 516);
+    // 128 corner palettes x 4 textures, 64 tinted icons and transition bitmaps.
+    Bitmap::setCache(reinterpret_cast<uint16_t*>(bitmapCache), sizeof(bitmapCache), 580);
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
     DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
     displayedLogicalBuffer = frameBuffer0;
@@ -168,7 +190,7 @@ void TouchGFXHAL::flushFrameBuffer(const touchgfx::Rect& rect)
 
 bool TouchGFXHAL::blockCopy(void* RESTRICT dest, const void* RESTRICT src, uint32_t numBytes)
 {
-    if (boardDisplayComposition.active) {
+    if (boardDisplayComposition.active || logicalBuffersSynchronized) {
         const uintptr_t d=reinterpret_cast<uintptr_t>(dest),s=reinterpret_cast<uintptr_t>(src);
         const uintptr_t f0=reinterpret_cast<uintptr_t>(frameBuffer0),f1=reinterpret_cast<uintptr_t>(frameBuffer1);
         const uint32_t size=DISPLAY_WIDTH*DISPLAY_HEIGHT*2;
@@ -248,6 +270,18 @@ bool TouchGFXHAL::beginFrame()
 
 void TouchGFXHAL::endFrame()
 {
+    if(boardDisplayComposition.preparing) {
+        // The displayed scanout stays intact while bounded offscreen work is
+        // completed. Continue servicing touch/model ticks; do not swap an
+        // unfinished snapshot or rotate unchanged full screens in this phase.
+        frameBufferUpdatedThisFrame=false;
+        TouchGFXGeneratedHAL::endFrame();
+        const uint32_t elapsed=(DWT->CYCCNT-frameStartCycles)/600;
+        ++BoardGraphicsPreparationProfile[0];BoardGraphicsPreparationProfile[1]+=elapsed;
+        if(elapsed>BoardGraphicsPreparationProfile[2])BoardGraphicsPreparationProfile[2]=elapsed;
+        BoardGraphicsPreparationProfile[3]=elapsed;
+        return;
+    }
     const bool updated = frameBufferUpdatedThisFrame;
     const uint32_t finishStart = DWT->CYCCNT;
     BoardGraphicsCpuUs = (finishStart - frameStartCycles) / 600;
@@ -259,29 +293,78 @@ void TouchGFXHAL::endFrame()
         // Append rotation after drawing commands in the same GPU list. The
         // parent endFrame waits for completion before allowing a VSYNC swap.
         const unsigned width = DISPLAY_WIDTH, height = DISPLAY_HEIGHT;
+        const DisplayComposition& c=boardDisplayComposition;
+        // The outgoing logical buffer may only be overwritten once nothing of
+        // the outgoing layer is visible any more.
+        const bool outgoingGone=!c.outgoingOnTop ||
+            c.outgoingX<=-(int)width || c.outgoingX>=(int)width ||
+            c.outgoingY<=-(int)height || c.outgoingY>=(int)height;
+        const bool destinationCoversScreen=c.incomingX==0 && c.incomingY==0 && outgoingGone &&
+            c.incomingClip==Rect(0,0,width,height);
+        if (boardDisplayComposition.active && transitionLogicalCopies<8 &&
+            (transitionLogicalCopies<4 || destinationCoversScreen)) {
+            // Reuse the destination already rendered for the animation. Spread
+            // the two logical-buffer copies over eight frames, while neither is
+            // scanned out. This avoids two complete widget redraws on release.
+            const unsigned strip=transitionLogicalCopies%4;
+            const unsigned y=strip*height/4, rows=(strip+1)*height/4-y;
+            // The displayed logical buffer itself is the outgoing snapshot.
+            // Preserve it until the destination covers it completely; restore
+            // the other logical buffer first, then this one in endpoint frames.
+            auto* outgoingBuffer=const_cast<uint16_t*>(transitionOutgoingSource);
+            auto* otherBuffer=outgoingBuffer==frameBuffer0?frameBuffer1:frameBuffer0;
+            nema_bind_dst_tex(reinterpret_cast<uintptr_t>(transitionLogicalCopies>=4?outgoingBuffer:otherBuffer),width,height,NEMA_RGB565,width*2);
+            nema_bind_src_tex(reinterpret_cast<uintptr_t>(transitionLogicalSource+y*width),width,rows,NEMA_RGB565,width*2,NEMA_FILTER_PS);
+            nema_set_clip(0,0,width,height); nema_set_blend_blit(NEMA_BL_SRC);
+            nema_blit(0,y);
+            ++transitionLogicalCopies;
+        }
         nema_bind_dst_tex(reinterpret_cast<uintptr_t>(rotatedBuffers[index]), width, height, NEMA_RGB565, width * 2);
         if (boardDisplayComposition.active) {
+            // Layer rectangles on screen; the lower layer skips the band the
+            // upper layer covers completely (sheet over a still page).
+            Rect layer[2];
             for (unsigned n=0;n<2;n++) {
-                const int logicalX=n?boardDisplayComposition.incomingX:boardDisplayComposition.outgoingX;
-                Rect logical(logicalX,0,width,height);
-                if (n) logical &= boardDisplayComposition.incomingClip;
-                else if (!logicalX && !boardDisplayComposition.incomingX &&
-                         !boardDisplayComposition.incomingClip.isEmpty()) {
+                layer[n]=Rect(n?c.incomingX:c.outgoingX,n?c.incomingY:c.outgoingY,width,height);
+                if (n && !c.incomingClip.isEmpty()) layer[n] &= c.incomingClip;
+                layer[n] &= Rect(0,0,width,height);
+            }
+            for (unsigned order=0;order<2;order++) {
+                const unsigned n=c.outgoingOnTop?1-order:order;
+                const int logicalX=n?c.incomingX:c.outgoingX;
+                const int logicalY=n?c.incomingY:c.outgoingY;
+                Rect logical(logicalX,logicalY,width,height);
+                if (n) logical &= c.incomingClip;
+                if (order==0 && (c.outgoingY || c.incomingY)) {
+                    const Rect& top=layer[1-n];
+                    if (top.width==(int)width && !top.isEmpty()) {
+                        if (top.y<=logical.y && top.bottom()>logical.y) { const int b=logical.bottom(); logical.y=top.bottom(); logical.height=b-logical.y; }
+                        else if (top.bottom()>=logical.bottom() && top.y<logical.bottom()) logical.height=top.y-logical.y;
+                    }
+                    if (logical.height<=0) continue;
+                }
+                else if (!n && !logicalX && !logicalY && !c.incomingX && !c.incomingY &&
+                         !c.incomingClip.isEmpty()) {
                     // A wipe partitions the screen; avoid copying the outgoing
                     // pixels that will immediately be covered by the new view.
                     const Rect& revealed=boardDisplayComposition.incomingClip;
-                    if (!revealed.x) { logical.x=revealed.right(); logical.width=width-logical.x; }
+                    if (revealed.width==(int)width && revealed.height<(int)height) {
+                        // Vertical wipe (menu sheet): partition along Y.
+                        if (!revealed.y) { logical.y=revealed.bottom(); logical.height=height-logical.y; }
+                        else logical.height=revealed.y;
+                    }
+                    else if (!revealed.x) { logical.x=revealed.right(); logical.width=width-logical.x; }
                     else logical.width=revealed.x;
                 }
                 logical &= Rect(0,0,width,height);
                 if (logical.isEmpty()) continue;
                 const int dx=width-logical.right(), dy=height-logical.bottom();
-                const int textureX=width-(logical.x-logicalX)-logical.width;
-                const int textureY=height-logical.y-logical.height;
-                const auto* pixels=reinterpret_cast<const uint16_t*>(transitionTextures[n])+textureY*width+textureX;
+                const int textureX=logical.x-logicalX;
+                const int textureY=logical.y-logicalY;
+                const auto* pixels=(n?transitionLogicalSource:transitionOutgoingSource)+textureY*width+textureX;
                 nema_bind_src_tex(reinterpret_cast<uintptr_t>(pixels),logical.width,logical.height,NEMA_RGB565,width*2,NEMA_FILTER_PS);
                 nema_set_clip(0,0,width,height); nema_set_blend_blit(NEMA_BL_SRC);
-                nema_blit(dx,dy);
+                nema_blit_rotate(dx,dy,NEMA_ROT_180_CW);
             }
             previousDirty=Rect(0,0,width,height);
         } else {
@@ -303,9 +386,9 @@ void TouchGFXHAL::endFrame()
     TouchGFXGeneratedHAL::endFrame();
     BoardGraphicsFinishUs = (DWT->CYCCNT - finishStart) / 600;
     if (updated) {
-        // Direct composition deliberately leaves logical buffers unchanged.
-        // Rebuild both after returning to live widgets, even if the final
-        // eased position was already reached on the penultimate tick.
+        if(!boardDisplayComposition.active)logicalBuffersSynchronized=false;
+        // Ordinary rendering remains the fallback if snapshot restoration was
+        // interrupted; successful transitions already synchronized both buffers.
         if (!boardDisplayComposition.active && boardDisplayComposition.resumeFrames)
             --boardDisplayComposition.resumeFrames;
         if (BoardGraphicsBenchmark && --BoardGraphicsBenchmark == 0) BoardGraphicsSkipRotation = 0;

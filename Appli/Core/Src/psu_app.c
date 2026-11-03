@@ -64,7 +64,7 @@ static uint16_t seq_limits_id, chg_limits_id;
 static uint32_t energy_ms;
 static uint8_t energy_seen;
 static char web_page_storage[4096];
-static PsuAppearance appearance = {1,0,16,1,0,3};
+static PsuAppearance appearance = {1,0,16,1,0,3,PSU_THEME_INSTRUMENT,100};
 static uint32_t manual_mv=12000, manual_ma=2000;
 static uint8_t restore_manual_pending;
 
@@ -251,7 +251,7 @@ static void refresh_snap_from_g0(void)
 void psu_app_init(void)
 {
   psu_web_features_init();
-  const PsuAppearance defaults={1,0,16,1,0,3};
+  const PsuAppearance defaults={1,0,16,1,0,3,PSU_THEME_INSTRUMENT,100};
   appearance=defaults;manual_mv=12000;manual_ma=2000;
   restore_manual_pending=0;
   memset(&snap, 0, sizeof(snap));
@@ -630,7 +630,7 @@ void psu_app_tick(uint32_t now_ms)
     snap.bms_valid = g4.battery.valid && now_ms-g4.battery.ms<=1000U && g4.battery.present && g4.battery.configured && g4.battery.sample;
     memset(snap.cell_mv,0,sizeof(snap.cell_mv));
     /* BQ76922 4S uses physical taps 1,2,3,5 (c4=-1), compact for four UI cells. */
-    {unsigned k=0,j;for(j=0;j<5&&k<4;j++)if(g4.battery.cell_mv[j]>0)snap.cell_mv[k++]=(uint16_t)g4.battery.cell_mv[j];}
+    {unsigned k=0,j;for(j=0;j<5&&k<5;j++)if(g4.battery.cell_mv[j]>0)snap.cell_mv[k++]=(uint16_t)g4.battery.cell_mv[j];}
     snap.bms_fet_chg=g4.battery.chg;snap.bms_fet_dsg=g4.battery.dsg;
     if(g4.battery.fault)snprintf(snap.bms_fault,sizeof(snap.bms_fault),"BMS 0x%lX",(unsigned long)g4.battery.fault);
     else snprintf(snap.bms_fault,sizeof(snap.bms_fault),"%s",snap.bms_valid?"":"NO PACK DATA");
@@ -952,11 +952,20 @@ void psu_appearance_get(PsuAppearance *out)
 {
   psu_app_ensure();if(out)*out=appearance;
 }
+static int appearance_valid(const PsuAppearance *a)
+{
+  return a->dark<=1 && a->accent<4 && a->sound_volume<=100 && a->sound_enabled<=1 &&
+         a->sound_tone<3 && a->sound_feedback<=3 && a->theme<PSU_THEME_COUNT &&
+         a->brightness>=PSU_BRIGHTNESS_MIN && a->brightness<=100;
+}
 void psu_appearance_set(const PsuAppearance *value)
 {
-  if(value && value->dark<=1 && value->accent<4 && value->sound_volume<=100 &&
-     value->sound_enabled<=1 && value->sound_tone<3 && value->sound_feedback<=3)
-    appearance=*value;
+  if(!value)return;
+  PsuAppearance a=*value;
+  /* Older callers (web API) only know the dark flag: keep the theme family. */
+  if(a.dark && a.theme==PSU_THEME_LIGHT)a.theme=PSU_THEME_INSTRUMENT;
+  if(!a.dark)a.theme=PSU_THEME_LIGHT;
+  if(appearance_valid(&a))appearance=a;
 }
 static void config_put(uint8_t **p,uint32_t value,unsigned n)
 {
@@ -987,6 +996,8 @@ int psu_config_encode(uint8_t *dst,size_t bytes)
     config_put(&p,v->time_ms,4);config_put(&p,v->slew_mv_per_s,4);
     *p++=v->enabled;*p++=v->output_action;
   }
+  /* Appended in v2 payload: 0 means "not stored" for records from older firmware. */
+  *p++=(uint8_t)(appearance.theme+1u);*p++=appearance.brightness;
   return 1;
 }
 int psu_config_decode(const uint8_t *src,size_t bytes)
@@ -1021,6 +1032,13 @@ int psu_config_decode(const uint8_t *src,size_t bytes)
     if(v->voltage_mv>PSU_VOLTAGE_MAX_MV || v->current_ma>PSU_CURRENT_MAX_MA ||
        v->slew_mv_per_s>100000u || v->enabled>1 || v->output_action>PSU_STEP_OFF ||
        (i<count && (v->time_ms<100u || v->time_ms>3600000u)))return 0;
+  }
+  {
+    const uint8_t theme_code=*p++,brightness=*p++;
+    a.theme=theme_code?(uint8_t)(theme_code-1u):(a.dark?PSU_THEME_INSTRUMENT:PSU_THEME_LIGHT);
+    a.brightness=brightness?brightness:100u;
+    if(a.dark!=(a.theme!=PSU_THEME_LIGHT))a.dark=a.theme!=PSU_THEME_LIGHT;
+    if(!appearance_valid(&a))return 0;
   }
   /* Reject invalid records as a whole; never partly apply corrupted settings. */
   appearance=a;manual_mv=mv;manual_ma=ma;

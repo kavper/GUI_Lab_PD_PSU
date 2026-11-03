@@ -141,7 +141,7 @@ typedef struct
   uint8_t chg_state;
   char chg_reason[64];
   uint8_t bms_valid;
-  uint16_t cell_mv[4];
+  uint16_t cell_mv[5];
   int16_t bms_temp_centi[3];
   uint8_t bms_fet_chg;
   uint8_t bms_fet_dsg;
@@ -206,8 +206,17 @@ void psu_net_set_mac(const uint8_t mac[6]);
 int psu_config_save(void);
 int psu_config_load(void);
 void psu_config_bind_ram(uint8_t *slot_a, uint8_t *slot_b, size_t bytes);
+#define PSU_THEME_INSTRUMENT 0u
+#define PSU_THEME_PHOSPHOR 1u
+#define PSU_THEME_LIGHT 2u
+#define PSU_THEME_VFD 3u
+#define PSU_THEME_COUNT 4u
+#define PSU_BRIGHTNESS_MIN 5u
 typedef struct {
   uint8_t dark, accent, sound_volume, sound_enabled, sound_tone, sound_feedback;
+  /* theme: PSU_THEME_*; brightness: backlight percent PSU_BRIGHTNESS_MIN..100.
+   * dark is kept for the web API and mirrors theme != PSU_THEME_LIGHT. */
+  uint8_t theme, brightness;
 } PsuAppearance;
 void psu_appearance_get(PsuAppearance *out);
 void psu_appearance_set(const PsuAppearance *value);

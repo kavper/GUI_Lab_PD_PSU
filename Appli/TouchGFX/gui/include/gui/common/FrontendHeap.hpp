@@ -21,7 +21,9 @@ public:
     /* List any user-defined transition types here*/
     typedef touchgfx::meta::TypeList< FingerSlideTransition,
                             touchgfx::meta::TypeList<CachedWipeTransition<touchgfx::EAST>,
-                            touchgfx::meta::TypeList<CachedWipeTransition<touchgfx::WEST>, touchgfx::meta::Nil> >
+                            touchgfx::meta::TypeList<CachedWipeTransition<touchgfx::WEST>,
+                            touchgfx::meta::TypeList<CachedWipeTransition<touchgfx::NORTH>,
+                            touchgfx::meta::TypeList<CachedWipeTransition<touchgfx::SOUTH>, touchgfx::meta::Nil> > > >
                             > UserDefinedTransitionTypes;
 
 

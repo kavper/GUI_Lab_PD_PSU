@@ -12,27 +12,38 @@ extern "C" {
 #endif
 namespace ui {
 namespace {
-bool darkMode=true;
+unsigned themeId=0;
 unsigned accent=0;
-void restoreTheme(){PsuAppearance a;psu_appearance_get(&a);darkMode=a.dark!=0;accent=a.accent;}
-void saveTheme(){PsuAppearance a;psu_appearance_get(&a);a.dark=darkMode;a.accent=(uint8_t)accent;psu_appearance_set(&a);}
+void restoreTheme(){PsuAppearance a;psu_appearance_get(&a);themeId=a.theme<PSU_THEME_COUNT?a.theme:0;accent=a.accent;}
+void saveTheme(){PsuAppearance a;psu_appearance_get(&a);a.theme=(uint8_t)themeId;a.dark=themeId!=PSU_THEME_LIGHT;a.accent=(uint8_t)accent;psu_appearance_set(&a);}
 const uint32_t lightAccents[]={0x2457E6,0x007F73,0x743FD3,0xAB5D07};
-const uint32_t darkAccents[]={0x5793FF,0x2DD4BF,0xA78BFA,0xFBBF24};
+const uint32_t darkAccents[]={0x5B9BFF,0x2DD4BF,0xA78BFA,0xFBBF24};
 touchgfx::colortype rgb(uint32_t value){return touchgfx::Color::getColorFromRGB(value>>16,(value>>8)&255,value&255);}
-uint32_t raw(Role role,bool dark,unsigned index) {
-    const uint32_t normal[]={0xF5F7FC,0xFFFFFF,0xEFF3FA,0xDDE3EB,0x172337,0x607085};
-    const uint32_t night[]={0x0F172A,0x162235,0x1E2D44,0x314158,0xE8EEF8,0xA7B6CB};
-    if(role<=MUTED)return dark?night[role]:normal[role];
-    if(role==ACCENT)return dark?darkAccents[index]:lightAccents[index];
+// Order: BACKGROUND, SURFACE, RAISED, BORDER, TEXT, MUTED, ACCENT, (soft), POSITIVE, CAUTION, NEGATIVE, ON_ACCENT, VOLT, AMP, WATT
+const uint32_t palettes[PSU_THEME_COUNT][ROLE_COUNT]={
+    /* Instrument: navy bench instrument */
+    {0x0A111C,0x111A28,0x18243A,0x24344F,0xE8EEF7,0x93A2BA,0x5B9BFF,0,0x3DD68C,0xF2B84B,0xF27878,0x0A111C,0x7DB4FF,0xF2B84B,0xC69CFF},
+    /* Phosphor: oscilloscope green */
+    {0x030605,0x08100C,0x0E1A14,0x1C3226,0xD6F7E4,0x7FA08C,0x3BF29A,0,0x3BF29A,0xFFC24B,0xFF6B5B,0x030605,0x3BF29A,0xFFC24B,0x7FD6FF},
+    /* Light lab */
+    {0xEDF0F4,0xFFFFFF,0xF3F5F8,0xD3DAE4,0x0F1A2A,0x55647A,0x1F5FD6,0,0x0B7F53,0x9A5F00,0xC23030,0xFFFFFF,0x1F5FD6,0x9A5F00,0x7238C2},
+    /* VFD amber */
+    {0x0B0906,0x15110B,0x1D1710,0x3A2D1C,0xFFE6C2,0xB39674,0xFFB347,0,0xA6E37F,0xFFB347,0xFF6A4D,0x0B0906,0xFFB347,0x72E6D3,0xFF9A7A},
+};
+bool hasAccentChoice(unsigned theme){return theme==PSU_THEME_INSTRUMENT||theme==PSU_THEME_LIGHT;}
+uint32_t accentRaw(unsigned theme,unsigned index){
+    if(!hasAccentChoice(theme))return palettes[theme][ACCENT];
+    return theme==PSU_THEME_LIGHT?lightAccents[index&3]:darkAccents[index&3];
+}
+uint32_t raw(Role role,unsigned theme,unsigned index) {
+    if(theme>=PSU_THEME_COUNT)theme=0;
+    if(role==ACCENT)return accentRaw(theme,index);
     if(role==ACCENT_SOFT){
-        uint32_t base=dark?night[SURFACE]:normal[SURFACE],a=dark?darkAccents[index]:lightAccents[index];
-        uint32_t result=0;for(unsigned shift=0;shift<24;shift+=8)result|=((((base>>shift)&255)*9+((a>>shift)&255))/10)<<shift;
+        uint32_t base=palettes[theme][SURFACE],a=accentRaw(theme,index);
+        uint32_t result=0;for(unsigned shift=0;shift<24;shift+=8)result|=((((base>>shift)&255)*8+((a>>shift)&255)*2)/10)<<shift;
         return result;
     }
-    if(role==POSITIVE)return dark?0x4ADE80:0x167548;
-    if(role==CAUTION)return dark?0xF4B85E:0xA85B05;
-    if(role==NEGATIVE)return dark?0xF88A93:0xB43E45;
-    return dark?0x0F172A:0xFFFFFF;
+    return palettes[theme][role<ROLE_COUNT?role:BACKGROUND];
 }
 bool selectedBitmap(touchgfx::BitmapId id){
     switch(id) {
@@ -56,12 +67,49 @@ struct CornerCacheEntry {
     touchgfx::colortype base, border, surface;
     int radius, thickness;
     touchgfx::BitmapId ids[4];
-    alignas(32) uint16_t pixels[4][12*12];
+    uint16_t (*pixels)[12*12];
 };
+#ifndef SIMULATOR
+LOCATION_PRAGMA_NOLOAD("TouchGFX_Framebuffer")
+uint16_t cornerPixels[128][4][12*12] LOCATION_ATTRIBUTE_NOLOAD("TouchGFX_Framebuffer");
+#else
+alignas(32) uint16_t cornerPixels[128][4][12*12];
+#endif
 // Stable storage: never overwrite a texture while queued GPU commands read it.
 CornerCacheEntry cornerCache[128];
 unsigned cornerCacheCount=0;
+struct IconCacheEntry {
+    touchgfx::BitmapId source, tinted;
+    touchgfx::colortype ink;
+};
+IconCacheEntry iconCache[64];
+unsigned iconCacheCount=0;
+touchgfx::BitmapId tintedIcon(const touchgfx::Bitmap& source,touchgfx::colortype ink){
+    for(unsigned n=0;n<iconCacheCount;n++)
+        if(iconCache[n].source==source.getId() && iconCache[n].ink==ink)return iconCache[n].tinted;
+    if(iconCacheCount==64 || source.getFormat()!=touchgfx::Bitmap::ARGB8888)return touchgfx::BITMAP_INVALID;
+    const auto id=touchgfx::Bitmap::dynamicBitmapCreate(source.getWidth(),source.getHeight(),touchgfx::Bitmap::ARGB8888);
+    if(id==touchgfx::BITMAP_INVALID)return id;
+    auto* pixels=reinterpret_cast<uint32_t*>(touchgfx::Bitmap::dynamicBitmapGetAddress(id));
+    const uint8_t* alpha=source.getData()+3;
+    const uint32_t rgb=(touchgfx::Color::getRed(ink)<<16)|(touchgfx::Color::getGreen(ink)<<8)|touchgfx::Color::getBlue(ink);
+    const unsigned size=source.getWidth()*source.getHeight();
+    for(unsigned n=0;n<size;n++)pixels[n]=(uint32_t(alpha[n*4])<<24)|rgb;
+#ifndef SIMULATOR
+    // The bitmap cache is shared with the GPU. Retain each texture rather than
+    // recolouring storage that an in-flight command might still reference.
+    const uintptr_t start=reinterpret_cast<uintptr_t>(pixels)&~uintptr_t(31);
+    SCB_CleanDCache_by_Addr(reinterpret_cast<uint32_t*>(start),((reinterpret_cast<uintptr_t>(pixels)+size*4+31)&~uintptr_t(31))-start);
+#endif
+    iconCache[iconCacheCount++]={source.getId(),id,ink};
+    return id;
+}
 bool cachedCorners(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::colortype border,touchgfx::colortype surface,touchgfx::colortype base,int radius,int thickness=1){
+#ifdef SIMULATOR
+    // Simulator draws the per-pixel fallback; GPU corner textures are a target optimisation.
+    (void)rect;(void)clip;(void)border;(void)surface;(void)base;(void)radius;(void)thickness;
+    return false;
+#endif
     CornerCacheEntry* entry=0;
     for(unsigned n=0;n<cornerCacheCount;n++) {
         auto& c=cornerCache[n];
@@ -70,6 +118,7 @@ bool cachedCorners(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgf
     if(!entry){
         if(cornerCacheCount==128)return false;
         auto& c=cornerCache[cornerCacheCount];
+        c.pixels=cornerPixels[cornerCacheCount];
         c.radius=radius;c.thickness=thickness;c.base=base;c.border=border;c.surface=surface;
         for(int y=0;y<radius;y++)for(int x=0;x<radius;x++){
             const auto color=composite(base,border,surface,ui::corners::coverage(radius,x,y),ui::corners::coverage(radius-thickness,x-thickness,y-thickness));
@@ -80,7 +129,8 @@ bool cachedCorners(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgf
             c.pixels[3][(radius-1-y)*radius+radius-1-x]=rgb565;
         }
 #ifndef SIMULATOR
-        SCB_CleanDCache_by_Addr(reinterpret_cast<uint32_t*>(c.pixels),sizeof(c.pixels));
+        const uintptr_t start=reinterpret_cast<uintptr_t>(c.pixels)&~uintptr_t(31);
+        SCB_CleanDCache_by_Addr(reinterpret_cast<uint32_t*>(start),((reinterpret_cast<uintptr_t>(c.pixels)+sizeof(cornerPixels[0])+31)&~uintptr_t(31))-start);
 #endif
         unsigned created=0;
         for(;created<4;created++){
@@ -102,11 +152,15 @@ bool cachedCorners(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgf
 // Identical quarter-circle masks are mirrored across both axes. Each corner
 // pixel is composited once over its actual backdrop, avoiding dark fringes.
 void rounded(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::colortype border,touchgfx::colortype surface,touchgfx::colortype base,int radius){
-    fill(rect,clip,base);
-    fill(touchgfx::Rect(rect.x,rect.y+radius,rect.width,rect.height-2*radius),clip,border);
-    fill(touchgfx::Rect(rect.x+radius,rect.y,rect.width-2*radius,rect.height),clip,border);
+    // Disjoint spans: the previous three overlapping full-panel fills wasted
+    // PSRAM bandwidth, especially while capturing a destination screen.
+    fill(touchgfx::Rect(rect.x,rect.y+radius,1,rect.height-2*radius),clip,border);
+    fill(touchgfx::Rect(rect.right()-1,rect.y+radius,1,rect.height-2*radius),clip,border);
+    fill(touchgfx::Rect(rect.x+radius,rect.y,rect.width-2*radius,1),clip,border);
+    fill(touchgfx::Rect(rect.x+radius,rect.bottom()-1,rect.width-2*radius,1),clip,border);
     fill(touchgfx::Rect(rect.x+1,rect.y+radius,rect.width-2,rect.height-2*radius),clip,surface);
-    fill(touchgfx::Rect(rect.x+radius,rect.y+1,rect.width-2*radius,rect.height-2),clip,surface);
+    fill(touchgfx::Rect(rect.x+radius,rect.y+1,rect.width-2*radius,radius-1),clip,surface);
+    fill(touchgfx::Rect(rect.x+radius,rect.bottom()-radius,rect.width-2*radius,radius-1),clip,surface);
     if(cachedCorners(rect,clip,border,surface,base,radius))return;
     for(int y=0;y<radius;y++)for(int x=0;x<radius;){
         const auto color=composite(base,border,surface,ui::corners::coverage(radius,x,y),ui::corners::coverage(radius-1,x-1,y-1));
@@ -121,19 +175,27 @@ void rounded(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::col
     }
 }
 }
-bool Theme::dark(){restoreTheme();return darkMode;}
+bool Theme::dark(){restoreTheme();return themeId!=PSU_THEME_LIGHT;}
 unsigned Theme::accentIndex(){restoreTheme();return accent;}
-void Theme::setDark(bool value){restoreTheme();darkMode=value;saveTheme();ThemeScreen::get().apply();}
+unsigned Theme::themeIndex(){restoreTheme();return themeId;}
+const char* Theme::themeName(unsigned index){const char* names[]={"Instrument","Phosphor","Light lab","VFD amber"};return names[index<PSU_THEME_COUNT?index:0];}
+bool Theme::accentSelectable(){restoreTheme();return hasAccentChoice(themeId);}
+void Theme::setTheme(unsigned index){if(index<PSU_THEME_COUNT){restoreTheme();themeId=index;saveTheme();ThemeScreen::get().apply();}}
+void Theme::setDark(bool value){setTheme(value?PSU_THEME_INSTRUMENT:PSU_THEME_LIGHT);}
 void Theme::setAccent(unsigned value){if(value<4){restoreTheme();accent=value;saveTheme();ThemeScreen::get().apply();}}
-touchgfx::colortype Theme::color(Role role){restoreTheme();return rgb(raw(role,darkMode,accent));}
-touchgfx::colortype Theme::accentColor(unsigned index){restoreTheme();return rgb((darkMode?darkAccents:lightAccents)[index<4?index:0]);}
-const char* Theme::accentName(){restoreTheme();const char* names[]={"Blue","Teal","Violet","Amber"};return names[accent];}
+touchgfx::colortype Theme::color(Role role){restoreTheme();return rgb(raw(role,themeId,accent));}
+touchgfx::colortype Theme::colorFor(unsigned theme,Role role){restoreTheme();return rgb(raw(role,theme,accent));}
+touchgfx::colortype Theme::accentColor(unsigned index){restoreTheme();return rgb(themeId==PSU_THEME_LIGHT?lightAccents[index&3]:darkAccents[index&3]);}
+const char* Theme::accentName(){restoreTheme();const char* names[]={"Blue","Teal","Violet","Amber"};return names[accent&3];}
 touchgfx::colortype Theme::translate(touchgfx::colortype value){
     restoreTheme();
-    for(int role=TEXT;role<=NEGATIVE;role++) {
-        if(role==ACCENT_SOFT)continue;
-        for(unsigned index=0;index<4;index++)for(int mode=0;mode<2;mode++)
-            if(value==rgb(raw(static_cast<Role>(role),mode!=0,index)))return color(static_cast<Role>(role));
+    // Fast path: already a colour of the active theme (the common case every tick).
+    for(int role=TEXT;role<ROLE_COUNT;role++)
+        if(role!=ACCENT_SOFT&&role!=ON_ACCENT&&value==rgb(raw(static_cast<Role>(role),themeId,accent)))return value;
+    for(int role=TEXT;role<ROLE_COUNT;role++) {
+        if(role==ACCENT_SOFT||role==ON_ACCENT)continue;
+        for(unsigned theme=0;theme<PSU_THEME_COUNT;theme++)for(unsigned index=0;index<4;index++)
+            if(value==rgb(raw(static_cast<Role>(role),theme,index)))return color(static_cast<Role>(role));
     }
     // Older views use these equivalents for captions/status.
     if(value==rgb(0xEEF4FB)||value==rgb(0x93A3B8))return color(TEXT);
@@ -186,6 +248,12 @@ void ThemedSurface::draw(const touchgfx::Rect& area) const {
         fill(rect,clip,Theme::color(selected()?ACCENT_SOFT:SURFACE));
         const touchgfx::Bitmap bitmap=image->getBitmap();
         if(bitmap.getFormat()!=touchgfx::Bitmap::ARGB8888)return;
+        const auto cached=tintedIcon(bitmap,Theme::color(ACCENT));
+        if(cached!=touchgfx::BITMAP_INVALID){
+            touchgfx::Rect local=clip;local.x-=rect.x;local.y-=rect.y;
+            touchgfx::HAL::lcd().drawPartialBitmap(touchgfx::Bitmap(cached),rect.x,rect.y,local);
+            return;
+        }
         const uint8_t* data=bitmap.getData();
         for(int y=0;y<rect.height;y++)for(int x=0;x<rect.width;){
             const uint8_t alpha=data[(y*bitmap.getWidth()+x)*4+3];int end=x+1;
@@ -247,6 +315,22 @@ void ThemeScreen::sync(){
     for(unsigned i=0;i<surfaceCount;i++)surfaces[i].sync();
 }
 void ThemeScreen::apply(){sync();if(screen)screen->getRootContainer().invalidate();}
+void ThemeScreen::capture(touchgfx::Container& container,touchgfx::BitmapId bitmap){
+    capture(container,bitmap,touchgfx::Rect(0,0,container.getWidth(),container.getHeight()));
+}
+void ThemeScreen::capture(touchgfx::Container& container,touchgfx::BitmapId bitmap,const touchgfx::Rect& area){
+    // Drawable::drawToDynamicBitmap draws children directly; unlike the normal
+    // screen draw chain it does not discard covered bitmaps. The themed layer
+    // already completely replaces these originals (including button labels).
+    // Keep input/alpha/selection state intact and restore visibility immediately.
+    bool visible[48];
+    for(unsigned i=0;i<surfaceCount;i++) {
+        visible[i]=surfaces[i].original->isVisible();
+        if(surfaces[i].isVisible())surfaces[i].original->setVisible(false);
+    }
+    touchgfx::HAL::getInstance()->drawDrawableInDynamicBitmap(container,bitmap,area);
+    for(unsigned i=0;i<surfaceCount;i++)surfaces[i].original->setVisible(visible[i]);
+}
 }
 
 namespace ui {
@@ -263,4 +347,16 @@ Role ThemeScreen::backgroundBehind(const touchgfx::Drawable& widget) const {
     }
     return role;
 }
+}
+namespace ui {
+void drawRounded(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::colortype border,touchgfx::colortype surface,touchgfx::colortype base,int radius){
+    if(rect.height<10||rect.width<10){fill(rect,clip,surface);return;}
+    if(radius*2>rect.height)radius=rect.height/2;
+    if(radius*2>rect.width)radius=rect.width/2;
+    // Valid outer radii: inner radius (r-1) must also exist in the coverage table.
+    if(radius>=12)radius=12;else if(radius>=10)radius=11;else if(radius>=8)radius=8;else if(radius==7)radius=7;else radius=6;
+    if(radius*2>rect.height||radius*2>rect.width){fillRect(rect,clip,border);if(rect.width>2&&rect.height>2)fillRect(touchgfx::Rect(rect.x+1,rect.y+1,rect.width-2,rect.height-2),clip,surface);return;}
+    rounded(rect,clip,border,surface,base,radius);
+}
+void fillRect(const touchgfx::Rect& rect,const touchgfx::Rect& clip,touchgfx::colortype color,uint8_t alpha){fill(rect,clip,color,alpha);}
 }

@@ -1,33 +1,56 @@
-#include <gui/common/UiTheme.hpp>
-#include <texts/TextKeysAndLanguages.hpp>
 #include <gui/screennetwork_screen/ScreenNetworkView.hpp>
+#include <gui/common/KitPage.hpp>
+#include <gui/common/UiTheme.hpp>
 #include <gui/common/LabText.hpp>
 extern "C" {
 #include "psu_app.h"
 }
 
-ScreenNetworkView::ScreenNetworkView()
-    : divider(0)
-{
-}
+ScreenNetworkView::ScreenNetworkView() : divider(0), clicked(this, &ScreenNetworkView::onClick) {}
 
 void ScreenNetworkView::setupScreen()
 {
     ScreenNetworkViewBase::setupScreen();
+    layout();
+    ui::ThemeScreen& theme = ui::ThemeScreen::get();
+    theme.begin(*this); theme.box(LabBackground, ui::BACKGROUND); theme.apply();
     refresh();
-
-    setupTheme();
 }
 
-void ScreenNetworkView::tearDownScreen()
+void ScreenNetworkView::layout()
 {
-    ScreenNetworkViewBase::tearDownScreen();
+    KIT_PAGE_BEGIN(FrontendApplication::NETWORK);
+    consoleCard.setup(12, 58, 776, 112, "");
+    addressCard.setup(12, 180, 384, 288, "ADDRESS");
+    remoteCard.setup(406, 180, 382, 288, "");
+    add(consoleCard); add(addressCard); add(remoteCard);
+    consoleIcon.setup(24, 76, 52, 76, "", kit::Btn::GHOST);
+    consoleIcon.setBase(ui::SURFACE); consoleIcon.setIcon(kit::ICON_MONITOR); consoleIcon.setIconSize(24);
+    consoleIcon.setInk(ui::ACCENT); consoleIcon.setTouchable(false);
+    add(consoleIcon);
+    consoleCaption.setup(kit::CAP, kit::LEFT, 86, 76, 300, 14, ui::MUTED);
+    consoleCaption.set("WEB CONSOLE");
+    url.setup(kit::M26, kit::LEFT, 84, 94, 560, 36, ui::ACCENT);
+    consoleSub.setup(kit::SUB, kit::LEFT, 86, 134, 560, 16, ui::MUTED);
+    add(consoleCaption); add(url); add(consoleSub); add(linkChip);
+    addressRows.setup(25, 206, 358, 140, 26);
+    addressNote.setup(kit::SUB, kit::LEFT, 25, 444, 358, 16, ui::MUTED);
+    addressNote.set("Wi-Fi module not fitted");
+    add(addressRows); add(addressNote);
+    remoteTitle.setup(kit::LABEL, kit::LEFT, 420, 194, 260, 22, ui::TEXT);
+    remoteTitle.set("Remote control");
+    remoteText.setup(kit::SUB, kit::LEFT, 420, 222, 356, 64, ui::MUTED);
+    add(remoteTitle); add(remoteText);
+    remoteSwitch.setup(692, 190, 84, 36, "OFF", kit::Btn::NORMAL, kit::BODYM);
+    remoteSwitch.setBase(ui::SURFACE); remoteSwitch.setAction(clicked);
+    add(remoteSwitch);
+    KIT_PAGE_HEADER(FrontendApplication::NETWORK);
 }
 
 void ScreenNetworkView::handleTickEvent()
 {
-    if (++divider < 8)
-        return;
+    if (kit::app()->isScreenTransitionActive()) return;
+    if (++divider < 8) return;
     divider = 0;
     refresh();
 }
@@ -35,83 +58,33 @@ void ScreenNetworkView::handleTickEvent()
 void ScreenNetworkView::refresh()
 {
     PsuSnapshot snap;
-    char buf[24];
-    const char* link;
-    touchgfx::colortype link_color;
     psu_app_ensure();
     psu_snapshot(&snap);
-    RemoteButton.setLabelText(touchgfx::TypedText(psu_remote_enabled()?T_TXT_REMOTE_DISABLE:T_TXT_REMOTE_ENABLE));RemoteButton.invalidate();
-    lab_show(PageFeedback,PageFeedbackBuffer,PAGEFEEDBACK_SIZE,!snap.ethernet_configured?"Ethernet bring-up pending / local controls available":psu_remote_enabled()?"LAB-PD-PSU / open http://IP in your browser":"LAB-PD-PSU / remote control disabled",lab_cyan());
-    lab_ip(buf, sizeof(buf), snap.ip);
-    lab_show(NetIp, NetIpBuffer, NETIP_SIZE, buf, lab_cyan());
-    lab_ip(buf, sizeof(buf), snap.mask);
-    lab_show(NetMask, NetMaskBuffer, NETMASK_SIZE, buf, lab_text());
-    lab_ip(buf, sizeof(buf), snap.gateway);
-    lab_show(NetGw, NetGwBuffer, NETGW_SIZE, buf, lab_text());
-    if (!snap.ethernet_configured)
-    {
-        link = "NOT READY";
-        link_color = lab_muted();
-    }
-    else if (snap.net_state == PSU_NET_BOUND)
-    {
-        link = "BOUND";
-        link_color = lab_green();
-    }
-    else if (snap.net_state == PSU_NET_DHCP)
-    {
-        link = "DHCP";
-        link_color = lab_amber();
-    }
-    else if (snap.net_state == PSU_NET_TIMEOUT)
-    {
-        link = "TIMEOUT";
-        link_color = lab_amber();
-    }
-    else
-    {
-        link = "DOWN";
-        link_color = lab_muted();
-    }
-    lab_show(NetLink, NetLinkBuffer, NETLINK_SIZE, link, link_color);
-    lab_mac(buf, sizeof(buf), snap.mac);
-    lab_show(NetMac, NetMacBuffer, NETMAC_SIZE, buf, lab_text());
+    char ip[24], b[80], rows[400];
+    lab_ip(ip, sizeof(ip), snap.ip);
+    const bool bound = snap.ethernet_configured && snap.net_state == PSU_NET_BOUND;
+    if (bound) { snprintf(b, sizeof(b), "http://%s", ip); url.set(b, ui::ACCENT); }
+    else url.set(!snap.ethernet_configured ? "Ethernet not configured" : snap.net_state == PSU_NET_DHCP ? "Waiting for DHCP..." : "No network link", ui::MUTED);
+    consoleSub.set(bound ? "Open in any browser on the same network \xC2\xB7 DHCP" : "Local controls stay available without a network");
+    const char* link = !snap.ethernet_configured ? "NOT READY" : bound ? "LINK UP" : snap.net_state == PSU_NET_DHCP ? "DHCP" : snap.net_state == PSU_NET_TIMEOUT ? "TIMEOUT" : "DOWN";
+    linkChip.set(link, bound ? ui::POSITIVE : ui::MUTED, bound ? ui::POSITIVE : ui::MUTED);
+    linkChip.setXY(776 - linkChip.getWidth(), 76);
+
+    rows[0] = 0;
+    TelemetryRecord::append(rows, sizeof(rows), "IP", bound ? ip : "--");
+    lab_ip(b, sizeof(b), snap.mask); TelemetryRecord::append(rows, sizeof(rows), "Mask", bound ? b : "--");
+    lab_ip(b, sizeof(b), snap.gateway); TelemetryRecord::append(rows, sizeof(rows), "Gateway", bound ? b : "--");
+    lab_mac(b, sizeof(b), snap.mac); TelemetryRecord::append(rows, sizeof(rows), "MAC", b);
+    TelemetryRecord::append(rows, sizeof(rows), "Link", link);
+    addressRows.set(rows, true);
+
+    const bool remote = psu_remote_enabled();
+    remoteSwitch.setLabel(remote ? "ON" : "OFF");
+    remoteSwitch.setStyle(remote ? kit::Btn::POSITIVE_FILL : kit::Btn::NORMAL);
+    remoteText.set("Browsers can change setpoints and the\noutput; write access ends 10 s after\nthe last command.");
+    header.setSub(!snap.ethernet_configured ? "Ethernet bring-up pending \xC2\xB7 local controls available" : remote ? "LAB-PD-PSU \xC2\xB7 remote control enabled" : "LAB-PD-PSU \xC2\xB7 remote control disabled",
+                  ui::MUTED);
 }
 
-extern "C" {
-#include "psu_app.h"
-}
 void ScreenNetworkView::allOff() { psu_app_power_shutdown(); }
-
-void ScreenNetworkView::toggleRemote(){psu_remote_enable(!psu_remote_enabled());refresh();}
-
-void ScreenNetworkView::setupTheme()
-{
-    ui::ThemeScreen& theme=ui::ThemeScreen::get();
-    theme.begin(*this);
-    theme.box(LabBackground,ui::BACKGROUND);
-    theme.box(LabHeader,ui::SURFACE);
-    theme.box(ThemeHeaderDivider,ui::BORDER);
-    theme.text(ScreenTitle);
-    theme.button(BackButton,ui::NORMAL);
-    theme.panel(IpCard);
-    theme.text(LblIp);
-    theme.text(NetIp);
-    theme.panel(MaskCard);
-    theme.text(LblMask);
-    theme.text(NetMask);
-    theme.panel(GwCard);
-    theme.text(LblGw);
-    theme.text(NetGw);
-    theme.panel(LinkCard);
-    theme.text(LblNet);
-    theme.text(NetLink);
-    theme.panel(MacCard);
-    theme.text(LblMac);
-    theme.text(NetMac);
-    theme.text(PageFeedback);
-    theme.button(AllOffButton,ui::DANGER);
-    theme.button(RemoteButton,ui::NORMAL);
-    theme.text(WifiFuture);
-    theme.apply();
-}
+void ScreenNetworkView::toggleRemote() { psu_remote_enable(!psu_remote_enabled()); refresh(); }
