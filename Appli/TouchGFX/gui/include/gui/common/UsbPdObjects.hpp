@@ -7,7 +7,7 @@ namespace ui {
 inline bool pdCapabilitiesCurrent(const G4PdCapabilities& c,uint32_t now,bool attached,unsigned role,unsigned generation) {
     // Capabilities arrive about once a second; a late record must not blank
     // the table for a frame (seen as the whole page blinking once).
-    return attached&&c.valid&&now-c.ms<=3500u&&(c.flags&1u)&&c.role==role&&
+    return attached&&(role==1u||role==2u)&&c.valid&&now-c.ms<=3500u&&(c.flags&1u)&&c.role==role&&
         (uint8_t)c.attach_generation==(uint8_t)generation;
 }
 struct PdObject {

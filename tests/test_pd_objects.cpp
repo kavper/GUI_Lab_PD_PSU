@@ -12,6 +12,13 @@ int main(){
  assert(ui::selectedPdObject(c)==5);c.pdo[4]^=1;assert(ui::selectedPdObject(c)==0);c.pdo[4]^=1;assert(ui::pdCapabilitiesCurrent(c,0x20,true,1,0x34));
  assert(!ui::pdCapabilitiesCurrent(c,0x20,true,1,0x35));assert(!ui::pdCapabilitiesCurrent(c,0x20,true,2,0x34));assert(!ui::pdCapabilitiesCurrent(c,0x20,false,1,0x34));
  assert(!ui::pdCapabilitiesCurrent(c,0x1000,true,1,0x34));
+ // Retained data must disappear on the first detach, generation change or
+ // invalidation frame; a fresh local SOURCE list is valid only in SOURCE.
+ c.flags=0;assert(!ui::pdCapabilitiesCurrent(c,0x20,true,1,0x34));
+ c.flags=11;c.role=2;assert(ui::pdCapabilitiesCurrent(c,0x20,true,2,0x34));
+ assert(!ui::pdCapabilitiesCurrent(c,0x20,false,2,0x34));
+ c.role=0;assert(!ui::pdCapabilitiesCurrent(c,0x20,true,0,0x34));
+ c.flags=7;c.role=1;
  char text[240];ui::formatPdRow(text,sizeof(text),c.active_pdo,5,true);assert(text[0]=='>'&&strstr(text,"20.00 V")&&strstr(text,"3.00 A"));
  ui::formatPdRequest(text,sizeof(text),c);assert(strstr(text,"PDO #5")&&strstr(text,"Max 3.00 A"));
  c.rdo|=1u<<27;ui::formatPdRequest(text,sizeof(text),c);assert(strstr(text,"Min 3.00 A"));

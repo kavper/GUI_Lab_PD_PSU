@@ -24,7 +24,7 @@ struct Steady {
         return shown;
     }
 };
-Steady steadyAttached = {0, 0, 0, false}, steadyRole = {0, 0, 0, false}, steadyCaps = {0, 0, 0, false},
+Steady steadyRole = {0, 0, 0, false},
        steadyContract = {0, 0, 0, false}, steadyOnline = {0, 0, 0, false};
 }
 
@@ -144,12 +144,19 @@ void ScreenUsbPdView::refresh()
     char b[96], c[48];
     int64_t contractRole = 0, roleCode = 0, pdMv = 0, pdMa = 0, vbus = 0, iin = 0, generation = 0;
     const uint32_t now = psu_app_now();
-    const bool rawAttached = usb.is("plug", 1);
+    int64_t connectionState = 0;
+    const bool haveConnectionState = usb.get("conn", connectionState);
+    const bool cableOnly = haveConnectionState && connectionState == 4;
+    const bool rawAttached = usb.is("plug", 1) && haveConnectionState &&
+                             (connectionState == 6 || connectionState == 7);
     usb.get("pd_role", contractRole);
     roleCode = contractRole;
     if (roleCode != 1 && roleCode != 2) usb.get("role", roleCode);
     const bool rawContract = rawAttached && (contractRole == 1 || contractRole == 2) && usb.get("pd_mv", pdMv) && usb.get("pd_ma", pdMa) && pdMv > 0 && pdMa > 0;
-    const bool attached = steadyAttached.update(rawAttached, now, 1200) != 0;
+    // A reported detach/stale frame invalidates the session immediately.
+    // Smooth labels only; never hold old capabilities across a cable change.
+    const bool attached = rawAttached;
+    const unsigned sessionRole = (unsigned)roleCode;
     roleCode = steadyRole.update((int)roleCode, now, 1200);
     const bool contract = steadyContract.update(rawContract, now, 1200) != 0 && pdMv > 0 && pdMa > 0;
     // Buttons stay usable through short telemetry gaps.
@@ -157,11 +164,11 @@ void ScreenUsbPdView::refresh()
 
     G4PdCapabilities caps; g4_pd_capabilities_snapshot(psu_g4(), &caps);
     usb.get("attach_gen", generation);
-    const bool currentCaps = steadyCaps.update(ui::pdCapabilitiesCurrent(caps, now, attached, (unsigned)roleCode, (unsigned)generation), now, 1500) != 0;
+    const bool currentCaps = ui::pdCapabilitiesCurrent(caps, now, attached, sessionRole, (unsigned)generation);
     const unsigned selected = currentCaps ? ui::selectedPdObject(caps) : 0;
 
     if (!online) contractChip.set("OFFLINE", -1, ui::MUTED);
-    else if (!attached) contractChip.set("DETACHED", -1, ui::MUTED);
+    else if (!attached) contractChip.set(cableOnly ? "CABLE ONLY" : "DETACHED", -1, ui::MUTED);
     else {
         if (selected) snprintf(b, sizeof(b), "%s \xC2\xB7 PDO %u", roleCode == 2 ? "SOURCE" : "SINK", selected);
         else snprintf(b, sizeof(b), "%s", roleCode == 1 ? "SINK" : roleCode == 2 ? "SOURCE" : "WAITING");
@@ -238,7 +245,7 @@ void ScreenUsbPdView::refresh()
     }
     else if (pdoMark.isVisible()) { pdoMark.setVisible(false); pdoMark.invalidate(); }
     if (!rows) {
-        pdoCell[0][2].set(!attached ? "Connect a USB-C partner" : !caps.valid ? "PDO list not reported" : "Waiting for source PDOs", ui::MUTED);
+        pdoCell[0][2].set(!attached ? (cableOnly ? "Cable only / no partner" : "Connect a USB-C partner") : !caps.valid ? "PDO list not reported" : "Waiting for source PDOs", ui::MUTED);
     }
     if (currentCaps && (caps.flags & 4u)) snprintf(b, sizeof(b), "RDO 0x%08lX \xC2\xB7 contract utilisation %d %%", (unsigned long)caps.rdo, pct);
     else snprintf(b, sizeof(b), attached ? "No active RDO" : "PDOs belong to the current cable session");
