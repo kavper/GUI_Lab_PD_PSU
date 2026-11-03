@@ -4,6 +4,7 @@
 #include <gui/screenbms_screen/ScreenBmsPresenter.hpp>
 #include <stdint.h>
 #include <gui/common/Kit.hpp>
+#include <gui/common/CellBalance.hpp>
 // Cells & BMS: cell table with deviation bars, safety registers, device info.
 class ScreenBmsView : public ScreenBmsViewBase {
 public:
@@ -30,6 +31,7 @@ protected:
     kit::Label head[5], cellName[CELLS], cellValue[CELLS], cellDelta[CELLS], cellState[CELLS], footCaption[3];
     kit::Fill rule[CELLS];
     kit::Bar deviation[CELLS];
+    cellbalance::Animator<CELLS> bars;
     kit::Value foot[3];
     kit::Btn reg[REGS], initBtn, refreshBtn;
     kit::Chip regChip;

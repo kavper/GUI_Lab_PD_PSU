@@ -111,6 +111,8 @@ void ScreenBatteryView::handleTickEvent()
     
     if (noticeTicks) --noticeTicks;
     if (++divider >= 6) { divider = 0; refresh(); }
+    cellBars.step();
+    for (unsigned i = 0; i < 5; i++) if (cellBars.usable(i)) cellLevel[i].set(500 + cellBars.permille(i) / 2, ui::VOLT, cellBorder[i]);
 }
 void ScreenBatteryView::notify(const char* text) { snprintf(notice, sizeof(notice), "%s", text); noticeTicks = 180; refresh(); }
 void ScreenBatteryView::allOff() { notify(psu_app_power_shutdown() ? "POWER OFF requested / wake with TS2" : "POWER OFF request failed"); }
@@ -198,7 +200,10 @@ void ScreenBatteryView::refresh()
         if (available[i] && cells[i] > 0 && cells[i] <= 5000) { if (cells[i] < lo) lo = cells[i]; if (cells[i] > hi) hi = cells[i]; sum += cells[i]; ++active; }
     }
     const int64_t avg = active ? sum / active : 0;
-    const int32_t scale = cellbalance::scaleMv(active ? (hi - avg > avg - lo ? hi - avg : avg - lo) : 0);
+    bool use[5]; int64_t dev[5];
+    for (unsigned i = 0; i < 5; i++) { use[i] = available[i] && cells[i] > 0 && cells[i] <= 5000; dev[i] = cells[i] - avg; }
+    cellBars.target(use, dev);
+    const long scale = (long)cellBars.scaleMv();
     for (unsigned i = 0; i < 5; i++) {
         const bool usable = available[i] && cells[i] > 0 && cells[i] <= 5000;
         const bool unused = available[i] && cells[i] == -1;
@@ -207,10 +212,10 @@ void ScreenBatteryView::refresh()
         lab_show(*readings[i], rb[i], 100, value, ui::Theme::color(usable ? ui::TEXT : ui::MUTED));
         const char* status = unused ? "inactive" : !usable ? "no data" : balancing ? "balancing" : (cells[i] == lo && cells[i] == hi) ? "" : cells[i] == lo ? "min" : cells[i] == hi ? "max" : "";
         lab_show(*states[i], sb[i], 100, status, ui::Theme::color(balancing ? ui::POSITIVE : ui::MUTED));
-        const int permille = usable ? 500 + cellbalance::permille(cells[i] - avg, scale) / 2 : 0;
-        cellLevel[i].set(permille, ui::VOLT, balancing ? ui::POSITIVE : ui::BORDER);
+        cellBorder[i] = balancing ? ui::POSITIVE : ui::BORDER;
+        cellLevel[i].set(usable ? 500 + cellBars.permille(i) / 2 : 0, ui::VOLT, cellBorder[i]);
     }
-    if (active) snprintf(value, sizeof(value), "spread %ld mV · avg %ld.%03ld V · bars +/-%ld mV", (long)(hi - lo), (long)(avg / 1000), (long)(avg % 1000), (long)scale);
+    if (active) snprintf(value, sizeof(value), "spread %ld mV · avg %ld.%03ld V · bars +/-%ld mV", (long)(hi - lo), (long)(avg / 1000), (long)(avg % 1000), scale);
     else strcpy(value, "waiting for valid cell samples");
     lab_show(CellSpread, CellSpreadBuffer, CELLSPREAD_SIZE, value, lab_muted());
     int64_t series = 0; char caption[24];

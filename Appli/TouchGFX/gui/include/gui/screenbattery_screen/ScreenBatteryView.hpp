@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <gui/common/BatteryTrendWidget.hpp>
 #include <gui/common/Kit.hpp>
+#include <gui/common/CellBalance.hpp>
 class ScreenBatteryView : public ScreenBatteryViewBase {
 public:
     void setupTheme();
@@ -37,6 +38,8 @@ protected:
     kit::Segments socBar;
     kit::Bar chargeBar;
     kit::Level cellLevel[5];
+    cellbalance::Animator<5> cellBars;
+    ui::Role cellBorder[5];
     kit::Chip chgChip, dsgChip, faultChip;
     kit::Rows chargerRows;
 };
