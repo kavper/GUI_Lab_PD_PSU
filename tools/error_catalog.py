@@ -10,7 +10,8 @@ import json, os, sys
 EN = {
  'BMS.fault': {'CELL_OV': 'Cell overvoltage', 'CELL_UV': 'Cell undervoltage', 'PACK_OV': 'Pack overvoltage',
                'PACK_UV': 'Pack undervoltage', 'IMBALANCE': 'Cell imbalance ≥ 100 mV', 'SAFETY': 'BMS protection active',
-               'ALERT': 'BMS event latched', 'I2C': 'G4–BMS link error', 'FET_START': 'Battery path start failed'},
+               'ALERT': 'BMS event latched', 'I2C': 'G4–BMS link error', 'FET_START': 'Battery path start failed',
+               'BATT_LOW': 'Battery low – connect charger', 'BATT_EMPTY': 'Battery empty – shutting down'},
  'BMS.sa': {'SCD': 'Short circuit in discharge', 'OCD2': 'Discharge overcurrent (2)', 'OCD1': 'Discharge overcurrent (1)',
             'OCC': 'Charge overcurrent', 'COV': 'Cell overvoltage', 'CUV': 'Cell undervoltage'},
  'BMS.sb': {'OTF': 'FET overtemperature', 'OTINT': 'BMS chip overtemperature', 'OTD': 'Too hot to discharge',

@@ -68,6 +68,20 @@
           "symbol": "FET_START",
           "text_pl": "Nieudany rozruch toru akumulatora / predischarge",
           "severity": "fault"
+        },
+        {
+          "value": 512,
+          "hex": "0x200",
+          "symbol": "BATT_LOW",
+          "text_pl": "Niski poziom baterii (ogniwo < 3,00 V) — podłącz ładowarkę",
+          "severity": "warning"
+        },
+        {
+          "value": 1024,
+          "hex": "0x400",
+          "symbol": "BATT_EMPTY",
+          "text_pl": "Bateria rozładowana — wyłączanie, podłącz ładowarkę",
+          "severity": "fault"
         }
       ]
     },

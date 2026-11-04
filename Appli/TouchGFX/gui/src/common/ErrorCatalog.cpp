@@ -11,6 +11,8 @@ static const Entry e_bms_fault_entries[] = {
     { 0x40u, "ALERT", "BMS event latched", ES_WARNING },
     { 0x80u, "I2C", "G4\xE2\x80\x93" "BMS link error", ES_FAULT },
     { 0x100u, "FET_START", "Battery path start failed", ES_FAULT },
+    { 0x200u, "BATT_LOW", "Battery low \xE2\x80\x93 connect charger", ES_WARNING },
+    { 0x400u, "BATT_EMPTY", "Battery empty \xE2\x80\x93 shutting down", ES_FAULT },
 };
 static const Entry e_bms_sa_entries[] = {
     { 0x80u, "SCD", "Short circuit in discharge", ES_FAULT },
@@ -137,7 +139,7 @@ static const Entry e_bms_st_entries[] = {
     { 0x6u, "FAULT", "BMS fault", ES_FAULT },
 };
 const Group groups[GROUP_COUNT] = {
-    { e_bms_fault_entries, 9, true },
+    { e_bms_fault_entries, 11, true },
     { e_bms_sa_entries, 6, true },
     { e_bms_sb_entries, 7, true },
     { e_bms_sc_entries, 6, true },

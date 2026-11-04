@@ -22,6 +22,8 @@ Główne błędy G4/G0 są w ramce METER0x10 (offsety62/58, u32 LE), NACK0x82 ma
 | 0x40 | ALERT | Zatrzaśnięte zdarzenie BMS — szczegóły w alarm | warning |
 | 0x80 | I2C | Błąd komunikacji G4–BMS | fault |
 | 0x100 | FET_START | Nieudany rozruch toru akumulatora / predischarge | fault |
+| 0x200 | BATT_LOW | Niski poziom baterii (ogniwo < 3,00 V) — podłącz ładowarkę | warning |
+| 0x400 | BATT_EMPTY | Bateria rozładowana — wyłączanie, podłącz ładowarkę | fault |
 
 ## BMS.sa — bitmask
 | Wartość | Symbol | Tekst H7 | Poziom |
