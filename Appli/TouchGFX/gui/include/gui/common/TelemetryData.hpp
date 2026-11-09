@@ -116,7 +116,7 @@ inline void telemetry_page(TelemetryPage page, TelemetryData& d) {
         LEFT("Type-C VBUS","tps_vbus_mv"," V",1000,3);r.flag(d.left,sizeof(d.left),"Cable","plug","ATTACHED","DETACHED");
         LEFT("CC1 state","cc1","",1,0);LEFT("CC2 state","cc2","",1,0);LEFT("Connection code","conn","",1,0);r.hex(d.left,sizeof(d.left),"Type-C status","typec");
         r.flag(d.right,sizeof(d.right),"OTG source","bq_otg","ACTIVE","INACTIVE");RIGHT("PD reset count","rst","",1,0);r.flag(d.right,sizeof(d.right),"PD reset","rst_busy","BUSY","IDLE");
-        RIGHT("Type-C role code","role","",1,0);RIGHT("USB charger input","bq_vbus_mv"," V",1000,3);RIGHT("Input current","bq_iin_ma"," A",1000,3);
+        RIGHT("Type-C role code","role","",1,0);RIGHT("USB VBUS","bq_vbus_mv"," V",1000,3);RIGHT("USB current","bq_iin_ma"," A",1000,3);
         break;
     }
     case PAGE_PATH: {

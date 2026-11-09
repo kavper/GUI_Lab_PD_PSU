@@ -4,6 +4,7 @@
 #include <gui/common/FrontendApplication.hpp>
 #include <gui/common/TelemetryData.hpp>
 #include <gui/common/UsbSession.hpp>
+#include <gui/common/UsbPowerMeasurement.hpp>
 #include <gui/common/UsbPdObjects.hpp>
 ScreenUsbPdView::ScreenUsbPdView() : gaugePosition(0), gaugeTarget(0), gaugeValid(false), divider(0), noticeTicks(0) {notice[0]=0;}
 void ScreenUsbPdView::setupScreen() {ScreenUsbPdViewBase::setupScreen(); static_cast<FrontendApplication*>(touchgfx::Application::getInstance())->setSwipePage(FrontendApplication::USB_PD); refresh();
@@ -38,22 +39,24 @@ void ScreenUsbPdView::refresh() {
     char measuredVoltage[32], measuredCurrent[32], measuredPower[32]="--";
     usb.value(measuredVoltage,sizeof(measuredVoltage),"tps_vbus_mv"," V",1000,3);
     usb.fresh=usb.fresh && usb.is("bq_ok",1);
-    // Input-current ADC cannot establish the outgoing USB current in OTG mode.
-    const bool inputValid=attached && role==1 && usb.get("bq_iin_ma",current) && current>=0 && current<=10000;
-    if(inputValid)usb.value(measuredCurrent,sizeof(measuredCurrent),"bq_iin_ma"," A",1000,3);
-    else snprintf(measuredCurrent,sizeof(measuredCurrent),"--");
-    if(inputValid && usb.get("bq_vbus_mv",voltage) && voltage>=0 && voltage<=100000) {
-        const int64_t mw=voltage*current/1000;
-        snprintf(measuredPower,sizeof(measuredPower),"%ld.%02ld W",(long)(mw/1000),(long)((mw%1000)/10));
-    }
+    const bool haveAdc=usb.get("bq_vbus_mv",voltage)&&usb.get("bq_iin_ma",current);
+    const ui::UsbPowerMeasurement measured=ui::measuredUsbPower(
+        usb.fresh&&haveAdc,attached,static_cast<int>(role),usb.is("bq_ok",1),
+        usb.is("bq_otg",1),voltage,current);
+    const bool measurementValid=measured.valid;
+    if(measurementValid) {
+        usb.value(measuredCurrent,sizeof(measuredCurrent),"bq_iin_ma"," A",1000,3);
+        const uint32_t mw=measured.milliwatts;
+        snprintf(measuredPower,sizeof(measuredPower),"%lu.%02lu W",(unsigned long)(mw/1000),(unsigned long)((mw%1000)/10));
+    } else snprintf(measuredCurrent,sizeof(measuredCurrent),"--");
     lab_show(Measured0,Measured0Buffer,MEASURED0_SIZE,measuredVoltage,lab_text());
-    lab_show(Measured1,Measured1Buffer,MEASURED1_SIZE,measuredCurrent,inputValid?lab_text():lab_muted());
-    lab_show(Measured2,Measured2Buffer,MEASURED2_SIZE,measuredPower,inputValid?lab_text():lab_muted());
+    lab_show(Measured1,Measured1Buffer,MEASURED1_SIZE,measuredCurrent,measurementValid?lab_text():lab_muted());
+    lab_show(Measured2,Measured2Buffer,MEASURED2_SIZE,measuredPower,measurementValid?lab_text():lab_muted());
     char load[100];int64_t limitMv=0,limitMa=0;unsigned percent=0;
-    const bool loadValid=inputValid&&usb.get("bq_vbus_mv",voltage)&&voltage>=0&&voltage<=100000&&
+    const bool loadValid=measurementValid&&usb.get("bq_vbus_mv",voltage)&&voltage>=0&&voltage<=100000&&
         usb.get("pd_mv",limitMv)&&usb.get("pd_ma",limitMa)&&limitMv>0&&limitMa>0&&limitMv<=100000&&limitMa<=10000;
     if(loadValid){percent=(unsigned)(((voltage*current)*100+limitMv*limitMa/2)/(limitMv*limitMa));snprintf(load,sizeof(load),"Contract utilization: %u%%",percent);}
-    else snprintf(load,sizeof(load),"%s",!attached?"Connect a USB-C device":role==2?"Outgoing current: sensor unavailable":!contractValid?"No negotiated PD power limit":"Waiting for valid input ADC");
+    else snprintf(load,sizeof(load),"%s",!attached?"Connect a USB-C device":!contractValid?"No negotiated PD power limit":"Waiting for valid USB ADC");
     lab_show(ContractDetail,ContractDetailBuffer,CONTRACTDETAIL_SIZE,load,lab_muted());
     const int fill=loadValid?(percent>100?276:percent*276/100):0;
     if(ContractLoadFill.getWidth()!=fill||ContractLoadFill.isVisible()!=loadValid){ContractLoadFill.invalidate();ContractLoadFill.setWidth(fill);ContractLoadFill.setVisible(loadValid);ContractLoadFill.invalidate();}

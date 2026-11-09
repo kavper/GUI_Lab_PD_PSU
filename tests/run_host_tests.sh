@@ -18,7 +18,7 @@ done
 "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -IAppli/Core/Inc \
   tests/test_panel_input.c Appli/Core/Src/panel_input.c -o "$test_output/test_panel_input"
 "$test_output/test_panel_input"
-for test_name in test_display_voltage test_power_gauge test_chart_axis test_usb_session test_battery_trend test_rounded_corners test_pd_objects test_edge_back; do
+for test_name in test_display_voltage test_power_gauge test_chart_axis test_usb_session test_usb_power test_battery_trend test_rounded_corners test_pd_objects test_edge_back; do
   "${CXX:-c++}" -std=c++11 -Wall -Wextra -Werror \
     -IAppli/TouchGFX/gui/include -IAppli/Core/Inc "tests/$test_name.cpp" -o "$test_output/$test_name"
   "$test_output/$test_name"

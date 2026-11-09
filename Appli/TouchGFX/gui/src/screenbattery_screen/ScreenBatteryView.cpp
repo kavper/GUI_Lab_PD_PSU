@@ -78,7 +78,7 @@ void ScreenBatteryView::refresh(){
     }
     if(pack.get("ts1_dK",temp)&&temp>=2000&&temp<=4500){
         const int64_t deci=temp-2732,mag=deci<0?-deci:deci;
-        snprintf(temperature,sizeof(temperature),"Cell %s%ld.%ld C",deci<0?"-":"",(long)(mag/10),(long)(mag%10));
+        snprintf(temperature,sizeof(temperature),"PCB %s%ld.%ld C",deci<0?"-":"",(long)(mag/10),(long)(mag%10));
     }
     snprintf(details,sizeof(details),"CHG %s / DSG %s | %s",!pack.fresh?"--":pack.is("chg",1)?"ON":"OFF",!pack.fresh?"--":pack.is("dsg",1)?"ON":"OFF",temperature);
     lab_show(ChargerStatus,ChargerStatusBuffer,CHARGERSTATUS_SIZE,details,lab_muted());
